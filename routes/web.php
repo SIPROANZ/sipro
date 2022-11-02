@@ -38,3 +38,5 @@ Route::resource('objetivosestrategicos', App\Http\Controllers\Objetivosestrategi
 Route::resource('objetivonacionales', App\Http\Controllers\ObjetivonacionaleController::class)->middleware('auth');
 
 Route::resource('objetivopeis', App\Http\Controllers\ObjetivopeiController::class)->middleware('auth');
+
+Route::resource('unidadmedidas', App\Http\Controllers\unidadmedidaController::class)->middleware('auth');

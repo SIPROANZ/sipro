@@ -50,7 +50,7 @@ class ObjetivonacionaleController extends Controller
         $objetivonacionale = Objetivonacionale::create($request->all());
 
         return redirect()->route('objetivonacionales.index')
-            ->with('success', 'Objetivonacionale created successfully.');
+            ->with('success', 'Objetivo Nacional creado con exito.');
     }
 
     /**

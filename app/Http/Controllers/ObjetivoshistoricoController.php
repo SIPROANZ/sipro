@@ -48,7 +48,7 @@ class ObjetivoshistoricoController extends Controller
         $objetivoshistorico = Objetivoshistorico::create($request->all());
 
         return redirect()->route('objetivoshistoricos.index')
-            ->with('success', 'Objetivoshistorico created successfully.');
+            ->with('success', 'Objetivo Historico creado con exito.');
     }
 
     /**

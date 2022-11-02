@@ -59,7 +59,7 @@ class EjecuciondetalleController extends Controller
         $ejecuciondetalle = Ejecuciondetalle::create($request->all());
 
         return redirect()->route('ejecuciondetalles.index')
-            ->with('success', 'Ejecuciondetalle created successfully.');
+            ->with('success', 'Detalle de Ejecución creada con exito.');
     }
 
     /**

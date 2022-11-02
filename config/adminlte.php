@@ -412,7 +412,7 @@ return [
                             'text' => 'Causados',
                             'url'  => '#',
                         ],
-                       
+
                     ],
                 ],
 
@@ -465,7 +465,7 @@ return [
                                 [
                                     'text' => 'Cheque por orden de Pago',
                                     'url'  => '#',
-                                ], 
+                                ],
                                 [
                                     'text' => 'Cheque a Tercero',
                                     'url'  => '#',
@@ -488,7 +488,7 @@ return [
                                 [
                                     'text' => 'Transferencia por orden de Pago',
                                     'url'  => '#',
-                                ], 
+                                ],
                                 [
                                     'text' => 'Transferencia a Tercero',
                                     'url'  => '#',
@@ -497,7 +497,7 @@ return [
                                     'text' => 'Transferencia entre Cuentas',
                                     'url'  => '#',
                                 ],
-                               
+
                             ],
                         ],
                         //transferencias
@@ -508,7 +508,7 @@ return [
                                 [
                                     'text' => 'Cargar Estado de Cuenta',
                                     'url'  => '#',
-                                ], 
+                                ],
                                 [
                                     'text' => 'Saldos Según Conciliación',
                                     'url'  => '#',
@@ -517,7 +517,7 @@ return [
                                     'text' => 'Procesar',
                                     'url'  => '#',
                                 ],
-                               
+
                             ],
                         ],
                         //configuración
@@ -528,7 +528,7 @@ return [
                                 [
                                     'text' => 'Bancos',
                                     'url'  => '#',
-                                ], 
+                                ],
                                 [
                                     'text' => 'Cuentas Bancarias',
                                     'url'  => '#',
@@ -545,14 +545,14 @@ return [
                                     'text' => 'Correlativo Comp. Ret.',
                                     'url'  => '#',
                                 ],
-                               
+
                             ],
                         ],
-                        
+
                     ],
                 ],
 
-                
+
             ],
         ],
         //reportes
@@ -562,7 +562,7 @@ return [
             'icon_color' => 'red',
             'url'        => '#',
         ],
-        
+
         ['header' => 'CONFIGURACIÓN'],
         //Configuracion
         [
@@ -604,7 +604,7 @@ return [
                 [
                     'text' => 'Clasificador Presupuestario',
                     'url'  => '#',
-                ], 
+                ],
                 [
                     'text' => 'Plan Operativo Anual',
                     'url'  => '#',
@@ -641,7 +641,11 @@ return [
                     'text' => 'Iniciar Proceso de Ejecución',
                     'url'  => '#',
                 ],
-               
+                [
+                    'text' => 'Unidades de Medida',
+                    'route'  => 'unidadmedidas.index',
+                ],
+
             ],
         ],
         //Seguridad
@@ -652,7 +656,7 @@ return [
                 [
                     'text' => 'Usuarios',
                     'url'  => '#',
-                ], 
+                ],
                 [
                     'text' => 'Cambio de Contraseña',
                     'url'  => '#',
@@ -681,7 +685,7 @@ return [
                     'text' => 'Histórico de Transacciones',
                     'url'  => '#',
                 ],
-               
+
             ],
         ],
 
@@ -691,8 +695,8 @@ return [
              'icon_color' => 'red',
              'url'        => '#',
          ],
-        
-       
+
+
 
 
     ],

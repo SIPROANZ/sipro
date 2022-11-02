@@ -51,7 +51,7 @@ class ObjetivosestrategicoController extends Controller
         $objetivosestrategico = Objetivosestrategico::create($request->all());
 
         return redirect()->route('objetivosestrategicos.index')
-            ->with('success', 'Objetivosestrategico created successfully.');
+            ->with('success', 'Objetivo Estrategico creado con exito.');
     }
 
     /**

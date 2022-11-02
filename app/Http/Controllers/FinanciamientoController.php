@@ -48,7 +48,7 @@ class FinanciamientoController extends Controller
         $financiamiento = Financiamiento::create($request->all());
 
         return redirect()->route('financiamientos.index')
-            ->with('success', 'Financiamiento created successfully.');
+            ->with('success', 'Financiamiento creado con exito.');
     }
 
     /**

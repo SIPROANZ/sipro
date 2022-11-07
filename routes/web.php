@@ -41,6 +41,7 @@ Route::resource('objetivonacionales', App\Http\Controllers\ObjetivonacionaleCont
 
 Route::resource('objetivopeis', App\Http\Controllers\ObjetivopeiController::class)->middleware('auth');
 
+<<<<<<< HEAD
 Route::resource('unidadmedidas', App\Http\Controllers\UnidadmedidaController::class)->middleware('auth');
 
 Route::resource('clasificadorpresupuestarios', App\Http\Controllers\ClasificadorpresupuestarioController::class)->middleware('auth');
@@ -58,3 +59,18 @@ Route::resource('metas', App\Http\Controllers\MetaController::class)->middleware
 
 
 
+=======
+Route::resource('ejercicios', App\Http\Controllers\EjercicioController::class)->middleware('auth');
+
+Route::resource('segmentos', App\Http\Controllers\SegmentoController::class)->middleware('auth');
+
+Route::resource('clases', App\Http\Controllers\ClaseController::class)->middleware('auth');
+
+Route::resource('unidadadministrativas', App\Http\Controllers\UnidadadministrativaController::class)->middleware('auth');
+
+Route::resource('ejecuciones', App\Http\Controllers\EjecucioneController::class)->middleware('auth');
+
+Route::resource('objetivogenerales', App\Http\Controllers\ObjetivogeneraleController::class)->middleware('auth');
+
+Route::resource('objetivomunicipales', App\Http\Controllers\ObjetivomunicipaleController::class)->middleware('auth');
+>>>>>>> Grupo2

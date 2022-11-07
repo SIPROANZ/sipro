@@ -305,7 +305,7 @@ return [
         ['header' => 'CENTRO DE GESTIÓN'],
         [
             'text'    => 'Administrar',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fa fa-users',
             'submenu' => [
                 //SOLICITUDES
                 [
@@ -559,7 +559,7 @@ return [
         ['header' => 'REPORTES'],
         [
             'text'       => 'Ejecución Presupuestaria',
-            'icon_color' => 'red',
+            'icon' => 'fa fa-desktop',
             'url'        => '#',
         ],
 
@@ -567,8 +567,37 @@ return [
         //Configuracion
         [
             'text' => 'Configuración',
+            'icon' => 'fa fa-cog',
             'url'  => '#',
             'submenu' => [
+                [
+                    'text' => 'Objetivo municipales',
+                    'route'  => 'objetivomunicipales.index',
+                ],
+                [
+                    'text' => 'Objetivo Generales',
+                    'route'  => 'objetivogenerales.index',
+                ],
+                [
+                    'text' => 'Ejecución',
+                    'route'  => 'ejecuciones.index',
+                ],
+                [
+                    'text' => 'Clases',
+                    'route'  => 'clases.index',
+                ],
+                [
+                    'text' => 'Unidad administrativas',
+                    'route'  => 'unidadadministrativas.index',
+                ],
+                [
+                    'text' => 'Segmentos',
+                    'route'  => 'segmentos.index',
+                ],
+                [
+                    'text' => 'Ejercicios',
+                    'route'  => 'ejercicios.index',
+                ],
                 [
                     'text' => 'Objetivos Historicos',
                     'route'  => 'objetivoshistoricos.index',
@@ -667,6 +696,7 @@ return [
         //Seguridad
         [
             'text' => 'Seguridad',
+            'icon' => 'fa fa-lock',
             'url'  => '#',
             'submenu' => [
                 [
@@ -708,7 +738,7 @@ return [
          //Modificaciones Presupuestarias
          [
              'text'       => 'Modificación Presupuestaria',
-             'icon_color' => 'red',
+             'icon' => 'fa fa-fw fa-edit',
              'url'        => '#',
          ],
 

@@ -34,7 +34,7 @@ class MunicipioController extends Controller
     {
         $municipio = new Municipio();
 
-        $estados = Estado::pluck('nombre', 'id'); 
+        $estados = Estado::pluck('nombre', 'id');
 
         return view('municipio.create', compact('municipio' , 'estados'));
     }
@@ -52,7 +52,7 @@ class MunicipioController extends Controller
         $municipio = Municipio::create($request->all());
 
         return redirect()->route('municipios.index')
-            ->with('success', 'Municipio created successfully.');
+            ->with('success', 'Municipio creado con exito.');
     }
 
     /**
@@ -78,7 +78,7 @@ class MunicipioController extends Controller
     {
         $municipio = Municipio::find($id);
 
-        $estados = Estado::pluck('nombre', 'id'); 
+        $estados = Estado::pluck('nombre', 'id');
 
         return view('municipio.edit', compact('municipio' , 'estados'));
     }

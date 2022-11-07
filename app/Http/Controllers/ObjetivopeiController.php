@@ -48,7 +48,7 @@ class ObjetivopeiController extends Controller
         $objetivopei = Objetivopei::create($request->all());
 
         return redirect()->route('objetivopeis.index')
-            ->with('success', 'Objetivopei created successfully.');
+            ->with('success', 'Objetivo PEI creado con exito.');
     }
 
     /**

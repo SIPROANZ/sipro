@@ -305,7 +305,7 @@ return [
         ['header' => 'CENTRO DE GESTIÓN'],
         [
             'text'    => 'Administrar',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fa fa-users',
             'submenu' => [
                 //SOLICITUDES
                 [
@@ -314,7 +314,7 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Requisición',
-                            'url'  => '#',
+                            'route'  => 'requisiciones.index',
                         ],
                     ],
                 ],
@@ -412,7 +412,7 @@ return [
                             'text' => 'Causados',
                             'url'  => '#',
                         ],
-                       
+
                     ],
                 ],
 
@@ -465,7 +465,7 @@ return [
                                 [
                                     'text' => 'Cheque por orden de Pago',
                                     'url'  => '#',
-                                ], 
+                                ],
                                 [
                                     'text' => 'Cheque a Tercero',
                                     'url'  => '#',
@@ -488,7 +488,7 @@ return [
                                 [
                                     'text' => 'Transferencia por orden de Pago',
                                     'url'  => '#',
-                                ], 
+                                ],
                                 [
                                     'text' => 'Transferencia a Tercero',
                                     'url'  => '#',
@@ -497,7 +497,7 @@ return [
                                     'text' => 'Transferencia entre Cuentas',
                                     'url'  => '#',
                                 ],
-                               
+
                             ],
                         ],
                         //transferencias
@@ -508,7 +508,7 @@ return [
                                 [
                                     'text' => 'Cargar Estado de Cuenta',
                                     'url'  => '#',
-                                ], 
+                                ],
                                 [
                                     'text' => 'Saldos Según Conciliación',
                                     'url'  => '#',
@@ -517,7 +517,7 @@ return [
                                     'text' => 'Procesar',
                                     'url'  => '#',
                                 ],
-                               
+
                             ],
                         ],
                         //configuración
@@ -528,7 +528,7 @@ return [
                                 [
                                     'text' => 'Bancos',
                                     'url'  => '#',
-                                ], 
+                                ],
                                 [
                                     'text' => 'Cuentas Bancarias',
                                     'url'  => '#',
@@ -545,30 +545,59 @@ return [
                                     'text' => 'Correlativo Comp. Ret.',
                                     'url'  => '#',
                                 ],
-                               
+
                             ],
                         ],
-                        
+
                     ],
                 ],
 
-                
+
             ],
         ],
         //reportes
         ['header' => 'REPORTES'],
         [
             'text'       => 'Ejecución Presupuestaria',
-            'icon_color' => 'red',
+            'icon' => 'fa fa-desktop',
             'url'        => '#',
         ],
-        
+
         ['header' => 'CONFIGURACIÓN'],
         //Configuracion
         [
             'text' => 'Configuración',
+            'icon' => 'fa fa-cog',
             'url'  => '#',
             'submenu' => [
+                [
+                    'text' => 'Objetivo municipales',
+                    'route'  => 'objetivomunicipales.index',
+                ],
+                [
+                    'text' => 'Objetivo Generales',
+                    'route'  => 'objetivogenerales.index',
+                ],
+                [
+                    'text' => 'Ejecución',
+                    'route'  => 'ejecuciones.index',
+                ],
+                [
+                    'text' => 'Clases',
+                    'route'  => 'clases.index',
+                ],
+                [
+                    'text' => 'Unidad administrativas',
+                    'route'  => 'unidadadministrativas.index',
+                ],
+                [
+                    'text' => 'Segmentos',
+                    'route'  => 'segmentos.index',
+                ],
+                [
+                    'text' => 'Ejercicios',
+                    'route'  => 'ejercicios.index',
+                ],
                 [
                     'text' => 'Objetivos Historicos',
                     'route'  => 'objetivoshistoricos.index',
@@ -603,19 +632,27 @@ return [
                 ],
                 [
                     'text' => 'Clasificador Presupuestario',
-                    'url'  => '#',
-                ], 
+                    'route'  => 'clasificadorpresupuestarios.index',
+                ],
                 [
                     'text' => 'Plan Operativo Anual',
                     'url'  => '#',
                 ],
-                [
+                [ 
                     'text' => 'Metas',
-                    'url'  => '#',
+                    'route'  => 'metas.index',
+                ],
+                [ 
+                    'text' => 'POAS',
+                    'route'  => 'poas.index',
                 ],
                 [
                     'text' => 'Tipo de Compromisos',
                     'url'  => '#',
+                ],
+                [
+                    'text' => 'Tipo BOS',
+                    'route'  => 'tipobos.index',
                 ],
                 [
                     'text' => 'Tipo SGP',
@@ -641,18 +678,31 @@ return [
                     'text' => 'Iniciar Proceso de Ejecución',
                     'url'  => '#',
                 ],
-               
+                [
+                    'text' => 'Unidades de Medida',
+                    'route'  => 'unidadmedidas.index',
+                ],
+                [
+                    'text' => 'Productos',
+                    'route'  => 'productos.index',
+                ],
+                [
+                    'text' => 'Productos CPS',
+                    'route'  => 'productoscps.index',
+                ],
+
             ],
         ],
         //Seguridad
         [
             'text' => 'Seguridad',
+            'icon' => 'fa fa-lock',
             'url'  => '#',
             'submenu' => [
                 [
                     'text' => 'Usuarios',
                     'url'  => '#',
-                ], 
+                ],
                 [
                     'text' => 'Cambio de Contraseña',
                     'url'  => '#',
@@ -681,18 +731,18 @@ return [
                     'text' => 'Histórico de Transacciones',
                     'url'  => '#',
                 ],
-               
+
             ],
         ],
 
          //Modificaciones Presupuestarias
          [
              'text'       => 'Modificación Presupuestaria',
-             'icon_color' => 'red',
+             'icon' => 'fa fa-fw fa-edit',
              'url'        => '#',
          ],
-        
-       
+
+
 
 
     ],

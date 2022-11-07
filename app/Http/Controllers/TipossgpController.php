@@ -48,7 +48,7 @@ class TipossgpController extends Controller
         $tipossgp = Tipossgp::create($request->all());
 
         return redirect()->route('tipossgps.index')
-            ->with('success', 'Tipossgp created successfully.');
+            ->with('success', 'Tipos de SGP creada con exito.');
     }
 
     /**

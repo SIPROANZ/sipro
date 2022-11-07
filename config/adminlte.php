@@ -314,7 +314,7 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Requisición',
-                            'url'  => '#',
+                            'route'  => 'requisiciones.index',
                         ],
                     ],
                 ],
@@ -603,19 +603,27 @@ return [
                 ],
                 [
                     'text' => 'Clasificador Presupuestario',
-                    'url'  => '#',
+                    'route'  => 'clasificadorpresupuestarios.index',
                 ],
                 [
                     'text' => 'Plan Operativo Anual',
                     'url'  => '#',
                 ],
-                [
+                [ 
                     'text' => 'Metas',
-                    'url'  => '#',
+                    'route'  => 'metas.index',
+                ],
+                [ 
+                    'text' => 'POAS',
+                    'route'  => 'poas.index',
                 ],
                 [
                     'text' => 'Tipo de Compromisos',
                     'url'  => '#',
+                ],
+                [
+                    'text' => 'Tipo BOS',
+                    'route'  => 'tipobos.index',
                 ],
                 [
                     'text' => 'Tipo SGP',
@@ -644,6 +652,14 @@ return [
                 [
                     'text' => 'Unidades de Medida',
                     'route'  => 'unidadmedidas.index',
+                ],
+                [
+                    'text' => 'Productos',
+                    'route'  => 'productos.index',
+                ],
+                [
+                    'text' => 'Productos CPS',
+                    'route'  => 'productoscps.index',
                 ],
 
             ],

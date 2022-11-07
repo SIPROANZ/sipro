@@ -14,7 +14,7 @@
                             <span class="card-title">Ver detalles ejecucion</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('ejecuciondetalles.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('ejecuciondetalles.index') }}"> Regresar</a>
                         </div>
                     </div>
 

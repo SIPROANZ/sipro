@@ -22,7 +22,7 @@
         <div class="col-md-4">
         <div class="form-group">
             {{ Form::label('estado') }}
-            {{ Form::select('estado_id', $estados, $municipio->estado_id, ['class' => 'form-control' . ($errors->has('estado_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un estado']) }}
+            {{ Form::select('estado_id', $estados, $municipio->estado_id, ['class' => 'form-control' . ($errors->has('estado_id') ? ' is-inv              alid' : ''), 'placeholder' => 'Seleccione un estado']) }}
             {!! $errors->first('estado_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>

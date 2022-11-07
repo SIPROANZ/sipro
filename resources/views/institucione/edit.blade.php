@@ -16,7 +16,7 @@
                         <span class="card-title">Editar Institución</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('instituciones.update', $institucione->id) }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('institucione.update', $institucione->id) }}"  role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 

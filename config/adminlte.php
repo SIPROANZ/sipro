@@ -571,6 +571,10 @@ return [
             'url'  => '#',
             'submenu' => [
                 [
+                    'text' => 'Instituciones',
+                    'route'  => 'institucione.index',
+                ],
+                [
                     'text' => 'Objetivo municipales',
                     'route'  => 'objetivomunicipales.index',
                 ],
@@ -690,11 +694,6 @@ return [
                     'text' => 'Productos CPS',
                     'route'  => 'productoscps.index',
                 ],
-                [
-                    'text' => 'Instituciones',
-                    'route'  => 'institucione.index',
-                ],
-
             ],
         ],
         //Seguridad

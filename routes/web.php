@@ -38,3 +38,17 @@ Route::resource('objetivosestrategicos', App\Http\Controllers\Objetivosestrategi
 Route::resource('objetivonacionales', App\Http\Controllers\ObjetivonacionaleController::class)->middleware('auth');
 
 Route::resource('objetivopeis', App\Http\Controllers\ObjetivopeiController::class)->middleware('auth');
+
+Route::resource('ejercicios', App\Http\Controllers\EjercicioController::class)->middleware('auth');
+
+Route::resource('segmentos', App\Http\Controllers\SegmentoController::class)->middleware('auth');
+
+Route::resource('clases', App\Http\Controllers\ClaseController::class)->middleware('auth');
+
+Route::resource('unidadadministrativas', App\Http\Controllers\UnidadadministrativaController::class)->middleware('auth');
+
+Route::resource('ejecuciones', App\Http\Controllers\EjecucioneController::class)->middleware('auth');
+
+Route::resource('objetivogenerales', App\Http\Controllers\ObjetivogeneraleController::class)->middleware('auth');
+
+Route::resource('objetivomunicipales', App\Http\Controllers\ObjetivomunicipaleController::class)->middleware('auth');

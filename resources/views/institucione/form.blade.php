@@ -1,24 +1,24 @@
 <div class="box box-info padding-1">
     <div class="box-body">
-        
+
         <div class="form-group">
             {{ Form::label('rif') }}
-            {{ Form::text('rif', $institucione->rif, ['class' => 'form-control' . ($errors->has('rif') ? ' is-invalid' : ''), 'placeholder' => 'Rif']) }}
+            {{ Form::text('rif', $institucione->rif, ['class' => 'form-control' . ($errors->has('rif') ? ' is-invalid' : ''), 'placeholder' => 'RIF']) }}
             {!! $errors->first('rif', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('institucion') }}
-            {{ Form::text('institucion', $institucione->institucion, ['class' => 'form-control' . ($errors->has('institucion') ? ' is-invalid' : ''), 'placeholder' => 'Institucion']) }}
+            {{ Form::text('institucion', $institucione->institucion, ['class' => 'form-control' . ($errors->has('institucion') ? ' is-invalid' : ''), 'placeholder' => 'Institución']) }}
             {!! $errors->first('institucion', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('direccion') }}
-            {{ Form::text('direccion', $institucione->direccion, ['class' => 'form-control' . ($errors->has('direccion') ? ' is-invalid' : ''), 'placeholder' => 'Direccion']) }}
+            {{ Form::text('direccion', $institucione->direccion, ['class' => 'form-control' . ($errors->has('direccion') ? ' is-invalid' : ''), 'placeholder' => 'Dirección']) }}
             {!! $errors->first('direccion', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('telefono') }}
-            {{ Form::text('telefono', $institucione->telefono, ['class' => 'form-control' . ($errors->has('telefono') ? ' is-invalid' : ''), 'placeholder' => 'Telefono']) }}
+            {{ Form::text('telefono', $institucione->telefono, ['class' => 'form-control' . ($errors->has('telefono') ? ' is-invalid' : ''), 'placeholder' => 'Teléfono']) }}
             {!! $errors->first('telefono', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
@@ -28,17 +28,17 @@
         </div>
         <div class="form-group">
             {{ Form::label('baselegal') }}
-            {{ Form::text('baselegal', $institucione->baselegal, ['class' => 'form-control' . ($errors->has('baselegal') ? ' is-invalid' : ''), 'placeholder' => 'Baselegal']) }}
+            {{ Form::text('baselegal', $institucione->baselegal, ['class' => 'form-control' . ($errors->has('baselegal') ? ' is-invalid' : ''), 'placeholder' => 'Base Legal']) }}
             {!! $errors->first('baselegal', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('web') }}
-            {{ Form::text('web', $institucione->web, ['class' => 'form-control' . ($errors->has('web') ? ' is-invalid' : ''), 'placeholder' => 'Web']) }}
+            {{ Form::text('web', $institucione->web, ['class' => 'form-control' . ($errors->has('web') ? ' is-invalid' : ''), 'placeholder' => 'Pagina Web']) }}
             {!! $errors->first('web', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('codigopostal') }}
-            {{ Form::text('codigopostal', $institucione->codigopostal, ['class' => 'form-control' . ($errors->has('codigopostal') ? ' is-invalid' : ''), 'placeholder' => 'Codigopostal']) }}
+            {{ Form::text('codigopostal', $institucione->codigopostal, ['class' => 'form-control' . ($errors->has('codigopostal') ? ' is-invalid' : ''), 'placeholder' => 'Codigo Postal']) }}
             {!! $errors->first('codigopostal', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
@@ -48,32 +48,32 @@
         </div>
         <div class="form-group">
             {{ Form::label('logoinstitucion') }}
-            {{ Form::text('logoinstitucion', $institucione->logoinstitucion, ['class' => 'form-control' . ($errors->has('logoinstitucion') ? ' is-invalid' : ''), 'placeholder' => 'Logoinstitucion']) }}
+            {{ Form::text('logoinstitucion', $institucione->logoinstitucion, ['class' => 'form-control' . ($errors->has('Logo') ? ' is-invalid' : ''), 'placeholder' => 'Logoinstitucion']) }}
             {!! $errors->first('logoinstitucion', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('vision') }}
-            {{ Form::text('vision', $institucione->vision, ['class' => 'form-control' . ($errors->has('vision') ? ' is-invalid' : ''), 'placeholder' => 'Vision']) }}
+            {{ Form::text('vision', $institucione->vision, ['class' => 'form-control' . ($errors->has('vision') ? ' is-invalid' : ''), 'placeholder' => 'Visión']) }}
             {!! $errors->first('vision', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('mision') }}
-            {{ Form::text('mision', $institucione->mision, ['class' => 'form-control' . ($errors->has('mision') ? ' is-invalid' : ''), 'placeholder' => 'Mision']) }}
+            {{ Form::text('mision', $institucione->mision, ['class' => 'form-control' . ($errors->has('mision') ? ' is-invalid' : ''), 'placeholder' => 'Misión']) }}
             {!! $errors->first('mision', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('razonsocial') }}
-            {{ Form::text('razonsocial', $institucione->razonsocial, ['class' => 'form-control' . ($errors->has('razonsocial') ? ' is-invalid' : ''), 'placeholder' => 'Razonsocial']) }}
+            {{ Form::text('razonsocial', $institucione->razonsocial, ['class' => 'form-control' . ($errors->has('razonsocial') ? ' is-invalid' : ''), 'placeholder' => 'Razon Social']) }}
             {!! $errors->first('razonsocial', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('municipio_id') }}
-            {{ Form::text('municipio_id', $institucione->municipio_id, ['class' => 'form-control' . ($errors->has('municipio_id') ? ' is-invalid' : ''), 'placeholder' => 'Municipio Id']) }}
+            {{ Form::text('municipio_id', $institucione->municipio_id, ['class' => 'form-control' . ($errors->has('municipio_id') ? ' is-invalid' : ''), 'placeholder' => 'Municipio']) }}
             {!! $errors->first('municipio_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 
     </div>
     <div class="box-footer mt20">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
 </div>

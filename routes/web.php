@@ -71,3 +71,6 @@ Route::resource('ejecuciones', App\Http\Controllers\EjecucioneController::class)
 Route::resource('objetivogenerales', App\Http\Controllers\ObjetivogeneraleController::class)->middleware('auth');
 
 Route::resource('objetivomunicipales', App\Http\Controllers\ObjetivomunicipaleController::class)->middleware('auth');
+
+
+Route::resource('instituciones', App\Http\Controllers\InstitucioneController::class)->middleware('auth');

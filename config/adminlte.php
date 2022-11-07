@@ -599,7 +599,7 @@ return [
                     'route'  => 'ejercicios.index',
                 ],
                 [
-                    'text' => 'Objetivos Historicos',
+                    'text' => 'Objetivos Históricos',
                     'route'  => 'objetivoshistoricos.index',
                 ],
                 [
@@ -638,11 +638,11 @@ return [
                     'text' => 'Plan Operativo Anual',
                     'url'  => '#',
                 ],
-                [ 
+                [
                     'text' => 'Metas',
                     'route'  => 'metas.index',
                 ],
-                [ 
+                [
                     'text' => 'POAS',
                     'route'  => 'poas.index',
                 ],
@@ -689,6 +689,10 @@ return [
                 [
                     'text' => 'Productos CPS',
                     'route'  => 'productoscps.index',
+                ],
+                [
+                    'text' => 'Instituciones',
+                    'route'  => 'institucione.index',
                 ],
 
             ],

@@ -56,11 +56,9 @@ Route::resource('poas', App\Http\Controllers\PoaController::class)->middleware('
 Route::resource('metas', App\Http\Controllers\MetaController::class)->middleware('auth');
 
 
-<<<<<<< HEAD
+
+
 =======
-
-
->>>>>>> siproAlpha
 Route::resource('ejercicios', App\Http\Controllers\EjercicioController::class)->middleware('auth');
 
 Route::resource('segmentos', App\Http\Controllers\SegmentoController::class)->middleware('auth');
@@ -74,9 +72,4 @@ Route::resource('ejecuciones', App\Http\Controllers\EjecucioneController::class)
 Route::resource('objetivogenerales', App\Http\Controllers\ObjetivogeneraleController::class)->middleware('auth');
 
 Route::resource('objetivomunicipales', App\Http\Controllers\ObjetivomunicipaleController::class)->middleware('auth');
-
-<<<<<<< HEAD
-=======
-
-Route::resource('institucione', App\Http\Controllers\InstitucioneController::class)->middleware('auth');
->>>>>>> siproAlpha
+>>>>>>> Grupo2

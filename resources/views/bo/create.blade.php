@@ -1,26 +1,25 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Update Institucione
+    Create Bo
 @endsection
 
 @section('content')
     <section class="content container-fluid">
-        <div class="">
+        <div class="row">
             <div class="col-md-12">
 
                 @includeif('partials.errors')
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Update Institucione</span>
+                        <span class="card-title">Create Bo</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('instituciones.update', $institucione->id) }}"  role="form" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
+                        <form method="POST" action="{{ route('bos.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
-                            @include('institucione.form')
+                            @include('bo.form')
 
                         </form>
                     </div>

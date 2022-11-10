@@ -572,7 +572,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Instituciones',
-                    'route'  => 'institucione.index',
+                    'route'  => 'instituciones.index',
                 ],
                 [
                     'text' => 'Objetivo municipales',
@@ -589,6 +589,10 @@ return [
                 [
                     'text' => 'Clases',
                     'route'  => 'clases.index',
+                ],
+                [
+                    'text' => 'Familias',
+                    'route'  => 'familias.index',
                 ],
                 [
                     'text' => 'Unidad administrativas',
@@ -676,7 +680,7 @@ return [
                 ],
                 [
                     'text' => 'BOS (Bienes, Obras, Servicios)',
-                    'url'  => '#',
+                    'route'  => 'bos.index',
                 ],
                 [
                     'text' => 'Iniciar Proceso de Ejecución',

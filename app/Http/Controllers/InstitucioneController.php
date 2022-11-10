@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Institucione;
-use App\Municipio;
 use Illuminate\Http\Request;
 
 /**
@@ -33,8 +32,7 @@ class InstitucioneController extends Controller
     public function create()
     {
         $institucione = new Institucione();
-        $municipio = Municipio::pluck('nombre', 'id');
-        return view('institucione.create', compact('institucione', 'municipio'));
+        return view('institucione.create', compact('institucione'));
     }
 
     /**
@@ -49,8 +47,8 @@ class InstitucioneController extends Controller
 
         $institucione = Institucione::create($request->all());
 
-        return redirect()->route('institucione.index')
-            ->with('success', 'Institución creada con Exito.');
+        return redirect()->route('instituciones.index')
+            ->with('success', 'Institucione created successfully.');
     }
 
     /**
@@ -75,9 +73,8 @@ class InstitucioneController extends Controller
     public function edit($id)
     {
         $institucione = Institucione::find($id);
-        $municipio = Municipio::pluck('nombre', 'id');
 
-        return view('institucione.edit', compact('institucione', 'municipio'));
+        return view('institucione.edit', compact('institucione'));
     }
 
     /**
@@ -93,8 +90,8 @@ class InstitucioneController extends Controller
 
         $institucione->update($request->all());
 
-        return redirect()->route('institucione.index')
-            ->with('success', 'Institución modificada con Exito.');
+        return redirect()->route('instituciones.index')
+            ->with('success', 'Institucione updated successfully');
     }
 
     /**
@@ -106,7 +103,7 @@ class InstitucioneController extends Controller
     {
         $institucione = Institucione::find($id)->delete();
 
-        return redirect()->route('institucione.index')
-            ->with('success', 'Institución eliminada con Exito');
+        return redirect()->route('instituciones.index')
+            ->with('success', 'Institucione deleted successfully');
     }
 }

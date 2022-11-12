@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $institucione->name ?? 'Ver Instituciones' }}
+    {{ $institucione->name ?? 'Show Institucione' }}
 @endsection
 
 @section('content')
@@ -11,29 +11,29 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Ver Instituciones</span>
+                            <span class="card-title">Show Institucione</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('institucione.index') }}"> Regresar</a>
+                            <a class="btn btn-primary" href="{{ route('instituciones.index') }}"> Back</a>
                         </div>
                     </div>
 
                     <div class="card-body">
-
+                        
                         <div class="form-group">
-                            <strong>RIF:</strong>
+                            <strong>Rif:</strong>
                             {{ $institucione->rif }}
                         </div>
                         <div class="form-group">
-                            <strong>Institución:</strong>
+                            <strong>Institucion:</strong>
                             {{ $institucione->institucion }}
                         </div>
                         <div class="form-group">
-                            <strong>Dirección:</strong>
+                            <strong>Direccion:</strong>
                             {{ $institucione->direccion }}
                         </div>
                         <div class="form-group">
-                            <strong>Teléfono:</strong>
+                            <strong>Telefono:</strong>
                             {{ $institucione->telefono }}
                         </div>
                         <div class="form-group">
@@ -41,15 +41,15 @@
                             {{ $institucione->email }}
                         </div>
                         <div class="form-group">
-                            <strong>Base Legal:</strong>
+                            <strong>Baselegal:</strong>
                             {{ $institucione->baselegal }}
                         </div>
                         <div class="form-group">
-                            <strong>Pagina Web:</strong>
+                            <strong>Web:</strong>
                             {{ $institucione->web }}
                         </div>
                         <div class="form-group">
-                            <strong>Codigo Postal:</strong>
+                            <strong>Codigopostal:</strong>
                             {{ $institucione->codigopostal }}
                         </div>
                         <div class="form-group">
@@ -57,23 +57,23 @@
                             {{ $institucione->organigrama }}
                         </div>
                         <div class="form-group">
-                            <strong>Logo:</strong>
+                            <strong>Logoinstitucion:</strong>
                             {{ $institucione->logoinstitucion }}
                         </div>
                         <div class="form-group">
-                            <strong>Visión:</strong>
+                            <strong>Vision:</strong>
                             {{ $institucione->vision }}
                         </div>
                         <div class="form-group">
-                            <strong>Misión:</strong>
+                            <strong>Mision:</strong>
                             {{ $institucione->mision }}
                         </div>
                         <div class="form-group">
-                            <strong>Razon Social:</strong>
+                            <strong>Razonsocial:</strong>
                             {{ $institucione->razonsocial }}
                         </div>
                         <div class="form-group">
-                            <strong>Municipio:</strong>
+                            <strong>Municipio Id:</strong>
                             {{ $institucione->municipio_id }}
                         </div>
 

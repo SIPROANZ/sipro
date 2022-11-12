@@ -27,6 +27,8 @@ Route::resource('tipossgps', App\Http\Controllers\TipossgpController::class)->mi
 
 Route::resource('estados', App\Http\Controllers\EstadoController::class)->middleware('auth');
 
+Route::resource('instituciones', App\Http\Controllers\InstitucioneController::class)->middleware('auth');
+
 Route::resource('financiamientos', App\Http\Controllers\FinanciamientoController::class)->middleware('auth');
 
 Route::resource('municipios', App\Http\Controllers\MunicipioController::class)->middleware('auth');
@@ -71,4 +73,4 @@ Route::resource('ejecuciones', App\Http\Controllers\EjecucioneController::class)
 Route::resource('objetivogenerales', App\Http\Controllers\ObjetivogeneraleController::class)->middleware('auth');
 
 Route::resource('objetivomunicipales', App\Http\Controllers\ObjetivomunicipaleController::class)->middleware('auth');
-
+>>>>>>> Grupo2

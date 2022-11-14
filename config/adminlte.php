@@ -571,6 +571,10 @@ return [
             'url'  => '#',
             'submenu' => [
                 [
+                    'text' => 'Tipos de Compromisos',
+                    'route'  => 'tipodecompromisos.index',
+                ],
+                [
                     'text' => 'Instituciones',
                     'route'  => 'instituciones.index',
                 ],

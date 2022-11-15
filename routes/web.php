@@ -77,3 +77,5 @@ Route::resource('familias', App\Http\Controllers\FamiliaController::class)->midd
 
 Route::resource('tipodecompromisos', App\Http\Controllers\TipodecompromisoController::class)->middleware('auth');
 
+Route::resource('beneficiarios', App\Http\Controllers\BeneficiarioController::class)->middleware('auth');
+

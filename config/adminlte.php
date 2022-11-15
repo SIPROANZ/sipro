@@ -304,7 +304,7 @@ return [
         // CENTRO DE GESTION
         ['header' => 'CENTRO DE GESTIÓN'],
         [
-            'text'    => 'Administrar',
+            'text'    => 'Administrar Sistema',
             'icon'    => 'fas fa-fw fa-users',
             'icon_color' => 'primary',
             'submenu' => [
@@ -569,6 +569,7 @@ return [
         [
             'text'       => 'Ejecución Presupuestaria',
             'icon' => 'fa fa-desktop',
+            'icon_color' => 'primary',
             'url'        => '#',
         ],
 
@@ -577,12 +578,141 @@ return [
         [
             'text' => 'Configuración',
             'icon' => 'fa fa-cog',
+            'icon_color' => 'primary',
             'url'  => '#',
             'submenu' => [
+                //Plan Operativo Anual
+                    [
+                    'text' => 'Plan Operativo Anual',
+                    'icon' => 'fas fa-fw fa-sitemap',
+                    'icon_color' => 'lightblue', //<i class="fas fa-sitemap"></i>
+                    'url'  => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'POA',
+                            'icon'    => 'fas fa-fw fa-file-alt',
+                            'icon_color' => 'info',
+                            'route'  => 'poas.index',
+                        ],
+                        [
+                            'text' => 'Metas', //<i class="fas fa-calendar-alt"></i>
+                            'icon'    => 'fas fa-fw fa-calendar-alt',
+                            'icon_color' => 'info',
+                            'route'  => 'metas.index',
+                        ],
+                        [
+                            'text' => 'Objetivos Históricos', //<i class="fas fa-hourglass"></i>
+                            'icon'    => 'fas fa-fw fa-hourglass',
+                            'icon_color' => 'info',
+                            'route'  => 'objetivoshistoricos.index',
+                        ],
+                        [
+                            'text' => 'Objetivos Nacionales', //<i class="fas fa-balance-scale"></i>
+                            'icon'    => 'fas fa-fw fa-balance-scale',
+                            'icon_color' => 'info',
+                            'route'  => 'objetivonacionales.index',
+                        ],
+                        [
+                            'text' => 'Objetivos Estrategicos', //<i class="fas fa-layer-group"></i>
+                            'icon'    => 'fas fa-fw fa-layer-group',
+                            'icon_color' => 'info',
+                            'route'  => 'objetivosestrategicos.index',
+                        ],
+                        [
+                            'text' => 'Objetivos PEI', //<i class="fas fa-envelope-open-text"></i>
+                            'icon'    => 'fas fa-fw fa-envelope-open-text',
+                            'icon_color' => 'info',
+                            'route'  => 'objetivopeis.index',
+                        ],
+                        [
+                            'text' => 'Objetivo municipales', //<i class="fas fa-poll-h"></i>
+                            'icon'    => 'fas fa-fw fa-poll-h',
+                            'icon_color' => 'info',
+                            'route'  => 'objetivomunicipales.index',
+                        ],
+                        [
+                            'text' => 'Objetivo Generales', // <i class="fas fa-check-double"></i>
+                            'icon'    => 'fas fa-fw fa-check-double',
+                            'icon_color' => 'info',
+                            'route'  => 'objetivogenerales.index',
+                        ],
+                    ]
+                ],
+
+                //bos
                 [
-                    'text' => 'Beneficiarios',
+                    'text' => 'BOS (Bienes, Obras, Servicios)',
+                    'icon' => 'fas fa-fw fa-boxes', //<i class="fas fa-boxes"></i>
+                    'icon_color' => 'lightblue', 
+                    'url'  => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'BOS',
+                            'icon' => 'fas fa-fw fa-box-open', //<i class="fas fa-box-open"></i>
+                            'icon_color' => 'info', 
+                            'route'  => 'bos.index',
+                        ],
+                        [
+                            'text' => 'Tipo BOS',
+                            'icon' => 'fas fa-fw fa-grip-horizontal', //<i class="fas fa-grip-horizontal"></i>
+                            'icon_color' => 'info', 
+                            'route'  => 'tipobos.index',
+                        ],
+                        [
+                            'text' => 'Segmentos',
+                            'icon' => 'fas fa-fw fa-layer-group', //<i class="fas fa-layer-group"></i>
+                            'icon_color' => 'info', 
+                            'route'  => 'segmentos.index',
+                        ],
+                        [
+                            'text' => 'Familias',
+                            'icon' => 'fas fa-fw fa-list-ul', //<i class="fas fa-list-ul"></i>
+                            'icon_color' => 'info', 
+                            'route'  => 'familias.index',
+                        ],
+                        [
+                            'text' => 'Clases',
+                            'icon' => 'fas fa-fw fa-solar-panel', //<i class="fas fa-solar-panel"></i>
+                            'icon_color' => 'info', 
+                            'route'  => 'clases.index',
+                        ],
+                        [
+                            'text' => 'Productos',
+                            'icon' => 'fas fa-fw fa-luggage-cart', //<i class="fas fa-luggage-cart"></i>
+                            'icon_color' => 'info', 
+                            'route'  => 'productos.index',
+                        ],
+                        [
+                            'text' => 'Productos CP',
+                            'icon' => 'fas fa-fw fa-box-open', //<i class="fas fa-box-open"></i>
+                            'icon_color' => 'info', 
+                            'route'  => 'productoscps.index',
+                        ],
+                        [
+                            'text' => 'Unidades de Medida',
+                            'icon' => 'fas fa-fw fa-people-carry', //<i class="fas fa-people-carry"></i>
+                            'icon_color' => 'info', 
+                            'route'  => 'unidadmedidas.index',
+                        ],
+
+                    ]
+                ],
+
+
+                [
+                    'text' => 'Beneficiarios', //<i class="fas fa-users"></i>
+                    'icon' => 'fas fa-fw fa-users',
+                    'icon_color' => 'lightblue',
                     'route'  => 'beneficiarios.index',
                 ],
+
+                [
+                    'text' => 'Proveedor',
+                    'icon' => 'fas fa-fw fa-user-tie', //<i class="fas fa-user-tie"></i>
+                    'icon_color' => 'lightblue',
+                    'route'  => 'proveedores.index',
+                ],
+
                 [
                     'text' => 'Tipos de Compromisos',
                     'route'  => 'tipodecompromisos.index',
@@ -591,58 +721,29 @@ return [
                     'text' => 'Instituciones',
                     'route'  => 'instituciones.index',
                 ],
-                [
-                    'text' => 'Objetivo municipales',
-                    'route'  => 'objetivomunicipales.index',
-                ],
-                [
-                    'text' => 'Objetivo Generales',
-                    'route'  => 'objetivogenerales.index',
-                ],
+                
                 [
                     'text' => 'Ejecución',
                     'route'  => 'ejecuciones.index',
                 ],
                 [
-                    'text' => 'Clases',
-                    'route'  => 'clases.index',
+                    'text' => 'Detalles Ejecucion',
+                    'route'  => 'ejecuciondetalles.index',
                 ],
-                [
-                    'text' => 'Familias',
-                    'route'  => 'familias.index',
-                ],
+
+               
+                
                 [
                     'text' => 'Unidad administrativas',
                     'route'  => 'unidadadministrativas.index',
                 ],
-                [
-                    'text' => 'Segmentos',
-                    'route'  => 'segmentos.index',
-                ],
+                
                 [
                     'text' => 'Ejercicios',
                     'route'  => 'ejercicios.index',
                 ],
-                [
-                    'text' => 'Objetivos Históricos',
-                    'route'  => 'objetivoshistoricos.index',
-                ],
-                [
-                    'text' => 'Objetivos Nacionales',
-                    'route'  => 'objetivonacionales.index',
-                ],
-                [
-                    'text' => 'Objetivos Estrategicos',
-                    'route'  => 'objetivosestrategicos.index',
-                ],
-                [
-                    'text' => 'Objetivos PEI',
-                    'route'  => 'objetivopeis.index',
-                ],
-                [
-                    'text' => 'Detalles Ejecucion',
-                    'route'  => 'ejecuciondetalles.index',
-                ],
+               
+                
                 [
                     'text' => 'Financiamiento',
                     'route'  => 'financiamientos.index',
@@ -659,26 +760,14 @@ return [
                     'text' => 'Clasificador Presupuestario',
                     'route'  => 'clasificadorpresupuestarios.index',
                 ],
-                [
-                    'text' => 'Plan Operativo Anual',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Metas',
-                    'route'  => 'metas.index',
-                ],
-                [
-                    'text' => 'POAS',
-                    'route'  => 'poas.index',
-                ],
+               
+                
+                
                 [
                     'text' => 'Tipo de Compromisos',
                     'url'  => '#',
                 ],
-                [
-                    'text' => 'Tipo BOS',
-                    'route'  => 'tipobos.index',
-                ],
+                
                 [
                     'text' => 'Tipo SGP',
                     'route'  => 'tipossgps.index',
@@ -687,40 +776,25 @@ return [
                     'text' => 'Beneficiario',
                     'url'  => '#',
                 ],
-                [
-                    'text' => 'Proveedor',
-                    'url'  => '#',
-                ],
+                
                 [
                     'text' => 'Retenciones',
                     'url'  => '#',
                 ],
-                [
-                    'text' => 'BOS (Bienes, Obras, Servicios)',
-                    'route'  => 'bos.index',
-                ],
+                
                 [
                     'text' => 'Iniciar Proceso de Ejecución',
                     'url'  => '#',
                 ],
-                [
-                    'text' => 'Unidades de Medida',
-                    'route'  => 'unidadmedidas.index',
-                ],
-                [
-                    'text' => 'Productos',
-                    'route'  => 'productos.index',
-                ],
-                [
-                    'text' => 'Productos CPS',
-                    'route'  => 'productoscps.index',
-                ],
+               
+                
             ],
         ],
         //Seguridad
         [
             'text' => 'Seguridad',
             'icon' => 'fa fa-lock',
+            'icon_color' => 'primary',
             'url'  => '#',
             'submenu' => [
                 [
@@ -763,6 +837,7 @@ return [
          [
              'text'       => 'Modificación Presupuestaria',
              'icon' => 'fa fa-fw fa-edit',
+             'icon_color' => 'primary',
              'url'        => '#',
          ],
 

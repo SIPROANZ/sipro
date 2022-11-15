@@ -79,5 +79,7 @@ Route::resource('tipodecompromisos', App\Http\Controllers\TipodecompromisoContro
 
 Route::resource('beneficiarios', App\Http\Controllers\BeneficiarioController::class)->middleware('auth');
 
+Route::resource('proveedores', App\Http\Controllers\ProveedoreController::class)->middleware('auth');
+
 Route::resource('ayudassociales', App\Http\Controllers\AyudassocialeController::class)->middleware('auth');
 

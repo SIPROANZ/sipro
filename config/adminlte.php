@@ -305,28 +305,37 @@ return [
         ['header' => 'CENTRO DE GESTIÓN'],
         [
             'text'    => 'Administrar',
-            'icon'    => 'fa fa-users',
+            'icon'    => 'fas fa-fw fa-users',
+            'icon_color' => 'primary',
             'submenu' => [
                 //SOLICITUDES
                 [
                     'text'    => 'Solicitudes',
+                    'icon'    => 'fas fa-fw fa-edit',
+                    'icon_color' => 'lightblue',
                     'url'     => '#',
                     'submenu' => [
                         [
                             'text' => 'Requisición',
+                            'icon'    => 'fas fa-fw fa-tasks',
+                            'icon_color' => 'info',
                             'route'  => 'requisiciones.index',
                         ],
                     ],
                 ],
-
-                 //AYUDA SOCIAL
+                //<i class="fas fa-clipboard-check"></i>
+                 //AYUDA SOCIAL <i class="fas fa-file-alt"></i> <i class="fas fa-tasks"></i><i class="fas fa-edit"></i>
                  [
                     'text'    => 'Ayuda Social',
+                    'icon'    => 'fas fa-fw fa-clipboard-check',
+                    'icon_color' => 'lightblue',
                     'url'     => '#',
                     'submenu' => [
                         [
                             'text' => 'Ayudas Sociales',
-                            'url'  => '#',
+                            'icon'    => 'fas fa-fw fa-file-alt',
+                            'icon_color' => 'info',
+                            'route'  => 'ayudassociales.index',
                         ],
                     ],
                 ],

@@ -318,23 +318,30 @@ return [
                         [
                             'text' => 'Requisición',
                             'icon'    => 'fas fa-fw fa-tasks',
-                            'icon_color' => 'info',
+                            'icon_color' => 'white',
                             'route'  => 'requisiciones.index',
                         ],
+                        [
+                            'text' => 'Tipo Requisicion',
+                            'icon'    => 'fas fa-fw fa-indent', //<i class="fas fa-indent"></i>
+                            'icon_color' => 'white',
+                            'route'  => 'tipossgps.index',
+                        ],
+                        
                     ],
                 ],
                 //<i class="fas fa-clipboard-check"></i>
                  //AYUDA SOCIAL <i class="fas fa-file-alt"></i> <i class="fas fa-tasks"></i><i class="fas fa-edit"></i>
                  [
                     'text'    => 'Ayuda Social',
-                    'icon'    => 'fas fa-fw fa-clipboard-check',
+                    'icon'    => 'fas fa-fw fa-thumbs-up', //<i class="fas fa-thumbs-up"></i>
                     'icon_color' => 'lightblue',
                     'url'     => '#',
                     'submenu' => [
                         [
                             'text' => 'Ayudas Sociales',
-                            'icon'    => 'fas fa-fw fa-file-alt',
-                            'icon_color' => 'info',
+                            'icon'    => 'fas fa-fw fa-clipboard-check',
+                            'icon_color' => 'white',
                             'route'  => 'ayudassociales.index',
                         ],
                     ],
@@ -343,18 +350,32 @@ return [
                 //COMPRAS Y SERVICIOS
                 [
                     'text'    => 'Compras y Servicios',
+                    'icon'    => 'fas fa-fw fa-dolly-flatbed', //<i class="fas fa-dolly-flatbed"></i>
+                    'icon_color' => 'lightblue',
                     'url'     => '#',
                     'submenu' => [
                         [
                             'text' => 'Analisis de Cotizaciones',
+                            'icon'    => 'fas fa-fw fa-file-invoice', //<i class="fas fa-file-invoice"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
+                            'text' => 'Criterios de Cotizacion',
+                            'icon'    => 'fas fa-fw fa-file-signature', // <i class="fas fa-file-signature"></i>
+                            'icon_color' => 'white',
+                            'route'  => 'criterios.index',
+                        ],
+                        [
                             'text' => 'Ordenes de Compras',
+                            'icon'    => 'fas fa-fw fa-file-invoice-dollar', //<i class="fas fa-file-invoice-dollar"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Ordenes de Servicios',
+                            'icon'    => 'fas fa-fw fa-file-signature', //<i class="fas fa-file-signature"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                     ],
@@ -362,19 +383,27 @@ return [
 
                 //CONTRATACION
                 [
-                    'text'    => 'Contratacion',
+                    'text'    => 'Contrataciones',
+                    'icon'    => 'fas fa-fw fa-balance-scale', //<i class="fas fa-balance-scale"></i>
+                            'icon_color' => 'lightblue',
                     'url'     => '#',
                     'submenu' => [
                         [
-                            'text' => 'Contrataciones',
+                            'text' => 'Contratacion',
+                            'icon'    => 'fas fa-fw fa-book', //<i class="fas fa-book"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Ordenes de Compras',
+                            'icon'    => 'fas fa-fw fa-file-invoice-dollar', //<i class="fas fa-file-invoice-dollar"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Ordenes de Servicios',
+                            'icon'    => 'fas fa-fw fa-file-signature', //<i class="fas fa-file-signature"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                     ],
@@ -383,22 +412,38 @@ return [
                 //COMPROMISOS
                 [
                     'text'    => 'Compromisos',
+                    'icon'    => 'fab fa-fw fa-readme', //<i class="fab fa-readme"></i>
+                    'icon_color' => 'lightblue',
                     'url'     => '#',
                     'submenu' => [
                         [
                             'text' => 'Compromisos',
+                            'icon'    => 'fas fa-fw fa-praying-hands', // <i class="fas fa-praying-hands"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
+                            'text' => 'Tipos de Compromisos',
+                            'icon'    => 'fas fa-fw fa-poll-h', //<i class="fas fa-poll-h"></i>
+                            'icon_color' => 'white',
+                            'route'  => 'tipodecompromisos.index',
+                        ],
+                        [
                             'text' => 'Ajustes',
+                            'icon'    => 'fas fa-fw fa-hammer', //<i class="fas fa-hammer"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Reporte de Compromisos',
+                            'icon'    => 'fas fa-fw fa-indent', //<i class="fas fa-indent"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Relación de Creditos Adicionales',
+                            'icon'    => 'fas fa-fw fa-hotel', // <i class="fas fa-hotel"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                     ],
@@ -407,18 +452,32 @@ return [
                 //CAUSADO
                 [
                     'text'    => 'Causado',
+                    'icon'    => 'fas fa-fw fa-book-reader', //<i class="fas fa-book-reader"></i>
+                    'icon_color' => 'lightblue',
                     'url'     => '#',
                     'submenu' => [
                         [
                             'text' => 'Compromisos por causar',
+                            'icon'    => 'fas fa-fw fa-business-time', // <i class="fas "></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Ordenes de Pago',
+                            'icon'    => 'fas fa-fw fa-briefcase', //<i class="fas "></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Causados',
+                            'icon'    => 'fas fa-fw fa-calculator', // <i class="fas fa-calculator"></i>
+                            'icon_color' => 'white',
+                            'url'  => '#',
+                        ],
+                        [
+                            'text' => 'Retenciones',
+                            'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
 
@@ -428,42 +487,62 @@ return [
                  //PAGADO
                  [
                     'text'    => 'Pagado',
+                    'icon'    => 'fas fa-fw fa-landmark', //<i class="fas fa-landmark"></i>
+                    'icon_color' => 'lightblue',
                     'url'     => '#',
                     'submenu' => [
                         [
                             'text' => 'Pagado',
+                            'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Movimientos Bancarios',
+                            'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Estado de Cuenta',
+                            'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Depositos',
+                            'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Notas de Credito',
+                            'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Notas de Debito',
+                            'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Autorizar Pago',
+                            'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Relación de Impuestos',
+                            'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         [
                             'text' => 'Comprobantes de Retenciones',
+                            'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
+                            'icon_color' => 'white',
                             'url'  => '#',
                         ],
                         //cheques
@@ -591,49 +670,49 @@ return [
                         [
                             'text' => 'POA',
                             'icon'    => 'fas fa-fw fa-file-alt',
-                            'icon_color' => 'info',
+                            'icon_color' => 'white',
                             'route'  => 'poas.index',
                         ],
                         [
                             'text' => 'Metas', //<i class="fas fa-calendar-alt"></i>
                             'icon'    => 'fas fa-fw fa-calendar-alt',
-                            'icon_color' => 'info',
+                            'icon_color' => 'white',
                             'route'  => 'metas.index',
                         ],
                         [
                             'text' => 'Objetivos Históricos', //<i class="fas fa-hourglass"></i>
                             'icon'    => 'fas fa-fw fa-hourglass',
-                            'icon_color' => 'info',
+                            'icon_color' => 'white',
                             'route'  => 'objetivoshistoricos.index',
                         ],
                         [
                             'text' => 'Objetivos Nacionales', //<i class="fas fa-balance-scale"></i>
                             'icon'    => 'fas fa-fw fa-balance-scale',
-                            'icon_color' => 'info',
+                            'icon_color' => 'white',
                             'route'  => 'objetivonacionales.index',
                         ],
                         [
                             'text' => 'Objetivos Estrategicos', //<i class="fas fa-layer-group"></i>
                             'icon'    => 'fas fa-fw fa-layer-group',
-                            'icon_color' => 'info',
+                            'icon_color' => 'white',
                             'route'  => 'objetivosestrategicos.index',
                         ],
                         [
                             'text' => 'Objetivos PEI', //<i class="fas fa-envelope-open-text"></i>
                             'icon'    => 'fas fa-fw fa-envelope-open-text',
-                            'icon_color' => 'info',
+                            'icon_color' => 'white',
                             'route'  => 'objetivopeis.index',
                         ],
                         [
                             'text' => 'Objetivo municipales', //<i class="fas fa-poll-h"></i>
                             'icon'    => 'fas fa-fw fa-poll-h',
-                            'icon_color' => 'info',
+                            'icon_color' => 'white',
                             'route'  => 'objetivomunicipales.index',
                         ],
                         [
                             'text' => 'Objetivo Generales', // <i class="fas fa-check-double"></i>
                             'icon'    => 'fas fa-fw fa-check-double',
-                            'icon_color' => 'info',
+                            'icon_color' => 'white',
                             'route'  => 'objetivogenerales.index',
                         ],
                     ]
@@ -649,55 +728,135 @@ return [
                         [
                             'text' => 'BOS',
                             'icon' => 'fas fa-fw fa-box-open', //<i class="fas fa-box-open"></i>
-                            'icon_color' => 'info', 
+                            'icon_color' => 'white', 
                             'route'  => 'bos.index',
                         ],
                         [
                             'text' => 'Tipo BOS',
                             'icon' => 'fas fa-fw fa-grip-horizontal', //<i class="fas fa-grip-horizontal"></i>
-                            'icon_color' => 'info', 
+                            'icon_color' => 'white', 
                             'route'  => 'tipobos.index',
                         ],
                         [
                             'text' => 'Segmentos',
                             'icon' => 'fas fa-fw fa-layer-group', //<i class="fas fa-layer-group"></i>
-                            'icon_color' => 'info', 
+                            'icon_color' => 'white', 
                             'route'  => 'segmentos.index',
                         ],
                         [
                             'text' => 'Familias',
                             'icon' => 'fas fa-fw fa-list-ul', //<i class="fas fa-list-ul"></i>
-                            'icon_color' => 'info', 
+                            'icon_color' => 'white', 
                             'route'  => 'familias.index',
                         ],
                         [
                             'text' => 'Clases',
                             'icon' => 'fas fa-fw fa-solar-panel', //<i class="fas fa-solar-panel"></i>
-                            'icon_color' => 'info', 
+                            'icon_color' => 'white', 
                             'route'  => 'clases.index',
                         ],
                         [
                             'text' => 'Productos',
                             'icon' => 'fas fa-fw fa-luggage-cart', //<i class="fas fa-luggage-cart"></i>
-                            'icon_color' => 'info', 
+                            'icon_color' => 'white', 
                             'route'  => 'productos.index',
                         ],
                         [
                             'text' => 'Productos CP',
                             'icon' => 'fas fa-fw fa-box-open', //<i class="fas fa-box-open"></i>
-                            'icon_color' => 'info', 
+                            'icon_color' => 'white', 
                             'route'  => 'productoscps.index',
                         ],
                         [
                             'text' => 'Unidades de Medida',
                             'icon' => 'fas fa-fw fa-people-carry', //<i class="fas fa-people-carry"></i>
-                            'icon_color' => 'info', 
+                            'icon_color' => 'white', 
                             'route'  => 'unidadmedidas.index',
                         ],
 
                     ]
                 ],
 
+                    //Institucion, estado, municipio
+               [
+                    'text' => 'Instituciones',
+                    'icon' => 'fas fa-fw fa-landmark', //<i class="fas fa-landmark"></i>
+                            'icon_color' => 'lightblue', 
+                    'url'  => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'Instituciones',
+                            'icon' => 'fas fa-fw fa-landmark', //<i class="fas fa-people-carry"></i>
+                            'icon_color' => 'white', 
+                            'route'  => 'instituciones.index',
+                        ],
+                        [
+                            'text' => 'Estados',
+                            'icon' => 'fas fa-fw fa-map-marked', //fa-map-marked
+                            'icon_color' => 'white', 
+                            'route'  => 'estados.index',
+                        ],
+                        [
+                            'text' => 'Municipios',
+                            'icon' => 'fas fa-fw fa-map-marked-alt', //<i class="fas fa-map-marked-alt"></i>
+                            'icon_color' => 'white', 
+                            'route'  => 'municipios.index',
+                        ],
+                    ]
+                ],
+
+                [
+                    'text' => 'Ejecución Presupuestaria',
+                    'icon' => 'fas fa-fw fa-calendar-check', //<i class="fas fa-calendar-check"></i>
+                    'icon_color' => 'lightblue',
+                    'url'  => '#',
+                    'submenu' => [
+                    [
+                        'text' => 'Ejecución',
+                        'icon' => 'far fa-fw fa-calendar-check', //<i class="far fa-calendar-check"></i>
+                        'icon_color' => 'white', 
+                        'route'  => 'ejecuciones.index',
+                    ],
+                    [
+                        'text' => 'Detalles Ejecucion',
+                        'icon' => 'fas fa-fw fa-calendar-alt', //<i class="fas fa-calendar-alt"></i>
+                        'icon_color' => 'white', 
+                        'route'  => 'ejecuciondetalles.index',
+                    ],
+                    [
+                        'text' => 'Clasificador Presupuestario',
+                        'icon' => 'fas fa-fw fa-chart-bar', //<i class="fas fa-chart-bar"></i>
+                        'icon_color' => 'white', 
+                        'route'  => 'clasificadorpresupuestarios.index',
+                    ],
+                    [
+                        'text' => 'Ejercicio Fiscal',
+                        'icon' => 'fas fa-fw fa-map-marked-alt', //<i class="fas fa-calendar-check"></i>
+                        'icon_color' => 'white', 
+                        'route'  => 'ejercicios.index',
+                    ],
+                    [
+                        'text' => 'Financiamiento',
+                        'icon' => 'fas fa-fw fa-landmark', //<i class="fas fa-landmark"></i>
+                        'icon_color' => 'white',
+                        'route'  => 'financiamientos.index',
+                    ],
+                    [
+                        'text' => 'Iniciar Proceso de Ejecución',
+                        'icon' => 'fas fa-fw fa-play-circle', //<i class="fas fa-play-circle"></i>
+                        'icon_color' => 'white',
+                        'url'  => '#',
+                    ],
+                    ]
+                ],
+                
+
+                [
+                    'text' => 'Unidad Administrativa',
+                    'icon' => 'fas fa-fw fa-building', //<i class="fas fa-map-marked-alt"></i>
+                    'icon_color' => 'lightblue', 
+                    'route'  => 'unidadadministrativas.index', //<i class="fas fa-building"></i>
+                ],
 
                 [
                     'text' => 'Beneficiarios', //<i class="fas fa-users"></i>
@@ -713,81 +872,8 @@ return [
                     'route'  => 'proveedores.index',
                 ],
 
-                [
-                    'text' => 'Tipos de Compromisos',
-                    'route'  => 'tipodecompromisos.index',
-                ],
-                [
-                    'text' => 'Instituciones',
-                    'route'  => 'instituciones.index',
-                ],
                 
-                [
-                    'text' => 'Ejecución',
-                    'route'  => 'ejecuciones.index',
-                ],
-                [
-                    'text' => 'Detalles Ejecucion',
-                    'route'  => 'ejecuciondetalles.index',
-                ],
-
-               
-                
-                [
-                    'text' => 'Unidad administrativas',
-                    'route'  => 'unidadadministrativas.index',
-                ],
-                
-                [
-                    'text' => 'Ejercicios',
-                    'route'  => 'ejercicios.index',
-                ],
-               
-                
-                [
-                    'text' => 'Financiamiento',
-                    'route'  => 'financiamientos.index',
-                ],
-                [
-                    'text' => 'Estados',
-                    'route'  => 'estados.index',
-                ],
-                [
-                    'text' => 'Municipios',
-                    'route'  => 'municipios.index',
-                ],
-                [
-                    'text' => 'Clasificador Presupuestario',
-                    'route'  => 'clasificadorpresupuestarios.index',
-                ],
-               
-                
-                
-                [
-                    'text' => 'Tipo de Compromisos',
-                    'url'  => '#',
-                ],
-                
-                [
-                    'text' => 'Tipo SGP',
-                    'route'  => 'tipossgps.index',
-                ],
-                [
-                    'text' => 'Beneficiario',
-                    'url'  => '#',
-                ],
-                
-                [
-                    'text' => 'Retenciones',
-                    'url'  => '#',
-                ],
-                
-                [
-                    'text' => 'Iniciar Proceso de Ejecución',
-                    'url'  => '#',
-                ],
-               
-                
+                  
             ],
         ],
         //Seguridad

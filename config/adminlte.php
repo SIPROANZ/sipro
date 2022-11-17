@@ -358,7 +358,13 @@ return [
                             'text' => 'Analisis de Cotizaciones',
                             'icon'    => 'fas fa-fw fa-file-invoice', //<i class="fas fa-file-invoice"></i>
                             'icon_color' => 'white',
-                            'url'  => '#',
+                            'route'  => 'analisis.index',
+                        ],
+                        [
+                            'text' => 'Detalles Analisis',
+                            'icon'    => 'fas fa-fw fa-file-invoice', //<i class="fas fa-file-invoice"></i>
+                            'icon_color' => 'white',
+                            'route'  => 'detallesanalisis.index',
                         ],
                         [
                             'text' => 'Criterios de Cotizacion',

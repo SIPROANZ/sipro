@@ -85,3 +85,7 @@ Route::resource('ayudassociales', App\Http\Controllers\AyudassocialeController::
 
 Route::resource('criterios', App\Http\Controllers\CriterioController::class)->middleware('auth');
 
+Route::resource('analisis', App\Http\Controllers\AnalisiController::class)->middleware('auth');
+
+Route::resource('detallesanalisis', App\Http\Controllers\DetallesanalisiController::class)->middleware('auth');
+

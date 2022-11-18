@@ -34,11 +34,11 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                        <th style="text-align: center">No</th>
                                         
-										<th>Codigoproducto</th>
-										<th>Nombre</th>
-										<th>Clase Id</th>
+										<th style="text-align: center">Codigo producto</th>
+										<th style="text-align: center">Nombre</th>
+										<th style="text-align: center">Clase</th>
 
                                         <th></th>
                                     </tr>
@@ -48,9 +48,9 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $producto->codigoproducto }}</td>
-											<td>{{ $producto->nombre }}</td>
-											<td>{{ $producto->clase_id }}</td>
+											<td style="text-align: center">{{ $producto->codigoproducto }}</td>
+											<td style="text-align: center">{{ $producto->nombre }}</td>
+											<td style="text-align: center">{{ $producto->clase->nombre }}</td>
 
                                             <td>
                                                 <form action="{{ route('productos.destroy',$producto->id) }}" method="POST">

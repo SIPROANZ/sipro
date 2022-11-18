@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Clasificadorpresupuestario') }}
+                                {{ __('Clasificador presupuestario') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('clasificadorpresupuestarios.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nuevo ClasificadorPresupuestario') }}
+                                  {{ __('Crear Nuevo Clasificador Presupuestario') }}
                                 </a>
                               </div>
                         </div>

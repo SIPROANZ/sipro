@@ -48,7 +48,7 @@ class ClasificadorpresupuestarioController extends Controller
         $clasificadorpresupuestario = Clasificadorpresupuestario::create($request->all());
 
         return redirect()->route('clasificadorpresupuestarios.index')
-            ->with('success', 'Clasificadorpresupuestario created successfully.');
+            ->with('success', 'Clasificador presupuestario creado exitosamente.');
     }
 
     /**
@@ -91,7 +91,7 @@ class ClasificadorpresupuestarioController extends Controller
         $clasificadorpresupuestario->update($request->all());
 
         return redirect()->route('clasificadorpresupuestarios.index')
-            ->with('success', 'Clasificadorpresupuestario updated successfully');
+            ->with('success', 'Clasificador presupuestario actualizado exitosamente');
     }
 
     /**
@@ -104,6 +104,6 @@ class ClasificadorpresupuestarioController extends Controller
         $clasificadorpresupuestario = Clasificadorpresupuestario::find($id)->delete();
 
         return redirect()->route('clasificadorpresupuestarios.index')
-            ->with('success', 'Clasificadorpresupuestario deleted successfully');
+            ->with('success', 'Clasificador presupuestario eliminado exitosamente');
     }
 }

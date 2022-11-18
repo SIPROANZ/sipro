@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Vir Tipo BOS</span>
+                            <span class="card-title">Ver Tipo BOS</span>
                         </div>
                         <div class="float-right">
                             <a class="btn btn-primary" href="{{ route('tipobos.index') }}"> Regresar</a>

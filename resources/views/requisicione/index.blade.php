@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Requisicione') }}
+                                {{ __('Requisición') }}
                             </span>
 
                              <div class="float-right">
@@ -34,16 +34,17 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                        <th style="text-align: center">No</th>
                                         
-										<th>Concepto</th>
-										<th>Uso</th>
-										<th>Ejercicio Id</th>
-										<th>Institucion Id</th>
-										<th>Unidadadministrativa Id</th>
-										<th>Correlativo</th>
-										<th>Tiposgp Id</th>
-										<th>Estatus</th>
+										
+										<th style="text-align: center">Ejercicio</th>
+										<th style="text-align: center">Institucion</th>
+										<th style="text-align: center">Unidad administrativa</th>
+										<th style="text-align: center">Correlativo</th>
+                                        <th style="text-align: center">Concepto</th>
+										<th style="text-align: center">Uso</th>
+										<th style="text-align: center">Tipo requisicion</th>
+										<th style="text-align: center">Estatus</th>
 
                                         <th>Opciones</th>
                                     </tr>
@@ -53,14 +54,14 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $requisicione->concepto }}</td>
-											<td>{{ $requisicione->uso }}</td>
-											<td>{{ $requisicione->ejercicio_id }}</td>
-											<td>{{ $requisicione->institucion_id }}</td>
-											<td>{{ $requisicione->unidadadministrativa_id }}</td>
-											<td>{{ $requisicione->correlativo }}</td>
-											<td>{{ $requisicione->tiposgp_id }}</td>
-											<td>{{ $requisicione->estatus }}</td>
+										    <td style="text-align: center">{{ $requisicione->ejercicio->nombreejercicio}}</td>
+											<td style="text-align: center">{{ $requisicione->institucione->institucion }}</td>
+											<td style="text-align: center">{{ $requisicione->unidadadministrativa->sector }}</td>
+											<td style="text-align: center">{{ $requisicione->correlativo }}</td>
+                                            <td style="text-align: center">{{ $requisicione->concepto }}</td>
+											<td style="text-align: center">{{ $requisicione->uso }}</td>
+											<td style="text-align: center">{{ $requisicione->tipossgp->denominacion }}</td>
+											<td style="text-align: center">{{ $requisicione->estatus }}</td>
 
                                             <td>
                                                 <form action="{{ route('requisiciones.destroy',$requisicione->id) }}" method="POST">

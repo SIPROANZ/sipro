@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Ver Productos CP</span>
+                            <span class="card-title">Ver Productos Clasificador presupuestario</span>
                         </div>
                         <div class="float-right">
                             <a class="btn btn-primary" href="{{ route('productoscps.index') }}"> Regresar</a>
@@ -21,11 +21,11 @@
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Producto Id:</strong>
+                            <strong>Producto:</strong>
                             {{ $productoscp->producto_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Clasificadorp Id:</strong>
+                            <strong>Clasificador presupuestario:</strong>
                             {{ $productoscp->clasificadorp_id }}
                         </div>
 

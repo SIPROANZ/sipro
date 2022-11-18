@@ -7,18 +7,18 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Poa') }}
+                                {{ __('Plan operativo anual') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('poas.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nueva Poa') }}
+                                  {{ __('Crear Nueva Plan operativo anual') }}
                                 </a>
                               </div>
                         </div>
@@ -34,29 +34,31 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                         
+										<th style="text-align: left">No</th>
                                         
-										<th>Ejercicio Id</th>
-										<th>Institucion Id</th>
-										<th>Historico Id</th>
-										<th>Nacional Id</th>
-										<th>Estrategico Id</th>
-										<th>General Id</th>
-										<th>Municipal Id</th>
-										<th>Pei Id</th>
-										<th>Unidadadministrativa Id</th>
-										<th>Proyecto</th>
-										<th>Objetivoproyecto</th>
-										<th>Montoproyecto</th>
-										<th>Responsable</th>
-										<th>Tipo</th>
-										<th>Sncfestrategico</th>
-										<th>Sncfespecifico</th>
-										<th>Psocial</th>
-										<th>Codigo</th>
-										<th>Tipoproyecto</th>
-										<th>Central</th>
-										<th>Descripcion</th>
+										< 
+										<th style="text-align: left">Ejercicio</th>
+										<th style="text-align: left">Institucion</th>										 
+										<th style="text-align: left">Historico</th>										 
+										<th style="text-align: left">Nacional</th>										 
+										<th style="text-align: left">Estrategico</th>										 
+										<th style="text-align: left">General</th>										 
+										<th style="text-align: left">Municipal</th>										 
+										<th style="text-align: left">Pei</th>										 
+										<th style="text-align: left">Unidad administrativa</th>										 
+										<th style="text-align: left">Proyecto</th>										 
+										<th style="text-align: left">Objetivo proyecto</th>										 
+										<th style="text-align: left">Monto proyecto</th>									 
+										<th style="text-align: left">Responsable</th>										 
+										<th style="text-align: left">Tipo</th>										 
+										<th style="text-align: left">SNCF estrategico</th>										 
+										<th style="text-align: left">SNCF especifico</th>										 
+										<th style="text-align: left">P. social</th>									 
+										<th style="text-align: left">Codigo</th>										 
+										<th style="text-align: left">Tipo proyecto</th>										 
+										<th style="text-align: left">Central</th>										 
+										<th style="text-align: left">Descripcion</th>
 
                                         <th></th>
                                     </tr>
@@ -66,29 +68,29 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $poa->ejercicio_id }}</td>
-											<td>{{ $poa->institucion_id }}</td>
-											<td>{{ $poa->historico_id }}</td>
-											<td>{{ $poa->nacional_id }}</td>
-											<td>{{ $poa->estrategico_id }}</td>
-											<td>{{ $poa->general_id }}</td>
-											<td>{{ $poa->municipal_id }}</td>
-											<td>{{ $poa->pei_id }}</td>
-											<td>{{ $poa->unidadadministrativa_id }}</td>
-											<td>{{ $poa->proyecto }}</td>
-											<td>{{ $poa->objetivoproyecto }}</td>
-											<td>{{ $poa->montoproyecto }}</td>
-											<td>{{ $poa->responsable }}</td>
-											<td>{{ $poa->tipo }}</td>
-											<td>{{ $poa->sncfestrategico }}</td>
-											<td>{{ $poa->sncfespecifico }}</td>
-											<td>{{ $poa->psocial }}</td>
-											<td>{{ $poa->codigo }}</td>
-											<td>{{ $poa->tipoproyecto }}</td>
-											<td>{{ $poa->central }}</td>
-											<td>{{ $poa->descripcion }}</td>
+											<td style="text-align: left">{{ $poa->ejercicio->nombreejercicio }}</td>
+                                            <td style="text-align: left">{{ $poa->institucione->institucion }}</td>
+                                            <td style="text-align: left">{{ $poa->objetivoshistorico->objetivo }}</td>
+                                            <td style="text-align: left">{{ $poa->objetivonacionale->objetivo}}</td>
+                                            <td style="text-align: left">{{ $poa->objetivosestrategico->objetivo }}</td>
+                                            <td style="text-align: left">{{ $poa->objetivogenerale ->objetivo }}</td>
+                                            <td style="text-align: left">{{ $poa->objetivomunicipale->objetivo}}</td>
+                                            <td style="text-align: left">{{ $poa->objetivopei->objetivo }}</td>
+											<td style="text-align: left">{{ $poa->unidadadministrativa->sector }}</td>
+                                            <td style="text-align: left">{{ $poa->proyecto }}</td>
+                                            <td style="text-align: left">{{ $poa->objetivoproyecto }}</td>
+                                            <td style="text-align: left">{{ $poa->montoproyecto }}</td>
+											<td style="text-align: left">{{ $poa->responsable }}</td>
+                                            <td style="text-align: left">{{ $poa->tipo }}</td>
+                                            <td style="text-align: left">{{ $poa->sncfestrategico }}</td>
+                                            <td style="text-align: left">{{ $poa->sncfespecifico }}</td>
+                                            <td style="text-align: left">{{ $poa->psocial }}</td>
+                                            <td style="text-align: left">{{ $poa->codigo }}</td>
+                                            <td style="text-align: left">{{ $poa->tipoproyecto }}</td>
+                                            <td style="text-align: left">{{ $poa->central }}</td>
+                                            <td style="text-align: left">{{ $poa->descripcion }}</td>
 
-                                            <td>
+                                            <td style="text-align: left">
                                                 <form action="{{ route('poas.destroy',$poa->id) }}" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('poas.show',$poa->id) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('poas.edit',$poa->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>

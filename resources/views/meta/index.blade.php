@@ -7,7 +7,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -36,32 +36,32 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Poa Id</th>
-										<th>Cantidad1</th>
-										<th>Cantidad2</th>
-										<th>Cantidad3</th>
-										<th>Cantidad4</th>
-										<th>Meta</th>
-										<th>Monto</th>
-										<th>Ejercicio Id</th>
-										<th>Institucion Id</th>
-										<th>Unidadadministrativa Id</th>
-										<th>Tipo</th>
-										<th>Enero</th>
-										<th>Febrero</th>
-										<th>Marzo</th>
-										<th>Abril</th>
-										<th>Mayo</th>
-										<th>Junio</th>
-										<th>Julio</th>
-										<th>Agosto</th>
-										<th>Septiembre</th>
-										<th>Octubre</th>
-										<th>Noviembre</th>
-										<th>Diciembre</th>
-										<th>Unidadmedida</th>
-										<th>Unidadadministrativasolicitante</th>
-										<th>Impacto</th>
+										<th style="text-align: left">Plan operativo anual</th>
+										<th style="text-align: left">Cant.1</th>
+										<th style="text-align: left">Cant.2</th>
+										<th style="text-align: left">Cant.3</th>
+										<th style="text-align: left">Cant.4</th>
+										<th style="text-align: left">Meta</th>
+										<th style="text-align: left">Monto</th>
+										<th style="text-align: left">Ejercicio</th>
+										<th style="text-align: left">Institucion</th>
+										<th style="text-align: left">Unidad administrativa</th>
+										<th style="text-align: left">Tipo</th>
+										<th style="text-align: left">Enero</th>
+										<th style="text-align: left">Febrero</th>
+										<th style="text-align: left">Marzo</th>
+										<th style="text-align: left">Abril</th>
+										<th style="text-align: left">Mayo</th>
+										<th style="text-align: left">Junio</th>
+										<th style="text-align: left">Julio</th>
+										<th style="text-align: left">Agosto</th>
+										<th style="text-align: left">Septiembre</th>
+										<th style="text-align: left">Octubre</th>
+										<th style="text-align: left">Noviembre</th>
+										<th style="text-align: left">Diciembre</th>
+										<th style="text-align: left">Unidad medida</th>
+										<th style="text-align: left">Unidad administrativa solicitante</th>
+										<th style="text-align: left">Impacto</th>
 
                                         <th></th>
                                     </tr>
@@ -71,34 +71,34 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $meta->poa_id }}</td>
-											<td>{{ $meta->cantidad1 }}</td>
-											<td>{{ $meta->cantidad2 }}</td>
-											<td>{{ $meta->cantidad3 }}</td>
-											<td>{{ $meta->cantidad4 }}</td>
-											<td>{{ $meta->meta }}</td>
-											<td>{{ $meta->monto }}</td>
-											<td>{{ $meta->ejercicio_id }}</td>
-											<td>{{ $meta->institucion_id }}</td>
-											<td>{{ $meta->unidadadministrativa_id }}</td>
-											<td>{{ $meta->tipo }}</td>
-											<td>{{ $meta->enero }}</td>
-											<td>{{ $meta->febrero }}</td>
-											<td>{{ $meta->marzo }}</td>
-											<td>{{ $meta->abril }}</td>
-											<td>{{ $meta->mayo }}</td>
-											<td>{{ $meta->junio }}</td>
-											<td>{{ $meta->julio }}</td>
-											<td>{{ $meta->agosto }}</td>
-											<td>{{ $meta->septiembre }}</td>
-											<td>{{ $meta->octubre }}</td>
-											<td>{{ $meta->noviembre }}</td>
-											<td>{{ $meta->diciembre }}</td>
-											<td>{{ $meta->unidadmedida }}</td>
-											<td>{{ $meta->unidadadministrativasolicitante }}</td>
-											<td>{{ $meta->impacto }}</td>
+											<td style="text-align: left">{{ $meta->poa->proyecto }}</td>
+											<td style="text-align: left">{{ $meta->cantidad1 }}</td>
+											<td style="text-align: left">{{ $meta->cantidad2 }}</td>
+											<td style="text-align: left">{{ $meta->cantidad3 }}</td>
+											<td style="text-align: left">{{ $meta->cantidad4 }}</td>
+											<td style="text-align: left">{{ $meta->meta }}</td>
+											<td style="text-align: left">{{ $meta->monto }}</td>
+											<td style="text-align: left">{{ $meta->ejercicio->nombreejercicio }}</td>
+											<td style="text-align: left">{{ $meta->institucione->institucion }}</td>
+											<td style="text-align: left">{{ $meta->unidadadministrativa->sector }}</td>
+											<td style="text-align: left">{{ $meta->tipo }}</td>
+											<td style="text-align: left">{{ $meta->enero }}</td>
+											<td style="text-align: left">{{ $meta->febrero }}</td>
+											<td style="text-align: left">{{ $meta->marzo }}</td>
+											<td style="text-align: left">{{ $meta->abril }}</td>
+											<td style="text-align: left">{{ $meta->mayo }}</td>
+											<td style="text-align: left">{{ $meta->junio }}</td>
+											<td style="text-align: left">{{ $meta->julio }}</td>
+											<td style="text-align: left">{{ $meta->agosto }}</td>
+											<td style="text-align: left">{{ $meta->septiembre }}</td>
+											<td style="text-align: left">{{ $meta->octubre }}</td>
+											<td style="text-align: left">{{ $meta->noviembre }}</td>
+											<td style="text-align: left">{{ $meta->diciembre }}</td>
+											<td style="text-align: left">{{ $meta->unidadmedida }}</td>
+											<td style="text-align: left">{{ $meta->unidadadministrativasolicitante }}</td>
+											<td style="text-align: left">{{ $meta->impacto }}</td>
 
-                                            <td>
+                                            <td style="text-align: left">
                                                 <form action="{{ route('metas.destroy',$meta->id) }}" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('metas.show',$meta->id) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('metas.edit',$meta->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>

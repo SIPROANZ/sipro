@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Requisicione;
 use App\Ejercicio;
-use App\Institucion;
+use App\Institucione;
 use App\Unidadadministrativa;
 use App\Tipossgp;
 use Illuminate\Http\Request;
@@ -37,26 +37,13 @@ class RequisicioneController extends Controller
     {
         $requisicione = new Requisicione();
 
-      //  $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
-
-     //   return view('requisicione.create', compact('requisicione' , 'ejercicios' ));
-
-     /*
+        $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
         $instituciones = Institucione::pluck('institucion', 'id');
-
-        return view('requisicione.create', compact('requisicione' , 'instituciones' )); 
-
         $unidadadministrativas = Unidadadministrativa::pluck('sector', 'id');
-
-        return view('requisicione.create', compact('requisicione' , 'unidadadministrativas' )); 
-        */
-
         $tipossgps = Tipossgp::pluck('denominacion' , 'id');
 
-        return view('requisicione.create', compact('requisicione' , 'tipossgps' )); 
-
-     //   return view('requisicione.create', compact('requisicione'));
-    
+       return view('requisicione.create', compact('requisicione' , 'ejercicios' , 'instituciones' , 'unidadadministrativas', 'tipossgps'));
+              
     }
 
     /**
@@ -72,7 +59,7 @@ class RequisicioneController extends Controller
         $requisicione = Requisicione::create($request->all());
 
         return redirect()->route('requisiciones.index')
-            ->with('success', 'Requisicione created successfully.');
+            ->with('success', 'Requisicion creado exitosamente.');
     }
 
     /**
@@ -98,24 +85,13 @@ class RequisicioneController extends Controller
     {
         $requisicione = Requisicione::find($id);
 
-       // $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
-
-      //  return view('requisicione.edit', compact('requisicione' , 'ejercicios' ));
-
-      /*  $instituciones = Institucione::pluck('institucion', 'id');
-
-        return view('requisicione.edit', compact('requisicione' , 'instituciones' )); 
-
+        $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
+        $instituciones = Institucione::pluck('institucion', 'id');
         $unidadadministrativas = Unidadadministrativa::pluck('sector', 'id');
+        $tipossgps = Tipossgp::pluck('denominacion' , 'id');
 
-        return view('requisicione.edit', compact('requisicione' , 'unidadadministrativas' )); 
-        */
-
-        $tipossgps = Tipossgp::pluck('denominacion', 'id');
-
-        return view('requisicione.edit', compact('requisicione' , 'tipossgps' )); 
-
-      //  return view('requisicione.create', compact('requisicione'));
+       return view('requisicione.edit', compact('requisicione' , 'ejercicios' , 'instituciones' , 'unidadadministrativas', 'tipossgps'));
+              
     }
 
     /**
@@ -132,7 +108,7 @@ class RequisicioneController extends Controller
         $requisicione->update($request->all());
 
         return redirect()->route('requisiciones.index')
-            ->with('success', 'Requisicione updated successfully');
+            ->with('success', 'Requisicione actualizado exitosamente.');
     }
 
     /**
@@ -145,6 +121,6 @@ class RequisicioneController extends Controller
         $requisicione = Requisicione::find($id)->delete();
 
         return redirect()->route('requisiciones.index')
-            ->with('success', 'Requisicione deleted successfully');
+            ->with('success', 'Requisicione eliminado exitosamente.');
     }
 }

@@ -668,8 +668,8 @@ return [
                     'url'  => '#',
                     'submenu' => [
                         [
-                            'text' => 'POA',
-                            'icon'    => 'fas fa-fw fa-file-alt',
+                            'text' => 'Plan Operativo Anual', //<i class="fas fa-calendar-alt"></i>
+                            'icon'    => 'fas fa-fw fa-calendar-alt',
                             'icon_color' => 'white',
                             'route'  => 'poas.index',
                         ],

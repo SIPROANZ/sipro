@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Meta;
+use App\Poa;
+use App\Ejercicio;
+use App\Institucione;
+use App\Unidadadministrativa;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +36,12 @@ class MetaController extends Controller
     public function create()
     {
         $meta = new Meta();
-        return view('meta.create', compact('meta'));
+        
+        $poas= Poa::pluck('proyecto' , 'id');
+        $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
+        $instituciones = Institucione::pluck('institucion', 'id');
+        $unidadadministrativas = Unidadadministrativa::pluck('sector', 'id');
+        return view('meta.create', compact('meta', 'poas', 'ejercicios' , 'instituciones' , 'unidadadministrativas'));
     }
 
     /**
@@ -48,7 +57,7 @@ class MetaController extends Controller
         $meta = Meta::create($request->all());
 
         return redirect()->route('metas.index')
-            ->with('success', 'Meta created successfully.');
+            ->with('success', 'Meta creado exitosamente.');
     }
 
     /**
@@ -74,7 +83,11 @@ class MetaController extends Controller
     {
         $meta = Meta::find($id);
 
-        return view('meta.edit', compact('meta'));
+        $poas= Poa::pluck('proyecto' , 'id');
+        $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
+        $instituciones = Institucione::pluck('institucion', 'id');
+        $unidadadministrativas = Unidadadministrativa::pluck('sector', 'id');
+        return view('meta.edit', compact('meta', 'poas', 'ejercicios' , 'instituciones' , 'unidadadministrativas'));
     }
 
     /**
@@ -91,7 +104,7 @@ class MetaController extends Controller
         $meta->update($request->all());
 
         return redirect()->route('metas.index')
-            ->with('success', 'Meta updated successfully');
+            ->with('success', 'Meta actualizado exitosamente');
     }
 
     /**
@@ -104,6 +117,6 @@ class MetaController extends Controller
         $meta = Meta::find($id)->delete();
 
         return redirect()->route('metas.index')
-            ->with('success', 'Meta deleted successfully');
+            ->with('success', 'Meta eliminado exitosamente');
     }
 }

@@ -3,6 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Poa;
+use App\Ejercicio;
+use App\Institucione;
+use App\Objetivoshistorico;
+use App\Objetivonacionale;
+use App\Objetivosestrategico;
+use App\Objetivogenerale;
+use App\Objetivomunicipale;
+use App\Objetivopei;
+use App\Unidadadministrativa;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +41,17 @@ class PoaController extends Controller
     public function create()
     {
         $poa = new Poa();
-        return view('poa.create', compact('poa'));
+        $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
+        $instituciones = Institucione::pluck('institucion', 'id');
+        $objetivoshistoricos= Objetivoshistorico::pluck('objetivo', 'id');
+        $objetivonacionales= Objetivonacionale::pluck('objetivo', 'id');
+        $objetivosestrategicos= Objetivosestrategico::pluck('objetivo', 'id');
+        $objetivogenerales= Objetivogenerale::pluck('objetivo', 'id');
+        $objetivomunicipales= Objetivomunicipale::pluck('objetivo', 'id');
+        $objetivopeis= Objetivopei::pluck('objetivo', 'id');
+        $unidadadministrativas = Unidadadministrativa::pluck('sector', 'id');
+
+        return view('poa.create', compact('poa', 'ejercicios', 'instituciones', 'objetivoshistoricos', 'objetivonacionales', 'objetivosestrategicos', 'objetivogenerales', 'objetivomunicipales','objetivopeis', 'unidadadministrativas'));
     }
 
     /**
@@ -48,7 +67,7 @@ class PoaController extends Controller
         $poa = Poa::create($request->all());
 
         return redirect()->route('poas.index')
-            ->with('success', 'Poa created successfully.');
+            ->with('success', 'Plan operativo anual creado exitosamente.');
     }
 
     /**
@@ -73,8 +92,18 @@ class PoaController extends Controller
     public function edit($id)
     {
         $poa = Poa::find($id);
+       
+        $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
+        $instituciones = Institucione::pluck('institucion', 'id');
+        $objetivoshistoricos= Objetivoshistorico::pluck('objetivo', 'id');
+        $objetivonacionales= Objetivonacionale::pluck('objetivo', 'id');
+        $objetivosestrategicos= Objetivosestrategico::pluck('objetivo', 'id');
+        $objetivogenerales= Objetivogenerale::pluck('objetivo', 'id');
+        $objetivomunicipales= Objetivomunicipale::pluck('objetivo', 'id');
+        $objetivopeis= Objetivopei::pluck('objetivo', 'id');
+        $unidadadministrativas = Unidadadministrativa::pluck('sector', 'id');
 
-        return view('poa.edit', compact('poa'));
+        return view('poa.edit', compact('poa', 'ejercicios', 'instituciones', 'objetivoshistoricos', 'objetivonacionales', 'objetivosestrategicos', 'objetivogenerales', 'objetivomunicipales','objetivopeis', 'unidadadministrativas'));
     }
 
     /**
@@ -91,7 +120,7 @@ class PoaController extends Controller
         $poa->update($request->all());
 
         return redirect()->route('poas.index')
-            ->with('success', 'Poa updated successfully');
+            ->with('success', 'Plan operativo anual actualizado exitosamente.');
     }
 
     /**
@@ -104,6 +133,6 @@ class PoaController extends Controller
         $poa = Poa::find($id)->delete();
 
         return redirect()->route('poas.index')
-            ->with('success', 'Poa deleted successfully');
+            ->with('success', 'Plan operativo anual eliminado exitosamente.');
     }
 }

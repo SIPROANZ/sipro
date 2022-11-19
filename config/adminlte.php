@@ -376,7 +376,7 @@ return [
                             'text' => 'Ordenes de Compras',
                             'icon'    => 'fas fa-fw fa-file-invoice-dollar', //<i class="fas fa-file-invoice-dollar"></i>
                             'icon_color' => 'white',
-                            'url'  => '#',
+                            'route'  => 'compras.index',
                         ],
                         [
                             'text' => 'Ordenes de Servicios',

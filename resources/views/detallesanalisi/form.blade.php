@@ -54,11 +54,18 @@
             {!! $errors->first('iva', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
         <div class="form-group">
             {{ Form::label('total') }}
             {{ Form::text('total', $detallesanalisi->total, ['class' => 'form-control' . ($errors->has('total') ? ' is-invalid' : ''), 'placeholder' => 'Total']) }}
             {!! $errors->first('total', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+        </div>
+        <div class="col-md-2">
+        <div class="form-group">
+            {{ Form::label('Aprobado') }}
+            {{ Form::select('aprobado',['SI' => 'SI', 'NO' => 'NO'], $detallesanalisi->aprobado, ['class' => 'form-control' . ($errors->has('aprobado') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione']) }}
+            {!! $errors->first('aprobado', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>
         </div>

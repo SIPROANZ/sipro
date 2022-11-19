@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Detallesanalisi
+    Compra
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Detalles analisis') }}
+                                {{ __('Compras') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('detallesanalisis.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nuevo Detalle Analisis') }}
+                                <a href="{{ route('compras.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear Orden de Compra') }}
                                 </a>
                               </div>
                         </div>
@@ -36,38 +36,34 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Proveedor</th>
 										<th>Analisis</th>
-										<th>Bos</th>
-										<th>Cantidad</th>
-										<th>Precio</th>
-										<th>Subtotal</th>
-										<th>Iva</th>
-										<th>Total</th>
-                                        <th>Aprobado</th>
+										<th>Numero de orden compra</th>
+										<th>Estado</th>
+										<th>Anulacion</th>
+										<th>Monto Base</th>
+										<th>Monto IVA</th>
+										<th>Monto Total</th>
 
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($detallesanalisis as $detallesanalisi)
+                                    @foreach ($compras as $compra)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $detallesanalisi->proveedore->nombre }}</td>
-											<td>{{ $detallesanalisi->analisi->numeracion }}</td>
-											<td>{{ $detallesanalisi->bo->descripcion }}</td>
-											<td>{{ $detallesanalisi->cantidad }}</td>
-											<td>{{ $detallesanalisi->precio }}</td>
-											<td>{{ $detallesanalisi->subtotal }}</td>
-											<td>{{ $detallesanalisi->iva }}</td>
-											<td>{{ $detallesanalisi->total }}</td>
-                                            <td>{{ $detallesanalisi->aprobado }}</td>
+											<td>{{ $compra->analisis_id }}</td>
+											<td>{{ $compra->numordencompra }}</td>
+											<td>{{ $compra->status }}</td>
+											<td>{{ $compra->fechaanulacion }}</td>
+											<td>{{ $compra->montobase }}</td>
+											<td>{{ $compra->montoiva }}</td>
+											<td>{{ $compra->montototal }}</td>
 
                                             <td>
-                                                <form action="{{ route('detallesanalisis.destroy',$detallesanalisi->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('detallesanalisis.show',$detallesanalisi->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('detallesanalisis.edit',$detallesanalisi->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                                <form action="{{ route('compras.destroy',$compra->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('compras.show',$compra->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('compras.edit',$compra->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
@@ -80,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $detallesanalisis->links() !!}
+                {!! $compras->links() !!}
             </div>
         </div>
     </div>

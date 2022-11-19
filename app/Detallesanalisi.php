@@ -37,6 +37,7 @@ class Detallesanalisi extends Model
 		'subtotal' => 'required',
 		'iva' => 'required',
 		'total' => 'required',
+        'aprobado' => 'required',
     ];
 
     protected $perPage = 20;
@@ -46,7 +47,7 @@ class Detallesanalisi extends Model
      *
      * @var array
      */
-    protected $fillable = ['proveedor_id','analisis_id','bos_id','cantidad','precio','subtotal','iva','total'];
+    protected $fillable = ['proveedor_id','analisis_id','bos_id','cantidad','precio','subtotal','iva','total','aprobado'];
 
 
     /**

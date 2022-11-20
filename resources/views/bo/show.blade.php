@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $bo->name ?? 'Show Bo' }}
+    {{ $bo->name ?? 'Ver BOS' }}
 @endsection
 
 @section('content')
@@ -11,29 +11,29 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Show Bo</span>
+                            <span class="card-title">Ver BOS</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('bos.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('bos.index') }}"> Regresar</a>
                         </div>
                     </div>
 
                     <div class="card-body">
-                        
+
                         <div class="form-group">
                             <strong>Descripcion:</strong>
                             {{ $bo->descripcion }}
                         </div>
                         <div class="form-group">
-                            <strong>Producto Id:</strong>
+                            <strong>Producto:</strong>
                             {{ $bo->producto_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Unidadmedida Id:</strong>
+                            <strong>Unidad de Medida:</strong>
                             {{ $bo->unidadmedida_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Tipobos Id:</strong>
+                            <strong>Tipo de BOS:</strong>
                             {{ $bo->tipobos_id }}
                         </div>
 

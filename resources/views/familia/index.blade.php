@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Familia
+    Familia de BOS
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Familia') }}
+                                {{ __('Familia de BOS') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('familias.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Crear Nuevo') }}
                                 </a>
                               </div>
                         </div>
@@ -35,10 +35,10 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
-										<th>Codigofamilia</th>
+
+										<th>Codigo</th>
 										<th>Nombre</th>
-										<th>Segmento Id</th>
+										<th>Segmento</th>
 
                                         <th></th>
                                     </tr>
@@ -47,18 +47,18 @@
                                     @foreach ($familias as $familia)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
+
 											<td>{{ $familia->codigofamilia }}</td>
 											<td>{{ $familia->nombre }}</td>
-											<td>{{ $familia->segmento_id }}</td>
+											<td>{{ $familia->segmento->nombre }}</td>
 
                                             <td>
                                                 <form action="{{ route('familias.destroy',$familia->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('familias.show',$familia->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('familias.edit',$familia->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('familias.show',$familia->id) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('familias.edit',$familia->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
                                                 </form>
                                             </td>
                                         </tr>

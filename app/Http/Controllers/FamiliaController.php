@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Familia;
+use App\Segmento;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +33,8 @@ class FamiliaController extends Controller
     public function create()
     {
         $familia = new Familia();
-        return view('familia.create', compact('familia'));
+        $segmento = Segmento::pluck('nombre', 'id');
+        return view('familia.create', compact('familia', 'segmento'));
     }
 
     /**
@@ -48,7 +50,7 @@ class FamiliaController extends Controller
         $familia = Familia::create($request->all());
 
         return redirect()->route('familias.index')
-            ->with('success', 'Familia created successfully.');
+            ->with('success', 'Familia creada con Exito.');
     }
 
     /**
@@ -73,8 +75,8 @@ class FamiliaController extends Controller
     public function edit($id)
     {
         $familia = Familia::find($id);
-
-        return view('familia.edit', compact('familia'));
+        $segmento = Segmento::pluck('nombre', 'id');
+        return view('familia.edit', compact('familia', 'segmento'));
     }
 
     /**
@@ -91,7 +93,7 @@ class FamiliaController extends Controller
         $familia->update($request->all());
 
         return redirect()->route('familias.index')
-            ->with('success', 'Familia updated successfully');
+            ->with('success', 'Familia modificada con Exito.');
     }
 
     /**
@@ -104,6 +106,6 @@ class FamiliaController extends Controller
         $familia = Familia::find($id)->delete();
 
         return redirect()->route('familias.index')
-            ->with('success', 'Familia deleted successfully');
+            ->with('success', 'Familia eliminada con Exito');
     }
 }

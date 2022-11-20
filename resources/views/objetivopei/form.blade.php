@@ -3,8 +3,8 @@
     <div class="row">
     <div class="col-md-2">
         <div class="form-group">
-            {{ Form::label('Numeral') }}
-            {{ Form::text('objetivopei', $objetivopei->objetivopei, ['class' => 'form-control' . ($errors->has('objetivopei') ? ' is-invalid' : ''), 'placeholder' => 'Ingrese Numeracion']) }}
+            {{ Form::label('Codigo') }}
+            {{ Form::text('objetivopei', $objetivopei->objetivopei, ['class' => 'form-control' . ($errors->has('objetivopei') ? ' is-invalid' : ''), 'placeholder' => 'Ingrese Codigo']) }}
             {!! $errors->first('objetivopei', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>

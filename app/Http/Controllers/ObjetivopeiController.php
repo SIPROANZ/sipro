@@ -33,8 +33,9 @@ class ObjetivopeiController extends Controller
     public function create()
     {
         $objetivopei = new Objetivopei();
-        $objmunicipal = Objetivomunicipale::pluck('objetivo', 'id');
-        return view('objetivopei.edit', compact('objetivopei','objmunicipal'));
+        $objetivomunicipale = Objetivomunicipale::pluck('objetivo', 'id');
+        //dd($objetivomunicipale);
+        return view('objetivopei.create', compact('objetivopei','objetivomunicipale'));
     }
 
     /**
@@ -75,8 +76,8 @@ class ObjetivopeiController extends Controller
     public function edit($id)
     {
         $objetivopei = Objetivopei::find($id);
-        $objmunicipal = Objetivomunicipale::pluck('objetivo', 'id');
-        return view('objetivopei.edit', compact('objetivopei','objmunicipal'));
+        $objetivomunicipale = Objetivomunicipale::pluck('objetivo', 'id');
+        return view('objetivopei.edit', compact('objetivopei','objetivomunicipale'));
     }
 
     /**

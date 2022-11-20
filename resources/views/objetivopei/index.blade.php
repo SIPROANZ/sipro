@@ -50,7 +50,7 @@
 
 											<td>{{ $objetivopei->objetivopei }}</td>
 											<td>{{ $objetivopei->objetivo }}</td>
-											<td>{{ $objetivopei->municipal_id }}</td>
+											<td>{{ $objetivopei->objetivomunicipale->objetivo }}</td>
 
                                             <td>
                                                 <form action="{{ route('objetivopeis.destroy',$objetivopei->id) }}" method="POST">

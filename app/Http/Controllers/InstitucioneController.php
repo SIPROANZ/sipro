@@ -82,7 +82,7 @@ class InstitucioneController extends Controller
     public function edit($id)
     {
         $institucione = Institucione::find($id);
-        $municipio = Municipio::pluck('nombre', 'id');
+        $objmunicipal = Municipio::pluck('nombre', 'id');
 
         return view('institucione.edit', compact('institucione', 'municipio'));
     }

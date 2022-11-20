@@ -22,7 +22,7 @@
     <div class="col-md-12">
         <div class="form-group">
             {{ Form::label('Objetivo Municipal') }}
-            {{ Form::select('municipal_id', $objmunicipal, $objetivopei->municipal_id, ['class' => 'form-control' . ($errors->has('municipal_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione Objetivo Municipal']) }}
+            {{ Form::select('municipal_id', $objetivomunicipale, $objetivopei->municipal_id, ['class' => 'form-control' . ($errors->has('municipal_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione Objetivo Municipal']) }}
             {!! $errors->first('municipal_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>

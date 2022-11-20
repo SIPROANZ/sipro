@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Objetivopei;
+use App\Objetivomunicipale;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +33,8 @@ class ObjetivopeiController extends Controller
     public function create()
     {
         $objetivopei = new Objetivopei();
-        return view('objetivopei.create', compact('objetivopei'));
+        $objmunicipal = Objetivomunicipale::pluck('objetivo', 'id');
+        return view('objetivopei.edit', compact('objetivopei','objmunicipal'));
     }
 
     /**
@@ -73,8 +75,8 @@ class ObjetivopeiController extends Controller
     public function edit($id)
     {
         $objetivopei = Objetivopei::find($id);
-
-        return view('objetivopei.edit', compact('objetivopei'));
+        $objmunicipal = Objetivomunicipale::pluck('objetivo', 'id');
+        return view('objetivopei.edit', compact('objetivopei','objmunicipal'));
     }
 
     /**
@@ -91,7 +93,7 @@ class ObjetivopeiController extends Controller
         $objetivopei->update($request->all());
 
         return redirect()->route('objetivopeis.index')
-            ->with('success', 'Objetivopei updated successfully');
+            ->with('success', 'Objetivo PEI modificada con Exito.');
     }
 
     /**
@@ -104,6 +106,6 @@ class ObjetivopeiController extends Controller
         $objetivopei = Objetivopei::find($id)->delete();
 
         return redirect()->route('objetivopeis.index')
-            ->with('success', 'Objetivopei deleted successfully');
+            ->with('success', 'Objetivo PEI eliminada con Exito');
     }
 }

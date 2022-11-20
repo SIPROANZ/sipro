@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Update Objetivopei
+    Editar Plan Estratégico Institucional
 @endsection
 
 @section('content')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Institucione;
+use App\Municipio;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +33,8 @@ class InstitucioneController extends Controller
     public function create()
     {
         $institucione = new Institucione();
-        return view('institucione.create', compact('institucione'));
+        $municipio = Municipio::pluck('nombre', 'id');
+        return view('institucione.create', compact('institucione', 'municipio'));
     }
 
     /**
@@ -45,10 +47,17 @@ class InstitucioneController extends Controller
     {
         request()->validate(Institucione::$rules);
 
-        $institucione = Institucione::create($request->all());
+        /*         if ($request->hasFile('logoinstitucion')) {
+                    $institucione['logoinstitucion']=$request->file('logoinstitucion')->store('uploads','public');
+                }
+                if ($request->hasFile('organigrama')) {
+                    $institucione['organigrama']=$request->file('organigrama')->store('uploads','public');
+                }
+                Institucione::create($request->all()); */
+                $institucione = Institucione::create($request->all());
 
-        return redirect()->route('instituciones.index')
-            ->with('success', 'Institucione created successfully.');
+                return redirect()->route('institucione.index')
+                    ->with('success', 'Institución creada con Exito.');
     }
 
     /**
@@ -73,8 +82,9 @@ class InstitucioneController extends Controller
     public function edit($id)
     {
         $institucione = Institucione::find($id);
+        $municipio = Municipio::pluck('nombre', 'id');
 
-        return view('institucione.edit', compact('institucione'));
+        return view('institucione.edit', compact('institucione', 'municipio'));
     }
 
     /**
@@ -90,8 +100,8 @@ class InstitucioneController extends Controller
 
         $institucione->update($request->all());
 
-        return redirect()->route('instituciones.index')
-            ->with('success', 'Institucione updated successfully');
+        return redirect()->route('institucione.index')
+            ->with('success', 'Institución modificada con Exito.');
     }
 
     /**
@@ -103,7 +113,7 @@ class InstitucioneController extends Controller
     {
         $institucione = Institucione::find($id)->delete();
 
-        return redirect()->route('instituciones.index')
-            ->with('success', 'Institucione deleted successfully');
+        return redirect()->route('institucione.index')
+            ->with('success', 'Institución eliminada con Exito');
     }
 }

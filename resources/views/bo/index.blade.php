@@ -40,7 +40,6 @@
 										<th>Producto</th>
 										<th>Unidad de Medida</th>
 										<th>Tipo de BOS</th>
-
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -48,11 +47,10 @@
                                     @foreach ($bos as $bo)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-
 											<td>{{ $bo->descripcion }}</td>
-											<td>{{ $bo->producto->nombre }}</td>
+											<td>{{ $bo->producto_id }}</td>
 											<td>{{ $bo->unidadmedida->nombre }}</td>
-											<td>{{ $bo->tipobos->nombre }}</td>
+											<td>{{ $bo->tipobo->nombre }}</td>
 
                                             <td>
                                                 <form action="{{ route('bos.destroy',$bo->id) }}" method="POST">

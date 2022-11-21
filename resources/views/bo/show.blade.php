@@ -30,11 +30,11 @@
                         </div>
                         <div class="form-group">
                             <strong>Unidad de Medida:</strong>
-                            {{ $bo->unidadmedida_id }}
+                            {{ $bo->unidadmedida->nombre }}
                         </div>
                         <div class="form-group">
                             <strong>Tipo de BOS:</strong>
-                            {{ $bo->tipobos_id }}
+                            {{ $bo->tipobo->nombre }}
                         </div>
 
                     </div>

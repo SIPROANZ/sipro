@@ -8,7 +8,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('Producto') }}
-            {{ Form::select('producto_id', $producto,  $bo->producto_id, ['class' => 'form-control' . ($errors->has('producto_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione Producto']) }}
+            {{ Form::select('producto_id', $productoscp,  $bo->producto_id, ['class' => 'form-control' . ($errors->has('producto_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione Producto']) }}
             {!! $errors->first('producto_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">

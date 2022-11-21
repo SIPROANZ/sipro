@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bo;
 use App\Producto;
+use App\Productoscp;
 use App\Unidadmedida;
 use App\Tipobo;
 use Illuminate\Http\Request;
@@ -35,10 +36,10 @@ class BoController extends Controller
     public function create()
     {
         $bo = new Bo();
-        $producto = Producto::pluck('nombre', 'id');
+        $productoscp = Productoscp::pluck('id');
         $unidadmedida = Unidadmedida::pluck('nombre', 'id');
         $tipobo = Tipobo::pluck('nombre', 'id');
-        return view('bo.create', compact('bo', 'producto', 'unidadmedida', 'tipobo'));
+        return view('bo.create', compact('bo', 'productoscp', 'unidadmedida', 'tipobo'));
     }
 
     /**
@@ -79,10 +80,10 @@ class BoController extends Controller
     public function edit($id)
     {
         $bo = Bo::find($id);
-        $producto = Producto::pluck('nombre', 'id');
+        $productoscp = Productoscp::pluck('id');
         $unidadmedida = Unidadmedida::pluck('nombre', 'id');
         $tipobo = Tipobo::pluck('nombre', 'id');
-        return view('bo.edit', compact('bo', 'producto', 'unidadmedida', 'tipobo'));
+        return view('bo.edit', compact('bo', 'productoscp', 'unidadmedida', 'tipobo'));
     }
 
     /**

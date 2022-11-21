@@ -322,12 +322,18 @@ return [
                             'route'  => 'requisiciones.index',
                         ],
                         [
+                            'text' => 'Detalle Requisición',
+                            'icon'    => 'fas fa-fw fa-indent', //<i class="fas fa-indent"></i>
+                            'icon_color' => 'white',
+                            'route'  => 'requidetbos.index',
+                        ],
+                        [
                             'text' => 'Tipo Requisicion',
                             'icon'    => 'fas fa-fw fa-indent', //<i class="fas fa-indent"></i>
                             'icon_color' => 'white',
                             'route'  => 'tipossgps.index',
                         ],
-                        
+
                     ],
                 ],
                 //<i class="fas fa-clipboard-check"></i>
@@ -728,55 +734,55 @@ return [
                 [
                     'text' => 'BOS (Bienes, Obras, Servicios)',
                     'icon' => 'fas fa-fw fa-boxes', //<i class="fas fa-boxes"></i>
-                    'icon_color' => 'lightblue', 
+                    'icon_color' => 'lightblue',
                     'url'  => '#',
                     'submenu' => [
                         [
                             'text' => 'BOS',
                             'icon' => 'fas fa-fw fa-box-open', //<i class="fas fa-box-open"></i>
-                            'icon_color' => 'white', 
+                            'icon_color' => 'white',
                             'route'  => 'bos.index',
                         ],
                         [
                             'text' => 'Tipo BOS',
                             'icon' => 'fas fa-fw fa-grip-horizontal', //<i class="fas fa-grip-horizontal"></i>
-                            'icon_color' => 'white', 
+                            'icon_color' => 'white',
                             'route'  => 'tipobos.index',
                         ],
                         [
                             'text' => 'Segmentos',
                             'icon' => 'fas fa-fw fa-layer-group', //<i class="fas fa-layer-group"></i>
-                            'icon_color' => 'white', 
+                            'icon_color' => 'white',
                             'route'  => 'segmentos.index',
                         ],
                         [
                             'text' => 'Familias',
                             'icon' => 'fas fa-fw fa-list-ul', //<i class="fas fa-list-ul"></i>
-                            'icon_color' => 'white', 
+                            'icon_color' => 'white',
                             'route'  => 'familias.index',
                         ],
                         [
                             'text' => 'Clases',
                             'icon' => 'fas fa-fw fa-solar-panel', //<i class="fas fa-solar-panel"></i>
-                            'icon_color' => 'white', 
+                            'icon_color' => 'white',
                             'route'  => 'clases.index',
                         ],
                         [
                             'text' => 'Productos',
                             'icon' => 'fas fa-fw fa-luggage-cart', //<i class="fas fa-luggage-cart"></i>
-                            'icon_color' => 'white', 
+                            'icon_color' => 'white',
                             'route'  => 'productos.index',
                         ],
                         [
                             'text' => 'Productos CP',
                             'icon' => 'fas fa-fw fa-box-open', //<i class="fas fa-box-open"></i>
-                            'icon_color' => 'white', 
+                            'icon_color' => 'white',
                             'route'  => 'productoscps.index',
                         ],
                         [
                             'text' => 'Unidades de Medida',
                             'icon' => 'fas fa-fw fa-people-carry', //<i class="fas fa-people-carry"></i>
-                            'icon_color' => 'white', 
+                            'icon_color' => 'white',
                             'route'  => 'unidadmedidas.index',
                         ],
 
@@ -787,25 +793,25 @@ return [
                [
                     'text' => 'Instituciones',
                     'icon' => 'fas fa-fw fa-landmark', //<i class="fas fa-landmark"></i>
-                            'icon_color' => 'lightblue', 
+                            'icon_color' => 'lightblue',
                     'url'  => '#',
                     'submenu' => [
                         [
                             'text' => 'Instituciones',
                             'icon' => 'fas fa-fw fa-landmark', //<i class="fas fa-people-carry"></i>
-                            'icon_color' => 'white', 
+                            'icon_color' => 'white',
                             'route'  => 'instituciones.index',
                         ],
                         [
                             'text' => 'Estados',
                             'icon' => 'fas fa-fw fa-map-marked', //fa-map-marked
-                            'icon_color' => 'white', 
+                            'icon_color' => 'white',
                             'route'  => 'estados.index',
                         ],
                         [
                             'text' => 'Municipios',
                             'icon' => 'fas fa-fw fa-map-marked-alt', //<i class="fas fa-map-marked-alt"></i>
-                            'icon_color' => 'white', 
+                            'icon_color' => 'white',
                             'route'  => 'municipios.index',
                         ],
                     ]
@@ -820,25 +826,25 @@ return [
                     [
                         'text' => 'Ejecución',
                         'icon' => 'far fa-fw fa-calendar-check', //<i class="far fa-calendar-check"></i>
-                        'icon_color' => 'white', 
+                        'icon_color' => 'white',
                         'route'  => 'ejecuciones.index',
                     ],
                     [
                         'text' => 'Detalles Ejecucion',
                         'icon' => 'fas fa-fw fa-calendar-alt', //<i class="fas fa-calendar-alt"></i>
-                        'icon_color' => 'white', 
+                        'icon_color' => 'white',
                         'route'  => 'ejecuciondetalles.index',
                     ],
                     [
                         'text' => 'Clasificador Presupuestario',
                         'icon' => 'fas fa-fw fa-chart-bar', //<i class="fas fa-chart-bar"></i>
-                        'icon_color' => 'white', 
+                        'icon_color' => 'white',
                         'route'  => 'clasificadorpresupuestarios.index',
                     ],
                     [
                         'text' => 'Ejercicio Fiscal',
                         'icon' => 'fas fa-fw fa-map-marked-alt', //<i class="fas fa-calendar-check"></i>
-                        'icon_color' => 'white', 
+                        'icon_color' => 'white',
                         'route'  => 'ejercicios.index',
                     ],
                     [
@@ -855,12 +861,12 @@ return [
                     ],
                     ]
                 ],
-                
+
 
                 [
                     'text' => 'Unidad Administrativa',
                     'icon' => 'fas fa-fw fa-building', //<i class="fas fa-map-marked-alt"></i>
-                    'icon_color' => 'lightblue', 
+                    'icon_color' => 'lightblue',
                     'route'  => 'unidadadministrativas.index', //<i class="fas fa-building"></i>
                 ],
 
@@ -878,8 +884,8 @@ return [
                     'route'  => 'proveedores.index',
                 ],
 
-                
-                  
+
+
             ],
         ],
         //Seguridad

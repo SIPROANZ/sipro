@@ -91,3 +91,5 @@ Route::resource('detallesanalisis', App\Http\Controllers\DetallesanalisiControll
 
 Route::resource('compras', App\Http\Controllers\CompraController::class)->middleware('auth');
 
+Route::resource('requidetbos', App\Http\Controllers\RequidetboController::class)->middleware('auth');
+

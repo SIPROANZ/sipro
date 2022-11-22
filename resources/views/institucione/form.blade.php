@@ -3,9 +3,11 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
+                    {{-- @if (isset($task) && $task == 'edit') --}}
                     {{ Form::label('Logo') }}
-                    {{ Form::file('logoinstitucion', $institucione->logoinstitucion, ['class' => 'form-control' . ($errors->has('Logo') ? ' is-invalid' : ''), 'placeholder' => 'Logo Institución']) }}
+                    {{ Form::file('logoinstitucion', $institucione->logoinstitucion, ['class' => 'form-control' . ($errors->has('logoinstitucion') ? ' is-invalid' : ''), 'placeholder' => 'Logo Institución']) }}
                     {!! $errors->first('logoinstitucion', '<div class="invalid-feedback">:message</div>') !!}
+                    {{-- @endif --}}
                 </div>
             </div>
         </div>

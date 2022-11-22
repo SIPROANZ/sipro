@@ -8,6 +8,7 @@ use App\Productoscp;
 use App\Unidadmedida;
 use App\Tipobo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class BoController
@@ -36,7 +37,23 @@ class BoController extends Controller
     public function create()
     {
         $bo = new Bo();
-        $productoscp = Productoscp::pluck('id');
+
+        $producto = DB::table('productos')
+        ->join('productoscps', 'productos.id', '=', 'productoscps.producto_id')
+        ->select('productos.*','productoscps.*')
+        ->get();
+
+        $productoscp = $producto->pluck('nombre', 'id');
+
+        /* $productoscp = Productoscp::all();
+        $array = json_decode(json_encode($productoscp));
+        return $array[0]->producto_id->producto;
+        $producto = Producto::find($productoscp->producto_id); */
+
+        //$productoscp = Productoscp::pluck('id');
+ /*        $search = Producto::where("nombre",$productoscp)->productoscp;
+        return $search; */
+        //$productoscp = Productoscp::pluck('id');
         $unidadmedida = Unidadmedida::pluck('nombre', 'id');
         $tipobo = Tipobo::pluck('nombre', 'id');
         return view('bo.create', compact('bo', 'productoscp', 'unidadmedida', 'tipobo'));

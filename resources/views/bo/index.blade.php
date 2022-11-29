@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Bo
+    BOS (Bienes/Obras/Servicios)
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Bo') }}
+                                {{ __('BOS (Bienes/Obras/Servicios)') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('bos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Crear Nuevo') }}
                                 </a>
                               </div>
                         </div>
@@ -35,12 +35,11 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
-										<th>Descripcion</th>
-										<th>Producto Id</th>
-										<th>Unidadmedida Id</th>
-										<th>Tipobos Id</th>
 
+										<th>Descripcion</th>
+										<th>Producto</th>
+										<th>Unidad de Medida</th>
+										<th>Tipo de BOS</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -48,19 +47,18 @@
                                     @foreach ($bos as $bo)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
 											<td>{{ $bo->descripcion }}</td>
 											<td>{{ $bo->producto_id }}</td>
-											<td>{{ $bo->unidadmedida_id }}</td>
-											<td>{{ $bo->tipobos_id }}</td>
+											<td>{{ $bo->unidadmedida->nombre }}</td>
+											<td>{{ $bo->tipobo->nombre }}</td>
 
                                             <td>
                                                 <form action="{{ route('bos.destroy',$bo->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('bos.show',$bo->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('bos.edit',$bo->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('bos.show',$bo->id) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('bos.edit',$bo->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
                                                 </form>
                                             </td>
                                         </tr>

@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Bo;
+use App\Producto;
+use App\Productoscp;
+use App\Unidadmedida;
+use App\Tipobo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class BoController
@@ -32,7 +37,26 @@ class BoController extends Controller
     public function create()
     {
         $bo = new Bo();
-        return view('bo.create', compact('bo'));
+
+        $producto = DB::table('productos')
+        ->join('productoscps', 'productos.id', '=', 'productoscps.producto_id')
+        ->select('productos.*','productoscps.*')
+        ->get();
+
+        $productoscp = $producto->pluck('nombre', 'id');
+
+        /* $productoscp = Productoscp::all();
+        $array = json_decode(json_encode($productoscp));
+        return $array[0]->producto_id->producto;
+        $producto = Producto::find($productoscp->producto_id); */
+
+        //$productoscp = Productoscp::pluck('id');
+ /*        $search = Producto::where("nombre",$productoscp)->productoscp;
+        return $search; */
+        //$productoscp = Productoscp::pluck('id');
+        $unidadmedida = Unidadmedida::pluck('nombre', 'id');
+        $tipobo = Tipobo::pluck('nombre', 'id');
+        return view('bo.create', compact('bo', 'productoscp', 'unidadmedida', 'tipobo'));
     }
 
     /**
@@ -48,7 +72,7 @@ class BoController extends Controller
         $bo = Bo::create($request->all());
 
         return redirect()->route('bos.index')
-            ->with('success', 'Bo created successfully.');
+            ->with('success', 'BOS creada con Exito.');
     }
 
     /**
@@ -73,8 +97,10 @@ class BoController extends Controller
     public function edit($id)
     {
         $bo = Bo::find($id);
-
-        return view('bo.edit', compact('bo'));
+        $productoscp = Productoscp::pluck('id');
+        $unidadmedida = Unidadmedida::pluck('nombre', 'id');
+        $tipobo = Tipobo::pluck('nombre', 'id');
+        return view('bo.edit', compact('bo', 'productoscp', 'unidadmedida', 'tipobo'));
     }
 
     /**
@@ -91,7 +117,7 @@ class BoController extends Controller
         $bo->update($request->all());
 
         return redirect()->route('bos.index')
-            ->with('success', 'Bo updated successfully');
+            ->with('success', 'BOS modificada con Exito.');
     }
 
     /**
@@ -104,6 +130,6 @@ class BoController extends Controller
         $bo = Bo::find($id)->delete();
 
         return redirect()->route('bos.index')
-            ->with('success', 'Bo deleted successfully');
+            ->with('success', 'BOS eliminada con Exito');
     }
 }

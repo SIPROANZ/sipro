@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $familia->name ?? 'Show Familia' }}
+    {{ $familia->name ?? 'Ver Familia de BOS' }}
 @endsection
 
 @section('content')
@@ -11,17 +11,17 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Show Familia</span>
+                            <span class="card-title">Ver Familia de BOS</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('familias.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('familias.index') }}"> Regresar</a>
                         </div>
                     </div>
 
                     <div class="card-body">
-                        
+
                         <div class="form-group">
-                            <strong>Codigofamilia:</strong>
+                            <strong>Codigo:</strong>
                             {{ $familia->codigofamilia }}
                         </div>
                         <div class="form-group">
@@ -29,8 +29,8 @@
                             {{ $familia->nombre }}
                         </div>
                         <div class="form-group">
-                            <strong>Segmento Id:</strong>
-                            {{ $familia->segmento_id }}
+                            <strong>Segmento:</strong>
+                            {{ $familia->segmento->nombre }}
                         </div>
 
                     </div>

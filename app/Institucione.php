@@ -37,7 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Institucione extends Model
 {
-    
+
     static $rules = [
 		'rif' => 'required',
 		'institucion' => 'required',
@@ -47,8 +47,8 @@ class Institucione extends Model
 		'baselegal' => 'required',
 		'web' => 'required',
 		'codigopostal' => 'required',
-		'organigrama' => 'required',
-		'logoinstitucion' => 'required',
+		'organigrama' => 'mimes:jpeg,jpg,png|max:10240',
+		'logoinstitucion' => 'mimes:jpeg,jpg,png|max:10240',
 		'vision' => 'required',
 		'mision' => 'required',
 		'razonsocial' => 'required',
@@ -72,7 +72,7 @@ class Institucione extends Model
     {
         return $this->hasMany('App\Ejecuciondetalle', 'institucion_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -80,7 +80,7 @@ class Institucione extends Model
     {
         return $this->hasMany('App\Ejecucione', 'institucion_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -88,7 +88,7 @@ class Institucione extends Model
     {
         return $this->hasMany('App\Meta', 'institucion_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -96,7 +96,7 @@ class Institucione extends Model
     {
         return $this->hasOne('App\Municipio', 'id', 'municipio_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -104,7 +104,7 @@ class Institucione extends Model
     {
         return $this->hasMany('App\Poa', 'institucion_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -112,7 +112,7 @@ class Institucione extends Model
     {
         return $this->hasMany('App\Requisicione', 'institucion_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -120,6 +120,6 @@ class Institucione extends Model
     {
         return $this->hasMany('App\Unidadadministrativa', 'institucion_id', 'id');
     }
-    
+
 
 }

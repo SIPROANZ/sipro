@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Familia de BOS
+    Requidetbo
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Familia de BOS') }}
+                                {{ __('Requidetbo') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('familias.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nuevo') }}
+                                <a href="{{ route('requidetbos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Create New') }}
                                 </a>
                               </div>
                         </div>
@@ -35,30 +35,42 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-
-										<th>Codigo</th>
-										<th>Nombre</th>
-										<th>Segmento</th>
+                                        
+										<th>Requisicion Id</th>
+										<th>Poa Id</th>
+										<th>Meta Id</th>
+										<th>Financiamiento Id</th>
+										<th>Bos Id</th>
+										<th>Undmedida Id</th>
+										<th>Claspres</th>
+										<th>Descripcion</th>
+										<th>Cantidad</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($familias as $familia)
+                                    @foreach ($requidetbos as $requidetbo)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-
-											<td>{{ $familia->codigofamilia }}</td>
-											<td>{{ $familia->nombre }}</td>
-											<td>{{ $familia->segmento->nombre }}</td>
+                                            
+											<td>{{ $requidetbo->requisicion_id }}</td>
+											<td>{{ $requidetbo->poa_id }}</td>
+											<td>{{ $requidetbo->meta_id }}</td>
+											<td>{{ $requidetbo->financiamiento_id }}</td>
+											<td>{{ $requidetbo->bos_id }}</td>
+											<td>{{ $requidetbo->undmedida_id }}</td>
+											<td>{{ $requidetbo->claspres }}</td>
+											<td>{{ $requidetbo->descripcion }}</td>
+											<td>{{ $requidetbo->cantidad }}</td>
 
                                             <td>
-                                                <form action="{{ route('familias.destroy',$familia->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('familias.show',$familia->id) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('familias.edit',$familia->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                                <form action="{{ route('requidetbos.destroy',$requidetbo->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('requidetbos.show',$requidetbo->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('requidetbos.edit',$requidetbo->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -68,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $familias->links() !!}
+                {!! $requidetbos->links() !!}
             </div>
         </div>
     </div>

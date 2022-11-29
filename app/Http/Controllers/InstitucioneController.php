@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Institucione;
+use App\Municipio;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +33,8 @@ class InstitucioneController extends Controller
     public function create()
     {
         $institucione = new Institucione();
-        return view('institucione.create', compact('institucione'));
+        $municipio = Municipio::pluck('nombre', 'id');
+        return view('institucione.create', compact('institucione', 'municipio'));
     }
 
     /**
@@ -43,12 +45,22 @@ class InstitucioneController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Institucione::$rules);
-
-        $institucione = Institucione::create($request->all());
+        //dd($request)->validated()["logoinstitucion"]->getClientOriginalName();
+        $data = $request;
+        $data["logoinstitucion"] = $filename = time().".".$data["logoinstitucion"]->extension();
+        $request->logoinstitucion->move(public_path("images"), $filename);
+        dd($data["logoinstitucion"]);
+        /*         if ($request->hasFile('logoinstitucion')) {
+                    $institucione['logoinstitucion']=$request->file('logoinstitucion')->store('uploads','public');
+                }
+                if ($request->hasFile('organigrama')) {
+                    $institucione['organigrama']=$request->file('organigrama')->store('uploads','public');
+                }*/
+        //$institucione=update($data->validated());
+        $institucione = Institucione::create($data->all());
 
         return redirect()->route('instituciones.index')
-            ->with('success', 'Institucione created successfully.');
+            ->with('success', 'Institución creada con Exito.');
     }
 
     /**
@@ -73,8 +85,9 @@ class InstitucioneController extends Controller
     public function edit($id)
     {
         $institucione = Institucione::find($id);
+        $municipio = Municipio::pluck('nombre', 'id');
 
-        return view('institucione.edit', compact('institucione'));
+        return view('institucione.edit', compact('institucione', 'municipio'));
     }
 
     /**
@@ -87,11 +100,16 @@ class InstitucioneController extends Controller
     public function update(Request $request, Institucione $institucione)
     {
         request()->validate(Institucione::$rules);
+        //dd($request)->validated()["logoinstitucion"]->getClientOriginalName();
 
-        $institucione->update($request->all());
+        $data = $request;
+
+        $data["logoinstitucion"] = $filename = time().".".$data["logoinstitucion"]->extension();
+        $request->logoinstitucion->move(public_path("images"), $filename);
+        $institucione->update($data);
 
         return redirect()->route('instituciones.index')
-            ->with('success', 'Institucione updated successfully');
+            ->with('success', 'Institución modificada con Exito.');
     }
 
     /**
@@ -104,6 +122,6 @@ class InstitucioneController extends Controller
         $institucione = Institucione::find($id)->delete();
 
         return redirect()->route('instituciones.index')
-            ->with('success', 'Institucione deleted successfully');
+            ->with('success', 'Institución eliminada con Exito');
     }
 }

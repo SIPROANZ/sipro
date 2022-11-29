@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Objetivopei
+    Objetivo Plan Estratégico Institucional
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Objetivos PEI') }}
+                                {{ __('Objetivos Plan Estratégico Institucional') }}
                             </span>
 
                              <div class="float-right">
@@ -35,7 +35,7 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
+
 										<th>Numeral</th>
 										<th>Objetivo PEI</th>
 										<th>Objetivo Municipal</th>
@@ -47,10 +47,10 @@
                                     @foreach ($objetivopeis as $objetivopei)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
+
 											<td>{{ $objetivopei->objetivopei }}</td>
 											<td>{{ $objetivopei->objetivo }}</td>
-											<td>{{ $objetivopei->municipal_id }}</td>
+											<td>{{ $objetivopei->objetivomunicipale->objetivo }}</td>
 
                                             <td>
                                                 <form action="{{ route('objetivopeis.destroy',$objetivopei->id) }}" method="POST">

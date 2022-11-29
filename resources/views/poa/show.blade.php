@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Ver Poa</span>
+                            <span class="card-title">Ver Plan operativo anual</span>
                         </div>
                         <div class="float-right">
                             <a class="btn btn-primary" href="{{ route('poas.index') }}"> Regresar</a>
@@ -21,39 +21,39 @@
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Ejercicio Id:</strong>
+                            <strong>Ejercicio:</strong>
                             {{ $poa->ejercicio_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Institucion Id:</strong>
+                            <strong>Institucion:</strong>
                             {{ $poa->institucion_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Historico Id:</strong>
+                            <strong>Historico:</strong>
                             {{ $poa->historico_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Nacional Id:</strong>
+                            <strong>Nacional:</strong>
                             {{ $poa->nacional_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Estrategico Id:</strong>
+                            <strong>Estrategico:</strong>
                             {{ $poa->estrategico_id }}
                         </div>
                         <div class="form-group">
-                            <strong>General Id:</strong>
+                            <strong>General:</strong>
                             {{ $poa->general_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Municipal Id:</strong>
+                            <strong>Municipal:</strong>
                             {{ $poa->municipal_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Pei Id:</strong>
+                            <strong>PEI:</strong>
                             {{ $poa->pei_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Unidadadministrativa Id:</strong>
+                            <strong>Unidad administrativa:</strong>
                             {{ $poa->unidadadministrativa_id }}
                         </div>
                         <div class="form-group">
@@ -61,11 +61,11 @@
                             {{ $poa->proyecto }}
                         </div>
                         <div class="form-group">
-                            <strong>Objetivoproyecto:</strong>
+                            <strong>Objetivo proyecto:</strong>
                             {{ $poa->objetivoproyecto }}
                         </div>
                         <div class="form-group">
-                            <strong>Montoproyecto:</strong>
+                            <strong>Monto proyecto:</strong>
                             {{ $poa->montoproyecto }}
                         </div>
                         <div class="form-group">
@@ -77,15 +77,15 @@
                             {{ $poa->tipo }}
                         </div>
                         <div class="form-group">
-                            <strong>Sncfestrategico:</strong>
+                            <strong>SNCF estrategico:</strong>
                             {{ $poa->sncfestrategico }}
                         </div>
                         <div class="form-group">
-                            <strong>Sncfespecifico:</strong>
+                            <strong>SNCF especifico:</strong>
                             {{ $poa->sncfespecifico }}
                         </div>
                         <div class="form-group">
-                            <strong>Psocial:</strong>
+                            <strong>P. social:</strong>
                             {{ $poa->psocial }}
                         </div>
                         <div class="form-group">
@@ -93,7 +93,7 @@
                             {{ $poa->codigo }}
                         </div>
                         <div class="form-group">
-                            <strong>Tipoproyecto:</strong>
+                            <strong>Tipo proyecto:</strong>
                             {{ $poa->tipoproyecto }}
                         </div>
                         <div class="form-group">

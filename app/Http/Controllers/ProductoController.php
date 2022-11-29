@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Producto;
+use App\Clase;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +33,8 @@ class ProductoController extends Controller
     public function create()
     {
         $producto = new Producto();
-        return view('producto.create', compact('producto'));
+        $clases = Clase::pluck('nombre', 'id');
+        return view('producto.create', compact('producto','clases'));
     }
 
     /**
@@ -48,7 +50,7 @@ class ProductoController extends Controller
         $producto = Producto::create($request->all());
 
         return redirect()->route('productos.index')
-            ->with('success', 'Producto created successfully.');
+            ->with('success', 'Producto creado exitosamente.');
     }
 
     /**
@@ -73,8 +75,8 @@ class ProductoController extends Controller
     public function edit($id)
     {
         $producto = Producto::find($id);
-
-        return view('producto.edit', compact('producto'));
+        $clases = Clase::pluck('nombre', 'id');
+        return view('producto.edit', compact('producto','clases'));
     }
 
     /**
@@ -91,7 +93,7 @@ class ProductoController extends Controller
         $producto->update($request->all());
 
         return redirect()->route('productos.index')
-            ->with('success', 'Producto updated successfully');
+            ->with('success', 'Producto actualizado exitosamente');
     }
 
     /**
@@ -104,6 +106,6 @@ class ProductoController extends Controller
         $producto = Producto::find($id)->delete();
 
         return redirect()->route('productos.index')
-            ->with('success', 'Producto deleted successfully');
+            ->with('success', 'Producto eliminado exitosamente');
     }
 }

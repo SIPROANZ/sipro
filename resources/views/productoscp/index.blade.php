@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Productoscp') }}
+                                {{ __('Producto Clasificador presupuestario') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('productoscps.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nuevo Producto CP') }}
+                                  {{ __('Crear Nuevo Producto Clasificador presupuestario') }}
                                 </a>
                               </div>
                         </div>
@@ -34,10 +34,10 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                        <th style="text-align: center">No</th>
                                         
-										<th>Producto Id</th>
-										<th>Clasificadorp Id</th>
+										<th style="text-align: center">Producto</th>
+										<th style="text-align: center">Clasificador presupuestario</th>
 
                                         <th></th>
                                     </tr>
@@ -47,8 +47,8 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $productoscp->producto_id }}</td>
-											<td>{{ $productoscp->clasificadorp_id }}</td>
+											<td style="text-align: center">{{ $productoscp->producto->nombre }}</td>
+											<td style="text-align: center">{{ $productoscp->clasificadorpresupuestario->denominacion}}</td>
 
                                             <td>
                                                 <form action="{{ route('productoscps.destroy',$productoscp->id) }}" method="POST">

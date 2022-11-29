@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('detallesanalisis', function (Blueprint $table) {
             $table->id();
+
             $table->bigInteger('proveedor_id')->unsigned();
             $table->bigInteger('analisis_id')->unsigned();
             $table->bigInteger('bos_id')->unsigned();
@@ -28,7 +29,7 @@ return new class extends Migration
             $table->foreign('proveedor_id')->references('id')->on('proveedores')->onDelete('cascade');
             $table->foreign('analisis_id')->references('id')->on('analisis')->onDelete('cascade');
             $table->foreign('bos_id')->references('id')->on('bos')->onDelete('cascade');
-
+            
             $table->timestamps();
         });
     }

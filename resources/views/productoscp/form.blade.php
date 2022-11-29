@@ -5,13 +5,13 @@
         
         <div class="col-md-4">
         <div class="form-group">
-            {{ Form::label('producto_id') }}
-            {{ Form::text('producto_id', $productoscp->producto_id, ['class' => 'form-control' . ($errors->has('producto_id') ? ' is-invalid' : ''), 'placeholder' => 'producto_id']) }}
+            {{ Form::label('Producto') }}
+            {{ Form::select('producto_id', $productos, $productoscp->producto_id, ['class' => 'form-control' . ($errors->has('producto_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione el producto']) }}
             {!! $errors->first('producto_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-5">
         <div class="form-group">
             {{ Form::label('clasificadorpresupuestario') }}
             {{ Form::select('clasificadorp_id', $clasificadorpresupuestarios, $productoscp->clasificadorp_id, ['class' => 'form-control' . ($errors->has('clasificadorp_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione el clasificador Presupuestario']) }}

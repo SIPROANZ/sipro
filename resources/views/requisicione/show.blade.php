@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Ver Requisicione</span>
+                            <span class="card-title">Ver Requisicion</span>
                         </div>
                         <div class="float-right">
                             <a class="btn btn-primary" href="{{ route('requisiciones.index') }}"> Regresar</a>
@@ -21,6 +21,22 @@
                     <div class="card-body">
                         
                         <div class="form-group">
+                            <strong>Ejercicio:</strong>
+                            {{ $requisicione->ejercicio_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Institucion:</strong>
+                            {{ $requisicione->institucion_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Unidad administrativa:</strong>
+                            {{ $requisicione->unidadadministrativa_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Correlativo:</strong>
+                            {{ $requisicione->correlativo }}
+                        </div>
+                        <div class="form-group">
                             <strong>Concepto:</strong>
                             {{ $requisicione->concepto }}
                         </div>
@@ -29,23 +45,7 @@
                             {{ $requisicione->uso }}
                         </div>
                         <div class="form-group">
-                            <strong>Ejercicio Id:</strong>
-                            {{ $requisicione->ejercicio_id }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Institucion Id:</strong>
-                            {{ $requisicione->institucion_id }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Unidadadministrativa Id:</strong>
-                            {{ $requisicione->unidadadministrativa_id }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Correlativo:</strong>
-                            {{ $requisicione->correlativo }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Tiposgp Id:</strong>
+                            <strong>Tipo requisicion:</strong>
                             {{ $requisicione->tiposgp_id }}
                         </div>
                         <div class="form-group">

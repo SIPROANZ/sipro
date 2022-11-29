@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Producto
+    Detallesrequisicione
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Producto') }}
+                                {{ __('Detalles requisiciones') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('productos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nuevo Producto') }}
+                                <a href="{{ route('detallesrequisiciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear Nuevo Detalles Requisiciones') }}
                                 </a>
                               </div>
                         </div>
@@ -34,28 +34,28 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th style="text-align: center">No</th>
+                                        <th>No</th>
                                         
-										<th style="text-align: center">Codigo producto</th>
-										<th style="text-align: center">Nombre</th>
-										<th style="text-align: center">Clase</th>
+										<th>Requisicion</th>
+										<th>Bos</th>
+										<th>Cantidad</th>
 
-                                        <th></th>
+                                        <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($productos as $producto)
+                                    @foreach ($detallesrequisiciones as $detallesrequisicione)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td style="text-align: center">{{ $producto->codigoproducto }}</td>
-											<td style="text-align: center">{{ $producto->nombre }}</td>
-											<td style="text-align: center">{{ $producto->clase->nombre }}</td>
+											<td>{{ $detallesrequisicione->requisicione->concepto }}</td>
+											<td>{{ $detallesrequisicione->bo->descripcion }}</td>
+											<td>{{ $detallesrequisicione->cantidad }}</td>
 
                                             <td>
-                                                <form action="{{ route('productos.destroy',$producto->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('productos.show',$producto->id) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('productos.edit',$producto->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                                <form action="{{ route('detallesrequisiciones.destroy',$detallesrequisicione->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('detallesrequisiciones.show',$detallesrequisicione->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('detallesrequisiciones.edit',$detallesrequisicione->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $productos->links() !!}
+                {!! $detallesrequisiciones->links() !!}
             </div>
         </div>
     </div>

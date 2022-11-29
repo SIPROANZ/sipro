@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Productoscp;
-use App\Productos;
+use App\Producto;
 use App\Clasificadorpresupuestario;
 
 use Illuminate\Http\Request;
@@ -37,15 +37,12 @@ class ProductoscpController extends Controller
     {
         $productoscp = new Productoscp();
 
-        $clasificadorpresupuestarios  = Clasificadorpresupuestario::pluck('cuenta', 'id');
-      //  $productos  = Producto::pluck('Codproducto', 'id');
-      return view('productoscp.create', compact('productoscp' , 'clasificadorpresupuestarios'));
+        $productos = Producto::pluck('nombre', 'id');
+        $clasificadorpresupuestarios = Clasificadorpresupuestario::pluck('denominacion', 'id'); 
+      
+      return view('productoscp.create', compact('productoscp' , 'productos',  'clasificadorpresupuestarios'));
 
-      //  return view('productoscp.create', compact('productoscp' , 'clasificadorpresupuestarios', 'productos'));
-
-        $productos  = Producto::pluck('Codproducto', 'id');
-        return view('productoscp.create', compact('productoscp' , 'productos'));
-
+       
     }
 
     /**
@@ -61,7 +58,7 @@ class ProductoscpController extends Controller
         $productoscp = Productoscp::create($request->all());
 
         return redirect()->route('productoscps.index')
-            ->with('success', 'Productoscp created successfully.');
+            ->with('success', 'Productos clasificador presupuestario creado exitosamente.');
     }
 
     /**
@@ -87,10 +84,10 @@ class ProductoscpController extends Controller
     {
         $productoscp = Productoscp::find($id);
 
-        $clasificadorpresupuestarios = Clasificadorpresupuestario::pluck('cuenta', 'id');
         $productos = Producto::pluck('nombre', 'id');
+        $clasificadorpresupuestarios = Clasificadorpresupuestario::pluck('denominacion', 'id');        
 
-        return view('productoscp.edit', compact('productoscp' , 'clasificadorpresupuestarios', 'productos'));
+        return view('productoscp.edit', compact('productoscp' , 'productos', 'clasificadorpresupuestarios'));
 
     }
 
@@ -108,7 +105,7 @@ class ProductoscpController extends Controller
         $productoscp->update($request->all());
 
         return redirect()->route('productoscps.index')
-            ->with('success', 'Productoscp updated successfully');
+            ->with('success', 'Productos clasificador presupuestario actualizado exitosamente.');
     }
 
     /**
@@ -121,6 +118,6 @@ class ProductoscpController extends Controller
         $productoscp = Productoscp::find($id)->delete();
 
         return redirect()->route('productoscps.index')
-            ->with('success', 'Productoscp deleted successfully');
+            ->with('success', 'Productos clasificador presupuestario eliminado exitosamente.');
     }
 }

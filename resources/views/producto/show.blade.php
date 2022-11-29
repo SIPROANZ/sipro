@@ -21,7 +21,7 @@
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Codigoproducto:</strong>
+                            <strong>Codigo producto:</strong>
                             {{ $producto->codigoproducto }}
                         </div>
                         <div class="form-group">
@@ -29,7 +29,7 @@
                             {{ $producto->nombre }}
                         </div>
                         <div class="form-group">
-                            <strong>Clase Id:</strong>
+                            <strong>Clase:</strong>
                             {{ $producto->clase_id }}
                         </div>
 

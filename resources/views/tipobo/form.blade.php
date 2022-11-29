@@ -5,8 +5,8 @@
 
     <div class="col-md-4">
         <div class="form-group">
-            {{ Form::label('nombre') }}
-            {{ Form::text('nombre', $tipobo->nombre, ['class' => 'form-control' . ($errors->has('nombre') ? ' is-invalid' : ''), 'placeholder' => 'Nombre']) }}
+            {{ Form::label('Nombre') }}
+            {{ Form::text('nombre', $tipobo->nombre, ['class' => 'form-control' . ($errors->has('nombre') ? ' is-invalid' : ''), 'placeholder' => '']) }}
             {!! $errors->first('nombre', '<div class="invalid-feedback">:message</div>') !!}
         </div>
     </div>

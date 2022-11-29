@@ -48,7 +48,7 @@ class TipoboController extends Controller
         $tipobo = Tipobo::create($request->all());
 
         return redirect()->route('tipobos.index')
-            ->with('success', 'Tipobo created successfully.');
+            ->with('success', 'Tipo BOS creado exitosamente.');
     }
 
     /**
@@ -91,7 +91,7 @@ class TipoboController extends Controller
         $tipobo->update($request->all());
 
         return redirect()->route('tipobos.index')
-            ->with('success', 'Tipobo updated successfully');
+            ->with('success', 'Tipo BOS actualizado exitosamente');
     }
 
     /**
@@ -104,6 +104,6 @@ class TipoboController extends Controller
         $tipobo = Tipobo::find($id)->delete();
 
         return redirect()->route('tipobos.index')
-            ->with('success', 'Tipobo deleted successfully');
+            ->with('success', 'Tipo BOS eliminado exitosamente');
     }
 }

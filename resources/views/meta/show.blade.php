@@ -21,23 +21,23 @@
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Poa Id:</strong>
+                            <strong>Plan operativo anual</strong>
                             {{ $meta->poa_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Cantidad1:</strong>
+                            <strong>Cant.1:</strong>
                             {{ $meta->cantidad1 }}
                         </div>
                         <div class="form-group">
-                            <strong>Cantidad2:</strong>
+                            <strong>Cant.2:</strong>
                             {{ $meta->cantidad2 }}
                         </div>
                         <div class="form-group">
-                            <strong>Cantidad3:</strong>
+                            <strong>Cant.3:</strong>
                             {{ $meta->cantidad3 }}
                         </div>
                         <div class="form-group">
-                            <strong>Cantidad4:</strong>
+                            <strong>Cant.4:</strong>
                             {{ $meta->cantidad4 }}
                         </div>
                         <div class="form-group">
@@ -49,15 +49,15 @@
                             {{ $meta->monto }}
                         </div>
                         <div class="form-group">
-                            <strong>Ejercicio Id:</strong>
+                            <strong>Ejercicio:</strong>
                             {{ $meta->ejercicio_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Institucion Id:</strong>
+                            <strong>Institucion:</strong>
                             {{ $meta->institucion_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Unidadadministrativa Id:</strong>
+                            <strong>Unidad administrativa:</strong>
                             {{ $meta->unidadadministrativa_id }}
                         </div>
                         <div class="form-group">
@@ -113,11 +113,11 @@
                             {{ $meta->diciembre }}
                         </div>
                         <div class="form-group">
-                            <strong>Unidadmedida:</strong>
+                            <strong>Unidad medida:</strong>
                             {{ $meta->unidadmedida }}
                         </div>
                         <div class="form-group">
-                            <strong>Unidadadministrativasolicitante:</strong>
+                            <strong>Unidad administrativa solicitante:</strong>
                             {{ $meta->unidadadministrativasolicitante }}
                         </div>
                         <div class="form-group">

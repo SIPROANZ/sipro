@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $productoscp->name ?? 'Show Productoscp' }}
+    {{ $detallesrequisicione->name ?? 'Show Detallesrequisicione' }}
 @endsection
 
 @section('content')
@@ -11,22 +11,26 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Ver Productos Clasificador presupuestario</span>
+                            <span class="card-title">Show Detallesrequisicione</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('productoscps.index') }}"> Regresar</a>
+                            <a class="btn btn-primary" href="{{ route('detallesrequisiciones.index') }}"> Back</a>
                         </div>
                     </div>
 
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Producto:</strong>
-                            {{ $productoscp->producto_id }}
+                            <strong>Requisicion Id:</strong>
+                            {{ $detallesrequisicione->requisicion_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Clasificador presupuestario:</strong>
-                            {{ $productoscp->clasificadorp_id }}
+                            <strong>Bos Id:</strong>
+                            {{ $detallesrequisicione->bos_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Cantidad:</strong>
+                            {{ $detallesrequisicione->cantidad }}
                         </div>
 
                     </div>

@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('bos', function (Blueprint $table) {
             $table->id();
+
             $table->text('descripcion');
 
             $table->bigInteger('producto_id')->unsigned();
             $table->bigInteger('unidadmedida_id')->unsigned();
             $table->bigInteger('tipobos_id')->unsigned();
 
-            $table->foreign('producto_id')->references('id')->on('productoscps')->onDelete('cascade');
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
             $table->foreign('unidadmedida_id')->references('id')->on('unidadmedidas')->onDelete('cascade');
             $table->foreign('tipobos_id')->references('id')->on('tipobos')->onDelete('cascade');
 

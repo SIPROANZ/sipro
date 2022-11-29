@@ -322,6 +322,12 @@ return [
                             'route'  => 'requisiciones.index',
                         ],
                         [
+                            'text' => 'Detalles Requisicion',
+                            'icon'    => 'fas fa-fw fa-indent', //<i class="fas fa-indent"></i>
+                            'icon_color' => 'white',
+                            'route'  => 'detallesrequisiciones.index',
+                        ],
+                        [
                             'text' => 'Tipo Requisicion',
                             'icon'    => 'fas fa-fw fa-indent', //<i class="fas fa-indent"></i>
                             'icon_color' => 'white',
@@ -674,8 +680,8 @@ return [
                     'url'  => '#',
                     'submenu' => [
                         [
-                            'text' => 'POA',
-                            'icon'    => 'fas fa-fw fa-file-alt',
+                            'text' => 'Plan Operativo Anual', //<i class="fas fa-calendar-alt"></i>
+                            'icon'    => 'fas fa-fw fa-calendar-alt',
                             'icon_color' => 'white',
                             'route'  => 'poas.index',
                         ],

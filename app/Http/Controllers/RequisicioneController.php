@@ -7,6 +7,7 @@ use App\Ejercicio;
 use App\Institucione;
 use App\Unidadadministrativa;
 use App\Tipossgp;
+use App\Detallesrequisicione;
 use Illuminate\Http\Request;
 
 /**
@@ -73,6 +74,25 @@ class RequisicioneController extends Controller
         $requisicione = Requisicione::find($id);
 
         return view('requisicione.show', compact('requisicione'));
+    }
+
+    /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregar($id)
+    {
+        $requisicione = Requisicione::find($id);
+        //Creare una variable de sesion para guardar el id de esta requisicion
+        session(['requisicion' => $id]);
+
+        //Consulto los datos especificos para la requisicion seleccionada
+        $detallesrequisiciones = Detallesrequisicione::where('requisicion_id','=',$id)->paginate();
+
+        return view('requisicione.agregar', compact('requisicione', 'detallesrequisiciones'))
+        ->with('i', (request()->input('page', 1) - 1) * $detallesrequisiciones->perPage());
     }
 
     /**

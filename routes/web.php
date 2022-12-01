@@ -93,3 +93,4 @@ Route::resource('compras', App\Http\Controllers\CompraController::class)->middle
 
 Route::resource('detallesrequisiciones', App\Http\Controllers\DetallesrequisicioneController::class)->middleware('auth');
 
+Route::get('/requisiciones/agregar/{requisicione}', [App\Http\Controllers\RequisicioneController::class, 'agregar'])->name('requisiciones.agregar')->middleware('auth');

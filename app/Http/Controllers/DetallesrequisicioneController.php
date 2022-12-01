@@ -54,8 +54,20 @@ class DetallesrequisicioneController extends Controller
 
         $detallesrequisicione = Detallesrequisicione::create($request->all());
 
+        $requisicion = session('requisicion');
+
+        //Para recuperar el id de la requisicion solo si existe route('requisiciones.agregar',$requisicione->id)
+        if(session()->has('requisicion')){
+            return redirect()->route('requisiciones.agregar',$requisicion)
+            ->with('success', 'BOS Agregado Exitosamente. Desea agregar un nuevo item');
+        }else{
+            return redirect()->route('requisiciones.index')
+            ->with('success', 'BOS Agregado Exitosamente.');
+        }
+
+        /*
         return redirect()->route('detallesrequisiciones.index')
-            ->with('success', 'Detallesrequisicione created successfully.');
+            ->with('success', 'Detallesrequisicione created successfully.'); */
     }
 
     /**

@@ -5,7 +5,7 @@
         <div class="col-md-3">
                 <div class="form-group">
                     {{ Form::label('Ejercicio_id') }}
-                    {{ Form::text('ejercicio_id', $unidadadministrativa->ejercicio_id, ['class' => 'form-control' . ($errors->has('ejercicio_id') ? ' is-invalid' : ''), 'placeholder' => 'Ejercicio Id']) }}
+                    {{ Form::select('ejercicio_id', $ejercicio, $unidadadministrativa->ejercicio_id, ['class' => 'form-control' . ($errors->has('ejercicio_id') ? ' is-invalid' : ''), 'placeholder' => 'Selecione un ejercicio']) }}
                     {!! $errors->first('ejercicio_id', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
             </div>
@@ -57,13 +57,6 @@
                     {{ Form::label('Unidad Ejecutora') }}
                     {{ Form::text('unidadejecutora', $unidadadministrativa->unidadejecutora, ['class' => 'form-control' . ($errors->has('unidadejecutora') ? ' is-invalid' : ''), 'placeholder' => 'Unidad Ejecutora']) }}
                     {!! $errors->first('unidadejecutora', '<div class="invalid-feedback">:message</div>') !!}
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    {{ Form::label('Institucion_id') }}
-                    {{ Form::text('institucion_id', $unidadadministrativa->institucion_id, ['class' => 'form-control' . ($errors->has('institucion_id') ? ' is-invalid' : ''), 'placeholder' => 'Institución Id']) }}
-                    {!! $errors->first('institucion_id', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
             </div>
             <div class="col-md-3">

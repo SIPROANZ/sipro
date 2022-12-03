@@ -50,7 +50,7 @@
                                             
 											<td class="text-center">{{ $clase->codigoclase }}</td>
 											<td class="text-center">{{ $clase->nombre }}</td>
-											<td class="text-center">{{ $clase->familia_id }}</td>
+											<td class="text-center">{{ $clase->familia->nombre}}</td>
                                             
                                             <td class="text-center">
                                                 <form action="{{ route('clases.destroy',$clase->id) }}" method="POST">

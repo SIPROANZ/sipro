@@ -34,10 +34,8 @@
                             <table class="table table-hover table-bordered table-striped">
                                 <thead class="thead">
                                     <tr>
-                                        <th class="text-center">No</th>
-                                        
-										<th class="text-center">EjercicioId</th>
-										<th class="text-center">InstituciónId</th>
+                                        <th class="text-center">Nro</th>
+										<th class="text-center">Ejercicio Id</th>
 										<th class="text-center">UnidadadministrativaId</th>
 										<th class="text-center">MetaId</th>
 										<th class="text-center">Clasificadorpresupuestario</th>
@@ -63,12 +61,11 @@
                                         <tr>
                                             <td class="text-center">{{ ++$i }}</td>
                                             
-											<td class="text-center">{{ $ejecucione->ejercicio_id }}</td>
-											<td class="text-center">{{ $ejecucione->institucion_id }}</td>
-											<td class="text-center">{{ $ejecucione->unidadadministrativa_id }}</td>
-											<td class="text-center">{{ $ejecucione->meta_id }}</td>
+											<td class="text-center">{{ $ejecucione->ejercicio->nombreejercicio }}</td>
+											<td class="text-center">{{ $ejecucione->unidadadministrativa->sector }}</td>
+											<td class="text-center">{{ $ejecucione->meta->meta }}</td>
 											<td class="text-center">{{ $ejecucione->clasificadorpresupuestario }}</td>
-											<td class="text-center">{{ $ejecucione->financiamiento_id }}</td>
+											<td class="text-center">{{ $ejecucione->financiamiento->financiamiento }}</td>
 											<td class="text-center">{{ $ejecucione->monto_inicial }}</td>
 											<td class="text-center">{{ $ejecucione->monto_aumento }}</td>
 											<td class="text-center">{{ $ejecucione->monto_disminuye }}</td>
@@ -80,7 +77,7 @@
 											<td class="text-center">{{ $ejecucione->monto_por_comprometer }}</td>
 											<td class="text-center">{{ $ejecucione->monto_por_causar }}</td>
 											<td class="text-center">{{ $ejecucione->monto_por_pagar }}</td>
-											<td class="text-center">{{ $ejecucione->poa_id }}</td>
+											<td class="text-center">{{ $ejecucione->poa->proyecto}}</td>
 
                                             <td class="text-center">
                                                 <form action="{{ route('ejecuciones.destroy',$ejecucione->id) }}" method="POST">

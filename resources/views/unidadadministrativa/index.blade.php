@@ -34,8 +34,7 @@
                             <table class="table table-hover table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th  class="text-center">Nro.</th>
-										<th  class="text-center">Ejercicio_Id</th>
+                                    <th  class="text-center">Ejercicio_Id</th>
 										<th  class="text-center">Sector</th>
 										<th  class="text-center">Programa</th>
 										<th  class="text-center">Subprograma</th>
@@ -51,13 +50,12 @@
 										<th  class="text-center">Descripción</th>
 										<th  class="text-center">Inversión</th>
 										<th  class="text-center">Nivel_ejecutor</th>
-                                        <th  class="text-center">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($unidadadministrativas as $unidadadministrativa)
                                         <tr>
-                                            <td  class="text-center">{{ ++$i }}</td>
+                                        <td  class="text-center">{{ ++$i }}</td>
                                             
 											<td  class="text-center">{{ $unidadadministrativa->ejercicio_id }}</td>
 											<td  class="text-center">{{ $unidadadministrativa->sector }}</td>

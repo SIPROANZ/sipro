@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Unidadadministrativa;
+use App\Ejercicio;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +33,8 @@ class UnidadadministrativaController extends Controller
     public function create()
     {
         $unidadadministrativa = new Unidadadministrativa();
-        return view('unidadadministrativa.create', compact('unidadadministrativa'));
+        $ejercicio = Ejercicio::pluck('nombreejercicio', 'id'); 
+        return view('unidadadministrativa.create', compact('unidadadministrativa' , 'ejercicio'));
     }
 
     /**

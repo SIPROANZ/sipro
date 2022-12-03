@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Ejecucione;
+use App\Ejercicio;
+use App\Unidadadministrativa;
+use App\Meta;
+use App\Financiamiento;
+use App\Poa;
 use Illuminate\Http\Request;
+
 
 /**
  * Class EjecucioneController
@@ -32,7 +38,13 @@ class EjecucioneController extends Controller
     public function create()
     {
         $ejecucione = new Ejecucione();
-        return view('ejecucione.create', compact('ejecucione'));
+        $ejercicio = Ejercicio::pluck('nombreejercicio', 'id'); 
+        $unidadadministrativa = Unidadadministrativa::pluck('sector' , 'id'); 
+        $meta = Meta::pluck('meta' , 'id'); 
+        $financiamiento = Financiamiento::pluck('nombre', 'id'); 
+        $poa = Poa::pluck('proyecto', 'id');
+
+        return view('ejecucione.create', compact('ejecucione' , 'ejercicio' , 'unidadadministrativa' , 'meta' , 'financiamiento' , 'poa'));
     }
 
     /**

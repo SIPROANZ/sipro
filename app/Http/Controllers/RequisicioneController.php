@@ -103,6 +103,8 @@ class RequisicioneController extends Controller
     public function agregar($id)
     {
         $requisicione = Requisicione::find($id);
+
+
         //Creare una variable de sesion para guardar el id de esta requisicion
         session(['requisicion' => $id]);
 

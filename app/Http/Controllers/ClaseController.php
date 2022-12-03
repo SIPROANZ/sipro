@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Clase;
+use App\Familia;
 use Illuminate\Http\Request;
 
 /**
@@ -32,10 +33,8 @@ class ClaseController extends Controller
     public function create()
     {
       $clase = new Clase();
-     /* $familia = Familia::pluck('nombre', 'id'); */
-
-      /* return view('clase.create', compact('clase' , 'familia'));*/
-       return view('clase.create', compact('clase'));
+      $familia = Familia::pluck('nombre', 'id'); 
+      return view('clase.create', compact('clase' , 'familia'));
     }
 
     /**

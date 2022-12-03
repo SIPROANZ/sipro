@@ -13,11 +13,12 @@
         </div>
         <div class="form-group">
             {{ Form::label('Familia_id') }}
-            {{ Form::text('familia_id', $clase->familia_id, ['class' => 'form-control' . ($errors->has('familia_id') ? ' is-invalid' : ''), 'placeholder' => 'Familia Id']) }}
+            {{ Form::select('familia_id', $familia, $clase->familia_id, ['class' => 'form-control' . ($errors->has('familia_id') ? ' is-invalid' : ''), 'placeholder' => 'Selecione una familia']) }}
             {!! $errors->first('familia_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 
     </div>
+    <br>
     <div class="box-footer mt20">
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>

@@ -50,15 +50,16 @@
                                             
 											<td class="text-center">{{ $objetivogenerale->objetivogeneral }}</td>
 											<td class="text-center">{{ $objetivogenerale->objetivo }}</td>
-											<td class="text-center">{{ $objetivogenerale->estrategico_id }}</td>
+											<td class="text-center">{{ $objetivogenerale->objetivosestrategico->objetivo }}</td>
 
+                        
                                             <td class="text-center">
                                                 <form action="{{ route('objetivogenerales.destroy',$objetivogenerale->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('objetivogenerales.show',$objetivogenerale->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('objetivogenerales.edit',$objetivogenerale->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('objetivogenerales.show',$objetivogenerale->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('objetivogenerales.edit',$objetivogenerale->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
                                                 </form>
                                             </td>
                                         </tr>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Objetivogenerale;
+use App\Objetivosestrategico;
+
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +34,8 @@ class ObjetivogeneraleController extends Controller
     public function create()
     {
         $objetivogenerale = new Objetivogenerale();
-        return view('objetivogenerale.create', compact('objetivogenerale'));
+        $objetivosestrategico = Objetivosestrategico::pluck('objetivo', 'id'); 
+        return view('objetivogenerale.create', compact('objetivogenerale', 'objetivosestrategico'));
     }
 
     /**

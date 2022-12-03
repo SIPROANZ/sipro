@@ -13,7 +13,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('estrategico_id') }}
-            {{ Form::text('estrategico_id', $objetivogenerale->estrategico_id, ['class' => 'form-control' . ($errors->has('estrategico_id') ? ' is-invalid' : ''), 'placeholder' => 'Estrategico Id']) }}
+            {{ Form::select('estrategico_id', $objetivosestrategico, $objetivogenerale->estrategico_id, ['class' => 'form-control' . ($errors->has('estrategico_id') ? ' is-invalid' : ''), 'placeholder' => 'Selecione una estrategia']) }}
             {!! $errors->first('estrategico_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 

@@ -14,7 +14,7 @@
                             <span class="card-title">Mostrar Unidad administrativa</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('unidadadministrativas.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('unidadadministrativas.index') }}">Volver</a>
                         </div>
                     </div>
 
@@ -51,10 +51,6 @@
                         <div class="form-group">
                             <strong>Unidadejecutora:</strong>
                             {{ $unidadadministrativa->unidadejecutora }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Institucion Id:</strong>
-                            {{ $unidadadministrativa->institucion_id }}
                         </div>
                         <div class="form-group">
                             <strong>Nivel:</strong>

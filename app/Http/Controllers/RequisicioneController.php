@@ -9,6 +9,7 @@ use App\Unidadadministrativa;
 use App\Tipossgp;
 use App\Detallesrequisicione;
 use Illuminate\Http\Request;
+use PDF;
 
 /**
  * Class RequisicioneController
@@ -27,6 +28,23 @@ class RequisicioneController extends Controller
 
         return view('requisicione.index', compact('requisiciones'))
             ->with('i', (request()->input('page', 1) - 1) * $requisiciones->perPage());
+    }
+
+     /**
+     * Crear pdf de la requisicion seleccionada
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf($id)
+    {
+        
+        $requisicione = Requisicione::find($id);
+        $detallesrequisiciones = Detallesrequisicione::where('requisicion_id','=',$id)->paginate();
+
+        $pdf = PDF::loadView('requisicione.pdf', ['requisicione'=>$requisicione, 'detallesrequisiciones'=>$detallesrequisiciones]);
+        return $pdf->stream();
+
+        
     }
 
     /**

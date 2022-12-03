@@ -69,6 +69,9 @@
                                                     <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.agregar',$requisicione->id) }}"><i class="fa fa-fw fa-eye"></i> Detalles BOS</a>
                                                     
                                                     <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.show',$requisicione->id) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                                   
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.pdf',$requisicione->id) }}"><i class="fa fa-fw fa-eye"></i> Imprimir</a>
+                                                   
                                                     <a class="btn btn-sm btn-success" href="{{ route('requisiciones.edit',$requisicione->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')

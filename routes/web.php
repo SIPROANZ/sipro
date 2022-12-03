@@ -53,7 +53,7 @@ Route::resource('productos', App\Http\Controllers\ProductoController::class)->mi
 
 Route::resource('productoscps', App\Http\Controllers\ProductoscpController::class)->middleware('auth');
 
-Route::resource('requisiciones', App\Http\Controllers\RequisicioneController::class)->middleware('auth');
+//Route::resource('requisiciones', App\Http\Controllers\RequisicioneController::class)->middleware('auth');
 
 Route::resource('poas', App\Http\Controllers\PoaController::class)->middleware('auth');
 
@@ -94,3 +94,7 @@ Route::resource('compras', App\Http\Controllers\CompraController::class)->middle
 Route::resource('detallesrequisiciones', App\Http\Controllers\DetallesrequisicioneController::class)->middleware('auth');
 
 Route::get('/requisiciones/agregar/{requisicione}', [App\Http\Controllers\RequisicioneController::class, 'agregar'])->name('requisiciones.agregar')->middleware('auth');
+
+Route::get('requisiciones/pdf/{requisicione}', [App\Http\Controllers\RequisicioneController::class, 'pdf'])->name('requisiciones.pdf')->middleware('auth');
+
+Route::resource('requisiciones', App\Http\Controllers\RequisicioneController::class)->middleware('auth');

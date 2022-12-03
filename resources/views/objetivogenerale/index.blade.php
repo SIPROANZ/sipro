@@ -38,7 +38,7 @@
                                         
 										<th class="text-center">Objetivo General</th>
 										<th class="text-center">Objetivo</th>
-										<th class="text-center">Estrategico Id</th>
+										<th class="text-center">Objetivo Estrategico</th>
 
                                         <th class="text-center">Acción</th>
                                     </tr>

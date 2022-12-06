@@ -23,7 +23,7 @@
                         
                         <div class="form-group">
                             <strong>Unidad administrativa:</strong>
-                            {{ $requisicione->unidadadministrativa_id }}
+                            {{ $requisicione->unidadadministrativa->denominacion }}
                         </div>
                         <div class="form-group">
                             <strong>Correlativo:</strong>
@@ -60,7 +60,7 @@
 
                              <div class="float-right">
                                 <a href="{{ route('detallesrequisiciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nuevo Detalles Requisiciones') }}
+                                  {{ __('Agregar Nuevo Detalle') }}
                                 </a>
                               </div>
                         </div>
@@ -77,7 +77,6 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Requisicion</th>
 										<th>Bos</th>
 										<th>Cantidad</th>
 
@@ -89,13 +88,12 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $detallesrequisicione->requisicione->concepto }}</td>
 											<td>{{ $detallesrequisicione->bo->descripcion }}</td>
 											<td>{{ $detallesrequisicione->cantidad }}</td>
 
                                             <td>
                                                 <form action="{{ route('detallesrequisiciones.destroy',$detallesrequisicione->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('detallesrequisiciones.show',$detallesrequisicione->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
+                                                    
                                                     <a class="btn btn-sm btn-success" href="{{ route('detallesrequisiciones.edit',$detallesrequisicione->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')

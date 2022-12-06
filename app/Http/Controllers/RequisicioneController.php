@@ -24,9 +24,35 @@ class RequisicioneController extends Controller
      */
     public function index()
     {
-        $requisiciones = Requisicione::paginate();
+        $requisiciones = Requisicione::where('estatus', 'EP')->paginate();
 
         return view('requisicione.index', compact('requisiciones'))
+            ->with('i', (request()->input('page', 1) - 1) * $requisiciones->perPage());
+    }
+
+    /**
+     * Display requisiciones procesadas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexprocesadas()
+    {
+        $requisiciones = Requisicione::where('estatus', 'PR')->paginate();
+
+        return view('requisicione.procesadas', compact('requisiciones'))
+            ->with('i', (request()->input('page', 1) - 1) * $requisiciones->perPage());
+    }
+
+    /**
+     * Display requisiciones anuladas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexanuladas()
+    {
+        $requisiciones = Requisicione::where('estatus', 'AN')->paginate();
+
+        return view('requisicione.anuladas', compact('requisiciones'))
             ->with('i', (request()->input('page', 1) - 1) * $requisiciones->perPage());
     }
 
@@ -58,7 +84,7 @@ class RequisicioneController extends Controller
 
         $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
         $instituciones = Institucione::pluck('institucion', 'id');
-        $unidadadministrativas = Unidadadministrativa::pluck('sector', 'id');
+        $unidadadministrativas = Unidadadministrativa::pluck('denominacion', 'id');
         $tipossgps = Tipossgp::pluck('denominacion' , 'id');
 
        return view('requisicione.create', compact('requisicione' , 'ejercicios' , 'instituciones' , 'unidadadministrativas', 'tipossgps'));
@@ -127,7 +153,7 @@ class RequisicioneController extends Controller
 
         $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
         $instituciones = Institucione::pluck('institucion', 'id');
-        $unidadadministrativas = Unidadadministrativa::pluck('sector', 'id');
+        $unidadadministrativas = Unidadadministrativa::pluck('denominacion', 'id');
         $tipossgps = Tipossgp::pluck('denominacion' , 'id');
 
        return view('requisicione.edit', compact('requisicione' , 'ejercicios' , 'instituciones' , 'unidadadministrativas', 'tipossgps'));
@@ -162,5 +188,35 @@ class RequisicioneController extends Controller
 
         return redirect()->route('requisiciones.index')
             ->with('success', 'Requisicione eliminado exitosamente.');
+    }
+
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UNA REQUISICION
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function anular($id)
+    {
+        $requisicione = Requisicione::find($id);
+        $requisicione->estatus = 'AN';
+        $requisicione->save();
+
+        return redirect()->route('requisiciones.index')
+            ->with('success', 'Requisicion Anulada exitosamente.');
+    }
+
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A PROCESADO CUANDO YA ESTA aprobada la requisicion
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function aprobar($id)
+    {
+        $requisicione = Requisicione::find($id);
+        $requisicione->estatus = 'PR';
+        $requisicione->save();
+
+        return redirect()->route('requisiciones.index')
+            ->with('success', 'Requisicion Procesada exitosamente.');
     }
 }

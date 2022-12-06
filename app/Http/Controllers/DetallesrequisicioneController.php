@@ -52,9 +52,14 @@ class DetallesrequisicioneController extends Controller
     {
         request()->validate(Detallesrequisicione::$rules);
 
+        //Obtener el id de la requisicion
+        $requisicion = session('requisicion');
+        $request->requisicion_id=$requisicion; //cambiar el valor a la variable, para q se haga en el servidor y no en el cliente
+
+
         $detallesrequisicione = Detallesrequisicione::create($request->all());
 
-        $requisicion = session('requisicion');
+        
 
         //Para recuperar el id de la requisicion solo si existe route('requisiciones.agregar',$requisicione->id)
         if(session()->has('requisicion')){
@@ -113,8 +118,18 @@ class DetallesrequisicioneController extends Controller
 
         $detallesrequisicione->update($request->all());
 
-        return redirect()->route('detallesrequisiciones.index')
-            ->with('success', 'Detallesrequisicione updated successfully');
+        //Obtener el id de la requisicion
+         $requisicion = session('requisicion');
+         //Para recuperar el id de la requisicion solo si existe route('requisiciones.agregar',$requisicione->id)
+         if(session()->has('requisicion')){
+            return redirect()->route('requisiciones.agregar',$requisicion)
+            ->with('success', 'BOS Agregado Exitosamente. Desea agregar un nuevo item');
+        }else{
+            return redirect()->route('requisiciones.index')
+            ->with('success', 'BOS Agregado Exitosamente.');
+        }
+      /*  return redirect()->route('detallesrequisiciones.index')
+            ->with('success', 'Detallesrequisicione updated successfully');*/
     }
 
     /**
@@ -125,8 +140,17 @@ class DetallesrequisicioneController extends Controller
     public function destroy($id)
     {
         $detallesrequisicione = Detallesrequisicione::find($id)->delete();
-
-        return redirect()->route('detallesrequisiciones.index')
-            ->with('success', 'Detallesrequisicione deleted successfully');
+        
+        //Obtener el id de la requisicion
+        $requisicion = session('requisicion');
+        if(session()->has('requisicion')){
+            return redirect()->route('requisiciones.agregar',$requisicion)
+            ->with('success', 'BOS Eliminado Exitosamente. Desea agregar un nuevo item');
+        }else{
+            return redirect()->route('requisiciones.index')
+            ->with('success', 'BOS Eliminado Exitosamente.');
+        }
+       /* return redirect()->route('detallesrequisiciones.index')
+            ->with('success', 'Detallesrequisicione deleted successfully');*/
     }
 }

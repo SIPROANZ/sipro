@@ -16,18 +16,19 @@
 
 <style>
     body{
-      font-family: sans-serif;
+      font-family: arial, sans-serif;
+      margin: 45mm 8mm 2mm 8mm;
       
     }
     @page {
-      margin: 160px 50px;
+       margin: 160px 50px;
     }
     header { position: fixed;
       left: 0px;
       top: -160px;
       right: 0px;
       height: 100px;
-      background-color: #ddd;
+      background-color: #ffffff;
       text-align: center;
     }
     header h1{
@@ -56,13 +57,51 @@
     footer .izq {
       text-align: left;
     }
-  </style>
+    table{
+      border-collapse: collapse;
+      width:100%;
+    }
+    td, th {
+      border: 1px solid #dddddd;
+      text-aling:left;
+      padding: 8px;
+    }
+    tr:nth-child(even){
+      background-color: #dddddd;
+    }
+
+    </style>
 
 
 
 </head>
 <body>
-  <header> <h1>REQUISICION</h1></header> 
+  <header> 
+  <!-- Tabla para el encabezado -->  
+  <!-- DETALLES DE LA REQUISICION-->
+  <table class="table table-striped table-hover">
+                                <thead class="thead">
+                                    <tr>
+                                        
+										<th>LOGO GOBERNACIÓN</th>
+										<th>REPÚBLICA BOLIVARIANA DE VENEZUELA <br>GOBERNACIÓN DEL ESTADO ANZOATEGUI</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                      <tr>
+                                           
+											<td>LOGO GOBERNACION</td>
+											<td>GOBERNACIÓN DEL ESTADO ANZOATEGUI</td>
+
+                                        </tr>
+                                   
+                                </tbody>
+                            </table>
+    
+
+
+  </header> 
   <footer></footer> 
 
   <!-- DATOS DE LA REQUISICION -->
@@ -89,18 +128,20 @@
     <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        
-										<th>Descripcion</th>
-										<th>Cantidad</th>
+                                    <th>CANTIDAD</th>
+                                    <th>UNIDAD</th>                     
+										                <th>DESCRIPCIÓN</th>
+										
 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($detallesrequisiciones as $detallesrequisicione)
                                         <tr>
-                                           
-											<td>{{ $detallesrequisicione->bo->descripcion }}</td>
-											<td>{{ $detallesrequisicione->cantidad }}</td>
+                                        <td>{{ $detallesrequisicione->cantidad }}</td>
+                                        <td>{{ $detallesrequisicione->cantidad }}</td>                    
+											                  <td>{{ $detallesrequisicione->bo->descripcion }}</td>
+											
 
                                         </tr>
                                     @endforeach

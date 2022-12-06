@@ -97,4 +97,13 @@ Route::get('/requisiciones/agregar/{requisicione}', [App\Http\Controllers\Requis
 
 Route::get('requisiciones/pdf/{requisicione}', [App\Http\Controllers\RequisicioneController::class, 'pdf'])->name('requisiciones.pdf')->middleware('auth');
 
+Route::get('requisiciones/procesadas', [App\Http\Controllers\RequisicioneController::class, 'indexprocesadas'])->name('requisiciones.procesadas')->middleware('auth');
+
+Route::get('requisiciones/anuladas', [App\Http\Controllers\RequisicioneController::class, 'indexanuladas'])->name('requisiciones.anuladas')->middleware('auth');
+
+Route::patch('/requisiciones/anular/{requisicione}', [App\Http\Controllers\RequisicioneController::class, 'anular'])->name('requisiciones.anular')->middleware('auth');
+
+Route::patch('/requisiciones/aprobar/{requisicione}', [App\Http\Controllers\RequisicioneController::class, 'aprobar'])->name('requisiciones.aprobar')->middleware('auth');
+
 Route::resource('requisiciones', App\Http\Controllers\RequisicioneController::class)->middleware('auth');
+

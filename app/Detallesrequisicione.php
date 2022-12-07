@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property Bo $bo
  * @property Requisicione $requisicione
+ * @property Unidadmedida $unidadmedida
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
@@ -52,6 +53,14 @@ class Detallesrequisicione extends Model
     public function requisicione()
     {
         return $this->hasOne('App\Requisicione', 'id', 'requisicion_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function unidadmedida()
+    {
+        return $this->hasOne('App\Unidadmedida', 'id', 'unidadmedida_id');
     }
     
 

@@ -9,6 +9,7 @@ use App\Unidadadministrativa;
 use App\Tipossgp;
 use App\Detallesrequisicione;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PDF;
 
 /**
@@ -65,7 +66,16 @@ class RequisicioneController extends Controller
     {
         
         $requisicione = Requisicione::find($id);
-        $detallesrequisiciones = Detallesrequisicione::where('requisicion_id','=',$id)->paginate();
+        // $detallesrequisiciones = Detallesrequisicione::where('requisicion_id','=',$id)->paginate();
+
+        //Obtener las unidades de medidas de los productos, tenemos bos, producto, unidad medida
+         $detallesrequisiciones = DB::table('detallesrequisiciones')
+            ->where('requisicion_id', $id)
+            ->join('bos', 'bos.id', '=', 'detallesrequisiciones.bos_id') 
+            ->join('unidadmedidas', 'unidadmedidas.id', '=', 'bos.unidadmedida_id')
+            ->select('detallesrequisiciones.cantidad', 'bos.descripcion', 'unidadmedidas.nombre')
+            ->get(); 
+            
 
         $pdf = PDF::loadView('requisicione.pdf', ['requisicione'=>$requisicione, 'detallesrequisiciones'=>$detallesrequisiciones]);
         return $pdf->stream();

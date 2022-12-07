@@ -13,7 +13,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
   -->
-
+<!--
 <style>
     body{
       font-family: arial, sans-serif;
@@ -72,14 +72,15 @@
 
     </style>
 
-
+ Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
 <body>
   <header> 
   <!-- Tabla para el encabezado -->  
   <!-- DETALLES DE LA REQUISICION-->
-  <table class="table table-striped table-hover">
+  <table class="table table-secondary">
                                 <thead class="thead">
                                     <tr>
                                         
@@ -89,16 +90,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                      <tr>
-                                           
-											<td>LOGO GOBERNACION</td>
-											<td>GOBERNACIÓN DEL ESTADO ANZOATEGUI</td>
-
-                                        </tr>
+                       
                                    
                                 </tbody>
                             </table>
     
+
 
 
   </header> 
@@ -107,12 +104,20 @@
   <!-- DATOS DE LA REQUISICION -->
 
                         <div class="form-group">
-                            <strong>Unidad administrativa:</strong>
-                            {{ $requisicione->unidadadministrativa_id }}
+                            <strong>NUMERO: REQ -</strong>
+                            {{ $requisicione->correlativo }}
                         </div>
                         <div class="form-group">
-                            <strong>Correlativo:</strong>
-                            {{ $requisicione->correlativo }}
+                            <strong>TIPO: </strong>
+                            {{ $requisicione->tipossgp->denominacion }}
+                        </div>
+                        <div class="form-group">
+                            <strong>FECHA</strong>
+                            {{ $requisicione->created_at }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Unidad administrativa:</strong>
+                            {{ $requisicione->unidadadministrativa->denominacion }}
                         </div>
                         <div class="form-group">
                             <strong>Concepto:</strong>
@@ -124,8 +129,16 @@
                         </div>
 
                         <br><br>
+                <!-- MMENSAJE -->
+                        <div class="form-group">
+                            <strong> Me dirijo a usted en la oportunidad de solicitar el trámite para llevar a cabo la entrega del requerimiento que se especifica a
+                            continuación.</strong>
+                        </div>
+                          <br><br>
+
+                          
     <!-- DETALLES DE LA REQUISICION-->
-    <table class="table table-striped table-hover">
+    <table class="table">
                                 <thead class="thead">
                                     <tr>
                                     <th>CANTIDAD</th>
@@ -139,12 +152,50 @@
                                     @foreach ($detallesrequisiciones as $detallesrequisicione)
                                         <tr>
                                         <td>{{ $detallesrequisicione->cantidad }}</td>
-                                        <td>{{ $detallesrequisicione->cantidad }}</td>                    
-											                  <td>{{ $detallesrequisicione->bo->descripcion }}</td>
+                                        <td>{{ $detallesrequisicione->nombre }}</td>                    
+											                  <td>{{ $detallesrequisicione->descripcion }}</td>
 											
 
                                         </tr>
                                     @endforeach
+                                </tbody>
+                            </table>
+
+                            <!-- A#O DEL PRESUPUESTO -->
+                        <div class="form-group">
+                            <strong> AÑO DEL PRESUPUESTO {{ $requisicione->ejercicio->ejercicioejecucion }}</strong>
+                        </div>
+                          <br><br>
+
+                          <!-- tabla para colocar el sector de la unidad administrativa -->
+    <table class="table table-sm">
+                                <thead class="thead">
+                                    <tr>
+                                    <th>SECTOR</th>
+                                    <th>PROGRAMA</th>                     
+										                <th>ACTIVIDAD</th>
+
+                                    <th>META</th>
+                                    <th>PARTIDA</th>
+                                    <th>GENERICA</th>
+
+                                    <th>ESPECIFICA</th>
+                                    <th>SUB-ESP</th>
+										
+
+                                    </tr>
+                                </thead>
+                                <tbody>   
+                                  <tr>
+                                        <td> {{ $requisicione->unidadadministrativa->sector }}</td>
+                                        <td> {{ $requisicione->unidadadministrativa->programa }}</td>
+                                        <td> {{ $requisicione->unidadadministrativa->actividad }}</td>
+                                        <td>falta</td>
+                                        <td>falta</td>
+                                        <td>falta</td>
+                                        <td>falta</td>
+                                        <td>falta</td>
+                                   </tr>
                                 </tbody>
                             </table>
     

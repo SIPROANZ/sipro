@@ -199,6 +199,11 @@
                                 </tbody>
                             </table>
     
+                            @foreach ($partidas as $valor)
+                                       {{ $valor }}
+											
 
+                                        
+                                    @endforeach
 </body>
 </html>

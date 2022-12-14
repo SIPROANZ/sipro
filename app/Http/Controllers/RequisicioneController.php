@@ -75,9 +75,21 @@ class RequisicioneController extends Controller
             ->join('unidadmedidas', 'unidadmedidas.id', '=', 'bos.unidadmedida_id')
             ->select('detallesrequisiciones.cantidad', 'bos.descripcion', 'unidadmedidas.nombre')
             ->get(); 
+
+        // Obtener las partidas que tienen que ver con esta requisicion a traves del bos y productos
+        //declaro mi arrray partidas
+        $partidas = array('4.01.06.00.53');
+       
+        $clasificador = '4.01.05.00.52';
+        //Verifico si la partida existe dentro del array, en caso de no existir la agrego, y si existe hago otra consulta
+        if(in_array($clasificador, $partidas)){
+           //no hacer nada
+        }else {
+            $partidas[] = $clasificador;
+        }
             
 
-        $pdf = PDF::loadView('requisicione.pdf', ['requisicione'=>$requisicione, 'detallesrequisiciones'=>$detallesrequisiciones]);
+        $pdf = PDF::loadView('requisicione.pdf', ['requisicione'=>$requisicione, 'detallesrequisiciones'=>$detallesrequisiciones, 'partidas'=>$partidas]);
         return $pdf->stream();
 
         

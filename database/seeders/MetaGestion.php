@@ -21,7 +21,7 @@ class MetaGestion extends Seeder
         $json = File::get("database/data/metagestion.json");
             $data = json_decode($json);
             foreach ($data as $obj) {
-                Poa::create(array(
+                Meta::create(array(
                 'id' => $obj->id,
                 'poa_id' => $obj->poa_id,
                 'cantidad_1' => $obj->cantidad_1,

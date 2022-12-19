@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Detallesrequisicione;
 use App\Requisicione;
 use App\Bo;
+use App\Requidetclaspre;
+use App\Clasificadorpresupuestario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class DetallesrequisicioneController
@@ -59,12 +62,89 @@ class DetallesrequisicioneController extends Controller
 
         $detallesrequisicione = Detallesrequisicione::create($request->all());
 
+        //Obtener el ID de la unidad administrativa a partir de la requisicion
+        $unidad_administrativa_id = 0;
+        $unidad = Requisicione::find($requisicion);
+        $unidad_administrativa_id = $unidad->unidadadministrativa_id;
+        $ejercicio_id = $unidad->ejercicio_id;
+        $bos_id = $request->bos_id;
+        //Obtener el id del producto mediante el modelo bos y el id del bos que viene en el request
+        $producto_id = 0;
+        $producto = Bo::find($bos_id);
+        $producto_id = $producto->producto_id;
+        //A partir del producto id obtener el id del clasificador presupuestario
+        $clasificador_presupuestario = "";
+        $cuenta = DB::table('productoscps')->where('producto_id', $producto_id)->first(); //first() obtiene uno solo
+        $clasificador_id = $cuenta->clasificadorp_id;                                                       //get() obtiene todos los resultados
+        //Antes obtuve el ID del clasificador ahora obtengo la cuenta o el clasificador presupuestario que esta 
+        //asociado a este producto
+        $rs_clasificador = Clasificadorpresupuestario::find($clasificador_id);
+        $clasificador_presupuestario = $rs_clasificador->cuenta;
+
+        //Buscar ejecucion a partir del id de la unidad administrativa y del clasificador presupuestario
+        //que esta asociado al producto, e irlo agregando, y antes de agregar verificar que no exista en
+        //dicha tabla para dicha requisicion de no existir se agrega en caso contrario no se hace nada.
+        $ejecucion_id = 0;
+        $ejecucion = DB::table('ejecuciones')->where('ejercicio_id', $ejercicio_id)->where('unidadadministrativa_id', $unidad_administrativa_id)->where('clasificadorpresupuestario', $clasificador_presupuestario)->first();
+
+        $ejecucion_id = $ejecucion->id;
+        $poa_id = $ejecucion->poa_id;
+        $meta_id = $ejecucion->meta_id;
+        $financiamiento_id = $ejecucion->financiamiento_id;
+        $disponible = $ejecucion->monto_por_comprometer;
+
+         
+
+        //Consultar si esta registrado en la base de datos y crear un array con todos los datos obtenidos
+        $req_clasificador = DB::table('requidetclaspres')->where('requisicion_id', $requisicion)->where('claspres', $clasificador_presupuestario)->get();
         
+        $clasificador_array = array();
+        $contador = 0;
+        foreach($req_clasificador as $rows){
+            $clasificador_array[]=$rows->claspres;
+            $contador +=1;
+        }
+
+       //Cuando es cero es por q es el primer registro de la partida para esa requisicion
+        if($contador==0){
+            $array_requidetclaspre = [
+                'requisicion_id'=>$requisicion,
+                'poa_id'=>$poa_id,
+                'meta_id'=>$meta_id,
+                'financiamiento_id'=>$financiamiento_id,
+                'disponible'=>$disponible, 
+                'claspres' =>$clasificador_presupuestario,
+                'ejecucion_id'=>$ejecucion_id
+                ];
+             
+                 $requidetclaspre = Requidetclaspre::create($array_requidetclaspre);
+        } else {  
+        //validar que la cuenta no este en el array clasificador presupuestario
+        if(in_array($clasificador_presupuestario, $clasificador_array)){
+            //no hacer nada
+         }else {
+             //hacer el registro
+             // $partidas[] = $clasificador;
+              //Crear el array para agregar los valores en la tabla requidetclaspres
+        $array_requidetclaspre = [
+            'requisicion_id'=>$requisicion,
+            'poa_id'=>$poa_id,
+            'meta_id'=>$meta_id,
+            'financiamiento_id'=>$financiamiento_id,
+            'disponible'=>$disponible, 
+            'claspres'=>$clasificador_presupuestario,
+            'ejecucion_id'=>$ejecucion_id
+         ];
+         
+             $requidetclaspre = Requidetclaspre::create($array_requidetclaspre); 
+         }
+
+        }
 
         //Para recuperar el id de la requisicion solo si existe route('requisiciones.agregar',$requisicione->id)
         if(session()->has('requisicion')){
             return redirect()->route('requisiciones.agregar',$requisicion)
-            ->with('success', 'BOS Agregado Exitosamente. Desea agregar un nuevo item');
+            ->with('success', 'BOS Agregado Exitosamente. Desea agregar un nuevo item. Contador: '. $contador .' Unidad Administrativa: ' . $unidad_administrativa_id . ' bos id ' . $bos_id . ' Producto ID: ' . $producto_id . ' clasificador ID: ' . $clasificador_id . ' Cuenta: ' . $clasificador_presupuestario . ' Ejercicio ID: ' . $ejercicio_id . ' Ejecucion ID: ' . $ejecucion_id);
         }else{
             return redirect()->route('requisiciones.index')
             ->with('success', 'BOS Agregado Exitosamente.');

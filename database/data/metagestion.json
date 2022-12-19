@@ -668,7 +668,7 @@
     },
     {
      "id": 34042,
-     "poa_id": 20646,
+     "poa_id": 20455,
      "cantidad_1": 0,
      "cantidad_2": 0,
      "cantidad_3": 0,
@@ -1567,7 +1567,7 @@
     },
     {
      "id": 34059,
-     "poa_id": 20658,
+     "poa_id": 20455,
      "cantidad_1": 9,
      "cantidad_2": 9,
      "cantidad_3": 9,
@@ -1953,7 +1953,7 @@
      "monto": 0,
      "ejercicio_id": 1,
      "institucion_id": 13,
-     "unidadadministrativa_id": 11028,
+     "unidadadministrativa_id": 11001,
      "tipo": 0,
      "enero": 1,
      "febrero": 1,

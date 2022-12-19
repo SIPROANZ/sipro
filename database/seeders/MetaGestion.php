@@ -18,16 +18,17 @@ class MetaGestion extends Seeder
     public function run()
     {
         //
+        DB::table('metas')->delete();
         $json = File::get("database/data/metagestion.json");
             $data = json_decode($json);
             foreach ($data as $obj) {
                 Meta::create(array(
                 'id' => $obj->id,
                 'poa_id' => $obj->poa_id,
-                'cantidad_1' => $obj->cantidad_1,
-                'cantidad_2' => $obj->cantidad_2,
-                'cantidad_3 ' => $obj->cantidad_3 ,
-                'cantidad_4' => $obj->cantidad_4,
+                'cantidad1' => $obj->cantidad_1,
+                'cantidad2' => $obj->cantidad_2,
+                'cantidad3' => $obj->cantidad_3,
+                'cantidad4' => $obj->cantidad_4,
                 'meta' => $obj->meta,
                 'monto' => $obj->monto,
                 'ejercicio_id' => $obj->ejercicio_id,

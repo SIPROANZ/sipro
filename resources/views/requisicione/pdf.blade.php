@@ -185,25 +185,32 @@
 
                                     </tr>
                                 </thead>
-                                <tbody>   
+                                <tbody>  
+                                @foreach ($partidas as $valor) 
                                   <tr>
                                         <td> {{ $requisicione->unidadadministrativa->sector }}</td>
                                         <td> {{ $requisicione->unidadadministrativa->programa }}</td>
                                         <td> {{ $requisicione->unidadadministrativa->actividad }}</td>
-                                        <td>falta</td>
-                                        <td>falta</td>
-                                        <td>falta</td>
-                                        <td>falta</td>
-                                        <td>falta</td>
+                                        <td>{{ $valor->meta_id }}</td>
+                                        <?php 
+                                        $clasificador = explode('.',  $valor->claspres);
+                                        
+                                        ?>
+                                        <td>{{  $clasificador[0] . '.' . $clasificador[1] }}</td>
+                                        <td>{{  $clasificador[2] }}</td>
+                                        <td>{{  $clasificador[3] }}</td>
+                                        <td>{{  $clasificador[4] }}</td>
                                    </tr>
+                                   @endforeach
                                 </tbody>
                             </table>
     
-                            @foreach ($partidas as $valor)
-                                       {{ $valor }}
+                            
+                                       
+                                       
 											
 
                                         
-                                    @endforeach
+                                    
 </body>
 </html>

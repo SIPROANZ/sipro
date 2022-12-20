@@ -115,10 +115,22 @@ class RequisicioneController extends Controller
     {
         request()->validate(Requisicione::$rules);
 
+        //Obtener ultimo numero de requisicion dependiendo si es compra, servicio o suministro
+        $tipo_requisicion = $request->tiposgp_id;
+        
+        $max_correlativo = DB::table('requisiciones')->where('tiposgp_id', $tipo_requisicion)->max('correlativo');
+
+        
+        $numero_correlativo = $max_correlativo + 1;
+
+       // $request->correlativo = $numero_correlativo //18; 
+         $request->merge(['correlativo'  => $numero_correlativo]);
+
+
         $requisicione = Requisicione::create($request->all());
 
         return redirect()->route('requisiciones.index')
-            ->with('success', 'Requisicion creado exitosamente.');
+            ->with('success', 'Requisicion creado exitosamente.' );
     }
 
     /**

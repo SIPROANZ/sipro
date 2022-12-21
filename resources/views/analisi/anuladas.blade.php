@@ -74,8 +74,7 @@
 
                                             <td>
                                                
-                                            <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.pdf',$analisi->id) }}"><i class="fa fa-fw fa-eye"></i> Imprimir</a>
-                                            
+                                            <a class="btn btn-sm btn-primary " href="{{ route('analisis.pdf',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Analisis"><i class="fa fa-fw fa-eye"></i> Imprimir</a>
 
                                             </td>
                                         </tr>

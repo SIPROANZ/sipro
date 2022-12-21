@@ -88,6 +88,7 @@ Route::resource('criterios', App\Http\Controllers\CriterioController::class)->mi
 Route::get('/analisis/agregar/{analisi}', [App\Http\Controllers\AnalisiController::class, 'agregar'])->name('analisis.agregar')->middleware('auth');
 
 
+
 Route::patch('/analisis/aprobar/{analisi}', [App\Http\Controllers\AnalisiController::class, 'aprobar'])->name('analisis.aprobar')->middleware('auth');
 
 Route::get('analisis/procesadas', [App\Http\Controllers\AnalisiController::class, 'indexprocesadas'])->name('analisis.procesadas')->middleware('auth');
@@ -96,8 +97,15 @@ Route::get('analisis/anuladas', [App\Http\Controllers\AnalisiController::class, 
 
 Route::patch('/analisis/anular/{analisi}', [App\Http\Controllers\AnalisiController::class, 'anular'])->name('analisis.anular')->middleware('auth');
 
+Route::get('analisis/pdf/{analisi}', [App\Http\Controllers\AnalisiController::class, 'pdf'])->name('analisis.pdf')->middleware('auth');
+
 
 Route::resource('analisis', App\Http\Controllers\AnalisiController::class)->middleware('auth');
+
+Route::post('/detallesanalisis/storedos', [App\Http\Controllers\DetallesanalisiController::class, 'storedos'])->name('detallesanalisis.storedos')->middleware('auth');
+
+Route::get('/detallesanalisis/createwithbos/{analisi}', [App\Http\Controllers\DetallesanalisiController::class, 'createwithbos'])->name('detallesanalisis.createwithbos')->middleware('auth');
+
 
 Route::resource('detallesanalisis', App\Http\Controllers\DetallesanalisiController::class)->middleware('auth');
 

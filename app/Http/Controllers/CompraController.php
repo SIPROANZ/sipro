@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Compra;
+use App\Analisi;
+use App\Detallesanalisi;
 use Illuminate\Http\Request;
 
 /**
@@ -22,6 +24,19 @@ class CompraController extends Controller
 
         return view('compra.index', compact('compras'))
             ->with('i', (request()->input('page', 1) - 1) * $compras->perPage());
+    }
+
+    /**
+     * Display requisiciones procesadas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexprocesadas()
+    {
+        $analisis = Analisi::where('estatus', 'PR')->paginate();
+
+        return view('analisi.procesadas', compact('analisis'))
+            ->with('i', (request()->input('page', 1) - 1) * $analisis->perPage());
     }
 
     /**

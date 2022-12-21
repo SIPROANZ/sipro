@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Detallesanalisi;
 use App\Proveedore;
 use App\Analisi;
+use App\Detallesrequisicione;
 use App\Bo;
 use Illuminate\Http\Request;
 
@@ -39,6 +40,86 @@ class DetallesanalisiController extends Controller
         $analisis = Analisi::pluck('numeracion','id');
         $bos = Bo::pluck('descripcion', 'id');
         return view('detallesanalisi.create', compact('detallesanalisi', 'proveedores','analisis', 'bos'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createwithbos($id)
+    {
+        $id_rs = $id; // ['id_detalle_requisicion' => $id];
+
+        //Obtener el id del bos y la cantidad
+        $det_requisicion = Detallesrequisicione::find($id_rs);
+        $rs_bos_cantidad = $det_requisicion->cantidad;
+        //obtener el nombre del bos
+        $rs_bos_id = $det_requisicion->bos_id;
+        $rs_bos = Bo::find($rs_bos_id);
+        $rs_nombre_bos = $rs_bos->descripcion;
+
+
+        $detallesanalisi = new Detallesanalisi();
+        $proveedores = Proveedore::pluck('nombre','id');
+        $analisis = Analisi::pluck('numeracion','id');
+        $bos = Bo::pluck('descripcion', 'id');
+        return view('detallesanalisi.createwithbos', compact('detallesanalisi', 'proveedores','analisis', 'bos', 'rs_bos_cantidad', 'rs_bos_id', 'rs_nombre_bos'));
+    }
+
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storedos(Request $request)
+    {
+        request()->validate(Detallesanalisi::$rules);
+
+        $proveedor_id = $request->proveedor_id;
+
+        $bos_id = $request->bos_id;
+        //Obtener el id de la requisicion
+        $analisis_id = session('analisis_var');
+        $request->merge(['analisis_id'  => $analisis_id]);
+
+        //Obtenemos los valores del formulario cantidad y precio y calculamos el resto de los valores
+        $cantidad = $request->cantidad;
+        $precio = $request->precio;
+
+        $subtotal = $cantidad * $precio;
+        $iva = $subtotal * 0.16;
+        $total = $subtotal + $iva;
+        $aprobado = $request->aprobado;
+
+        $datos_guardar = [
+            'proveedor_id' => $proveedor_id,
+            'analisis_id' => $analisis_id,
+            'bos_id' => $bos_id,
+            'cantidad' => $cantidad,
+            'precio' => $precio,
+            'subtotal' => $subtotal,
+            'iva' => $iva,
+            'total' => $total,
+            'aprobado' => $aprobado,
+
+        ];
+
+
+        $detallesanalisi = Detallesanalisi::create($datos_guardar);
+
+
+        if(session()->has('analisis_var')){
+            return redirect()->route('analisis.agregar',$analisis_id)
+            ->with('success', 'Detalle Agregado Exitosamente. Desea agregar un nuevo item.');
+        }else{
+            return redirect()->route('analisis.index')
+            ->with('success', 'No existe la variable analisis_id.');
+        }
+
+        /*return redirect()->route('detallesanalisis.index')
+            ->with('success', 'Detallesanalisi created successfully.');*/
     }
 
     /**

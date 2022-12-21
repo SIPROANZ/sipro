@@ -93,11 +93,9 @@
                                             <td>
                                                 <form action="{{ route('detallesrequisiciones.destroy',$detallesrequisicione->id) }}" method="POST">
                                                     
-                                                    <a class="btn btn-sm btn-success" href="{{ route('detallesrequisiciones.edit',$detallesrequisicione->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('detallesanalisis.createwithbos', $detallesrequisicione->id) }}"><i class="fa fa-fw fa-edit"></i> Agregar</a>
                                                     @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
-                                                </form>
+                                                 </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -125,11 +123,6 @@
                                 {{ __('Detalles analisis') }}
                             </span>
 
-                             <div class="float-right">
-                                <a href="{{ route('detallesanalisis.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Agregar Detalles al Analisis') }}
-                                </a>
-                              </div>
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -176,10 +169,10 @@
                                             <td>
                                                 <form action="{{ route('detallesanalisis.destroy',$detallesanalisi->id) }}" method="POST">
                                                     
-                                                    <a class="btn btn-sm btn-success" href="{{ route('detallesanalisis.edit',$detallesanalisi->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('detallesanalisis.edit',$detallesanalisi->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Analisis"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar Analisis"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

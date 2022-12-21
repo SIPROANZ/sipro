@@ -9,6 +9,8 @@ use App\Criterio;
 use App\Detallesanalisi;
 use App\Detallesrequisicione;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use PDF;
 
 /**
  * Class AnalisiController
@@ -201,5 +203,37 @@ class AnalisiController extends Controller
 
         return view('analisi.agregar', compact('analisi', 'detallesanalisis', 'detallesrequisiciones'))
         ->with('i', (request()->input('page', 1) - 1) * $detallesanalisis->perPage());
+    }
+
+     /**
+     * Crear pdf de la requisicion seleccionada
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf($id)
+    {
+        
+        $analisi = Analisi::find($id);
+
+        $detallesanalisis = Detallesanalisi::where('analisis_id','=',$id)->paginate();
+        // $detallesrequisiciones = Detallesrequisicione::where('requisicion_id','=',$id)->paginate();
+
+        //Obtener las unidades de medidas de los productos, tenemos bos, producto, unidad medida
+        /* $detallesrequisiciones = DB::table('detallesrequisiciones')
+            ->where('requisicion_id', $id)
+            ->join('bos', 'bos.id', '=', 'detallesrequisiciones.bos_id') 
+            ->join('unidadmedidas', 'unidadmedidas.id', '=', 'bos.unidadmedida_id')
+            ->select('detallesrequisiciones.cantidad', 'bos.descripcion', 'unidadmedidas.nombre')
+            ->get(); 
+
+        // Obtener las partidas que tienen que ver con esta requisicion a traves del bos y productos
+        //declaro mi arrray partidas
+        $partidas = DB::table('requidetclaspres')->where('requisicion_id', $id)->select('meta_id', 'claspres')->get();
+           */ 
+
+        $pdf = PDF::loadView('analisi.pdf', ['analisi'=>$analisi, 'detallesanalisis'=>$detallesanalisis]);
+        return $pdf->stream();
+
+        
     }
 }

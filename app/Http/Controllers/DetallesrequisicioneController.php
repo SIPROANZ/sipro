@@ -57,8 +57,8 @@ class DetallesrequisicioneController extends Controller
 
         //Obtener el id de la requisicion
         $requisicion = session('requisicion');
-        $request->requisicion_id=$requisicion; //cambiar el valor a la variable, para q se haga en el servidor y no en el cliente
-
+        //$request->requisicion_id=$requisicion; //cambiar el valor a la variable, para q se haga en el servidor y no en el cliente
+        $request->merge(['requisicion_id'  => $requisicion]);
 
         $detallesrequisicione = Detallesrequisicione::create($request->all());
 

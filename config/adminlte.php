@@ -366,13 +366,13 @@ return [
                             'icon'    => 'fas fa-fw fa-file-invoice', //<i class="fas fa-file-invoice"></i>
                             'icon_color' => 'white',
                             'route'  => 'analisis.index',
-                        ],
+                        ], 
                         [
                             'text' => 'Detalles Analisis',
                             'icon'    => 'fas fa-fw fa-file-invoice', //<i class="fas fa-file-invoice"></i>
                             'icon_color' => 'white',
                             'route'  => 'detallesanalisis.index',
-                        ],
+                        ], 
                         [
                             'text' => 'Criterios de Cotizacion',
                             'icon'    => 'fas fa-fw fa-file-signature', // <i class="fas fa-file-signature"></i>

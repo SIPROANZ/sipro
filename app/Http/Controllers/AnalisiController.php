@@ -6,6 +6,7 @@ use App\Analisi;
 use App\Unidadadministrativa;
 use App\Requisicione;
 use App\Criterio;
+use App\Detallesanalisi;
 use Illuminate\Http\Request;
 
 /**
@@ -174,5 +175,26 @@ class AnalisiController extends Controller
 
         return redirect()->route('analisis.index')
             ->with('success', 'Analisis de Cotizacion Procesada exitosamente.');
+    }
+
+    /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregar($id)
+    {
+        $analisi = Analisi::find($id);
+
+
+        //Creare una variable de sesion para guardar el id de esta requisicion
+        session(['analisis' => $id]);
+
+        //Consulto los datos especificos para la requisicion seleccionada
+        $detallesanalisis = Detallesanalisi::where('analisis_id','=',$id)->paginate();
+
+        return view('analisi.agregar', compact('analisi', 'detallesanalisis'))
+        ->with('i', (request()->input('page', 1) - 1) * $detallesanalisis->perPage());
     }
 }

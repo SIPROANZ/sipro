@@ -51,10 +51,37 @@ class DetallesanalisiController extends Controller
     {
         request()->validate(Detallesanalisi::$rules);
 
+        //Obtener el id de la requisicion
+        $analisis_id = session('analisis');
+        $request->merge(['analisis_id'  => $analisis_id]);
+
+        //Obtenemos los valores del formulario cantidad y precio y calculamos el resto de los valores
+        $cantidad = $request->cantidad;
+        $precio = $request->precio;
+
+        $subtotal = $cantidad * $precio;
+        $iva = $subtotal * 0.16;
+        $total = $subtotal + $iva;
+
+        //Ahora estos nuevo valores los agrego con merge a la variable request
+        $request->merge(['subtotal'  => $subtotal]);
+        $request->merge(['iva'  => $iva]);
+        $request->merge(['total'  => $total]);
+
+
         $detallesanalisi = Detallesanalisi::create($request->all());
 
-        return redirect()->route('detallesanalisis.index')
-            ->with('success', 'Detallesanalisi created successfully.');
+
+        if(session()->has('analisis')){
+            return redirect()->route('analisis.agregar',$analisis_id)
+            ->with('success', 'Detalle Agregado Exitosamente. Desea agregar un nuevo item.');
+        }else{
+            return redirect()->route('analisis.index')
+            ->with('success', 'No existe la variable analisis_id.');
+        }
+
+        /*return redirect()->route('detallesanalisis.index')
+            ->with('success', 'Detallesanalisi created successfully.');*/
     }
 
     /**
@@ -81,10 +108,11 @@ class DetallesanalisiController extends Controller
         $detallesanalisi = Detallesanalisi::find($id);
         
         $proveedores = Proveedore::pluck('nombre','id');
-        $analisis = Analisi::pluck('numeracion','id');
+       // $analisis = Analisi::pluck('numeracion','id');
         $bos = Bo::pluck('descripcion', 'id');
+        return view('detallesanalisi.edit', compact('detallesanalisi', 'proveedores', 'bos'));
 
-        return view('detallesanalisi.edit', compact('detallesanalisi', 'proveedores','analisis', 'bos'));
+//return view('detallesanalisi.edit', compact('detallesanalisi', 'proveedores','analisis', 'bos'));
     }
 
     /**
@@ -100,8 +128,21 @@ class DetallesanalisiController extends Controller
 
         $detallesanalisi->update($request->all());
 
+
+        //Obtener el id de la requisicion
+        $analisis_id = session('analisis');
+        //Para recuperar el id de la requisicion solo si existe route('requisiciones.agregar',$requisicione->id)
+        if(session()->has('analisis')){
+           return redirect()->route('analisis.agregar',$analisis_id)
+           ->with('success', 'Detalles Actualizado Exitosamente.');
+       }else{
+           return redirect()->route('analisis.index')
+           ->with('success', 'No se consiguio la variable de sesion analisis.');
+       }
+            /*
         return redirect()->route('detallesanalisis.index')
             ->with('success', 'Detallesanalisi updated successfully');
+            */
     }
 
     /**
@@ -113,7 +154,21 @@ class DetallesanalisiController extends Controller
     {
         $detallesanalisi = Detallesanalisi::find($id)->delete();
 
+        
+
+
+        //Obtener el id de la requisicion
+        $analisis_id = session('analisis');
+        if(session()->has('requisicion')){
+            return redirect()->route('analisis.agregar',$analisis_id)
+            ->with('success', 'Detalle Eliminado Exitosamente.');
+        }else{
+            return redirect()->route('analisis.index')
+            ->with('success', 'Detalle Eliminado Exitosamente.');
+        }
+        /*
         return redirect()->route('detallesanalisis.index')
-            ->with('success', 'Detallesanalisi deleted successfully');
+            ->with('success', 'Detallesanalisi deleted successfully'); 
+            */
     }
 }

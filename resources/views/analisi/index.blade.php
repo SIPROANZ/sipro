@@ -74,8 +74,13 @@
 
                                             <td>
                                                 <form action="{{ route('analisis.anular',$analisi->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('analisis.show',$analisi->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('analisis.edit',$analisi->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                                    <!-- Agregar detalles BOS a la requisicion -->
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('analisis.agregar',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Productos al analisis"><i class="fas fa-outdent"></i></i></a>
+                                                    
+                                                   
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.pdf',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Analisis"><i class="fas fa-print"></i></a>
+
+                                                    <a class="btn btn-sm btn-success" href="{{ route('analisis.edit',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Analisis"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Analisis"><i class="fa fa-fw fa-trash"></i></button>
@@ -86,7 +91,7 @@
                                                    @csrf
                                                     @method('PATCH')
                                                     
-                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Requisicion"><i class="fas fa-check-double"></i></button>
+                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Analisis"><i class="fas fa-check-double"></i></button>
                                                 </form>
 
                                             </td>

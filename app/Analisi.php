@@ -31,6 +31,7 @@ class Analisi extends Model
 		'criterio_id' => 'required',
 		'numeracion' => 'required',
 		'observacion' => 'required',
+        'estatus' => 'required',
     ];
 
     protected $perPage = 20;
@@ -40,7 +41,7 @@ class Analisi extends Model
      *
      * @var array
      */
-    protected $fillable = ['unidadadministrativa_id','requisicion_id','criterio_id','numeracion','observacion'];
+    protected $fillable = ['unidadadministrativa_id','requisicion_id','criterio_id','numeracion','observacion', 'estatus'];
 
 
     /**

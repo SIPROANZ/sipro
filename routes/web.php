@@ -85,6 +85,15 @@ Route::resource('ayudassociales', App\Http\Controllers\AyudassocialeController::
 
 Route::resource('criterios', App\Http\Controllers\CriterioController::class)->middleware('auth');
 
+Route::patch('/analisis/aprobar/{analisi}', [App\Http\Controllers\AnalisiController::class, 'aprobar'])->name('analisis.aprobar')->middleware('auth');
+
+Route::get('analisis/procesadas', [App\Http\Controllers\AnalisiController::class, 'indexprocesadas'])->name('analisis.procesadas')->middleware('auth');
+
+Route::get('analisis/anuladas', [App\Http\Controllers\AnalisiController::class, 'indexanuladas'])->name('analisis.anuladas')->middleware('auth');
+
+Route::patch('/analisis/anular/{analisi}', [App\Http\Controllers\AnalisiController::class, 'anular'])->name('analisis.anular')->middleware('auth');
+
+
 Route::resource('analisis', App\Http\Controllers\AnalisiController::class)->middleware('auth');
 
 Route::resource('detallesanalisis', App\Http\Controllers\DetallesanalisiController::class)->middleware('auth');

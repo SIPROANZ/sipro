@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Analisis de Cotizaciones en Proceso') }}
+                                {{ __('Analisis de Cotizaciones Anuladas') }}
                             </span>
 
                              <div class="float-right">
@@ -29,7 +29,7 @@
                                   {{ __('Procesadas') }}
                                 </a>
 
-                                <a href="{{ route('analisis.anuladas')  }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('analisis.anuladas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Anuladas') }}
                                 </a>
 
@@ -73,21 +73,9 @@
                                             <td>{{ $analisi->estatus }}</td>
 
                                             <td>
-                                                <form action="{{ route('analisis.anular',$analisi->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('analisis.show',$analisi->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('analisis.edit',$analisi->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Analisis"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
-
-                                                <form action="{{ route('analisis.aprobar',$analisi->id) }}" method="POST">
-                                                    <!-- Agregar detalles BOS a la requisicion -->
-                                                   @csrf
-                                                    @method('PATCH')
-                                                    
-                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Requisicion"><i class="fas fa-check-double"></i></button>
-                                                </form>
+                                               
+                                            <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.pdf',$analisi->id) }}"><i class="fa fa-fw fa-eye"></i> Imprimir</a>
+                                            
 
                                             </td>
                                         </tr>

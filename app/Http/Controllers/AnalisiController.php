@@ -28,6 +28,32 @@ class AnalisiController extends Controller
     }
 
     /**
+     * Display requisiciones procesadas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexprocesadas()
+    {
+        $analisis = Analisi::where('estatus', 'PR')->paginate();
+
+        return view('analisi.procesadas', compact('analisis'))
+            ->with('i', (request()->input('page', 1) - 1) * $analisis->perPage());
+    }
+
+    /**
+     * Display requisiciones anuladas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexanuladas()
+    {
+        $analisis = Analisi::where('estatus', 'AN')->paginate();
+
+        return view('analisi.anuladas', compact('analisis'))
+            ->with('i', (request()->input('page', 1) - 1) * $analisis->perPage());
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -117,5 +143,36 @@ class AnalisiController extends Controller
 
         return redirect()->route('analisis.index')
             ->with('success', 'Analisi deleted successfully');
+    }
+
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UNA REQUISICION
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function anular($id)
+    {
+        $analisi = Analisi::find($id);
+        $analisi->estatus = 'AN';
+        $analisi->save();
+
+        return redirect()->route('analisis.index')
+            ->with('success', 'Analisis de Cotizacion Anulada exitosamente.');
+    }
+
+    //Metodo para aprobar un analisis de cotizacion
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A PROCESADO CUANDO YA ESTA aprobada la requisicion
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function aprobar($id)
+    {
+        $analisi = Analisi::find($id);
+        $analisi->estatus = 'PR';
+        $analisi->save();
+
+        return redirect()->route('analisis.index')
+            ->with('success', 'Analisis de Cotizacion Procesada exitosamente.');
     }
 }

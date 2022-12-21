@@ -38,6 +38,9 @@
             {{ Form::label('observacion') }}
             {{ Form::text('observacion', $analisi->observacion, ['class' => 'form-control' . ($errors->has('observacion') ? ' is-invalid' : ''), 'placeholder' => 'Observacion']) }}
             {!! $errors->first('observacion', '<div class="invalid-feedback">:message</div>') !!}
+
+            {{ Form::hidden('estatus', 'EP', ['class' => 'form-control' . ($errors->has('estatus') ? ' is-invalid' : ''), 'placeholder' => 'Estatus']) }}
+            {!! $errors->first('estatus', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>
         </div>

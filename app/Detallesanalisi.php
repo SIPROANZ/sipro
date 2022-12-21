@@ -34,9 +34,9 @@ class Detallesanalisi extends Model
 		'bos_id' => 'required',
 		'cantidad' => 'required',
 		'precio' => 'required',
-		'subtotal' => 'required',
+		/*'subtotal' => 'required',
 		'iva' => 'required',
-		'total' => 'required',
+		'total' => 'required',*/
         'aprobado' => 'required',
     ];
 

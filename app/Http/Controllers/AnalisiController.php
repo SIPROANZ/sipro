@@ -7,6 +7,7 @@ use App\Unidadadministrativa;
 use App\Requisicione;
 use App\Criterio;
 use App\Detallesanalisi;
+use App\Detallesrequisicione;
 use Illuminate\Http\Request;
 
 /**
@@ -22,7 +23,7 @@ class AnalisiController extends Controller
      */
     public function index()
     {
-        $analisis = Analisi::paginate();
+        $analisis = Analisi::where('estatus', 'EP')->paginate();
 
         return view('analisi.index', compact('analisis'))
             ->with('i', (request()->input('page', 1) - 1) * $analisis->perPage());
@@ -187,14 +188,18 @@ class AnalisiController extends Controller
     {
         $analisi = Analisi::find($id);
 
+        $requisicion_id = $analisi->requisicion_id;
+
 
         //Creare una variable de sesion para guardar el id de esta requisicion
-        session(['analisis' => $id]);
+        session(['analisis_var' => $id]);
+
+        $detallesrequisiciones = Detallesrequisicione::where('requisicion_id','=',$requisicion_id)->paginate();
 
         //Consulto los datos especificos para la requisicion seleccionada
         $detallesanalisis = Detallesanalisi::where('analisis_id','=',$id)->paginate();
 
-        return view('analisi.agregar', compact('analisi', 'detallesanalisis'))
+        return view('analisi.agregar', compact('analisi', 'detallesanalisis', 'detallesrequisiciones'))
         ->with('i', (request()->input('page', 1) - 1) * $detallesanalisis->perPage());
     }
 }

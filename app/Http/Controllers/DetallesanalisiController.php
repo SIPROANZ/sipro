@@ -52,7 +52,7 @@ class DetallesanalisiController extends Controller
         request()->validate(Detallesanalisi::$rules);
 
         //Obtener el id de la requisicion
-        $analisis_id = session('analisis');
+        $analisis_id = session('analisis_var');
         $request->merge(['analisis_id'  => $analisis_id]);
 
         //Obtenemos los valores del formulario cantidad y precio y calculamos el resto de los valores
@@ -72,7 +72,7 @@ class DetallesanalisiController extends Controller
         $detallesanalisi = Detallesanalisi::create($request->all());
 
 
-        if(session()->has('analisis')){
+        if(session()->has('analisis_var')){
             return redirect()->route('analisis.agregar',$analisis_id)
             ->with('success', 'Detalle Agregado Exitosamente. Desea agregar un nuevo item.');
         }else{
@@ -108,11 +108,10 @@ class DetallesanalisiController extends Controller
         $detallesanalisi = Detallesanalisi::find($id);
         
         $proveedores = Proveedore::pluck('nombre','id');
-       // $analisis = Analisi::pluck('numeracion','id');
+        $analisis = Analisi::pluck('numeracion','id');
         $bos = Bo::pluck('descripcion', 'id');
-        return view('detallesanalisi.edit', compact('detallesanalisi', 'proveedores', 'bos'));
 
-//return view('detallesanalisi.edit', compact('detallesanalisi', 'proveedores','analisis', 'bos'));
+        return view('detallesanalisi.edit', compact('detallesanalisi', 'proveedores','analisis', 'bos'));
     }
 
     /**
@@ -130,7 +129,7 @@ class DetallesanalisiController extends Controller
 
 
         //Obtener el id de la requisicion
-        $analisis_id = session('analisis');
+        $analisis_id = session('analisis_var');
         //Para recuperar el id de la requisicion solo si existe route('requisiciones.agregar',$requisicione->id)
         if(session()->has('analisis')){
            return redirect()->route('analisis.agregar',$analisis_id)
@@ -158,7 +157,7 @@ class DetallesanalisiController extends Controller
 
 
         //Obtener el id de la requisicion
-        $analisis_id = session('analisis');
+        $analisis_id = session('analisis_var');
         if(session()->has('requisicion')){
             return redirect()->route('analisis.agregar',$analisis_id)
             ->with('success', 'Detalle Eliminado Exitosamente.');

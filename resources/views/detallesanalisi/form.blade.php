@@ -2,19 +2,20 @@
     <div class="box-body">
         
     <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('proveedor') }}
             {{ Form::select('proveedor_id', $proveedores, $detallesanalisi->proveedor_id, ['class' => 'form-control' . ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un Proveedor']) }}
             {!! $errors->first('proveedor_id', '<div class="invalid-feedback">:message</div>') !!}
-
-            {{ Form::hidden('analisis_id', session('analisis'), $detallesanalisi->analisis_id, ['class' => 'form-control' . ($errors->has('analisis_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un Analisis de Cotizacion']) }}
+      
+            {{ Form::hidden('analisis_id', session('analisis_var'), ['class' => 'form-control' . ($errors->has('analisis_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un Analisis de Cotizacion']) }}
             {!! $errors->first('analisis_id', '<div class="invalid-feedback">:message</div>') !!}
-
+      
         </div>
         </div>
-
-        <div class="col-md-4">
+       
+        
+        <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('bos (Bienes, Obras y Servicios)') }}
             {{ Form::select('bos_id', $bos, $detallesanalisi->bos_id, ['class' => 'form-control' . ($errors->has('bos_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un Bos']) }}
@@ -27,7 +28,7 @@
     <div class="col-md-2">
         <div class="form-group">
             {{ Form::label('cantidad') }}
-            {{ Form::text('cantidad', $detallesanalisi->cantidad, ['class' => 'form-control' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'placeholder' => 'Cantidad']) }}
+            {{ Form::text('cantidad',  $detallesanalisi->cantidad, ['class' => 'form-control' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'placeholder' => 'Cantidad']) }}
             {!! $errors->first('cantidad', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>
@@ -41,21 +42,21 @@
         <div class="col-md-2">
         <div class="form-group">
             {{ Form::label('subtotal') }}
-            {{ Form::text('subtotal',0, $detallesanalisi->subtotal, ['class' => 'form-control' . ($errors->has('subtotal') ? ' is-invalid' : ''), 'placeholder' => 'Subtotal']) }}
+            {{ Form::text('subtotal', $detallesanalisi->subtotal, ['class' => 'form-control' . ($errors->has('subtotal') ? ' is-invalid' : ''), 'placeholder' => '0']) }}
             {!! $errors->first('subtotal', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>
         <div class="col-md-2">
         <div class="form-group">
             {{ Form::label('iva') }}
-            {{ Form::text('iva',0, $detallesanalisi->iva, ['class' => 'form-control' . ($errors->has('iva') ? ' is-invalid' : ''), 'placeholder' => 'Iva']) }}
+            {{ Form::text('iva', $detallesanalisi->iva, ['class' => 'form-control' . ($errors->has('iva') ? ' is-invalid' : ''), 'placeholder' => '0']) }}
             {!! $errors->first('iva', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>
         <div class="col-md-2">
         <div class="form-group">
             {{ Form::label('total') }}
-            {{ Form::text('total',0, $detallesanalisi->total, ['class' => 'form-control' . ($errors->has('total') ? ' is-invalid' : ''), 'placeholder' => 'Total']) }}
+            {{ Form::text('total', $detallesanalisi->total, ['class' => 'form-control' . ($errors->has('total') ? ' is-invalid' : ''), 'placeholder' => '0']) }}
             {!! $errors->first('total', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>

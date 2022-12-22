@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('detallecausados', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('causado_id')->unsigned();
+            $table->bigInteger('retencion_id')->unsigned()->nullable();
+            $table->double('monto', 25, 2);
+
+            $table->foreign('causado_id')->references('id')->on('causados')->onDelete('cascade');
+            $table->foreign('retencion_id')->references('id')->on('retenciones')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,3 +35,4 @@ return new class extends Migration
         Schema::dropIfExists('detallecausados');
     }
 };
+

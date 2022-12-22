@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('detallecompromisos', function (Blueprint $table) {
-            $table->id();
+
+            $table->bigInteger('compromiso_id')->unsigned();
+            $table->bigInteger('requidetclaspres_id')->unsigned();
+            $table->double('monto', 25, 2);
+            $table->foreign('compromiso_id')->references('id')->on('compromisos')->onDelete('cascade');
+            $table->foreign('requidetclaspres_id')->references('id')->on('requidetclaspres')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Analisi;
+use App\Compra;
 use App\Unidadadministrativa;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,11 +16,16 @@ return new class extends Migration
     {
         Schema::create('compromisos', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Analisi::class)->constrained('analisis');
+            $table->foreignIdFor(Compra::class)->constrained('compras');
             $table->foreignIdFor(Unidadadministrativa::class)->constrained('unidadadministrativas');
+            $table->bigInteger('tipocompromiso')->unsigned();
             $table->string('codigo', 10);
             $table->date('fecha');
-            $table->tinyInteger('estatus');
+            $table->date('fechaanulacion');
+            $table->string('concepto', 255);
+            $table->double('montocompromiso', 25, 2);
+            $table->double('montocausado', 25, 2);
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('fechaanulacion');
             $table->string('concepto', 255);
             $table->double('montocompromiso', 25, 2);
-            $table->double('montocausado', 25, 2);
+            $table->double('montocausado', 25, 2)->nullable();
             $table->tinyInteger('status');
             $table->timestamps();
         });

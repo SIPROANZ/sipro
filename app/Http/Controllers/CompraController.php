@@ -18,12 +18,26 @@ class CompraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index_old()
     {
         $compras = Compra::paginate();
-
+        
         return view('compra.index', compact('compras'))
             ->with('i', (request()->input('page', 1) - 1) * $compras->perPage());
+    }
+
+      /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+       // $compras = Compra::paginate();
+        $analisis = Analisi::where('estatus', 'PR')->paginate();
+
+        return view('compra.analisis', compact('analisis'))
+            ->with('i', (request()->input('page', 1) - 1) * $analisis->perPage());
     }
 
     /**
@@ -120,5 +134,18 @@ class CompraController extends Controller
 
         return redirect()->route('compras.index')
             ->with('success', 'Compra deleted successfully');
+    }
+
+    /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregarcompra($id)
+    {
+        $analisis_id = $id;
+        $compra = new Compra();
+        return view('compra.agregarcompra', compact('compra', 'analisis_id'));
     }
 }

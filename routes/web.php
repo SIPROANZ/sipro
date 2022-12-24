@@ -109,6 +109,9 @@ Route::get('/detallesanalisis/createwithbos/{analisi}', [App\Http\Controllers\De
 
 Route::resource('detallesanalisis', App\Http\Controllers\DetallesanalisiController::class)->middleware('auth');
 
+Route::get('/compras/agregar/{compra}', [App\Http\Controllers\CompraController::class, 'agregarcompra'])->name('compras.agregarcompra')->middleware('auth');
+
+
 Route::resource('compras', App\Http\Controllers\CompraController::class)->middleware('auth');
 
 Route::resource('detallesrequisiciones', App\Http\Controllers\DetallesrequisicioneController::class)->middleware('auth');

@@ -36,21 +36,21 @@
     <div class="col-md-4">
         <div class="form-group">
             {{ Form::label('monto base') }}
-            {{ Form::text('montobase', $compra->montobase, ['class' => 'form-control' . ($errors->has('montobase') ? ' is-invalid' : ''), 'placeholder' => 'Monto base']) }}
+            {{ Form::text('montobase', $total_base, ['class' => 'form-control' . ($errors->has('montobase') ? ' is-invalid' : ''), 'placeholder' => 'Monto base']) }}
             {!! $errors->first('montobase', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>
     <div class="col-md-4">
         <div class="form-group">
             {{ Form::label('monto iva') }}
-            {{ Form::text('montoiva', $compra->montoiva, ['class' => 'form-control' . ($errors->has('montoiva') ? ' is-invalid' : ''), 'placeholder' => 'Monto iva']) }}
+            {{ Form::text('montoiva', $total_iva, ['class' => 'form-control' . ($errors->has('montoiva') ? ' is-invalid' : ''), 'placeholder' => 'Monto iva']) }}
             {!! $errors->first('montoiva', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>
     <div class="col-md-4">
         <div class="form-group">
             {{ Form::label('monto total') }}
-            {{ Form::text('montototal', $compra->montototal, ['class' => 'form-control' . ($errors->has('montototal') ? ' is-invalid' : ''), 'placeholder' => 'Monto total']) }}
+            {{ Form::text('montototal', $total, ['class' => 'form-control' . ($errors->has('montototal') ? ' is-invalid' : ''), 'placeholder' => 'Monto total']) }}
             {!! $errors->first('montototal', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         </div>

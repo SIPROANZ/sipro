@@ -13,19 +13,20 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Listado de Compras por procesar') }}
+                                {{ __('Listado de Analisis de Cotizaciones') }}
                             </span>
 
+                            <div class="float-right">
                                 <a href="{{ route('compras.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('En Proceso') }}
+                                  {{ __('Analisis Por Procesar') }}
                                 </a>
 
                                 <a href="{{ route('analisis.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Procesadas') }}
+                                  {{ __('Compras Procesadas') }}
                                 </a>
 
                                 <a href="{{ route('analisis.anuladas')  }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Anuladas') }}
+                                  {{ __('Compras Anuladas') }}
                                 </a>
 
 
@@ -67,10 +68,26 @@
 											<td>{{ $analisi->observacion }}</td>
                                             <td>{{ $analisi->estatus }}</td>
 
-                                            <td>
-                                               
+                                            <td class="float-right">
                                             <a class="btn btn-sm btn-primary " href="{{ route('compras.agregarcompra',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Compra"><i class="fas fa-outdent"></i></i></a>
                                                 
+                                            <a class="btn btn-sm btn-success" href="{{ route('analisis.edit',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Reversar Analisis"><i class="fas fa-chevron-circle-left"></i></a>
+                                                   
+                                                <form action="{{ route('analisis.aprobar',$analisi->id) }}" method="POST">
+                                                    <!-- Agregar detalles BOS a la requisicion -->
+                                                   @csrf
+                                                    @method('PATCH')
+                                                    
+                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Analisis"><i class="fas fa-check-double"></i></button>
+                                                </form>
+                                                <form action="{{ route('analisis.anular',$analisi->id) }}" method="POST">
+                                                    <!-- Agregar detalles BOS a la requisicion -->
+                                                
+                                                    <a class="btn btn-sm btn-success" href="{{ route('analisis.edit',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Analisis"><i class="fa fa-fw fa-edit"></i></a>
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Analisis"><i class="fa fa-fw fa-trash"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

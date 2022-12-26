@@ -13,7 +13,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Update Comprascp</span>
+                        <span class="card-title">Editar Clasificador Presupuestario de una Compra</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('comprascps.update', $comprascp->id) }}"  role="form" enctype="multipart/form-data">

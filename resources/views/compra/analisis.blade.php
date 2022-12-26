@@ -17,15 +17,19 @@
                             </span>
 
                             <div class="float-right">
-                                <a href="{{ route('compras.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Analisis Por Procesar') }}
+                                <a href="{{ route('compras.analisis') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear Orden de Compra') }}
                                 </a>
 
-                                <a href="{{ route('analisis.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('compras.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Compras en Proceso') }}
+                                </a>
+
+                                <a href="{{ route('compras.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Compras Procesadas') }}
                                 </a>
 
-                                <a href="{{ route('analisis.anuladas')  }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('compras.anuladas')  }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Compras Anuladas') }}
                                 </a>
 

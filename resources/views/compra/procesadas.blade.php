@@ -17,7 +17,9 @@
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('compras.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                               
+
+                                <a href="{{ route('compras.analisis') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Orden de Compra') }}
                                 </a>
 
@@ -25,11 +27,11 @@
                                   {{ __('Compras en Proceso') }}
                                 </a>
 
-                                <a href="{{ route('compras.anuladas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('compras.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Compras Procesadas') }}
                                 </a>
 
-                                <a href="{{ url('#')  }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('compras.anuladas')  }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Compras Anuladas') }}
                                 </a>
 
@@ -50,6 +52,7 @@
                                         <th>No</th>
                                         
 										<th>Analisis</th>
+                                        <th>Observacion</th>
 										<th>Numero de orden compra</th>
 										<th>Estado</th>
 										<th>Anulacion</th>
@@ -66,6 +69,7 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $compra->analisis_id }}</td>
+                                            <td>{{ $compra->analisi->observacion }}</td>
 											<td>{{ $compra->numordencompra }}</td>
 											<td>{{ $compra->status }}</td>
 											<td>{{ $compra->fechaanulacion }}</td>

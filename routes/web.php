@@ -127,6 +127,8 @@ Route::get('compras/analisis', [App\Http\Controllers\CompraController::class, 'i
 
 Route::resource('compras', App\Http\Controllers\CompraController::class)->middleware('auth');
 
+Route::resource('comprascps', App\Http\Controllers\ComprascpController::class)->middleware('auth');
+
 Route::resource('detallesrequisiciones', App\Http\Controllers\DetallesrequisicioneController::class)->middleware('auth');
 
 Route::get('/requisiciones/agregar/{requisicione}', [App\Http\Controllers\RequisicioneController::class, 'agregar'])->name('requisiciones.agregar')->middleware('auth');

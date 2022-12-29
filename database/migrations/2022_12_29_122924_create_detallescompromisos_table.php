@@ -13,13 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('detallecompromisos', function (Blueprint $table) {
+        Schema::create('detallescompromisos', function (Blueprint $table) {
+            $table->id();
 
+            $table->double('montocompromiso', 25, 2);
+            
             $table->bigInteger('compromiso_id')->unsigned();
-            $table->bigInteger('requidetclaspres_id')->unsigned();
-            $table->double('monto', 25, 2);
+            $table->bigInteger('unidadadministrativa_id')->unsigned();
+            $table->bigInteger('ejecucion_id')->unsigned();
+
             $table->foreign('compromiso_id')->references('id')->on('compromisos')->onDelete('cascade');
-            $table->foreign('requidetclaspres_id')->references('id')->on('requidetclaspres')->onDelete('cascade');
+            $table->foreign('unidadadministrativa_id')->references('id')->on('unidadadministrativas')->onDelete('cascade');
+            $table->foreign('ejecucion_id')->references('id')->on('ejecuciones')->onDelete('cascade');
+           
             $table->timestamps();
         });
     }
@@ -31,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detallecompromisos');
+        Schema::dropIfExists('detallescompromisos');
     }
 };

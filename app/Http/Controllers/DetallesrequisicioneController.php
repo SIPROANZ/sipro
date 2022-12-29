@@ -144,10 +144,10 @@ class DetallesrequisicioneController extends Controller
         //Para recuperar el id de la requisicion solo si existe route('requisiciones.agregar',$requisicione->id)
         if(session()->has('requisicion')){
             return redirect()->route('requisiciones.agregar',$requisicion)
-            ->with('success', 'BOS Agregado Exitosamente. Desea agregar un nuevo item. Contador: '. $contador .' Unidad Administrativa: ' . $unidad_administrativa_id . ' bos id ' . $bos_id . ' Producto ID: ' . $producto_id . ' clasificador ID: ' . $clasificador_id . ' Cuenta: ' . $clasificador_presupuestario . ' Ejercicio ID: ' . $ejercicio_id . ' Ejecucion ID: ' . $ejecucion_id);
+            ->with('success', 'Registro Agregado Exitosamente. Desea agregar un nuevo item. Contador: '. $contador .' Unidad Administrativa: ' . $unidad_administrativa_id . ' bos id ' . $bos_id . ' Producto ID: ' . $producto_id . ' clasificador ID: ' . $clasificador_id . ' Cuenta: ' . $clasificador_presupuestario . ' Ejercicio ID: ' . $ejercicio_id . ' Ejecucion ID: ' . $ejecucion_id);
         }else{
             return redirect()->route('requisiciones.index')
-            ->with('success', 'BOS Agregado Exitosamente.');
+            ->with('success', 'Registro Agregado Exitosamente.');
         }
 
         /*

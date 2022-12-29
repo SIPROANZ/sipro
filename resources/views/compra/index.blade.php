@@ -13,13 +13,29 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Compras') }}
+                                {{ __('Compras En Proceso') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('compras.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                               
+
+                                 <a href="{{ route('compras.analisis') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Orden de Compra') }}
                                 </a>
+
+
+                                <a href="{{ route('compras.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Compras en Proceso') }}
+                                </a>
+
+                                <a href="{{ route('compras.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Compras Procesadas') }}
+                                </a>
+
+                                <a href="{{ route('compras.anuladas')  }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Compras Anuladas') }}
+                                </a>
+
                               </div>
                         </div>
                     </div>
@@ -37,6 +53,7 @@
                                         <th>No</th>
                                         
 										<th>Analisis</th>
+                                        <th>Observacion</th>
 										<th>Numero de orden compra</th>
 										<th>Estado</th>
 										<th>Anulacion</th>
@@ -53,6 +70,7 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $compra->analisis_id }}</td>
+                                            <td>{{ $compra->analisi->observacion }}</td>
 											<td>{{ $compra->numordencompra }}</td>
 											<td>{{ $compra->status }}</td>
 											<td>{{ $compra->fechaanulacion }}</td>
@@ -61,13 +79,22 @@
 											<td>{{ $compra->montototal }}</td>
 
                                             <td>
-                                                <form action="{{ route('compras.destroy',$compra->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('compras.show',$compra->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('compras.edit',$compra->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                                            <form action="{{ route('compras.aprobar',$compra->id) }}" method="POST">
+                                                    <!-- Agregar detalles BOS a la requisicion -->
+                                                   @csrf
+                                                    @method('PATCH')
+                                                    
+                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Compra"><i class="fas fa-check-double"></i></button>
                                                 </form>
+
+                                                <form action="{{ route('compras.anular',$compra->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-success" href="{{ route('compras.edit',$compra->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Compra"><i class="fa fa-fw fa-edit"></i></a>
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Compra"><i class="fa fa-fw fa-trash"></i></button>
+                                                </form>
+
+                                                
                                             </td>
                                         </tr>
                                     @endforeach

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Analisi
+    Compra
 @endsection
 
 @section('content')
@@ -13,10 +13,10 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Listado de Analisis de Cotizaciones') }}
+                                {{ __('Compras Anuladas') }}
                             </span>
 
-                            <div class="float-right">
+                             <div class="float-right">
                                 <a href="{{ route('compras.analisis') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Orden de Compra') }}
                                 </a>
@@ -32,7 +32,6 @@
                                 <a href="{{ route('compras.anuladas')  }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Compras Anuladas') }}
                                 </a>
-
 
                               </div>
                         </div>
@@ -50,48 +49,49 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Unidad administrativa</th>
-										<th># Requisicion</th>
-										<th>Criterio</th>
-										<th>Numero Cotizacion</th>
-										<th>Observacion</th>
-                                        <th>Estatus</th>
+										<th>Analisis</th>
+                                        <th>Observacion</th>
+										<th>Numero de orden compra</th>
+										<th>Estado</th>
+										<th>Anulacion</th>
+										<th>Monto Base</th>
+										<th>Monto IVA</th>
+										<th>Monto Total</th>
 
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($analisis as $analisi)
+                                    @foreach ($compras as $compra)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $analisi->unidadadministrativa->denominacion }}</td>
-											<td>{{ $analisi->requisicion_id }}</td>
-											<td>{{ $analisi->criterio->nombre }}</td>
-											<td>{{ $analisi->numeracion }}</td>
-											<td>{{ $analisi->observacion }}</td>
-                                            <td>{{ $analisi->estatus }}</td>
+											<td>{{ $compra->analisis_id }}</td>
+                                            <td>{{ $compra->analisi->observacion }}</td>
+											<td>{{ $compra->numordencompra }}</td>
+											<td>{{ $compra->status }}</td>
+											<td>{{ $compra->fechaanulacion }}</td>
+											<td>{{ $compra->montobase }}</td>
+											<td>{{ $compra->montoiva }}</td>
+											<td>{{ $compra->montototal }}</td>
 
-                                            <td class="float-right">
-                                            <a class="btn btn-sm btn-primary " href="{{ route('compras.agregarcompra',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Compra"><i class="fas fa-outdent"></i></i></a>
-                                                
-                                            <a class="btn btn-sm btn-success" href="{{ route('compras.reversar',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Reversar Analisis"><i class="fas fa-chevron-circle-left"></i></a>
-                                                   
-                                                <form action="{{ route('analisis.aprobar',$analisi->id) }}" method="POST">
+                                            <td>
+                                            <form action="{{ route('compras.aprobar',$compra->id) }}" method="POST">
                                                     <!-- Agregar detalles BOS a la requisicion -->
                                                    @csrf
                                                     @method('PATCH')
                                                     
-                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Analisis"><i class="fas fa-check-double"></i></button>
+                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Compra"><i class="fas fa-check-double"></i></button>
                                                 </form>
-                                                <form action="{{ route('analisis.anular',$analisi->id) }}" method="POST">
-                                                    <!-- Agregar detalles BOS a la requisicion -->
-                                                
-                                                    <a class="btn btn-sm btn-success" href="{{ route('analisis.edit',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Analisis"><i class="fa fa-fw fa-edit"></i></a>
+
+                                                <form action="{{ route('compras.anular',$compra->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-success" href="{{ route('compras.edit',$compra->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Compra"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Analisis"><i class="fa fa-fw fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Compra"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
+
+                                                
                                             </td>
                                         </tr>
                                     @endforeach
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $analisis->links() !!}
+                {!! $compras->links() !!}
             </div>
         </div>
     </div>

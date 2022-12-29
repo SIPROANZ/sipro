@@ -111,8 +111,23 @@ Route::resource('detallesanalisis', App\Http\Controllers\DetallesanalisiControll
 
 Route::get('/compras/agregar/{compra}', [App\Http\Controllers\CompraController::class, 'agregarcompra'])->name('compras.agregarcompra')->middleware('auth');
 
+Route::patch('/compras/aprobar/{compra}', [App\Http\Controllers\CompraController::class, 'aprobar'])->name('compras.aprobar')->middleware('auth');
+
+Route::get('/compras/reversar/{analisi}', [App\Http\Controllers\CompraController::class, 'reversar'])->name('compras.reversar')->middleware('auth');
+
+
+Route::get('compras/procesadas', [App\Http\Controllers\CompraController::class, 'indexprocesadas'])->name('compras.procesadas')->middleware('auth');
+
+Route::get('compras/anuladas', [App\Http\Controllers\CompraController::class, 'indexanuladas'])->name('compras.anuladas')->middleware('auth');
+
+Route::patch('/compras/anular/{compra}', [App\Http\Controllers\CompraController::class, 'anular'])->name('compras.anular')->middleware('auth');
+
+Route::get('compras/analisis', [App\Http\Controllers\CompraController::class, 'indexanalisis'])->name('compras.analisis')->middleware('auth');
+
 
 Route::resource('compras', App\Http\Controllers\CompraController::class)->middleware('auth');
+
+Route::resource('comprascps', App\Http\Controllers\ComprascpController::class)->middleware('auth');
 
 Route::resource('detallesrequisiciones', App\Http\Controllers\DetallesrequisicioneController::class)->middleware('auth');
 

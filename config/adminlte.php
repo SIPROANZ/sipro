@@ -885,6 +885,13 @@ return [
                     'route'  => 'proveedores.index',
                 ],
 
+                [
+                    'text' => 'Modificar Compras CP',
+                    'icon' => 'fas fa-fw fa-user-tie', //<i class="fas fa-user-tie"></i>
+                    'icon_color' => 'lightblue',
+                    'route'  => 'comprascps.index',
+                ],
+
 
 
             ],

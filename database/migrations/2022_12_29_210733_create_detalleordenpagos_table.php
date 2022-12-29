@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('detalleretenciones', function (Blueprint $table) {
+        Schema::create('detalleordenpagos', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('retencion_id')->unsigned();
             $table->bigInteger('ordenpago_id')->unsigned();
+            $table->bigInteger('unidadadministrativa_id')->unsigned();
+            $table->bigInteger('ejecucion_id')->unsigned();
             $table->double('monto', 25, 2);
-            $table->foreign('retencion_id')->references('id')->on('retenciones')->onDelete('cascade');
             $table->foreign('ordenpago_id')->references('id')->on('ordenpagos')->onDelete('cascade');
+            $table->foreign('unidadadministrativa_id')->references('id')->on('unidadadministrativas')->onDelete('cascade');
+            $table->foreign('ejecucion_id')->references('id')->on('ejecuciones')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detalleretenciones');
+        Schema::dropIfExists('detalleordenpagos');
     }
 };

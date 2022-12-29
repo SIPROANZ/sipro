@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('detalleordendepagos', function (Blueprint $table) {
+        Schema::create('bancos', function (Blueprint $table) {
             $table->id();
+            $table->string('denominacion', 255);
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detalleordendepagos');
+        Schema::dropIfExists('bancos');
     }
 };

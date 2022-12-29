@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ordendepagos', function (Blueprint $table) {
+        Schema::create('tipomovimientos', function (Blueprint $table) {
             $table->id();
+            $table->string('descripcion', 30);
+            $table->tinyInteger('accion')->unsigned();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ordendepagos');
+        Schema::dropIfExists('tipomovimientos');
     }
 };

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('transferencias', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('cuenta_id')->unsigned();
+            $table->bigInteger('cuentasbancaria_id')->unsigned();
             $table->bigInteger('beneficiario_id')->unsigned();
             $table->bigInteger('ordenpago_id')->unsigned();
             $table->double('montotransferencia', 25, 2);
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->double('montoorden', 25, 2);
             $table->string('referenciabancaria', 10);
             $table->string('conceptoanulacion', 10);
-            $table->foreign('cuenta_id')->references('id')->on('cuentas')->onDelete('cascade');
+            $table->foreign('cuentasbancaria_id')->references('id')->on('cuentasbancarias')->onDelete('cascade');
             $table->foreign('beneficiario_id')->references('id')->on('beneficiarios')->onDelete('cascade');
             $table->foreign('ordenpago_id')->references('id')->on('ordenpagos')->onDelete('cascade');
             $table->timestamps();

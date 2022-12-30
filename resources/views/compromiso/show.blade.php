@@ -1,0 +1,73 @@
+@extends('layouts.app')
+
+@section('template_title')
+    {{ $compromiso->name ?? 'Show Compromiso' }}
+@endsection
+
+@section('content')
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="float-left">
+                            <span class="card-title">Show Compromiso</span>
+                        </div>
+                        <div class="float-right">
+                            <a class="btn btn-primary" href="{{ route('compromisos.index') }}"> Back</a>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        
+                        <div class="form-group">
+                            <strong>Unidadadministrativa Id:</strong>
+                            {{ $compromiso->unidadadministrativa_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Tipocompromiso Id:</strong>
+                            {{ $compromiso->tipocompromiso_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Ncompromiso:</strong>
+                            {{ $compromiso->ncompromiso }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Beneficiario Id:</strong>
+                            {{ $compromiso->beneficiario_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Montocompromiso:</strong>
+                            {{ $compromiso->montocompromiso }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Status:</strong>
+                            {{ $compromiso->status }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Documento:</strong>
+                            {{ $compromiso->documento }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Fechaanulacion:</strong>
+                            {{ $compromiso->fechaanulacion }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Precompromiso Id:</strong>
+                            {{ $compromiso->precompromiso_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Compra Id:</strong>
+                            {{ $compromiso->compra_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Ayuda Id:</strong>
+                            {{ $compromiso->ayuda_id }}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection

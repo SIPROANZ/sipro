@@ -5,12 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Ayudassociale
+ * Class Precompromiso
  *
  * @property $id
  * @property $documento
  * @property $montototal
  * @property $concepto
+ * @property $fechaanulacion
  * @property $unidadadministrativa_id
  * @property $tipocompromiso_id
  * @property $beneficiario_id
@@ -18,18 +19,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property $updated_at
  *
  * @property Beneficiario $beneficiario
+ * @property Compromiso[] $compromisos
+ * @property Detallesprecompromiso[] $detallesprecompromisos
  * @property Tipodecompromiso $tipodecompromiso
  * @property Unidadadministrativa $unidadadministrativa
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class Ayudassociale extends Model
+class Precompromiso extends Model
 {
     
     static $rules = [
 		'documento' => 'required',
 		'montototal' => 'required',
 		'concepto' => 'required',
+		'fechaanulacion' => 'required',
 		'unidadadministrativa_id' => 'required',
 		'tipocompromiso_id' => 'required',
 		'beneficiario_id' => 'required',
@@ -42,7 +46,7 @@ class Ayudassociale extends Model
      *
      * @var array
      */
-    protected $fillable = ['documento','montototal','concepto','unidadadministrativa_id','tipocompromiso_id','beneficiario_id', 'fechaanulacion'];
+    protected $fillable = ['documento','montototal','concepto','fechaanulacion','unidadadministrativa_id','tipocompromiso_id','beneficiario_id'];
 
 
     /**
@@ -51,6 +55,22 @@ class Ayudassociale extends Model
     public function beneficiario()
     {
         return $this->hasOne('App\Beneficiario', 'id', 'beneficiario_id');
+    }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function compromisos()
+    {
+        return $this->hasMany('App\Compromiso', 'precompromiso_id', 'id');
+    }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function detallesprecompromisos()
+    {
+        return $this->hasMany('App\Detallesprecompromiso', 'precompromiso_id', 'id');
     }
     
     /**

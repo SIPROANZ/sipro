@@ -5,34 +5,30 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Ayudassociale
+ * Class Detallesayuda
  *
  * @property $id
- * @property $documento
- * @property $montototal
- * @property $concepto
+ * @property $montocompromiso
+ * @property $ayuda_id
  * @property $unidadadministrativa_id
- * @property $tipocompromiso_id
- * @property $beneficiario_id
+ * @property $ejecucion_id
  * @property $created_at
  * @property $updated_at
  *
- * @property Beneficiario $beneficiario
- * @property Tipodecompromiso $tipodecompromiso
+ * @property Ayudassociale $ayudassociale
+ * @property Ejecucione $ejecucione
  * @property Unidadadministrativa $unidadadministrativa
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class Ayudassociale extends Model
+class Detallesayuda extends Model
 {
     
     static $rules = [
-		'documento' => 'required',
-		'montototal' => 'required',
-		'concepto' => 'required',
+		'montocompromiso' => 'required',
+		'ayuda_id' => 'required',
 		'unidadadministrativa_id' => 'required',
-		'tipocompromiso_id' => 'required',
-		'beneficiario_id' => 'required',
+		'ejecucion_id' => 'required',
     ];
 
     protected $perPage = 20;
@@ -42,23 +38,23 @@ class Ayudassociale extends Model
      *
      * @var array
      */
-    protected $fillable = ['documento','montototal','concepto','unidadadministrativa_id','tipocompromiso_id','beneficiario_id', 'fechaanulacion'];
+    protected $fillable = ['montocompromiso','ayuda_id','unidadadministrativa_id','ejecucion_id'];
 
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function beneficiario()
+    public function ayudassociale()
     {
-        return $this->hasOne('App\Beneficiario', 'id', 'beneficiario_id');
+        return $this->hasOne('App\Ayudassociale', 'id', 'ayuda_id');
     }
     
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function tipodecompromiso()
+    public function ejecucione()
     {
-        return $this->hasOne('App\Tipodecompromiso', 'id', 'tipocompromiso_id');
+        return $this->hasOne('App\Ejecucione', 'id', 'ejecucion_id');
     }
     
     /**

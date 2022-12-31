@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('detallecausados', function (Blueprint $table) {
+        Schema::create('detalleretenciones', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('causado_id')->unsigned();
-            $table->bigInteger('retencion_id')->unsigned()->nullable();
+            $table->bigInteger('retencion_id')->unsigned();
+            $table->bigInteger('ordenpago_id')->unsigned();
             $table->double('monto', 25, 2);
-
-            $table->foreign('causado_id')->references('id')->on('causados')->onDelete('cascade');
             $table->foreign('retencion_id')->references('id')->on('retenciones')->onDelete('cascade');
+            $table->foreign('ordenpago_id')->references('id')->on('ordenpagos')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,7 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detallecausados');
+        Schema::dropIfExists('detalleretenciones');
     }
 };
-

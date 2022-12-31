@@ -479,7 +479,7 @@ return [
                             'text' => 'Ordenes de Pago',
                             'icon'    => 'fas fa-fw fa-briefcase', //<i class="fas "></i>
                             'icon_color' => 'white',
-                            'url'  => '#',
+                            'route'  => 'ordenpagos.index',
                         ],
                         [
                             'text' => 'Causados',
@@ -491,7 +491,7 @@ return [
                             'text' => 'Retenciones',
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
                             'icon_color' => 'white',
-                            'url'  => '#',
+                            'route'  => 'retenciones.index',
                         ],
 
                     ],
@@ -508,13 +508,13 @@ return [
                             'text' => 'Pagado',
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
                             'icon_color' => 'white',
-                            'url'  => '#',
+                            'route'  => 'pagados.index',
                         ],
                         [
                             'text' => 'Movimientos Bancarios',
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
                             'icon_color' => 'white',
-                            'url'  => '#',
+                            'route'  => 'movimientosbancarios.index',
                         ],
                         [
                             'text' => 'Estado de Cuenta',
@@ -588,7 +588,7 @@ return [
                             'submenu' => [
                                 [
                                     'text' => 'Transferencia por orden de Pago',
-                                    'url'  => '#',
+                                    'route'  => 'transferencias.index',
                                 ],
                                 [
                                     'text' => 'Transferencia a Tercero',
@@ -628,11 +628,11 @@ return [
                             'submenu' => [
                                 [
                                     'text' => 'Bancos',
-                                    'url'  => '#',
+                                    'route'  => 'bancos.index',
                                 ],
                                 [
                                     'text' => 'Cuentas Bancarias',
-                                    'url'  => '#',
+                                    'route'  => 'cuentasbancarias.index',
                                 ],
                                 [
                                     'text' => 'Chequera',
@@ -640,7 +640,7 @@ return [
                                 ],
                                 [
                                     'text' => 'Tipo de Movimiento Bancario',
-                                    'url'  => '#',
+                                    'route'  => 'tipomovimientos.index',
                                 ],
                                 [
                                     'text' => 'Correlativo Comp. Ret.',

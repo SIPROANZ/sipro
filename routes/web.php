@@ -145,3 +145,18 @@ Route::patch('/requisiciones/aprobar/{requisicione}', [App\Http\Controllers\Requ
 
 Route::resource('requisiciones', App\Http\Controllers\RequisicioneController::class)->middleware('auth');
 
+Route::resource('ordenpagos', App\Http\Controllers\OrdenpagoController::class)->middleware('auth');
+
+Route::resource('retenciones', App\Http\Controllers\RetencioneController::class)->middleware('auth');
+
+Route::resource('bancos', App\Http\Controllers\BancoController::class)->middleware('auth');
+
+Route::resource('cuentasbancarias', App\Http\Controllers\CuentasbancariaController::class)->middleware('auth');
+
+Route::resource('transferencias', App\Http\Controllers\TransferenciaController::class)->middleware('auth');
+
+Route::resource('tipomovimientos', App\Http\Controllers\TipomovimientoController::class)->middleware('auth');
+
+Route::resource('movimientosbancarios', App\Http\Controllers\MovimientosbancarioController::class)->middleware('auth');
+
+Route::resource('pagados', App\Http\Controllers\PagadoController::class)->middleware('auth');

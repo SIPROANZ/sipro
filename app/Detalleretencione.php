@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $retencion_id
  * @property $ordenpago_id
- * @property $monto
+ * @property $montoneto
+ * @property $montoIVA
  * @property $created_at
  * @property $updated_at
  *
@@ -25,7 +26,8 @@ class Detalleretencione extends Model
     static $rules = [
 		'retencion_id' => 'required',
 		'ordenpago_id' => 'required',
-		'monto' => 'required',
+		'montoneto' => 'required',
+		'montoIVA' => 'required',
     ];
 
     protected $perPage = 20;
@@ -35,7 +37,7 @@ class Detalleretencione extends Model
      *
      * @var array
      */
-    protected $fillable = ['retencion_id','ordenpago_id','monto'];
+    protected $fillable = ['retencion_id','ordenpago_id','montoneto','montoIVA'];
 
 
     /**

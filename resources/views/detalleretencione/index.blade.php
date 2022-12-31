@@ -38,7 +38,8 @@
                                         
 										<th>Retencion Id</th>
 										<th>Ordenpago Id</th>
-										<th>Monto</th>
+										<th>Montoneto</th>
+										<th>Montoiva</th>
 
                                         <th></th>
                                     </tr>
@@ -50,7 +51,8 @@
                                             
 											<td>{{ $detalleretencione->retencion_id }}</td>
 											<td>{{ $detalleretencione->ordenpago_id }}</td>
-											<td>{{ $detalleretencione->monto }}</td>
+											<td>{{ $detalleretencione->montoneto }}</td>
+											<td>{{ $detalleretencione->montoIVA }}</td>
 
                                             <td>
                                                 <form action="{{ route('detalleretenciones.destroy',$detalleretencione->id) }}" method="POST">

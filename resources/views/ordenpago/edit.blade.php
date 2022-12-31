@@ -13,7 +13,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Update Ordenpago</span>
+                        <span class="card-title">Editar Orden de pago</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('ordenpagos.update', $ordenpago->id) }}"  role="form" enctype="multipart/form-data">

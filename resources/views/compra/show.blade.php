@@ -14,7 +14,7 @@
                             <span class="card-title">Mostrar Orden de Compra</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('compras.index') }}"> Rregresar</a>
+                            <a class="btn btn-primary" href="{{ route('compras.index') }}"> Regresar</a>
                         </div>
                     </div>
 

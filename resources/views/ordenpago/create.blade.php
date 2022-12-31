@@ -13,7 +13,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Create Ordenpago</span>
+                        <span class="card-title">Crear Orden de pago</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('ordenpagos.store') }}"  role="form" enctype="multipart/form-data">

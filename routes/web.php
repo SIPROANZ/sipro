@@ -160,3 +160,15 @@ Route::resource('tipomovimientos', App\Http\Controllers\TipomovimientoController
 Route::resource('movimientosbancarios', App\Http\Controllers\MovimientosbancarioController::class)->middleware('auth');
 
 Route::resource('pagados', App\Http\Controllers\PagadoController::class)->middleware('auth');
+
+Route::get('compromisos/compras', [App\Http\Controllers\CompromisoController::class, 'indexcompras'])->name('compromisos.compras')->middleware('auth');
+
+Route::get('/compromisos/agregar/{compromiso}', [App\Http\Controllers\CompromisoController::class, 'agregarcompromiso'])->name('compromisos.agregarcompromiso')->middleware('auth');
+
+Route::get('/compromisos/reversar/{compra}', [App\Http\Controllers\CompromisoController::class, 'reversar'])->name('compromisos.reversar')->middleware('auth');
+
+Route::get('compromisos/pdf/{compromiso}', [App\Http\Controllers\CompromisoController::class, 'pdf'])->name('compromisos.pdf')->middleware('auth');
+
+Route::patch('/compromisos/aprobar/{compromiso}', [App\Http\Controllers\CompromisoController::class, 'aprobar'])->name('compromisos.aprobar')->middleware('auth');
+
+Route::resource('compromisos', App\Http\Controllers\CompromisoController::class)->middleware('auth');

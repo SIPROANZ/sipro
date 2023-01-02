@@ -7,6 +7,7 @@ use App\Proveedore;
 use App\Analisi;
 use App\Detallesrequisicione;
 use App\Bo;
+use App\Beneficiario;
 use Illuminate\Http\Request;
 
 /**
@@ -36,7 +37,8 @@ class DetallesanalisiController extends Controller
     public function create()
     {
         $detallesanalisi = new Detallesanalisi();
-        $proveedores = Proveedore::pluck('nombre','id');
+       // $proveedores = Proveedore::pluck('nombre','id');
+        $proveedores = Beneficiario::pluck('nombre','id');
         $analisis = Analisi::pluck('numeracion','id');
         $bos = Bo::pluck('descripcion', 'id');
         return view('detallesanalisi.create', compact('detallesanalisi', 'proveedores','analisis', 'bos'));
@@ -61,7 +63,7 @@ class DetallesanalisiController extends Controller
 
 
         $detallesanalisi = new Detallesanalisi();
-        $proveedores = Proveedore::pluck('nombre','id');
+        $proveedores = Beneficiario::pluck('nombre','id');
         $analisis = Analisi::pluck('numeracion','id');
         $bos = Bo::pluck('descripcion', 'id');
         return view('detallesanalisi.createwithbos', compact('detallesanalisi', 'proveedores','analisis', 'bos', 'rs_bos_cantidad', 'rs_bos_id', 'rs_nombre_bos'));
@@ -188,7 +190,7 @@ class DetallesanalisiController extends Controller
     {
         $detallesanalisi = Detallesanalisi::find($id);
         
-        $proveedores = Proveedore::pluck('nombre','id');
+        $proveedores = Beneficiario::pluck('nombre','id');
         $analisis = Analisi::pluck('numeracion','id');
         $bos = Bo::pluck('descripcion', 'id');
 

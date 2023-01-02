@@ -13,12 +13,24 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Compromiso') }}
+                                {{ __('Compromisos') }}
                             </span>
 
                              <div class="float-right">
+                             <a href="{{ route('compromisos.compras') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear Compromiso') }}
+                                </a>
                                 <a href="{{ route('compromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Crear Nuevo Compromiso') }}
+                                </a>
+                                <a href="{{ route('compromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('En Proceso') }}
+                                </a>
+                                <a href="{{ route('compromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Procesados') }}
+                                </a>
+                                <a href="{{ route('compromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Anulados') }}
                                 </a>
                               </div>
                         </div>
@@ -36,17 +48,17 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Unidadadministrativa Id</th>
-										<th>Tipocompromiso Id</th>
-										<th>Ncompromiso</th>
-										<th>Beneficiario Id</th>
-										<th>Montocompromiso</th>
-										<th>Status</th>
+										<th>Unidad Administrativa</th>
+										<th>Tipo compromiso</th>
+										<th>Numero compromiso</th>
+										<th>Beneficiario</th>
+										<th>Monto compromiso</th>
+										<th>Estado</th>
 										<th>Documento</th>
-										<th>Fechaanulacion</th>
-										<th>Precompromiso Id</th>
-										<th>Compra Id</th>
-										<th>Ayuda Id</th>
+										<th>Fecha Anulacion</th>
+										<th>Precompromiso</th>
+										<th>Compra</th>
+										<th>Ayuda</th>
 
                                         <th></th>
                                     </tr>
@@ -56,10 +68,10 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $compromiso->unidadadministrativa_id }}</td>
-											<td>{{ $compromiso->tipocompromiso_id }}</td>
+											<td>{{ $compromiso->unidadadministrativa->denominacion }}</td>
+											<td>{{ $compromiso->tipodecompromiso->nombre }}</td>
 											<td>{{ $compromiso->ncompromiso }}</td>
-											<td>{{ $compromiso->beneficiario_id }}</td>
+											<td>{{ $compromiso->beneficiario->nombre }}</td>
 											<td>{{ $compromiso->montocompromiso }}</td>
 											<td>{{ $compromiso->status }}</td>
 											<td>{{ $compromiso->documento }}</td>
@@ -69,7 +81,18 @@
 											<td>{{ $compromiso->ayuda_id }}</td>
 
                                             <td>
+                                            <form action="{{ route('compromisos.aprobar',$compromiso->id) }}" method="POST">
+                                                    <!-- Agregar detalles BOS a la requisicion -->
+                                                   @csrf
+                                                    @method('PATCH')
+                                                    
+                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Compromiso"><i class="fas fa-check-double"></i></button>
+                                                </form>
+
                                                 <form action="{{ route('compromisos.destroy',$compromiso->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('compromisos.pdf',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Compromiso"><i class="fas fa-print"></i></a>
+
+                                                
                                                     <a class="btn btn-sm btn-primary " href="{{ route('compromisos.show',$compromiso->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('compromisos.edit',$compromiso->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf

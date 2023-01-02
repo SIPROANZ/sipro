@@ -44,7 +44,6 @@ class Compromiso extends Model
 		'montocompromiso' => 'required',
 		'status' => 'required',
 		'documento' => 'required',
-		'fechaanulacion' => 'required',
     ];
 
     protected $perPage = 20;

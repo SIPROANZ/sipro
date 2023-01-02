@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Listado de Analisis de Cotizaciones') }}
+                                {{ __('Listado de Analisis de Cotizaciones.') }}
                             </span>
 
                             <div class="float-right">
@@ -77,21 +77,8 @@
                                                 
                                             <a class="btn btn-sm btn-success" href="{{ route('compras.reversar',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Reversar Analisis"><i class="fas fa-chevron-circle-left"></i></a>
                                                    
-                                                <form action="{{ route('analisis.aprobar',$analisi->id) }}" method="POST">
-                                                    <!-- Agregar detalles BOS a la requisicion -->
-                                                   @csrf
-                                                    @method('PATCH')
-                                                    
-                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Analisis"><i class="fas fa-check-double"></i></button>
-                                                </form>
-                                                <form action="{{ route('analisis.anular',$analisi->id) }}" method="POST">
-                                                    <!-- Agregar detalles BOS a la requisicion -->
                                                 
-                                                    <a class="btn btn-sm btn-success" href="{{ route('analisis.edit',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Analisis"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Analisis"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
+                                                
                                             </td>
                                         </tr>
                                     @endforeach

@@ -42,8 +42,6 @@ class CompraController extends Controller
        // $compras = Compra::paginate();
         $analisis = Analisi::where('estatus', 'PR')->paginate();
 
-       
-
         return view('compra.analisis', compact('analisis'))
             ->with('i', (request()->input('page', 1) - 1) * $analisis->perPage());
     }
@@ -145,6 +143,12 @@ class CompraController extends Controller
         $total_base = 0;
         $total_iva = 0;
         $total = 0;
+
+        //Cambiar el estatus del analisis para que no salga mas en el listado de las compras a realizar
+        $estado = 'AP';
+        $analisi = Analisi::find($analisis_id);
+        $analisi->estatus = 'AP';
+        $analisi->save();
        
         $detalles_analisis = Detallesanalisi::where('analisis_id', $analisis_id)->get();
 
@@ -167,7 +171,7 @@ class CompraController extends Controller
     public function aprobar($id)
     {
         $compra = Compra::find($id);
-        $compra->status = 'EP';
+        $compra->status = 'PR';
         $compra->save();
 
         $aprobado = 1;
@@ -295,13 +299,6 @@ class CompraController extends Controller
             ->with('success', 'No Aprobado. No hay Disponibilidad o ha ocurrido un error en el registro');
         }
 
-
-
-
-
-      
-
-       
     }
 
     /**

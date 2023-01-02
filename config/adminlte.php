@@ -433,7 +433,7 @@ return [
                             'text' => 'Compromisos',
                             'icon'    => 'fas fa-fw fa-praying-hands', // <i class="fas fa-praying-hands"></i>
                             'icon_color' => 'white',
-                            'url'  => '#',
+                            'route'  => 'compromisos.index',
                         ],
                         [
                             'text' => 'Tipos de Compromisos',

@@ -124,6 +124,8 @@ Route::patch('/compras/anular/{compra}', [App\Http\Controllers\CompraController:
 
 Route::get('compras/analisis', [App\Http\Controllers\CompraController::class, 'indexanalisis'])->name('compras.analisis')->middleware('auth');
 
+Route::get('compras/pdf/{compra}', [App\Http\Controllers\CompraController::class, 'pdf'])->name('compras.pdf')->middleware('auth');
+
 
 Route::resource('compras', App\Http\Controllers\CompraController::class)->middleware('auth');
 
@@ -172,3 +174,5 @@ Route::get('compromisos/pdf/{compromiso}', [App\Http\Controllers\CompromisoContr
 Route::patch('/compromisos/aprobar/{compromiso}', [App\Http\Controllers\CompromisoController::class, 'aprobar'])->name('compromisos.aprobar')->middleware('auth');
 
 Route::resource('compromisos', App\Http\Controllers\CompromisoController::class)->middleware('auth');
+
+Route::resource('detallescompromisos', App\Http\Controllers\DetallescompromisoController::class)->middleware('auth');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comprascp;
+use App\Compra;
 use Illuminate\Http\Request;
 
 /**
@@ -89,9 +90,26 @@ class ComprascpController extends Controller
         request()->validate(Comprascp::$rules);
 
         $comprascp->update($request->all());
-
+        /*
         return redirect()->route('comprascps.index')
             ->with('success', 'Comprascp updated successfully');
+        */
+           
+
+              if(session()->has('mostrarcompra')){
+                $id = session('mostrarcompra');
+                $compra = Compra::find($id);
+
+            $comprascps = Comprascp::where('compra_id', $id)->paginate();
+    
+           // return view('compra.show', compact('compra'));
+    
+            return view('compra.show', compact('compra', 'comprascps'))
+                ->with('i', (request()->input('page', 1) - 1) * $comprascps->perPage());
+            }else{
+                return redirect()->route('compra.index')
+                ->with('success', 'Registro Agregado Exitosamente.');
+            } 
     }
 
     /**

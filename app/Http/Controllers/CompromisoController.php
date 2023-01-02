@@ -106,8 +106,11 @@ class CompromisoController extends Controller
     public function show($id)
     {
         $compromiso = Compromiso::find($id);
+        $detallescompromisos = Detallescompromiso::where('compromiso_id', $id)->paginate();
 
-        return view('compromiso.show', compact('compromiso'));
+        //return view('compromiso.show', compact('compromiso'));
+        return view('compromiso.show', compact('detallescompromisos', 'compromiso'))
+            ->with('i', (request()->input('page', 1) - 1) * $detallescompromisos->perPage());
     }
 
     /**
@@ -119,8 +122,12 @@ class CompromisoController extends Controller
     public function edit($id)
     {
         $compromiso = Compromiso::find($id);
+        $compra = Compra::find($compromiso->compra_id);
+        $tipocompromisos = Tipodecompromiso::find($compromiso->tipocompromiso_id);
+        $detallesanalisi = Detallesanalisi::find($compra->analisis_id);
+        $proveedor = $detallesanalisi->proveedor_id;
 
-        return view('compromiso.edit', compact('compromiso'));
+        return view('compromiso.edit', compact('compromiso', 'compra', 'tipocompromisos', 'proveedor'));
     }
 
     /**

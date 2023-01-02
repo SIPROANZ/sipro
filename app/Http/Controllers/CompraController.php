@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Compra;
 use App\Analisi;
 use App\Detallesanalisi;
+use App\Beneficiario;
 use App\Comprascp;
 use App\Requisicione;
 use App\Requidetclaspre;
 use App\Ejecucione;
 use App\Clasificadorpresupuestario;
+use App\Unidadadministrativa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 /**
  * Class CompraController
@@ -68,7 +71,109 @@ class CompraController extends Controller
     {
         request()->validate(Compra::$rules);
 
+        $max_correlativo = DB::table('compras')->max('numordencompra');
+        $numero_correlativo = $max_correlativo + 1;
+
+       // $request->correlativo = $numero_correlativo //18; 
+         $request->merge(['numordencompra'  => $numero_correlativo]);
+
         $compra = Compra::create($request->all());
+
+        //Obtener el ultimo ID
+        $ultimo = Compra::latest('id')->first();
+        $compra_id = $ultimo->id;
+
+        $comprars = Compra::find($compra_id);
+
+        //Una vez que agregue la compra agrego tambien sus diferentes clasificadores presupuestarios
+        $aprobado = 1;
+        $procesar = 0;
+
+        //Obtener el Id del analisis
+        $analisis_id = $comprars->analisis_id;
+
+        //Obtener todos los productos relaciones al analisis_id en la tabla detalleanalisis
+        $detalles_analisis = Detallesanalisi::where('analisis_id', $analisis_id)->get();
+        //cad_analisis para mostrar todos los productos relacionados con el analisis id
+        $iva = 0;
+        $cad_analisis ='';
+        
+        foreach($detalles_analisis as $rows){
+            $cad_analisis .= ' BOS_ID: ' . $rows->bos_id .' SUBTOTAL: '. $rows->subtotal;
+            $iva += $rows->iva;
+        }
+
+        //Obtener Requisicion_id y con este valor vamos a obtener el clasificador presupuestario
+        //que viene desde la requisicion
+        $analisis = Analisi::find($analisis_id);
+        $requisicion_id = $analisis->requisicion_id;
+        $unidadadministrativa_id = $analisis->unidadadministrativa_id;
+
+        //Obtener ejecucion para el iva
+        $cuenta_iva ='4.03.18.01.00';
+        $cuenta_ejecucion = Ejecucione::where('clasificadorpresupuestario', $cuenta_iva)->where('unidadadministrativa_id', $unidadadministrativa_id)->first();
+        $ejecucion_iva = $cuenta_ejecucion->id;
+        $por_comprometer_iva = $cuenta_ejecucion->monto_por_comprometer;
+
+        //Obtener todos los clasificadores presupuestarios que vienen desde la tabla requidetclaspres
+        $detalles_req_cp = Requidetclaspre::where('requisicion_id', $requisicion_id)->get();
+        $cad_det_clas_pres = '';
+        $cad_disp_ejec = '';
+        $cad_id_clas_pres ='';
+        $cad_subtotales = '';
+        $subtotal = 0;
+
+        foreach($detalles_req_cp as $rows){
+            //Obtener el ID del clasificador presupuestario
+            $cad_det_clas_pres .= ' Cuenta: ' . $rows->claspres;
+            $clasificadorpresupuestario = Clasificadorpresupuestario::where('cuenta',$rows->claspres)->first();
+            $cad_id_clas_pres .=' ID Clasificador: ' . $clasificadorpresupuestario->id;
+            //Obtener Ejecucion para saber el monto disponible
+            $ejecucione = Ejecucione::find($rows->ejecucion_id);
+            $cad_disp_ejec .= ' Ejecucion: ' . $rows->ejecucion_id . ' Disponible: ' . $ejecucione->monto_por_comprometer;
+            $monto_por_comprometer = $ejecucione->monto_por_comprometer;
+            $ejecucion_id = $rows->ejecucion_id;
+            //inicio
+            $detallescomprascps = DB::table('detallesanalisis')
+            ->where('analisis_id', $analisis_id)
+            ->join('bos', 'bos.id', '=', 'detallesanalisis.bos_id') 
+            ->join('productoscps', 'productoscps.producto_id', '=', 'bos.producto_id')
+            ->where('productoscps.clasificadorp_id', $clasificadorpresupuestario->id)
+            ->select('detallesanalisis.subtotal')
+            ->get(); 
+
+            foreach($detallescomprascps as $rows)
+            {
+                $subtotal += $rows->subtotal;
+            }
+            //fin
+            //Crear del detalle comprascps
+            $datos_comprascps = [
+                'compra_id' => $compra_id,
+                'unidadadministrativa_id' => $unidadadministrativa_id,
+                'ejecucion_id' => $ejecucion_id,
+                'monto' => $subtotal,
+                'disponible' => $monto_por_comprometer
+            ];
+            
+            $agregar_cps = Comprascp::create($datos_comprascps);
+        
+            //Luego colocar nuevamente el sub total a cero
+             $subtotal = 0;
+       
+        }
+        // REGISTRAR LA PARTIDA DE IVA DE ESTA UNIDAD ADMINISTRATIVA
+        $datos_iva = $datos_comprascps = [
+            'compra_id' => $compra_id,
+            'unidadadministrativa_id' => $unidadadministrativa_id,
+            'ejecucion_id' => $ejecucion_iva,
+            'monto' => $iva,
+            'disponible' => $por_comprometer_iva
+        ];
+        $agregar_cps = Comprascp::create($datos_iva);
+
+        
+        //Fin de agregar sus clasificadores presupuestarios
 
         return redirect()->route('compras.index')
             ->with('success', 'Compra created successfully.');
@@ -82,9 +187,48 @@ class CompraController extends Controller
      */
     public function show($id)
     {
+        session(['mostrarcompra' => $id]);
+
         $compra = Compra::find($id);
 
-        return view('compra.show', compact('compra'));
+
+
+        $comprascps = Comprascp::where('compra_id', $id)->paginate();
+
+        //Obtener el numero de la requisicion
+        $analisis = Analisi::find($compra->analisis_id);
+        $requisicion_id = $analisis->requisicion_id;
+        $unidadadministrativa_id = $analisis->unidadadministrativa_id;
+        $requisicion = Requisicione::find($requisicion_id);
+        $correlativo = $requisicion->correlativo;
+        $uso = $requisicion->uso;
+        $undadm = Unidadadministrativa::find($unidadadministrativa_id);
+        $departamento = $undadm->unidadejecutora;
+        $sub_sector = $undadm->denominacion;
+        $sector_actual = $undadm->sector;
+
+        //Para obtener el sector
+        $nuevo_sector = Unidadadministrativa::where('sector', $sector_actual )->where('programa', '00')->first();
+        $sector = $nuevo_sector->unidadejecutora;
+
+        //PARA OBTENER EL ID DEL PROVEEDOR
+        $proveedor = Detallesanalisi::where('analisis_id', $analisis->id)->where('aprobado', 'SI')->first();
+        $proveedor_id = $proveedor->proveedor_id;
+        //Ahora busco la razon social y el rif
+        $beneficiario = Beneficiario::find($proveedor_id);
+        $rif =$beneficiario->caracterbeneficiario . '-' . $beneficiario->rif;
+        $razon_social = $beneficiario->nombre;
+
+        //Para ver los detalles de la compra
+        //Consulto los datos especificos para la requisicion seleccionada
+        $detallesanalisis = Detallesanalisi::where('analisis_id',$analisis->id)->paginate();
+
+
+       // return view('compra.show', compact('compra'));
+
+        return view('compra.show', compact('compra', 'detallesanalisis', 'comprascps', 'correlativo', 'departamento', 'uso', 'sub_sector', 'sector', 'rif', 'razon_social'))
+            ->with('i', (request()->input('page', 1) - 1) * $comprascps->perPage());
+
     }
 
     /**
@@ -145,9 +289,9 @@ class CompraController extends Controller
         $total = 0;
 
         //Cambiar el estatus del analisis para que no salga mas en el listado de las compras a realizar
-        $estado = 'AP';
+        $estado = 'AP';  //UNA VEZ LISTO EL CODIGO COLOCARLO EN AP
         $analisi = Analisi::find($analisis_id);
-        $analisi->estatus = 'AP';
+        $analisi->estatus = 'AP';//UNA VEZ LISTO COLOCARLO EN AP
         $analisi->save();
        
         $detalles_analisis = Detallesanalisi::where('analisis_id', $analisis_id)->get();
@@ -171,129 +315,58 @@ class CompraController extends Controller
     public function aprobar($id)
     {
         $compra = Compra::find($id);
-        $compra->status = 'PR';
+        $compra->status = 'PR'; //colocar al finalizar las pruebas en PR
         $compra->save();
 
         $aprobado = 1;
         $procesar = 0;
 
-        //Obtener el Id del analisis
-        $analisis_id = $compra->analisis_id;
+        $cad_resulltados ='';
 
-        
-
-
-        //Obtener todos los productos relaciones al analisis_id en la tabla detalleanalisis
-        $detalles_analisis = Detallesanalisi::where('analisis_id', $analisis_id)->get();
-        //cad_analisis para mostrar todos los productos relacionados con el analisis id
-        $iva = 0;
-        $cad_analisis ='';
-        
-        foreach($detalles_analisis as $rows){
-            $cad_analisis .= ' BOS_ID: ' . $rows->bos_id .' SUBTOTAL: '. $rows->subtotal;
-            $iva += $rows->iva;
-        }
-
-        //Obtener Requisicion_id y con este valor vamos a obtener el clasificador presupuestario
-        //que viene desde la requisicion
-        $analisis = Analisi::find($analisis_id);
-        $requisicion_id = $analisis->requisicion_id;
-        $unidadadministrativa_id = $analisis->unidadadministrativa_id;
-
-        //Obtener ejecucion para el iva
-        $cuenta_iva ='4.03.18.01.00';
-        $cuenta_ejecucion = Ejecucione::where('clasificadorpresupuestario', $cuenta_iva)->where('unidadadministrativa_id', $unidadadministrativa_id)->first();
-        $ejecucion_iva = $cuenta_ejecucion->id;
-        $por_comprometer_iva = $cuenta_ejecucion->monto_por_comprometer;
-
-        //Obtener todos los clasificadores presupuestarios que vienen desde la tabla requidetclaspres
-        $detalles_req_cp = Requidetclaspre::where('requisicion_id', $requisicion_id)->get();
-        $cad_det_clas_pres = '';
-        $cad_disp_ejec = '';
-        $cad_id_clas_pres ='';
-        $cad_subtotales = '';
-        $subtotal = 0;
-
-        foreach($detalles_req_cp as $rows){
-            //Obtener el ID del clasificador presupuestario
-            $cad_det_clas_pres .= ' Cuenta: ' . $rows->claspres;
-            $clasificadorpresupuestario = Clasificadorpresupuestario::where('cuenta',$rows->claspres)->first();
-            $cad_id_clas_pres .=' ID Clasificador: ' . $clasificadorpresupuestario->id;
-            //Obtener Ejecucion para saber el monto disponible
-            $ejecucione = Ejecucione::find($rows->ejecucion_id);
-            $cad_disp_ejec .= ' Ejecucion: ' . $rows->ejecucion_id . ' Disponible: ' . $ejecucione->monto_por_comprometer;
-            $monto_por_comprometer = $ejecucione->monto_por_comprometer;
+        //Obtener todos los valores que vienen de la tabla compracps y los verifico con su ejecucio
+        //para saber si hay disponibilidad
+        $comprascps = Comprascp::where('compra_id', $id)->get();
+       //  $comprascpsprecomprometer = Comprascp::where('compra_id', $id);
+        //Primero verifico que todas las partidas tengan disponibilidad, si es seguro, entonces precomprometo
+        foreach($comprascps as $rows){
+            $monto =  $rows->monto;
             $ejecucion_id = $rows->ejecucion_id;
-            //inicio
-            $detallescomprascps = DB::table('detallesanalisis')
-            ->where('analisis_id', $analisis_id)
-            ->join('bos', 'bos.id', '=', 'detallesanalisis.bos_id') 
-            ->join('productoscps', 'productoscps.producto_id', '=', 'bos.producto_id')
-            ->where('productoscps.clasificadorp_id', $clasificadorpresupuestario->id)
-            ->select('detallesanalisis.subtotal')
-            ->get(); 
-
-            foreach($detallescomprascps as $rows)
+            //Obtenemos el monto en la ejecucion 
+            $ejecucion = Ejecucione::find($ejecucion_id);
+            $monto_por_comprometer = $ejecucion->monto_por_comprometer;
+            $monto_precomprometido = $ejecucion->monto_precomprometido;
+            $disponible_ejecucion = $monto_por_comprometer - $monto_precomprometido;
+            //Valido que tenga disponibilidad
+            if($monto > $disponible_ejecucion)
             {
-                $subtotal += $rows->subtotal;
+                $procesar = 1; //Hubo falta de disponibilidad en alguna ejecucion
+                $aprobado = 0;
+                $compra->status = 'EP';
+                $compra->save();
             }
-            //fin
-            //Crear del detalle comprascps
-            $datos_comprascps = [
-                'compra_id' => $id,
-                'unidadadministrativa_id' => $unidadadministrativa_id,
-                'ejecucion_id' => $ejecucion_id,
-                'monto' => $subtotal,
-                'disponible' => $monto_por_comprometer
-            ];
-            
-           
-        
-            //Hay que hacer validaciones, si se puede precomprometer si tiene monto o no
-            if($subtotal < $monto_por_comprometer){
-                $agregar_cps = Comprascp::create($datos_comprascps);
-                //Precomprometer el monto en la ejecucion
-                $ejecucione->increment('monto_precomprometido', $subtotal);
-            } else {
-                $procesar = 1;
-            }
-
-            //Luego colocar nuevamente el sub total a cero
-             $subtotal = 0;
-       
+            $cad_resulltados .= ' monto: ' . $monto . ' ejecucion: ' . $ejecucion_id . ' Disponible: ' . $disponible_ejecucion; 
         }
 
-        //Hay que hacer validaciones, si se puede precomprometer si tiene monto o no
-        if($iva < $por_comprometer_iva){
-            $datos_iva = $datos_comprascps = [
-                'compra_id' => $id,
-                'unidadadministrativa_id' => $unidadadministrativa_id,
-                'ejecucion_id' => $ejecucion_iva,
-                'monto' => $iva,
-                'disponible' => $por_comprometer_iva
-            ];
-            $agregar_cps = Comprascp::create($datos_iva);
-            //Precomprometer el monto en la ejecucion
-            $ejecucione->increment('monto_precomprometido', $subtotal);
-        } else {
-            $procesar = 1;
-        }
+        //Si la bandera procesar aun permanece en 0 quiere decir que si hay disponibilidad y procedo
+        //a precomprometer de la ejecucion los montos pasados
+        if($procesar == 0){
+            foreach($comprascps as $rows){
+                $monto =  $rows->monto;
+                $ejecucion_id = $rows->ejecucion_id;
+                //Obtenemos el monto en la ejecucion 
+                $ejecucion = Ejecucione::find($ejecucion_id);
+                $ejecucion->increment('monto_precomprometido', $monto);
 
-        //Obtener Ejecucion para saber el monto disponible
-        //Crear detalles comprascps IVA para esta compra
+              //  $cad_resulltados .= ' monto: ' . $monto . ' ejecucion: ' . $ejecucion_id; 
+            }
+        }
       
-
-        if($procesar == 1) {
-            $eliminar = Comprascp::where('compras_id', $id)->delete();
-            $aprobado = 0;
-
-        }
 
 
 
         if($aprobado == 1){
             return redirect()->route('compras.index')
-            ->with('success', 'Compra Aprobada Exitosamente. Analisis_id: ' . $analisis_id . ' Detalles Analisis: ' . $cad_analisis . ' REQUISICION ID: ' . $requisicion_id . ' Clasificador Presupuestario: ' . $cad_det_clas_pres . ' *** ID Clasificador: '. $cad_id_clas_pres. ' **** ' . $cad_disp_ejec . ' *** SUBTOTAL: ' . $subtotal . ' *** IVA: ' . $iva . ' Unidad Administrativa: ' . $unidadadministrativa_id);
+            ->with('success', 'Compra Aprobada Exitosamente. Resultados: ' . $cad_resulltados);
         }else{
             return redirect()->route('compras.index')
             ->with('success', 'No Aprobado. No hay Disponibilidad o ha ocurrido un error en el registro');
@@ -358,5 +431,24 @@ class CompraController extends Controller
 
         return redirect()->route('compras.index')
             ->with('success', 'Analisis de Cotizacion Reversada exitosamente.');
+    }
+
+     /**
+     * Crear pdf de la requisicion seleccionada
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf($id)
+    {
+        
+        $compra = Compra::find($id);
+
+        $comprascps = Comprascp::where('compra_id','=',$id)->paginate();
+      
+
+        $pdf = PDF::loadView('compra.pdf', ['compra'=>$compra, 'comprascps'=>$comprascps]);
+        return $pdf->stream();
+
+        
     }
 }

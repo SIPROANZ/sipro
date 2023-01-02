@@ -29,8 +29,12 @@
                             {{ $detalleretencione->ordenpago_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Monto:</strong>
-                            {{ $detalleretencione->monto }}
+                            <strong>Montoneto:</strong>
+                            {{ $detalleretencione->montoneto }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Montoiva:</strong>
+                            {{ $detalleretencione->montoIVA }}
                         </div>
 
                     </div>

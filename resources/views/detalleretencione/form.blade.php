@@ -12,9 +12,14 @@
             {!! $errors->first('ordenpago_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
-            {{ Form::label('monto') }}
-            {{ Form::text('monto', $detalleretencione->monto, ['class' => 'form-control' . ($errors->has('monto') ? ' is-invalid' : ''), 'placeholder' => 'Monto']) }}
-            {!! $errors->first('monto', '<div class="invalid-feedback">:message</div>') !!}
+            {{ Form::label('montoneto') }}
+            {{ Form::text('montoneto', $detalleretencione->montoneto, ['class' => 'form-control' . ($errors->has('montoneto') ? ' is-invalid' : ''), 'placeholder' => 'Montoneto']) }}
+            {!! $errors->first('montoneto', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+        <div class="form-group">
+            {{ Form::label('montoIVA') }}
+            {{ Form::text('montoIVA', $detalleretencione->montoIVA, ['class' => 'form-control' . ($errors->has('montoIVA') ? ' is-invalid' : ''), 'placeholder' => 'Montoiva']) }}
+            {!! $errors->first('montoIVA', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 
     </div>

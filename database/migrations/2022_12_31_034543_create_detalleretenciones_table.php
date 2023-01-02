@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('retencion_id')->unsigned();
             $table->bigInteger('ordenpago_id')->unsigned();
-            $table->double('monto', 25, 2);
+            $table->double('montoneto', 25, 2);
+            $table->double('montoIVA', 25, 2);
             $table->foreign('retencion_id')->references('id')->on('retenciones')->onDelete('cascade');
             $table->foreign('ordenpago_id')->references('id')->on('ordenpagos')->onDelete('cascade');
             $table->timestamps();

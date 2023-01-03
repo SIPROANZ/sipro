@@ -177,7 +177,7 @@ class CompromisoController extends Controller
         
         //Cambiar el estatus de la compra para que no salga mas en el listado a comprometer
         $compra = Compra::find($compra_id);
-        $compra->status = 'PR';
+        $compra->status = 'AP';
         $compra->save();
 
         $detallesanalisi = Detallesanalisi::find($compra->analisis_id);

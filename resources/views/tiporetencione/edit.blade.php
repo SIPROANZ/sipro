@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Editar Retenciones
+    Editar Tipo de Retención
 @endsection
 
 @section('content')
@@ -13,14 +13,14 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Editar Retenciones</span>
+                        <span class="card-title">Editar Tipo de Retención</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('retenciones.update', $retencione->id) }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('tiporetenciones.update', $tiporetencione->id) }}"  role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('retencione.form')
+                            @include('tiporetencione.form')
 
                         </form>
                     </div>

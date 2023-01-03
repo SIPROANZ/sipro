@@ -1,26 +1,25 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Editar Retenciones
+    Crear Tipos de Retenciones
 @endsection
 
 @section('content')
     <section class="content container-fluid">
-        <div class="">
+        <div class="row">
             <div class="col-md-12">
 
                 @includeif('partials.errors')
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Editar Retenciones</span>
+                        <span class="card-title">Crear Tipo de Retenciones</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('retenciones.update', $retencione->id) }}"  role="form" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
+                        <form method="POST" action="{{ route('tiporetenciones.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
-                            @include('retencione.form')
+                            @include('tiporetencione.form')
 
                         </form>
                     </div>

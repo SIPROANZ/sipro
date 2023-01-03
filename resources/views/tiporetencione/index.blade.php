@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Retenciones
+    Tipos de Retenciones
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Retenciones') }}
+                                {{ __('Tipos de Retenciones') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('retenciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nueva') }}
+                                <a href="{{ route('tiporetenciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear Nuevo Tipo') }}
                                 </a>
                               </div>
                         </div>
@@ -36,27 +36,22 @@
                                     <tr>
                                         <th>No</th>
 
-										<th>Descripcion</th>
-										<th>Porcentaje</th>
 										<th>Tipo</th>
-										<th>Tipo de Retención</th>
+
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($retenciones as $retencione)
+                                    @foreach ($tiporetenciones as $tiporetencione)
                                         <tr>
                                             <td>{{ ++$i }}</td>
 
-											<td>{{ $retencione->descripcion }}</td>
-											<td>{{ $retencione->porcentaje }}</td>
-											<td>{{ $retencione->tipo }}</td>
-											<td>{{ $retencione->tiporetencione->tipo}}</td>
+											<td>{{ $tiporetencione->tipo }}</td>
 
                                             <td>
-                                                <form action="{{ route('retenciones.destroy',$retencione->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('retenciones.show',$retencione->id) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('retenciones.edit',$retencione->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                                <form action="{{ route('tiporetenciones.destroy',$tiporetencione->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('tiporetenciones.show',$tiporetencione->id) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('tiporetenciones.edit',$tiporetencione->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
@@ -69,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $retenciones->links() !!}
+                {!! $tiporetenciones->links() !!}
             </div>
         </div>
     </div>

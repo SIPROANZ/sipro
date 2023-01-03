@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('retenciones', function (Blueprint $table) {
+        Schema::create('tiporetenciones', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('tiporetencion_id')->unsigned();
-            $table->string('descripcion', 255);
-            $table->double('porcentaje', 6, 2);
-            $table->string('tipo', 1);
-            $table->foreign('tiporetencion_id')->references('id')->on('tiporetenciones')->onDelete('cascade');
+            $table->string('tipo', 50);
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('retenciones');
+        Schema::dropIfExists('tiporetenciones');
     }
 };

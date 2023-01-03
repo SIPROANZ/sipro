@@ -150,6 +150,8 @@ Route::resource('requisiciones', App\Http\Controllers\RequisicioneController::cl
 
 Route::resource('ordenpagos', App\Http\Controllers\OrdenpagoController::class)->middleware('auth');
 
+Route::resource('tiporetenciones', App\Http\Controllers\TiporetencioneController::class)->middleware('auth');
+
 Route::resource('retenciones', App\Http\Controllers\RetencioneController::class)->middleware('auth');
 
 Route::resource('bancos', App\Http\Controllers\BancoController::class)->middleware('auth');

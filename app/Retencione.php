@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use \App\Traits\EnumTrait;
 
 /**
  * Class Retencione
@@ -21,12 +22,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Retencione extends Model
 {
-    
+    //use EnumTrait;
     static $rules = [
 		'descripcion' => 'required',
 		'porcentaje' => 'required',
 		'tipo' => 'required',
-		'tiporetencion' => 'required',
+		'tiporetencion_id' => 'required',
     ];
 
     protected $perPage = 20;
@@ -36,7 +37,7 @@ class Retencione extends Model
      *
      * @var array
      */
-    protected $fillable = ['descripcion','porcentaje','tipo','tiporetencion'];
+    protected $fillable = ['descripcion','porcentaje','tipo','tiporetencion_id'];
 
 
     /**
@@ -46,6 +47,27 @@ class Retencione extends Model
     {
         return $this->hasMany('App\Detalleretencione', 'retencion_id', 'id');
     }
-    
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function tiporetencione()
+    {
+        //return $this->hasOne(Tiporetencione::class);
+        return $this->hasOne('App\Tiporetencione', 'id', 'id');
+    }
+
+/*     protected static $enums = [
+        'TIPO' => 'tipo'
+    ]; */
+    /**
+    * Users' estatus
+    *
+    * @var array
+    */
+/*     public const TIPO = [
+        'I' => 'Impuesto',
+        'R' => 'Retención'
+    ]; */
 
 }

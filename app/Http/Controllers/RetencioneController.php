@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Retencione;
+use App\Tiporetencione;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +33,8 @@ class RetencioneController extends Controller
     public function create()
     {
         $retencione = new Retencione();
-        return view('retencione.create', compact('retencione'));
+        $tiporetencion = Tiporetencione::pluck('tipo', 'id');
+        return view('retencione.create', compact('retencione', 'tiporetencion'));
     }
 
     /**
@@ -48,7 +50,7 @@ class RetencioneController extends Controller
         $retencione = Retencione::create($request->all());
 
         return redirect()->route('retenciones.index')
-            ->with('success', 'Retencione created successfully.');
+            ->with('success', 'Retención creada con exito.');
     }
 
     /**
@@ -73,8 +75,9 @@ class RetencioneController extends Controller
     public function edit($id)
     {
         $retencione = Retencione::find($id);
+        $tiporetencion = Tiporetencione::pluck('tipo', 'id');
 
-        return view('retencione.edit', compact('retencione'));
+        return view('retencione.edit', compact('retencione', 'tiporetencion'));
     }
 
     /**
@@ -91,7 +94,7 @@ class RetencioneController extends Controller
         $retencione->update($request->all());
 
         return redirect()->route('retenciones.index')
-            ->with('success', 'Retencione updated successfully');
+            ->with('success', 'Retención modificada con exito');
     }
 
     /**
@@ -104,6 +107,6 @@ class RetencioneController extends Controller
         $retencione = Retencione::find($id)->delete();
 
         return redirect()->route('retenciones.index')
-            ->with('success', 'Retencione deleted successfully');
+            ->with('success', 'Retención eliminada con exito');
     }
 }

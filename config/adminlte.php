@@ -366,7 +366,7 @@ return [
                             'icon'    => 'fas fa-fw fa-file-invoice', //<i class="fas fa-file-invoice"></i>
                             'icon_color' => 'white',
                             'route'  => 'analisis.index',
-                        ], 
+                        ],
                    /*     [
                             'text' => 'Detalles Analisis',
                             'icon'    => 'fas fa-fw fa-file-invoice', //<i class="fas fa-file-invoice"></i>
@@ -486,6 +486,12 @@ return [
                             'icon'    => 'fas fa-fw fa-calculator', // <i class="fas fa-calculator"></i>
                             'icon_color' => 'white',
                             'url'  => '#',
+                        ],
+                        [
+                            'text' => 'Tipo de Retenciones',
+                            'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
+                            'icon_color' => 'white',
+                            'route'  => 'tiporetenciones.index',
                         ],
                         [
                             'text' => 'Retenciones',

@@ -442,10 +442,10 @@ return [
                             'route'  => 'tipodecompromisos.index',
                         ],
                         [
-                            'text' => 'Ajustes',
+                            'text' => 'Ajustar Compromisos',
                             'icon'    => 'fas fa-fw fa-hammer', //<i class="fas fa-hammer"></i>
                             'icon_color' => 'white',
-                            'url'  => '#',
+                            'route'  => 'ajustescompromisos.index',
                         ],
                         [
                             'text' => 'Reporte de Compromisos',

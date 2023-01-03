@@ -67,7 +67,7 @@ class AnalisiController extends Controller
         $analisi = new Analisi();
 
         $unidadesadministrativas = Unidadadministrativa::pluck('denominacion', 'id');
-        $requisiciones = Requisicione::pluck('concepto', 'id');
+        $requisiciones = Requisicione::where('estatus','PR')->pluck('concepto', 'id');
         $criterios = Criterio::pluck('nombre', 'id');
 
         return view('analisi.create', compact('analisi', 'unidadesadministrativas', 'requisiciones', 'criterios'));

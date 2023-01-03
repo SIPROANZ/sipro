@@ -2,14 +2,14 @@
     <div class="box-body">
         
     <div class="row">
-        <div class="col-md-4"> 
+        
         <div class="form-group">
-            {{ Form::label('compra_id') }}
-            {{ Form::text('compra_id', $comprascp->compra_id, ['class' => 'form-control' . ($errors->has('compra_id') ? ' is-invalid' : ''), 'placeholder' => 'Compra Id']) }}
+            
+            {{ Form::hidden('compra_id', $comprascp->compra_id, ['class' => 'form-control' . ($errors->has('compra_id') ? ' is-invalid' : ''), 'placeholder' => 'Compra Id']) }}
             {!! $errors->first('compra_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
-        </div>
-        <div class="col-md-4"> 
+        
+        <div class="col-md-8"> 
         <div class="form-group">
             {{ Form::label('unidad Administrativa') }}
             {{ Form::select('unidadadministrativa_id', $unidad_administrativa, $comprascp->unidadadministrativa_id, ['class' => 'form-control' . ($errors->has('unidadadministrativa_id') ? ' is-invalid' : ''), 'placeholder' => 'Unidadadministrativa Id']) }}

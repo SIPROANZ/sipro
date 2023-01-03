@@ -127,10 +127,12 @@ class CompromisoController extends Controller
     {
         $compromiso = Compromiso::find($id);
         $compra = Compra::find($compromiso->compra_id);
-        $tipocompromisos = Tipodecompromiso::find($compromiso->tipocompromiso_id);
+       // $tipocompromisos = Tipodecompromiso::find($compromiso->tipocompromiso_id);
         $detallesanalisi = Detallesanalisi::find($compra->analisis_id);
         $proveedor = $detallesanalisi->proveedor_id;
 
+        $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id'); 
+        
         return view('compromiso.edit', compact('compromiso', 'compra', 'tipocompromisos', 'proveedor'));
     }
 
@@ -198,7 +200,7 @@ class CompromisoController extends Controller
     public function reversar($id)
     {
         $compra = Compra::find($id);
-        $compra->estatus = 'EP';
+        $compra->status = 'EP';
         $compra->save();
 
         return redirect()->route('compromisos.index')
@@ -244,26 +246,28 @@ class CompromisoController extends Controller
 
         //Obtener el detalle ejecucion y corroborar que haya disponibilidad
         $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->get();
-
-        //Ciclo para imputar
+        //Ciclo para validar que todas las partidas tengan disponibilidad
         foreach($detallescompromisos as $rows){
             //Obtener la ejecucion 
             $ejecucion = Ejecucione::find($rows->ejecucion_id);
             //Hacer el if
-            if($rows->montocompromiso <= $ejecucion->monto_por_comprometer){
-                $ejecucion->increment('monto_comprometido', $rows->montocompromiso);
-                $ejecucion->decrement('monto_por_comprometer', $rows->montocompromiso);
-                $ejecucion->decrement('monto_precomprometido', $rows->montocompromiso);
-
-            }else{
+            if($rows->montocompromiso > $ejecucion->monto_por_comprometer){
                 $aprobado = 0;
             }
 
-        }
+            }
 
+        if($aprobado == 1){
+        //Ciclo para imputar
+        foreach($detallescompromisos as $rows){
+            //Obtener la ejecucion 
+                $ejecucion = Ejecucione::find($rows->ejecucion_id);
+                $ejecucion->increment('monto_comprometido', $rows->montocompromiso);
+                $ejecucion->decrement('monto_por_comprometer', $rows->montocompromiso);
+                $ejecucion->decrement('monto_precomprometido', $rows->montocompromiso);
+             }
+         }
         
-        
-
         if($aprobado == 1){
             return redirect()->route('compromisos.index')
             ->with('success', 'Compromiso Aprobado Exitosamente. ');
@@ -282,6 +286,19 @@ class CompromisoController extends Controller
     public function indexprocesadas()
     {
         $compromisos = Compromiso::where('status', 'PR')->paginate();
+
+        return view('compromiso.procesados', compact('compromisos'))
+            ->with('i', (request()->input('page', 1) - 1) * $compromisos->perPage());
+    }
+
+    /**
+     * Display requisiciones procesadas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexaprobadas()
+    {
+        $compromisos = Compromiso::where('status', 'AP')->paginate();
 
         return view('compromiso.procesados', compact('compromisos'))
             ->with('i', (request()->input('page', 1) - 1) * $compromisos->perPage());

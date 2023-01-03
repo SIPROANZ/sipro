@@ -220,7 +220,7 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $comprascp->unidadadministrativa->sector .'-'. $comprascp->unidadadministrativa->programa .'-' .$comprascp->unidadadministrativa->subprograma .'-' . $comprascp->unidadadministrativa->proyecto .'-' . $comprascp->unidadadministrativa->actividad }}</td>
+											<td>{{ $comprascp->unidadadministrativa->sector .'-'. $comprascp->unidadadministrativa->programa .'-' .$comprascp->unidadadministrativa->subprograma .'-' . $comprascp->unidadadministrativa->proyecto .'-' . $comprascp->unidadadministrativa->actividad .'-' . $comprascp->unidadadministrativa->unidadejecutora }}</td>
 											<td>{{ $comprascp->ejecucione->clasificadorpresupuestario }}</td>
 											<td>{{ $comprascp->monto }}</td>
 											<td>{{ $comprascp->disponible }}</td>

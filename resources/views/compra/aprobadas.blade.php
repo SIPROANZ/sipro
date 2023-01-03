@@ -13,10 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Compras Anuladas') }}
+                                {{ __('Compras Aprobadas') }}
                             </span>
 
                              <div class="float-right">
+                               
+
                                 <a href="{{ route('compras.analisis') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Orden de Compra') }}
                                 </a>
@@ -80,9 +82,11 @@
 											<td>{{ $compra->montototal }}</td>
 
                                             <td>
-                                           
                                             <a class="btn btn-sm btn-primary " href="{{ route('compras.pdf',$compra->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Compra"><i class="fa fa-fw fa-print"></i></a>
-                                           
+                                            
+                                            
+
+                                                
                                             </td>
                                         </tr>
                                     @endforeach

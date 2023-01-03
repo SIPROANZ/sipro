@@ -13,14 +13,14 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Compromisos Anulados') }}
+                                {{ __('Compromisos Aprobados') }}
                             </span>
 
                              <div class="float-right">
                              <a href="{{ route('compromisos.compras') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Compromiso') }}
                                 </a>
-                               
+                                
                                 <a href="{{ route('compromisos.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('En Proceso') }}
                                 </a>
@@ -34,7 +34,6 @@
                                 <a href="{{ route('compromisos.aprobadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Aprobados') }}
                                 </a>
-                                
                               </div>
                         </div>
                     </div>

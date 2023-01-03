@@ -20,7 +20,7 @@
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('compra.form')
+                            @include('compra.formdos')
 
                         </form>
                     </div>

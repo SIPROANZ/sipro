@@ -13,14 +13,14 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Compromisos') }}
+                                {{ __('Compromisos Anulados') }}
                             </span>
 
                              <div class="float-right">
                              <a href="{{ route('compromisos.compras') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Compromiso') }}
                                 </a>
-                                
+                               
                                 <a href="{{ route('compromisos.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('En Proceso') }}
                                 </a>
@@ -58,7 +58,7 @@
 										<th>Compra</th>
 										<th>Ayuda</th>
 
-                                        <th>Opciones</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,16 +92,12 @@
                                                     <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Compromiso"><i class="fas fa-check-double"></i></button>
                                                 </form>
 
-                                                
-
-                                                <form action="{{ route('compromisos.anular',$compromiso->id) }}" method="POST">
-                                                  
-                                                <a class="btn btn-sm btn-success" href="{{ route('compromisos.edit',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Compromiso"><i class="fa fa-fw fa-edit"></i></a>
+                                                <form action="{{ route('compromisos.destroy',$compromiso->id) }}" method="POST">
+                                                      <a class="btn btn-sm btn-success" href="{{ route('compromisos.edit',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Compromiso"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
-                                                    @method('PATCH')
+                                                    @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Compromiso"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
-
                                             </td>
                                         </tr>
                                     @endforeach

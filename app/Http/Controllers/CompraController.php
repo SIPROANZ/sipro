@@ -191,8 +191,6 @@ class CompraController extends Controller
 
         $compra = Compra::find($id);
 
-
-
         $comprascps = Comprascp::where('compra_id', $id)->paginate();
 
         //Obtener el numero de la requisicion
@@ -241,7 +239,24 @@ class CompraController extends Controller
     {
         $compra = Compra::find($id);
 
-        return view('compra.edit', compact('compra'));
+        $analisis_id = $compra->analisis_id;
+        $total_base = 0;
+        $total_iva = 0;
+        $total = 0;
+
+        //Cambiar el estatus del analisis para que no salga mas en el listado de las compras a realizar
+        
+       
+        $detalles_analisis = Detallesanalisi::where('analisis_id', $analisis_id)->get();
+
+        foreach($detalles_analisis as $row){
+            $total_base += $row->subtotal;
+            $total_iva += $row->iva;
+        }
+        
+        $total = $total_base + $total_iva;
+
+        return view('compra.edit', compact('compra', 'analisis_id', 'total_base', 'total_iva', 'total'));
     }
 
     /**
@@ -254,6 +269,10 @@ class CompraController extends Controller
     public function update(Request $request, Compra $compra)
     {
         request()->validate(Compra::$rules);
+
+        $compra_numero = $compra->numordencompra;
+        //Hacer el merge para que se guarde el numero de orden de compra y no lo borre a cero
+        $request->merge(['numordencompra'  => $compra_numero]);
 
         $compra->update($request->all());
 
@@ -444,11 +463,38 @@ class CompraController extends Controller
         $compra = Compra::find($id);
 
         $comprascps = Comprascp::where('compra_id','=',$id)->paginate();
+
+        //Obtener el numero de la requisicion
+        $analisis = Analisi::find($compra->analisis_id);
+        $requisicion_id = $analisis->requisicion_id;
+        $unidadadministrativa_id = $analisis->unidadadministrativa_id;
+        $requisicion = Requisicione::find($requisicion_id);
+        $correlativo = $requisicion->correlativo;
+        $uso = $requisicion->uso;
+        $undadm = Unidadadministrativa::find($unidadadministrativa_id);
+        $departamento = $undadm->unidadejecutora;
+        $sub_sector = $undadm->denominacion;
+        $sector_actual = $undadm->sector;
+
+        //Para obtener el sector
+        $nuevo_sector = Unidadadministrativa::where('sector', $sector_actual )->where('programa', '00')->first();
+        $sector = $nuevo_sector->unidadejecutora;
+
+        //PARA OBTENER EL ID DEL PROVEEDOR
+        $proveedor = Detallesanalisi::where('analisis_id', $analisis->id)->where('aprobado', 'SI')->first();
+        $proveedor_id = $proveedor->proveedor_id;
+        //Ahora busco la razon social y el rif
+        $beneficiario = Beneficiario::find($proveedor_id);
+        $rif =$beneficiario->caracterbeneficiario . '-' . $beneficiario->rif;
+        $razon_social = $beneficiario->nombre;
+
+        //Para ver los detalles de la compra
+        //Consulto los datos especificos para la requisicion seleccionada
+        $detallesanalisis = Detallesanalisi::where('analisis_id',$analisis->id)->paginate();
       
 
-        $pdf = PDF::loadView('compra.pdf', ['compra'=>$compra, 'comprascps'=>$comprascps]);
+        $pdf = PDF::loadView('compra.pdf', ['compra'=>$compra, 'detallesanalisis'=>$detallesanalisis , 'comprascps'=>$comprascps, 'correlativo'=>$correlativo, 'departamento'=>$departamento, 'uso'=>$uso, 'sub_sector'=>$sub_sector, 'sector'=>$sector, 'rif'=>$rif, 'razon_social'=>$razon_social]);
         return $pdf->stream();
 
-        
     }
 }

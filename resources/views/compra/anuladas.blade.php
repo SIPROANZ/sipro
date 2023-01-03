@@ -78,8 +78,7 @@
                                             <td>
                                            
                                             <a class="btn btn-sm btn-primary " href="{{ route('compras.pdf',$compra->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Compra"><i class="fa fa-fw fa-print"></i></a>
-                                            <a class="btn btn-sm btn-info " href="{{ route('compras.show',$compra->id) }}" data-toggle="tooltip" data-placement="top" title="Mostrar Compra"><i class="fa fa-fw fa-eye"></i></a>
-                                               
+                                           
                                             </td>
                                         </tr>
                                     @endforeach

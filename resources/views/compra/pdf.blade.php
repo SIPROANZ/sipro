@@ -77,6 +77,8 @@
 
 </head>
 <body>
+
+<!-- Area para colocar la descripcion de la orden de compra -->
 <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -85,74 +87,156 @@
                         <div class="float-left">
                             <span class="card-title">Orden de Compra</span>
                         </div>
-                       
+                        
                     </div>
 
                     <div class="card-body">
                         
+                       
                         <div class="form-group">
-                            <strong>Analisis:</strong>
-                            {{ $compra->analisis_id }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Numero de orden de compra:</strong>
+                            <strong>NUMERO ORDEN DE COMPRA:</strong>
                             {{ $compra->numordencompra }}
                         </div>
+                      
+
                         <div class="form-group">
-                            <strong>Estado:</strong>
-                            {{ $compra->status }}
+                            <strong>NUMERO DE REQUISICION:</strong>
+                            {{ $correlativo }}
+                        </div>
+
+                        <div class="form-group">
+                            <strong>RAZON SOCIAL:</strong>
+                            {{ $razon_social }}
                         </div>
                         <div class="form-group">
-                            <strong>Fecha de anulacion:</strong>
-                            {{ $compra->fechaanulacion }}
+                            <strong>RIF:</strong>
+                            {{ $rif }}
                         </div>
+
                         <div class="form-group">
-                            <strong>Monto base:</strong>
-                            {{ $compra->montobase }}
+                            <strong>SECTOR:</strong>
+                            {{ $sector }}
                         </div>
+
                         <div class="form-group">
-                            <strong>Monto iva:</strong>
-                            {{ $compra->montoiva }}
+                            <strong>SUB-SECTOR:</strong>
+                            {{ $sub_sector }}
                         </div>
+
                         <div class="form-group">
-                            <strong>Monto total:</strong>
-                            {{ $compra->montototal }}
+                            <strong>DEPARTAMENTO:</strong>
+                            {{ $departamento }}
+                        </div>
+
+                        <div class="form-group">
+                            <strong>USO DEL BIEN:</strong>
+                            {{ $uso }}
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-    </section>  
-    
+    </section>
+
+    <!-- Area para colocar los detalles del analisis de cotizacion-->
+    <table class="table table-striped table-hover">
+                                <thead class="thead">
+                                    <?php $subtotal=0; $iva=0; $total=0; ?>
+                                    <tr>
+                                   
+										<th>DESCRIPCION</th>
+                                        <th>CANTIDAD</th>
+										<th>PRECIO UNITARIO</th>
+										<th>PRECIO TOTAL</th>
+										   
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($detallesanalisis as $detallesanalisi)
+                                        <tr>
+                                          
+											<td>{{ $detallesanalisi->bo->descripcion }}</td>
+                                            <td>{{ $detallesanalisi->cantidad }}</td>
+											
+											<td>{{ $detallesanalisi->precio }}</td>
+											<td>{{ $detallesanalisi->subtotal }}
+                                            <?php 
+                                                $subtotal+=$detallesanalisi->subtotal;
+                                                $iva+=$detallesanalisi->iva;
+                                                $total+=$detallesanalisi->total;
+                                            ?>
+                                            </td>
+											
+                                            
+                                        </tr>
+                                    @endforeach
+
+                                    <tr>
+                                        <th></th>
+                                        
+										
+										<th></th>
+										<th></th>
+										<th>SUB TOTAL</th>
+										<th>{{ $subtotal }}</th>
+										
+                                        
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        
+										
+										<th></th>
+										<th></th>
+										<th>I.V.A.</th>
+										<th>{{ $iva }}</th>
+										
+                                        
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        
+										
+										<th></th>
+										<th></th>
+										<th>TOTAL</th>
+										<th>{{ $total }}</th>
+										
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
     <!-- Tabla con los clasificadores presupuestarios de esta orden de compra -->
     <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                       
-										<th>Compra Id</th>
-										<th>Unidadadministrativa Id</th>
-										<th>Ejecucion Id</th>
-										<th>Monto</th>
-										<th>Disponible</th>
+                                      
+										<th>SECTOR-SUBSECT-SUBPROG-PROY-ACT</th>
+										<th>PART-GEN-ESP-SUBESP</th>
+										<th>ASIGN. BS</th>
+										<th>DISPONIBLE</th>
 
-                                    </tr>
+                               </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($comprascps as $comprascp)
                                         <tr>
+                                           
                                             
-											<td>{{ $comprascp->compra_id }}</td>
-											<td>{{ $comprascp->unidadadministrativa_id }}</td>
-											<td>{{ $comprascp->ejecucion_id }}</td>
+											<td>{{ $comprascp->unidadadministrativa->sector .'-'. $comprascp->unidadadministrativa->programa .'-' .$comprascp->unidadadministrativa->subprograma .'-' . $comprascp->unidadadministrativa->proyecto .'-' . $comprascp->unidadadministrativa->actividad }}</td>
+											<td>{{ $comprascp->ejecucione->clasificadorpresupuestario }}</td>
 											<td>{{ $comprascp->monto }}</td>
 											<td>{{ $comprascp->disponible }}</td>
 
-                                           
+                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+
+
+    
                                     
 </body>
 </html>

@@ -21,16 +21,14 @@
                                 <a href="{{ route('compromisos.compras') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Compromiso') }}
                                 </a>
-                                <a href="{{ route('compromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nuevo Compromiso') }}
-                                </a>
-                                <a href="{{ route('compromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                               
+                                <a href="{{ route('compromisos.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('En Proceso') }}
                                 </a>
-                                <a href="{{ route('compromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('compromisos.procesados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Procesados') }}
                                 </a>
-                                <a href="{{ route('compromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('compromisos.anulados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Anulados') }}
                                 </a>
 

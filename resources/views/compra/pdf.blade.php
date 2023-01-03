@@ -1,11 +1,85 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 
-@section('template_title')
-    {{ $compra->name ?? 'Show Compra' }}
-@endsection
+    <!-- CSS only 
+     <link rel="stylesheet" href="{{ public_path('css/bootstrap.min.css') }}" type="text/css"> 
 
-@section('content')
-    <section class="content container-fluid">
+    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+  -->
+<!--
+<style>
+    body{
+      font-family: arial, sans-serif;
+      margin: 45mm 8mm 2mm 8mm;
+      
+    }
+    @page {
+       margin: 160px 50px;
+    }
+    header { position: fixed;
+      left: 0px;
+      top: -160px;
+      right: 0px;
+      height: 100px;
+      background-color: #ffffff;
+      text-align: center;
+    }
+    header h1{
+      margin: 10px 0;
+    }
+    header h2{
+      margin: 0 0 10px 0;
+    }
+    footer {
+      position: fixed;
+      left: 0px;
+      bottom: -50px;
+      right: 0px;
+      height: 40px;
+      border-bottom: 2px solid #ddd;
+    }
+    footer .page:after {
+      content: counter(page);
+    }
+    footer table {
+      width: 100%;
+    }
+    footer p {
+      text-align: right;
+    }
+    footer .izq {
+      text-align: left;
+    }
+    table{
+      border-collapse: collapse;
+      width:100%;
+    }
+    td, th {
+      border: 1px solid #dddddd;
+      text-aling:left;
+      padding: 8px;
+    }
+    tr:nth-child(even){
+      background-color: #dddddd;
+    }
+
+    </style>
+
+ Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+
+<!-- Area para colocar la descripcion de la orden de compra -->
+<section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -13,9 +87,7 @@
                         <div class="float-left">
                             <span class="card-title">Orden de Compra</span>
                         </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('compras.index') }}"> Regresar</a>
-                        </div>
+                        
                     </div>
 
                     <div class="card-body">
@@ -67,55 +139,23 @@
         </div>
     </section>
 
-    <!-- Mostrar Analisis de la Orden de Compra -->
-    <!-- Detalles Analisis -->
-<div class="container-fluid">
-<br>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-
-                            <span id="card_title">
-                                {{ __('Detalles de la compra') }}
-                            </span>
-
-                        </div>
-                    </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+    <!-- Area para colocar los detalles del analisis de cotizacion-->
+    <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <?php $subtotal=0; $iva=0; $total=0; ?>
                                     <tr>
-                                        <th>No</th>
-                                        
-										
-                                        
+                                   
 										<th>DESCRIPCION</th>
                                         <th>CANTIDAD</th>
 										<th>PRECIO UNITARIO</th>
 										<th>PRECIO TOTAL</th>
-										
-                                        
-
-                                        
+										   
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($detallesanalisis as $detallesanalisi)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-											
-                                           
+                                          
 											<td>{{ $detallesanalisi->bo->descripcion }}</td>
                                             <td>{{ $detallesanalisi->cantidad }}</td>
 											
@@ -167,78 +207,36 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
-                {!! $detallesanalisis->links() !!}
-            </div>
-        </div>
-    </div>
-    <!-- Fin Analisis -->
-
-    <br>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-
-                            <span id="card_title">
-                                {{ __('Clasificador Presupuestario') }}
-                            </span>
-
-                             <div class="float-right">
-                               
-                              </div>
-                        </div>
-                    </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+    <!-- Tabla con los clasificadores presupuestarios de esta orden de compra -->
+    <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-                                        
-										
+                                      
 										<th>SECTOR-SUBSECT-SUBPROG-PROY-ACT</th>
 										<th>PART-GEN-ESP-SUBESP</th>
 										<th>ASIGN. BS</th>
 										<th>DISPONIBLE</th>
 
-                                        <th></th>
-                                    </tr>
+                               </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($comprascps as $comprascp)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                           
                                             
 											<td>{{ $comprascp->unidadadministrativa->sector .'-'. $comprascp->unidadadministrativa->programa .'-' .$comprascp->unidadadministrativa->subprograma .'-' . $comprascp->unidadadministrativa->proyecto .'-' . $comprascp->unidadadministrativa->actividad }}</td>
 											<td>{{ $comprascp->ejecucione->clasificadorpresupuestario }}</td>
 											<td>{{ $comprascp->monto }}</td>
 											<td>{{ $comprascp->disponible }}</td>
 
-                                            <td>
-                                            <a class="btn btn-sm btn-success" href="{{ route('comprascps.edit',$comprascp->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                   
                                             
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
-                {!! $comprascps->links() !!}
-            </div>
-        </div>
-    </div>
-@endsection
+
+
+    
+                                    
+</body>
+</html>

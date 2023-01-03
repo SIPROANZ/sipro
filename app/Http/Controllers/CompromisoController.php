@@ -10,6 +10,7 @@ use App\Tipodecompromiso;
 use App\Detallesanalisi;
 use App\Ejecucione;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PDF;
 
 /**
@@ -66,6 +67,11 @@ class CompromisoController extends Controller
     public function store(Request $request)
     {
         request()->validate(Compromiso::$rules);
+        //Numero de compromisos
+        $max_correlativo = DB::table('compromisos')->max('ncompromiso');
+        $numero_correlativo = $max_correlativo + 1;
+        $request->merge(['ncompromiso'=>$numero_correlativo]);
+
 
         $compromiso = Compromiso::create($request->all());
         //Obtener el ultimo ID
@@ -91,8 +97,6 @@ class CompromisoController extends Controller
 
         }
         
-
-
         return redirect()->route('compromisos.index')
             ->with('success', 'Compromiso created successfully.');
     }
@@ -106,8 +110,11 @@ class CompromisoController extends Controller
     public function show($id)
     {
         $compromiso = Compromiso::find($id);
+        $detallescompromisos = Detallescompromiso::where('compromiso_id', $id)->paginate();
 
-        return view('compromiso.show', compact('compromiso'));
+        //return view('compromiso.show', compact('compromiso'));
+        return view('compromiso.show', compact('detallescompromisos', 'compromiso'))
+            ->with('i', (request()->input('page', 1) - 1) * $detallescompromisos->perPage());
     }
 
     /**
@@ -119,8 +126,12 @@ class CompromisoController extends Controller
     public function edit($id)
     {
         $compromiso = Compromiso::find($id);
+        $compra = Compra::find($compromiso->compra_id);
+        $tipocompromisos = Tipodecompromiso::find($compromiso->tipocompromiso_id);
+        $detallesanalisi = Detallesanalisi::find($compra->analisis_id);
+        $proveedor = $detallesanalisi->proveedor_id;
 
-        return view('compromiso.edit', compact('compromiso'));
+        return view('compromiso.edit', compact('compromiso', 'compra', 'tipocompromisos', 'proveedor'));
     }
 
     /**
@@ -166,11 +177,12 @@ class CompromisoController extends Controller
         
         //Cambiar el estatus de la compra para que no salga mas en el listado a comprometer
         $compra = Compra::find($compra_id);
-        $compra->status = 'PR';
+        $compra->status = 'AP';
         $compra->save();
 
         $detallesanalisi = Detallesanalisi::find($compra->analisis_id);
         $proveedor = $detallesanalisi->proveedor_id;
+        $proveedor = 1;
 
         $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id'); 
        
@@ -262,4 +274,46 @@ class CompromisoController extends Controller
 
     }
 
+    /**
+     * Display requisiciones procesadas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexprocesadas()
+    {
+        $compromisos = Compromiso::where('status', 'PR')->paginate();
+
+        return view('compromiso.procesados', compact('compromisos'))
+            ->with('i', (request()->input('page', 1) - 1) * $compromisos->perPage());
+    }
+
+    /**
+     * Display requisiciones anuladas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexanuladas()
+    {
+        $compromisos = Compromiso::where('status', 'AN')->paginate();
+
+        return view('compromiso.anulados', compact('compromisos'))
+            ->with('i', (request()->input('page', 1) - 1) * $compromisos->perPage());
+    }
+
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UNA REQUISICION
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function anular($id)
+    {
+        $compromiso = Compromiso::find($id);
+        $compromiso->status = 'AN';
+        $compromiso->save();
+
+        return redirect()->route('compromisos.index')
+            ->with('success', 'Compromiso Anulado exitosamente.');
+
+            
+    }
 }

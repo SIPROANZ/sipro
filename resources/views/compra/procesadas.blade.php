@@ -78,20 +78,9 @@
 											<td>{{ $compra->montototal }}</td>
 
                                             <td>
-                                            <form action="{{ route('compras.aprobar',$compra->id) }}" method="POST">
-                                                    <!-- Agregar detalles BOS a la requisicion -->
-                                                   @csrf
-                                                    @method('PATCH')
-                                                    
-                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Compra"><i class="fas fa-check-double"></i></button>
-                                                </form>
-
-                                                <form action="{{ route('compras.anular',$compra->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-success" href="{{ route('compras.edit',$compra->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Compra"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Compra"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
+                                            <a class="btn btn-sm btn-primary " href="{{ route('compras.pdf',$compra->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Compra"><i class="fa fa-fw fa-print"></i></a>
+                                            
+                                            
 
                                                 
                                             </td>

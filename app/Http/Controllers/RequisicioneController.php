@@ -120,7 +120,6 @@ class RequisicioneController extends Controller
         
         $max_correlativo = DB::table('requisiciones')->where('tiposgp_id', $tipo_requisicion)->max('correlativo');
 
-        
         $numero_correlativo = $max_correlativo + 1;
 
        // $request->correlativo = $numero_correlativo //18; 

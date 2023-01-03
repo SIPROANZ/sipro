@@ -43,12 +43,94 @@
 
 
   </header> 
+
+
+
+
+                
   <footer></footer> 
 
-  <!-- DATOS DEL ANALISIS -->
-                      pdf
+  <!-- DATOS DEL COMPROMISO -->
+  <div class="form-group">
+                            <strong>Unidadadministrativa Id:</strong>
+                            {{ $compromiso->unidadadministrativa_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Tipocompromiso Id:</strong>
+                            {{ $compromiso->tipocompromiso_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Ncompromiso:</strong>
+                            {{ $compromiso->ncompromiso }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Beneficiario Id:</strong>
+                            {{ $compromiso->beneficiario_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Montocompromiso:</strong>
+                            {{ $compromiso->montocompromiso }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Status:</strong>
+                            {{ $compromiso->status }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Documento:</strong>
+                            {{ $compromiso->documento }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Fechaanulacion:</strong>
+                            {{ $compromiso->fechaanulacion }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Precompromiso Id:</strong>
+                            {{ $compromiso->precompromiso_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Compra Id:</strong>
+                            {{ $compromiso->compra_id }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Ayuda Id:</strong>
+                            {{ $compromiso->ayuda_id }}
+                        </div>
 
-    <!-- CREAMOS LOS DATOS DEL ANALISIS DE LA COTIZACION -->
+                        <div class="form-group">
+                            <strong>COMPROMISO ID:</strong>
+                            {{ $compromiso->id }}
+                        </div>
+                    
+
+    <!-- DETALLES DE LOS COMPROMISO, IMPUTACIONES PRESUPUESTARIAS -->
+    <br><br>
+                        <table class="table table-striped table-hover">
+                                <thead class="thead">
+                                    <tr>
+                                    
+                                        
+										<th>Montocompromiso</th>
+										<th>Compromiso Id</th>
+										<th>Unidadadministrativa Id</th>
+										<th>Ejecucion Id</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($detallescompromisos as $detallescompromiso)
+                                        <tr>
+                                            
+                                            
+											<td>{{ $detallescompromiso->montocompromiso }}</td>
+											<td>{{ $detallescompromiso->compromiso_id }}</td>
+											<td>{{ $detallescompromiso->unidadadministrativa_id }}</td>
+											<td>{{ $detallescompromiso->ejecucion_id }}</td>
+
+                                           
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
   
 
    

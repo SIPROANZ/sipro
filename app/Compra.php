@@ -29,7 +29,6 @@ class Compra extends Model
 		'analisis_id' => 'required',
 		'numordencompra' => 'required',
 		'status' => 'required',
-		'fechaanulacion' => 'required',
 		'montobase' => 'required',
 		'montoiva' => 'required',
 		'montototal' => 'required',

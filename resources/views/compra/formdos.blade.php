@@ -1,43 +1,18 @@
 <div class="box box-info padding-1">
     <div class="box-body">
         
-    <div class="row">
-    <div class="col-md-3">
-        <div class="form-group">
-            {{ Form::label('numero de analisis') }}
-            {{ Form::text('analisis_id', $analisis_id, ['class' => 'form-control' . ($errors->has('analisis_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un analisis']) }}
-            {!! $errors->first('analisis_id', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        </div>
-        <div class="col-md-3">
-        <div class="form-group">
-            {{ Form::label('numero orden de compra') }}
-            {{ Form::text('numordencompra', $compra->numordencompra, ['class' => 'form-control' . ($errors->has('numordencompra') ? ' is-invalid' : ''), 'placeholder' => 'Numero de orden de compra']) }}
-            {!! $errors->first('numordencompra', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        </div>
-        <div class="col-md-3">
-        <div class="form-group">
-            {{ Form::label('estado') }}
-            {{ Form::select('status', ['EP'=>'EN PROCESO', 'PR'=>'PROCESADO', 'AN'=>'ANULADO'],$compra->status, ['class' => 'form-control' . ($errors->has('status') ? ' is-invalid' : ''), 'placeholder' => 'Estado']) }}
-            {!! $errors->first('status', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        </div>
-        <div class="col-md-3">
-        <div class="form-group">
-            {{ Form::label('Anulacion') }}
-            {{ Form::date('fechaanulacion', $compra->fechaanulacion, ['class' => 'form-control' . ($errors->has('fechaanulacion') ? ' is-invalid' : ''), 'placeholder' => 'Fecha de anulacion']) }}
-            {!! $errors->first('fechaanulacion', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        </div>
-        </div>
-
         <div class="row">
     <div class="col-md-4">
         <div class="form-group">
             {{ Form::label('monto base') }}
             {{ Form::text('montobase', $total_base, ['class' => 'form-control' . ($errors->has('montobase') ? ' is-invalid' : ''), 'placeholder' => 'Monto base']) }}
             {!! $errors->first('montobase', '<div class="invalid-feedback">:message</div>') !!}
+
+            {{ Form::hidden('analisis_id', $analisis_id, ['class' => 'form-control' . ($errors->has('analisis_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un analisis']) }}
+            {{ Form::hidden('numordencompra', 0, ['class' => 'form-control' . ($errors->has('numordencompra') ? ' is-invalid' : ''), 'placeholder' => 'Numero de orden de compra']) }}
+            {{ Form::hidden('status', 'EP', ['class' => 'form-control' . ($errors->has('status') ? ' is-invalid' : ''), 'placeholder' => 'Estado']) }}
+            {{ Form::hidden('fechaanulacion', '', ['class' => 'form-control' . ($errors->has('fechaanulacion') ? ' is-invalid' : ''), 'placeholder' => 'Fecha de anulacion']) }}
+           
         </div>
         </div>
     <div class="col-md-4">

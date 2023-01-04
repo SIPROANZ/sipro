@@ -19,6 +19,7 @@ class AjustescompromisoController extends Controller
     public function index()
     {
         $ajustescompromisos = Ajustescompromiso::paginate();
+        
 
         return view('ajustescompromiso.index', compact('ajustescompromisos'))
             ->with('i', (request()->input('page', 1) - 1) * $ajustescompromisos->perPage());

@@ -6,7 +6,10 @@ use App\Ayudassociale;
 use App\Unidadadministrativa;
 use App\Tipodecompromiso;
 use App\Beneficiario;
+use App\Detallesayuda;
+use App\Ejecucione;
 use Illuminate\Http\Request;
+use PDF;
 
 /**
  * Class AyudassocialeController
@@ -26,6 +29,8 @@ class AyudassocialeController extends Controller
         return view('ayudassociale.index', compact('ayudassociales'))
             ->with('i', (request()->input('page', 1) - 1) * $ayudassociales->perPage());
     }
+
+    
 
     /**
      * Display a listing of the resource.
@@ -145,5 +150,119 @@ class AyudassocialeController extends Controller
 
         return redirect()->route('ayudassociales.index')
             ->with('success', 'Ayudassociale deleted successfully');
+    }
+
+    /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregar($id)
+    {
+        $ayudassociale = Ayudassociale::find($id);
+
+        //Creare una variable de sesion para guardar el id de esta requisicion
+        session(['ayudas' => $id]);
+
+        $detallesayudas = Detallesayuda::where('ayuda_id','=',$id)->paginate();
+
+        return view('ayudassociale.agregar', compact('detallesayudas', 'ayudassociale'))
+            ->with('i', (request()->input('page', 1) - 1) * $detallesayudas->perPage());
+    }
+
+      //Metodo para aprobar un analisis de cotizacion
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A PROCESADO CUANDO YA ESTA aprobada la requisicion
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function aprobar($id)
+    {
+        $aprobado = 1;
+        $procesar = 0; 
+        $ayudassociale = Ayudassociale::find($id);
+        $ayudassociale->status = 'PR';
+        $ayudassociale->save();
+        
+
+        //Obtener el detalle ejecucion y corroborar que haya disponibilidad
+        $detallesayudas = Detallesayuda::where('ayuda_id','=',$id)->get();
+        //Ciclo para validar que todas las partidas tengan disponibilidad
+        foreach($detallesayudas as $rows){
+            $monto =  $rows->montocompromiso;
+            $ejecucion_id = $rows->ejecucion_id;
+            //Obtenemos el monto en la ejecucion 
+            $ejecucion = Ejecucione::find($ejecucion_id);
+            $monto_por_comprometer = $ejecucion->monto_por_comprometer;
+            $monto_precomprometido = $ejecucion->monto_precomprometido;
+            $disponible_ejecucion = $monto_por_comprometer - $monto_precomprometido;
+            //Valido que tenga disponibilidad
+            if($monto > $disponible_ejecucion)
+            {
+                $procesar = 1; //Hubo falta de disponibilidad en alguna ejecucion
+                $aprobado = 0;
+                $ayudassociale->status = 'EP';
+                $ayudassociale->save();
+            }
+            //$cad_resulltados .= ' monto: ' . $monto . ' ejecucion: ' . $ejecucion_id . ' Disponible: ' . $disponible_ejecucion; 
+        }
+
+        //Si la bandera procesar aun permanece en 0 quiere decir que si hay disponibilidad y procedo
+        //a precomprometer de la ejecucion los montos pasados
+        if($procesar == 0){
+            foreach($detallesayudas as $rows){
+                $monto =  $rows->montocompromiso;
+                $ejecucion_id = $rows->ejecucion_id;
+                //Obtenemos el monto en la ejecucion 
+                $ejecucion = Ejecucione::find($ejecucion_id);
+                $ejecucion->increment('monto_precomprometido', $monto);
+ 
+            }
+        }
+        
+        if($aprobado == 1){
+            return redirect()->route('ayudassociales.index')
+            ->with('success', 'Ayuda Social Precomprometida Exitosamente. ');
+        }else{
+            return redirect()->route('ayudassociales.index')
+            ->with('success', 'No Aprobado. No hay Disponibilidad o ha ocurrido un error en el registro');
+        }
+
+    }
+
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UNA REQUISICION
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function anular($id)
+    {
+        $ayudassociale = Ayudassociale::find($id);
+        $ayudassociale->status = 'AN';
+        $ayudassociale->save();
+
+        return redirect()->route('ayudassociales.index')
+            ->with('success', 'Compromiso Anulado exitosamente.');
+
+            
+    }
+
+    /**
+     * Crear pdf de la requisicion seleccionada
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf($id)
+    {
+        $ayudassociale = Ayudassociale::find($id);
+
+
+        $detallesayudas = Detallesayuda::where('ayuda_id','=',$id)->paginate();
+        
+
+        $pdf = PDF::loadView('ayudassociale.pdf', ['ayudassociale'=>$ayudassociale, 'detallesayudas'=>$detallesayudas]);
+        return $pdf->stream();
+
     }
 }

@@ -81,9 +81,23 @@ Route::resource('beneficiarios', App\Http\Controllers\BeneficiarioController::cl
 
 Route::resource('proveedores', App\Http\Controllers\ProveedoreController::class)->middleware('auth');
 
+Route::get('/ayudassociales/agregar/{ayuda}', [App\Http\Controllers\AyudassocialeController::class, 'agregar'])->name('ayudassociales.agregar')->middleware('auth');
+
 Route::get('ayudassociales/procesadas', [App\Http\Controllers\AyudassocialeController::class, 'indexprocesadas'])->name('ayudassociales.procesadas')->middleware('auth');
 
 Route::get('ayudassociales/anuladas', [App\Http\Controllers\AyudassocialeController::class, 'indexanuladas'])->name('ayudassociales.anuladas')->middleware('auth');
+
+Route::get('ayudassociales/pdf/{ayuda}', [App\Http\Controllers\AyudassocialeController::class, 'pdf'])->name('ayudassociales.pdf')->middleware('auth');
+
+Route::patch('/ayudassociales/aprobar/{ayuda}', [App\Http\Controllers\AyudassocialeController::class, 'aprobar'])->name('ayudassociales.aprobar')->middleware('auth');
+
+Route::patch('/ayudassociales/anular/{ayuda}', [App\Http\Controllers\AyudassocialeController::class, 'anular'])->name('ayudassociales.anular')->middleware('auth');
+
+Route::get('ayudassociales/procesadas', [App\Http\Controllers\AyudassocialeController::class, 'indexprocesadas'])->name('ayudassociales.procesadas')->middleware('auth');
+
+Route::get('ayudassociales/anuladas', [App\Http\Controllers\AyudassocialeController::class, 'indexanuladas'])->name('ayudassociales.anuladas')->middleware('auth');
+
+
 
 Route::resource('ayudassociales', App\Http\Controllers\AyudassocialeController::class)->middleware('auth');
 
@@ -210,4 +224,6 @@ Route::resource('modificaciones', App\Http\Controllers\ModificacioneController::
 
 Route::resource('tipomodificaciones', App\Http\Controllers\TipomodificacioneController::class)->middleware('auth');
 
-Route::resource('detallesmodificaciones', App\Http\Controllers\detallesmodificacioneController::class)->middleware('auth');
+Route::resource('detallesmodificaciones', App\Http\Controllers\DetallesmodificacioneController::class)->middleware('auth');
+
+Route::resource('detallesayudas', App\Http\Controllers\DetallesayudaController::class)->middleware('auth');

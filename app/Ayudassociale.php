@@ -42,7 +42,7 @@ class Ayudassociale extends Model
      *
      * @var array
      */
-    protected $fillable = ['documento','montototal','concepto','unidadadministrativa_id','tipocompromiso_id','beneficiario_id', 'fechaanulacion'];
+    protected $fillable = ['documento','montototal','concepto','unidadadministrativa_id','tipocompromiso_id','beneficiario_id', 'status','fechaanulacion'];
 
 
     /**

@@ -21,9 +21,35 @@ class AyudassocialeController extends Controller
      */
     public function index()
     {
-        $ayudassociales = Ayudassociale::paginate();
+        $ayudassociales = Ayudassociale::where('status', 'EP')->paginate();
 
         return view('ayudassociale.index', compact('ayudassociales'))
+            ->with('i', (request()->input('page', 1) - 1) * $ayudassociales->perPage());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexprocesadas()
+    {
+        $ayudassociales = Ayudassociale::where('status', 'PR')->paginate();
+
+        return view('ayudassociale.procesadas', compact('ayudassociales'))
+            ->with('i', (request()->input('page', 1) - 1) * $ayudassociales->perPage());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexanuladas()
+    {
+        $ayudassociales = Ayudassociale::where('status', 'AN')->paginate();
+
+        return view('ayudassociale.anuladas', compact('ayudassociales'))
             ->with('i', (request()->input('page', 1) - 1) * $ayudassociales->perPage());
     }
 
@@ -52,6 +78,8 @@ class AyudassocialeController extends Controller
     public function store(Request $request)
     {
         request()->validate(Ayudassociale::$rules);
+
+        $request->merge(['status'=>'EP']);
 
         $ayudassociale = Ayudassociale::create($request->all());
 

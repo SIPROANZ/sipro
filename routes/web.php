@@ -81,6 +81,10 @@ Route::resource('beneficiarios', App\Http\Controllers\BeneficiarioController::cl
 
 Route::resource('proveedores', App\Http\Controllers\ProveedoreController::class)->middleware('auth');
 
+Route::get('ayudassociales/procesadas', [App\Http\Controllers\AyudassocialeController::class, 'indexprocesadas'])->name('ayudassociales.procesadas')->middleware('auth');
+
+Route::get('ayudassociales/anuladas', [App\Http\Controllers\AyudassocialeController::class, 'indexanuladas'])->name('ayudassociales.anuladas')->middleware('auth');
+
 Route::resource('ayudassociales', App\Http\Controllers\AyudassocialeController::class)->middleware('auth');
 
 Route::resource('criterios', App\Http\Controllers\CriterioController::class)->middleware('auth');
@@ -191,6 +195,16 @@ Route::resource('detallescompromisos', App\Http\Controllers\DetallescompromisoCo
 Route::resource('ajustescompromisos', App\Http\Controllers\AjustescompromisoController::class)->middleware('auth');
 
 Route::get('/modificaciones/agregar/{modificacion}', [App\Http\Controllers\ModificacioneController::class, 'agregarmodificacion'])->name('modificaciones.agregarmodificacion')->middleware('auth');
+
+Route::patch('/modificaciones/aprobar/{modificacion}', [App\Http\Controllers\ModificacioneController::class, 'aprobar'])->name('modificaciones.aprobar')->middleware('auth');
+
+Route::patch('/modificaciones/anular/{modificacion}', [App\Http\Controllers\ModificacioneController::class, 'anular'])->name('modificaciones.anular')->middleware('auth');
+
+Route::get('modificaciones/procesadas', [App\Http\Controllers\ModificacioneController::class, 'indexprocesadas'])->name('modificaciones.procesadas')->middleware('auth');
+
+Route::get('modificaciones/anuladas', [App\Http\Controllers\ModificacioneController::class, 'indexanuladas'])->name('modificaciones.anuladas')->middleware('auth');
+
+Route::get('modificaciones/pdf/{modificacion}', [App\Http\Controllers\ModificacioneController::class, 'pdf'])->name('modificaciones.pdf')->middleware('auth');
 
 Route::resource('modificaciones', App\Http\Controllers\ModificacioneController::class)->middleware('auth');
 

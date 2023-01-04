@@ -1,21 +1,37 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 
-@section('template_title')
-    {{ $modificacione->name ?? 'Show Modificacione' }}
-@endsection
+    <!-- CSS only 
+     <link rel="stylesheet" href="{{ public_path('css/bootstrap.min.css') }}" type="text/css"> 
 
-@section('content')
-    <section class="content container-fluid">
+    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+  -->
+<!--
+
+
+ Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+
+<!-- Area para colocar la descripcion de la orden de compra -->
+<section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Show Modificacione</span>
+                            <span class="card-title">Modificacion Presupuestaria</span>
                         </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('modificaciones.index') }}"> Back</a>
-                        </div>
+                       
                     </div>
 
                     <div class="card-body">
@@ -58,51 +74,25 @@
             </div>
         </div>
     </section>
-<br>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
 
-                            <span id="card_title">
-                                {{ __('Detallesmodificacione') }}
-                            </span>
-
-                             <div class="float-right">
-                                <a href="{{ route('detallesmodificaciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
-                                </a>
-                              </div>
-                        </div>
-                    </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+    <!-- Area para colocar los detalles del analisis de cotizacion-->
+    <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-                                        
+                                      
 										<th>Modificacion Id</th>
 										<th>Unidadadministrativa Id</th>
 										<th>Ejecucion Id</th>
 										<th>Montoacredita</th>
 										<th>Montodebita</th>
 
-                                        <th></th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($detallesmodificaciones as $detallesmodificacione)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                           
                                             
 											<td>{{ $detallesmodificacione->modificacion_id }}</td>
 											<td>{{ $detallesmodificacione->unidadadministrativa_id }}</td>
@@ -110,24 +100,15 @@
 											<td>{{ $detallesmodificacione->montoacredita }}</td>
 											<td>{{ $detallesmodificacione->montodebita }}</td>
 
-                                            <td>
-                                                <form action="{{ route('detallesmodificaciones.destroy',$detallesmodificacione->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-success" href="{{ route('detallesmodificaciones.edit',$detallesmodificacione->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
-                                                </form>
-                                            </td>
+                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
-                {!! $detallesmodificaciones->links() !!}
-            </div>
-        </div>
-    </div>
 
-@endsection
+
+
+    
+                                    
+</body>
+</html>

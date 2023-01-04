@@ -20,6 +20,15 @@
                                 <a href="{{ route('ayudassociales.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Nueva Ayuda Social') }}
                                 </a>
+                                <a href="{{ route('ayudassociales.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('En Proceso') }}
+                                </a>
+                                <a href="{{ route('ayudassociales.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Procesadas') }}
+                                </a>
+                                <a href="{{ route('ayudassociales.anuladas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Anuladas') }}
+                                </a>
                               </div>
                         </div>
                     </div>
@@ -42,6 +51,7 @@
 										<th>Unidad administrativa</th>
 										<th>Tipo de compromiso</th>
 										<th>Beneficiario</th>
+                                        <th>Estado</th>
 
                                         <th>Opciones</th>
                                     </tr>
@@ -57,6 +67,7 @@
 											<td>{{ $ayudassociale->unidadadministrativa->denominacion }}</td>
 											<td>{{ $ayudassociale->tipodecompromiso->nombre }}</td>
 											<td>{{ $ayudassociale->beneficiario->nombre }}</td>
+                                            <td>{{ $ayudassociale->status }}</td>
 
                                             <td>
                                                 <form action="{{ route('ayudassociales.destroy',$ayudassociale->id) }}" method="POST">

@@ -946,13 +946,32 @@ return [
         ],
 
          //Modificaciones Presupuestarias
+         //Seguridad
          [
-             'text'       => 'Modificación Presupuestaria',
+             'text' => 'Modificación Presupuestaria',
              'icon' => 'fa fa-fw fa-edit',
              'icon_color' => 'primary',
-             'url'        => '#',
-         ],
+            'url'  => '#',
+            'submenu' => [
+                [
+                    'text'       => 'Realizar Modificación',
+                    'icon' => 'fa fa-fw fa-edit',
+                    'icon_color' => 'primary',
+                    'route'  => 'modificaciones.index',
+                ],
+                [
+                    'text' => 'Tipo de Modificación',
+                    'icon' => 'fa fa-fw fa-check',
+                    'icon_color' => 'primary',
+                    'route'  => 'tipomodificaciones.index',
+                ],
+              
+            ],
+        ],
 
+
+         //Fin
+         
 
 
 

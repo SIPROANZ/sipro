@@ -32,9 +32,6 @@ class Modificacione extends Model
 		'tipomodificacion_id' => 'required',
 		'descripcion' => 'required',
 		'status' => 'required',
-		'fechaanulacion' => 'required',
-		'montocredita' => 'required',
-		'montodebita' => 'required',
 		'ncredito' => 'required',
     ];
 

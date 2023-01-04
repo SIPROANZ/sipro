@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Modificacione;
+use App\Tipomodificacione;
+use App\Detallesmodificacione;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use PDF;
 
 /**
  * Class ModificacioneController
@@ -32,7 +36,9 @@ class ModificacioneController extends Controller
     public function create()
     {
         $modificacione = new Modificacione();
-        return view('modificacione.create', compact('modificacione'));
+        $tipomodificaciones = Tipomodificacione::pluck('nombre','id');
+
+        return view('modificacione.create', compact('modificacione', 'tipomodificaciones'));
     }
 
     /**
@@ -44,6 +50,14 @@ class ModificacioneController extends Controller
     public function store(Request $request)
     {
         request()->validate(Modificacione::$rules);
+
+        //Tomar el numero de modificacion y aumentarlo a uno para registrar dicho valor
+        $max_correlativo = DB::table('modificaciones')->max('numero');
+        $numero_correlativo = $max_correlativo + 1;
+        $request->merge(['numero'=>$numero_correlativo]);
+        $request->merge(['status'=>'EP']);
+
+
 
         $modificacione = Modificacione::create($request->all());
 
@@ -105,5 +119,19 @@ class ModificacioneController extends Controller
 
         return redirect()->route('modificaciones.index')
             ->with('success', 'Modificacione deleted successfully');
+    }
+
+      /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregarmodificacion($id)
+    {   session(['modificacion' => $id]);
+        $modificacione = Modificacione::find($id);
+        $detallesmodificaciones = Detallesmodificacione::paginate();
+
+        return view('modificacione.agregarmodificacion', compact('modificacione', 'detallesmodificaciones'));
     }
 }

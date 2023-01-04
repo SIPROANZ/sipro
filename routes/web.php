@@ -189,3 +189,11 @@ Route::resource('compromisos', App\Http\Controllers\CompromisoController::class)
 Route::resource('detallescompromisos', App\Http\Controllers\DetallescompromisoController::class)->middleware('auth');
 
 Route::resource('ajustescompromisos', App\Http\Controllers\AjustescompromisoController::class)->middleware('auth');
+
+Route::get('/modificaciones/agregar/{modificacion}', [App\Http\Controllers\ModificacioneController::class, 'agregarmodificacion'])->name('modificaciones.agregarmodificacion')->middleware('auth');
+
+Route::resource('modificaciones', App\Http\Controllers\ModificacioneController::class)->middleware('auth');
+
+Route::resource('tipomodificaciones', App\Http\Controllers\TipomodificacioneController::class)->middleware('auth');
+
+Route::resource('detallesmodificaciones', App\Http\Controllers\detallesmodificacioneController::class)->middleware('auth');

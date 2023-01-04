@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Modificacione') }}
+                                {{ __('Modificaciones Presupuestarias') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('modificaciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Crear Modificacion') }}
                                 </a>
                               </div>
                         </div>
@@ -64,11 +64,12 @@
 
                                             <td>
                                                 <form action="{{ route('modificaciones.destroy',$modificacione->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('modificaciones.show',$modificacione->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('modificaciones.edit',$modificacione->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                <a class="btn btn-sm btn-primary " href="{{ route('modificaciones.agregarmodificacion',$modificacione->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Detalle"><i class="fas fa-outdent"></i></i></a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('modificaciones.show',$modificacione->id) }}" data-toggle="tooltip" data-placement="top" title="Mostrar Ajuste"><i class="fa fa-fw fa-eye"></i></a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('modificaciones.edit',$modificacione->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Ajuste"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Ajuste"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

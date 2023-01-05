@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Precompromiso;
+use App\Unidadadministrativa;
+use App\Tipodecompromiso;
+use App\Beneficiario;
+use App\detallesprecompromiso;
 use Illuminate\Http\Request;
 
 /**
@@ -18,9 +22,35 @@ class PrecompromisoController extends Controller
      */
     public function index()
     {
-        $precompromisos = Precompromiso::paginate();
+        $precompromisos = Precompromiso::where('status', 'EP')->paginate();
 
         return view('precompromiso.index', compact('precompromisos'))
+            ->with('i', (request()->input('page', 1) - 1) * $precompromisos->perPage());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexprocesadas()
+    {
+        $precompromisos = Precompromiso::where('status', 'PR')->paginate();
+
+        return view('precompromiso.procesadas', compact('precompromisos'))
+            ->with('i', (request()->input('page', 1) - 1) * $precompromisos->perPage());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexanuladas()
+    {
+        $precompromisos = Precompromiso::where('status', 'AN')->paginate();
+
+        return view('precompromiso.anuladas', compact('precompromisos'))
             ->with('i', (request()->input('page', 1) - 1) * $precompromisos->perPage());
     }
 
@@ -32,7 +62,12 @@ class PrecompromisoController extends Controller
     public function create()
     {
         $precompromiso = new Precompromiso();
-        return view('precompromiso.create', compact('precompromiso'));
+        $unidades = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $tipocompromisos = Tipodecompromiso::pluck('nombre','id');
+        $beneficiarios = Beneficiario::pluck('nombre','id');
+
+
+        return view('precompromiso.create', compact('precompromiso', 'unidades', 'tipocompromisos', 'beneficiarios'));
     }
 
     /**
@@ -60,8 +95,11 @@ class PrecompromisoController extends Controller
     public function show($id)
     {
         $precompromiso = Precompromiso::find($id);
+        $unidades = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $tipocompromisos = Tipodecompromiso::pluck('nombre','id');
+        $beneficiarios = Beneficiario::pluck('nombre','id');
 
-        return view('precompromiso.show', compact('precompromiso'));
+        return view('precompromiso.show', compact('precompromiso', 'unidades', 'tipocompromisos', 'beneficiarios'));
     }
 
     /**
@@ -73,8 +111,11 @@ class PrecompromisoController extends Controller
     public function edit($id)
     {
         $precompromiso = Precompromiso::find($id);
+        $unidades = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $tipocompromisos = Tipodecompromiso::pluck('nombre','id');
+        $beneficiarios = Beneficiario::pluck('nombre','id');
 
-        return view('precompromiso.edit', compact('precompromiso'));
+        return view('precompromiso.edit', compact('precompromiso', 'unidades', 'tipocompromisos', 'beneficiarios'));
     }
 
     /**
@@ -105,5 +146,24 @@ class PrecompromisoController extends Controller
 
         return redirect()->route('precompromisos.index')
             ->with('success', 'Precompromiso deleted successfully');
+    }
+
+    /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregar($id)
+    {
+        $precompromiso = Precompromiso::find($id);
+
+        //Creare una variable de sesion para guardar el id de esta requisicion
+        session(['precompromisos' => $id]);
+
+        $detallesprecompromisos = Detallesprecompromiso::paginate();
+
+        return view('precompromiso.agregar', compact('detallesprecompromisos', 'precompromiso'))
+            ->with('i', (request()->input('page', 1) - 1) * $detallesprecompromisos->perPage());
     }
 }

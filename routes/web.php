@@ -227,3 +227,19 @@ Route::resource('tipomodificaciones', App\Http\Controllers\TipomodificacioneCont
 Route::resource('detallesmodificaciones', App\Http\Controllers\DetallesmodificacioneController::class)->middleware('auth');
 
 Route::resource('detallesayudas', App\Http\Controllers\DetallesayudaController::class)->middleware('auth');
+
+Route::get('/precompromisos/agregar/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'agregar'])->name('precompromisos.agregar')->middleware('auth');
+
+Route::patch('/precompromisos/aprobar/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'aprobar'])->name('precompromisos.aprobar')->middleware('auth');
+
+Route::patch('/precompromisos/anular/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'anular'])->name('precompromisos.anular')->middleware('auth');
+
+Route::get('precompromisos/procesadas', [App\Http\Controllers\PrecompromisoController::class, 'indexprocesadas'])->name('precompromisos.procesadas')->middleware('auth');
+
+Route::get('precompromisos/anuladas', [App\Http\Controllers\PrecompromisoController::class, 'indexanuladas'])->name('precompromisos.anuladas')->middleware('auth');
+
+Route::get('precompromisos/pdf/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'pdf'])->name('precompromisos.pdf')->middleware('auth');
+
+Route::resource('precompromisos', App\Http\Controllers\PrecompromisoController::class)->middleware('auth');
+
+Route::resource('detallesprecompromisos', App\Http\Controllers\DetallesprecompromisoController::class)->middleware('auth');

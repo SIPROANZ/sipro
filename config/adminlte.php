@@ -430,6 +430,12 @@ return [
                     'url'     => '#',
                     'submenu' => [
                         [
+                            'text' => 'Precompromisos',
+                            'icon'    => 'fas fa-fw fa-briefcase', // <i class="fas fa-praying-hands"></i>
+                            'icon_color' => 'white',
+                            'route'  => 'precompromisos.index',
+                        ],
+                        [
                             'text' => 'Compromisos',
                             'icon'    => 'fas fa-fw fa-praying-hands', // <i class="fas fa-praying-hands"></i>
                             'icon_color' => 'white',

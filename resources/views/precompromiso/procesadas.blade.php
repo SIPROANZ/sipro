@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Precompromiso') }}
+                                {{ __('Precompromiso Procesados') }}
                             </span>
 
                              <div class="float-right">
@@ -52,10 +52,8 @@
 										<th>Unidadadministrativa Id</th>
 										<th>Tipocompromiso Id</th>
 										<th>Beneficiario Id</th>
-                                        <th>Estado</th>
 
-
-                                        <th>Opciones</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -67,19 +65,17 @@
 											<td>{{ $precompromiso->montototal }}</td>
 											<td>{{ $precompromiso->concepto }}</td>
 											<td>{{ $precompromiso->fechaanulacion }}</td>
-											<td>{{ $precompromiso->unidadadministrativa->unidadejecutora }}</td>
-											<td>{{ $precompromiso->tipodecompromiso->nombre}}</td>
-											<td>{{ $precompromiso->beneficiario->nombre }}</td>
-                                            <td>{{ $precompromiso->status }}</td>
+											<td>{{ $precompromiso->unidadadministrativa_id }}</td>
+											<td>{{ $precompromiso->tipocompromiso_id }}</td>
+											<td>{{ $precompromiso->beneficiario_id }}</td>
 
                                             <td>
                                                 <form action="{{ route('precompromisos.destroy',$precompromiso->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('precompromisos.agregar',$precompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Detalles"><i class="fas fa-outdent"></i></i></a>
-                                                      
-                                                    <a class="btn btn-sm btn-success" href="{{ route('precompromisos.edit',$precompromiso->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('precompromisos.show',$precompromiso->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('precompromisos.edit',$precompromiso->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
                                                 </form>
                                             </td>
                                         </tr>

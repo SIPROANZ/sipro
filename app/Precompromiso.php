@@ -33,7 +33,6 @@ class Precompromiso extends Model
 		'documento' => 'required',
 		'montototal' => 'required',
 		'concepto' => 'required',
-		'fechaanulacion' => 'required',
 		'unidadadministrativa_id' => 'required',
 		'tipocompromiso_id' => 'required',
 		'beneficiario_id' => 'required',
@@ -46,7 +45,7 @@ class Precompromiso extends Model
      *
      * @var array
      */
-    protected $fillable = ['documento','montototal','concepto','fechaanulacion','unidadadministrativa_id','tipocompromiso_id','beneficiario_id'];
+    protected $fillable = ['documento','montototal','concepto','fechaanulacion','unidadadministrativa_id','tipocompromiso_id','beneficiario_id', 'status'];
 
 
     /**

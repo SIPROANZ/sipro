@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Analisi extends Model
 {
-    
+
     static $rules = [
 		'unidadadministrativa_id' => 'required',
 		'requisicion_id' => 'required',
@@ -51,7 +51,7 @@ class Analisi extends Model
     {
         return $this->hasOne('App\Criterio', 'id', 'criterio_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -59,7 +59,7 @@ class Analisi extends Model
     {
         return $this->hasOne('App\Requisicione', 'id', 'requisicion_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -67,6 +67,12 @@ class Analisi extends Model
     {
         return $this->hasOne('App\Unidadadministrativa', 'id', 'unidadadministrativa_id');
     }
-    
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function detallesanalisi()
+    {
+        return $this->hasMany('App\Detallesanalisi', 'id', 'detallesanalisi_id');
+    }
 }

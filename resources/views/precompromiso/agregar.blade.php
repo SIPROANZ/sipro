@@ -101,9 +101,9 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $detallesprecompromiso->montocompromiso }}</td>
-											<td>{{ $detallesprecompromiso->precompromiso_id }}</td>
-											<td>{{ $detallesprecompromiso->unidadadministrativa_id }}</td>
-											<td>{{ $detallesprecompromiso->ejecucion_id }}</td>
+											<td>{{ $detallesprecompromiso->precompromiso->concepto }}</td>
+											<td>{{ $detallesprecompromiso->unidadadministrativa->unidadejecutora }}</td>
+											<td>{{ $detallesprecompromiso->ejecucione->clasificadorpresupuestario }}</td>
 
                                             <td>
                                                 <form action="{{ route('detallesprecompromisos.destroy',$detallesprecompromiso->id) }}" method="POST">

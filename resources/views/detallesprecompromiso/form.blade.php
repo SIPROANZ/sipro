@@ -8,7 +8,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('precompromiso_id') }}
-            {{ Form::hidden('precompromiso_id', 0, $detallesprecompromiso->precompromiso_id, ['class' => 'form-control' . ($errors->has('precompromiso_id') ? ' is-invalid' : ''), 'placeholder' => 'Precompromiso Id']) }}
+            {{ Form::hidden('precompromiso_id', 0, ['class' => 'form-control' . ($errors->has('precompromiso_id') ? ' is-invalid' : ''), 'placeholder' => 'Precompromiso Id']) }}
             {!! $errors->first('precompromiso_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">

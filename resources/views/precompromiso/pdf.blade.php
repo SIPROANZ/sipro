@@ -102,8 +102,8 @@
                                             
 											<td>{{ $detallesprecompromiso->montocompromiso }}</td>
 											<td>{{ $detallesprecompromiso->precompromiso_id }}</td>
-											<td>{{ $detallesprecompromiso->unidadadministrativa_id }}</td>
-											<td>{{ $detallesprecompromiso->ejecucion_id }}</td>
+											<td>{{ $detallesprecompromiso->unidadadministrativa->denominacion }}</td>
+											<td>{{ $detallesprecompromiso->ejecucione->clasificadorpresupuestario }}</td>
 
                                          
                                         </tr>

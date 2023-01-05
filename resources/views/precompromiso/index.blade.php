@@ -73,14 +73,24 @@
                                             <td>{{ $precompromiso->status }}</td>
 
                                             <td>
-                                                <form action="{{ route('precompromisos.destroy',$precompromiso->id) }}" method="POST">
+                                                <form action="{{ route('precompromisos.anular',$precompromiso->id) }}" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('precompromisos.agregar',$precompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Detalles"><i class="fas fa-outdent"></i></i></a>
                                                       
-                                                    <a class="btn btn-sm btn-success" href="{{ route('precompromisos.edit',$precompromiso->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('precompromisos.edit',$precompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Precompromiso"><i class="fa fa-fw fa-edit"></i></a>
+                                                   
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('precompromisos.pdf',$precompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Precompromiso"><i class="fas fa-print"></i></a>
+
                                                     @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar Precompromiso"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
+                                                <form action="{{ route('precompromisos.aprobar',$precompromiso->id) }}" method="POST">
+                                                    
+                                                   @csrf
+                                                    @method('PATCH')
+                                                    
+                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Precompromiso"><i class="fas fa-check-double"></i></button>
+                                                </form> 
                                             </td>
                                         </tr>
                                     @endforeach

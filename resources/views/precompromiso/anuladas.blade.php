@@ -52,8 +52,9 @@
 										<th>Unidadadministrativa Id</th>
 										<th>Tipocompromiso Id</th>
 										<th>Beneficiario Id</th>
+                                        <th>Estado</th>
 
-                                        <th></th>
+                                        <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,15 +69,12 @@
 											<td>{{ $precompromiso->unidadadministrativa_id }}</td>
 											<td>{{ $precompromiso->tipocompromiso_id }}</td>
 											<td>{{ $precompromiso->beneficiario_id }}</td>
+                                            <td>{{ $precompromiso->status }}</td>
 
                                             <td>
-                                                <form action="{{ route('precompromisos.destroy',$precompromiso->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('precompromisos.show',$precompromiso->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('precompromisos.edit',$precompromiso->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
-                                                </form>
+                                                
+                                            <a class="btn btn-sm btn-primary " href="{{ route('precompromisos.pdf',$precompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Precompromiso"><i class="fas fa-print"></i></a>
+
                                             </td>
                                         </tr>
                                     @endforeach

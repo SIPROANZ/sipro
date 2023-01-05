@@ -216,6 +216,8 @@ class PrecompromisoController extends Controller
         $precompromiso = Precompromiso::find($id);
         $precompromiso->status = 'PR';
         $precompromiso->save();
+
+        $cadena_error ='';
         
 
         //Obtener el detalle ejecucion y corroborar que haya disponibilidad
@@ -237,6 +239,7 @@ class PrecompromisoController extends Controller
                 $aprobado = 0;
                 $precompromiso->status = 'EP';
                 $precompromiso->save();
+                $cadena_error .= ' monto a precomprometer: ' . $monto . ' Disponible: ' . $disponible_ejecucion . ' Clasificador: ' . $ejecucion->clasificadorpresupuestario;
             }
             //$cad_resulltados .= ' monto: ' . $monto . ' ejecucion: ' . $ejecucion_id . ' Disponible: ' . $disponible_ejecucion; 
         }
@@ -259,7 +262,7 @@ class PrecompromisoController extends Controller
             ->with('success', 'Precompromiso Aprobado Exitosamente.');
         }else{
             return redirect()->route('precompromisos.index')
-            ->with('success', 'No Aprobado. No hay Disponibilidad o ha ocurrido un error en el registro');
+            ->with('success', 'No Aprobado. No hay Disponibilidad o ha ocurrido un error en el registro. ' . $cadena_error);
         }
 
     }

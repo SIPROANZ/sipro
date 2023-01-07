@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -153,6 +154,8 @@ Route::get('ordenpagos/compromisos', [App\Http\Controllers\OrdenpagoController::
 
 Route::get('/ordenpagos/agregar/{ordenpago}', [App\Http\Controllers\OrdenpagoController::class, 'agregarordenpago'])->name('ordenpagos.agregarordenpago')->middleware('auth');
 
+Route::get('/ordenpagos/retencion/{ordenpago}', [App\Http\Controllers\OrdenpagoController::class, 'agregar'])->name('ordenpagos.agregar')->middleware('auth');
+
 Route::get('/ordenpagos/reversar/{compromiso}', [App\Http\Controllers\OrdenpagoController::class, 'reversar'])->name('ordenpagos.reversar')->middleware('auth');
 
 Route::get('ordenpagos/pdf/{ordenpago}', [App\Http\Controllers\OrdenpagoController::class, 'pdf'])->name('ordenpagos.pdf')->middleware('auth');
@@ -167,6 +170,8 @@ Route::patch('/ordenpagos/anular/{ordenpago}', [App\Http\Controllers\OrdenpagoCo
 //////////
 
 Route::resource('ordenpagos', App\Http\Controllers\OrdenpagoController::class)->middleware('auth');
+
+Route::resource('detalleretenciones', App\Http\Controllers\DetalleretencioneController::class)->middleware('auth');
 
 Route::resource('tiporetenciones', App\Http\Controllers\TiporetencioneController::class)->middleware('auth');
 

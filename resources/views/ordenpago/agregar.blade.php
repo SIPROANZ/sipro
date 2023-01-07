@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $ordenpago->name ?? 'Ver Orden de Pago' }}
+    {{ $ordenpago->name ?? 'Detalles Orden de Pago' }}
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Ver Orden de pago</span>
+                            <span class="card-title">Detalles Orden de pago</span>
                         </div>
                         <div class="float-right">
                             <a class="btn btn-primary" href="{{ route('ordenpagos.index') }}"> Regresar</a>
@@ -79,15 +79,15 @@
                 <div class="card-header">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
 
-                        <span id="card_title"> <strong>
-                            {{ __('Detalle Retenciones Aplicadas') }}</strong>
+                        <span id="card_title">
+                            {{ __('Detalle Retenciones Aplicadas') }}
                         </span>
 
-{{--                          <div class="float-right">
+                         <div class="float-right">
                             <a href="{{ route('detalleretenciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                               {{ __('Agregar Retención') }}
                             </a>
-                          </div> --}}
+                          </div>
                     </div>
                 </div>
                 @if ($message = Session::get('success'))
@@ -118,11 +118,12 @@
                                         <td>{{ $detalleretencione->montoneto }}</td>
 
                                         <td>
-{{--                                             <form action="{{ route('detalleretenciones.destroy',$detalleretencione->id) }}" method="POST">
+                                            <form action="{{ route('detalleretenciones.destroy',$detalleretencione->id) }}" method="POST">
+                                                {{-- <a class="btn btn-sm btn-success" href="{{ route('detalleretenciones.edit',$detalleretencione->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a> --}}
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                                            </form> --}}
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

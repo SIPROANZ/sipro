@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Compromiso;
+use App\Detalleretencione;
 use App\Detallesanalisi;
 use App\Ordenpago;
 use App\Tipodecompromiso;
@@ -46,6 +47,7 @@ class OrdenpagoController extends Controller
     public function create()
     {
         $ordenpago = new Ordenpago();
+
         return view('ordenpago.create', compact('ordenpago'));
     }
 
@@ -62,12 +64,16 @@ class OrdenpagoController extends Controller
         $max_correlativo = DB::table('ordenpagos')->max('nordenpago');
         $numero_correlativo = $max_correlativo + 1;
         $request->merge(['nordenpago'=>$numero_correlativo]);
-
-
+        $request->merge(['status'=>'EP']);
         $nordenpago = Ordenpago::create($request->all());
         //Obtener el ultimo ID
         $ultimo = Ordenpago::latest('id')->first();
         $nordenpago_id = $ultimo->id;
+
+        $compromiso = Compromiso::find($nordenpago->compromiso_id);
+        //dd($compromiso);
+        $compromiso->status = 'AP';
+        $compromiso->save();
 
 /*         //Agregar los clasificadores presupuestarios al compomiso
         $compra_id = $request->compra_id;
@@ -99,8 +105,9 @@ class OrdenpagoController extends Controller
     public function show($id)
     {
         $ordenpago = Ordenpago::find($id);
+        $detalleretenciones = Detalleretencione::where('ordenpago_id','=',$id)->paginate();
 
-        return view('ordenpago.show', compact('ordenpago'));
+        return view('ordenpago.show', compact('ordenpago','detalleretenciones'))->with('i');
     }
 
     /**
@@ -112,8 +119,9 @@ class OrdenpagoController extends Controller
     public function edit($id)
     {
         $ordenpago = Ordenpago::find($id);
+        $compromiso = Compromiso::find($ordenpago->compromiso_id);
 
-        return view('ordenpago.edit', compact('ordenpago'));
+        return view('ordenpago.edit', compact('ordenpago','compromiso'));
     }
 
     /**
@@ -146,23 +154,104 @@ class OrdenpagoController extends Controller
             ->with('success', 'Ordenpago deleted successfully');
     }
 
+        /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregar($id)
+    {
+        $ordenpago = Ordenpago::find($id);
+
+
+        //Creare una variable de sesion para guardar el id de esta requisicion
+        session(['ordenpago' => $id]);
+
+        //Consulto los datos especificos para la requisicion seleccionada
+        $detalleretenciones = Detalleretencione::where('ordenpago_id','=',$id)->paginate();
+
+        return view('ordenpago.agregar', compact('ordenpago', 'detalleretenciones'))
+        ->with('i', (request()->input('page', 1) - 1) * $detalleretenciones->perPage());
+    }
+
     public function agregarordenpago($id)
     {
         $compromiso_id = $id;
         $ordenpago = new Ordenpago();
-        //Cambiar el estatus de la compromiso para que no salga mas en el listado a comprometer
+
         $compromiso = Compromiso::find($compromiso_id);
-        $compromiso->status = 'AP';
+/*         $compromiso->status = 'AP';
         $compromiso->save();
+        $proveedor = $compromiso->beneficiario->nombre; */
 
-/*         $detallesanalisi = Detallesanalisi::find($compromiso->analisis_id);
-        $proveedor = $detallesanalisi->proveedor_id; */
-        $proveedor = $compromiso->beneficiario->nombre;
-        //$proveedor = 1;
+        return view('ordenpago.agregarordenpago', compact('compromiso', 'ordenpago'));
+    }
 
-        //$tipocompromisos = Tipodecompromiso::pluck('nombre', 'id');
+    //Metodo para aprobar un analisis de cotizacion
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A PROCESADO CUANDO YA ESTA aprobada la requisicion
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function reversar($id)
+    {
+        $compra = Compra::find($id);
+        $compra->estatus = 'EP';
+        $compra->save();
 
-        return view('ordenpago.agregarordenpago', compact('compromiso', 'ordenpago', 'proveedor'));
+        return redirect()->route('compromisos.index')
+            ->with('success', 'Compra Reversada exitosamente.');
+    }
+
+    //Metodo para aprobar un analisis de cotizacion
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A PROCESADO CUANDO YA ESTA aprobada la requisicion
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function aprobar($id)
+    {
+        $aprobado = 1;
+
+        $compromiso = Compromiso::find($id);
+        $compromiso->status = 'PR';
+        $compromiso->save();
+        //Obtener la compra y tambien actualizar su estado
+        $compra = Compra::find($compromiso->compra_id);
+        $compra->status = 'AP';
+        $compra->save();
+
+        //Obtener el detalle ejecucion y corroborar que haya disponibilidad
+        $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->get();
+
+        //Ciclo para imputar
+        foreach($detallescompromisos as $rows){
+            //Obtener la ejecucion
+            $ejecucion = Ejecucione::find($rows->ejecucion_id);
+            //Hacer el if
+            if($rows->montocompromiso <= $ejecucion->monto_por_comprometer){
+                $ejecucion->increment('monto_comprometido', $rows->montocompromiso);
+                $ejecucion->decrement('monto_por_comprometer', $rows->montocompromiso);
+                $ejecucion->decrement('monto_precomprometido', $rows->montocompromiso);
+
+            }else{
+                $aprobado = 0;
+            }
+
+        }
+
+
+
+
+        if($aprobado == 1){
+            return redirect()->route('compromisos.index')
+            ->with('success', 'Compromiso Aprobado Exitosamente. ');
+        }else{
+            return redirect()->route('compromisos.index')
+            ->with('success', 'No Aprobado. No hay Disponibilidad o ha ocurrido un error en el registro');
+        }
+
     }
 
         /**
@@ -203,7 +292,7 @@ class OrdenpagoController extends Controller
         $ordenpago->save();
 
         return redirect()->route('ordenpagos.index')
-            ->with('success', 'Orden de Pago Anulado exitosamente.');
+            ->with('success', 'Orden de Pago Anulada exitosamente.');
 
 
     }

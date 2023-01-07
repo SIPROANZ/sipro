@@ -46,16 +46,16 @@
                                         <th>No</th>
 
 										<th style="text-align: left">N° Orden de pago</th>
-										<th style="text-align: left">Beneficiario</th>
+										<th style="text-align: left">Compromiso </th>
+										<th style="text-align: left">Beneficiario</th>{{--
 										<th style="text-align: left">Monto base</th>
-										<th style="text-align: left">Monto retencion</th>
-										<th style="text-align: left">Monto neto</th>
-										<th style="text-align: left">Fecha anulacion</th>
-										<th style="text-align: left">Estado</th>
+										<th style="text-align: left">Monto retencion</th> --}}
+										<th style="text-align: left">Monto neto</th>{{--
+										<th style="text-align: left">Fecha anulacion</th> --}}
+										<th style="text-align: left">Estado</th>{{--
 										<th style="text-align: left">Tipo orden</th>
 										<th style="text-align: left">Monto IVA</th>
-										<th style="text-align: left">Monto exento</th>
-										<th style="text-align: left">Compromiso </th>
+										<th style="text-align: left">Monto exento</th> --}}
 
                                         <th></th>
                                     </tr>
@@ -66,16 +66,26 @@
                                             <td>{{ ++$i }}</td>
 
 											<td style="text-align: left">{{ $ordenpago->nordenpago }}</td>
-											<td style="text-align: left">{{ $ordenpago->beneficiario_id }}</td>
+											<td style="text-align: left">{{ $ordenpago->compromiso_id }}</td>
+											<td style="text-align: left">{{ $ordenpago->beneficiario->nombre }}</td>{{--
 											<td style="text-align: left">{{ $ordenpago->montobase }}</td>
-											<td style="text-align: left">{{ $ordenpago->montoretencion }}</td>
-											<td style="text-align: left">{{ $ordenpago->montoneto }}</td>
-											<td style="text-align: left">{{ $ordenpago->fechaanulacion }}</td>
-											<td style="text-align: left">{{ $ordenpago->status }}</td>
+											<td style="text-align: left">{{ $ordenpago->montoretencion }}</td> --}}
+											<td style="text-align: left">{{ $ordenpago->montoneto }}</td>{{--
+											<td style="text-align: left">{{ $ordenpago->fechaanulacion }}</td> --}}
+											<td style="text-align: left">
+                                                @if ($ordenpago->status == 'EP')
+                                                    En Proceso
+                                                @elseif ($ordenpago->status == 'PR')
+                                                    Procesada
+                                                @elseif ($ordenpago->status == 'AP')
+                                                    Aprobada
+                                                @elseif ($ordenpago->status == 'AN')
+                                                    Anulada
+                                                @endif
+                                            </td>{{--
 											<td style="text-align: left">{{ $ordenpago->tipoorden }}</td>
 											<td style="text-align: left">{{ $ordenpago->montoiva }}</td>
-											<td style="text-align: left">{{ $ordenpago->montoexento }}</td>
-											<td style="text-align: left">{{ $ordenpago->compromiso_id }}</td>
+											<td style="text-align: left">{{ $ordenpago->montoexento }}</td> --}}
 
                                             <td>
                                                 <form action="{{ route('ordenpagos.aprobar',$compromiso->id) }}" method="POST">

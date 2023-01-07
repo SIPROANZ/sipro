@@ -39,7 +39,6 @@ class Ordenpago extends Model
 		'beneficiario_id' => 'required',
 		'montobase' => 'required',
 		'montoneto' => 'required',
-		'status' => 'required',
 		'tipoorden' => 'required',
 		'montoiva' => 'required',
 		'compromiso_id' => 'required',

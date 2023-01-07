@@ -48,8 +48,8 @@
                                 <thead class="thead">
                                     <tr>
                                         <th style="text-align: center">No</th>
-                                        
-										
+
+
 										<th style="text-align: center">Ejercicio</th>
 										<th style="text-align: center">Institucion</th>
 										<th style="text-align: center">Unidad administrativa</th>
@@ -66,7 +66,7 @@
                                     @foreach ($requisiciones as $requisicione)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
+
 										    <td style="text-align: center">{{ $requisicione->ejercicio->nombreejercicio}}</td>
 											<td style="text-align: center">{{ $requisicione->institucione->institucion }}</td>
 											<td style="text-align: center">{{ $requisicione->unidadadministrativa->denominacion }}</td>
@@ -78,34 +78,33 @@
 
                                             <td>
                                                 <div class="row">
-                                                
+
                                                 <form action="{{ route('requisiciones.anular',$requisicione->id) }}" method="POST">
                                                     <!-- Agregar detalles BOS a la requisicion -->
                                                     <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.agregar',$requisicione->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Producto BOS"><i class="fas fa-outdent"></i></i></a>
-                                                    
-                                                   
+
                                                     <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.pdf',$requisicione->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Requisicion"><i class="fas fa-print"></i></a>
-                                                   
+
                                                     <a class="btn btn-sm btn-success" href="{{ route('requisiciones.edit',$requisicione->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Requisicion"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Requisicion"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
-                                               
+
                                                 <form action="{{ route('requisiciones.aprobar',$requisicione->id) }}" method="POST">
                                                     <!-- Agregar detalles BOS a la requisicion -->
                                                    @csrf
                                                     @method('PATCH')
-                                                    
+
                                                     <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Requisicion"><i class="fas fa-check-double"></i></button>
                                                 </form>
-                                                
-                                               
+
+
                                                 </div>
 
 
 
-                                               
+
 
                                             </td>
                                         </tr>

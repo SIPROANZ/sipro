@@ -30,7 +30,11 @@
                         </div>
                         <div class="form-group">
                             <strong>Tipo:</strong>
-                            {{ $retencione->tipo }}
+                            @if ($retencione->tipo == 'I')
+                                Impuesto
+                            @else
+                                Retencion
+                            @endif
                         </div>
                         <div class="form-group">
                             <strong>Tipo de Retención:</strong>

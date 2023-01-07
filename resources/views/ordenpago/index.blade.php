@@ -44,18 +44,17 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-
-										<th style="text-align: left">N° Orden de pago</th>
-										<th style="text-align: left">Beneficiario</th>
+										<th class="col-md-1" style="text-align: left">N° Orden de pago</th>
+										<th class="col-md-1" style="text-align: left">Compromiso </th>
+										<th class="col-md-4" style="text-align: left">Beneficiario</th>{{--
 										<th style="text-align: left">Monto base</th>
-										<th style="text-align: left">Monto retencion</th>
-										<th style="text-align: left">Monto neto</th>
-										<th style="text-align: left">Fecha anulacion</th>
-										<th style="text-align: left">Estado</th>
+										<th style="text-align: left">Monto retencion</th> --}}
+										<th class="col-md-2" style="text-align: left">Monto neto</th>{{--
+										<th style="text-align: left">Fecha anulacion</th> --}}
+										<th class="col-md-1.5" style="text-align: left">Estado</th>{{--
 										<th style="text-align: left">Tipo orden</th>
 										<th style="text-align: left">Monto IVA</th>
-										<th style="text-align: left">Monto exento</th>
-										<th style="text-align: left">Compromiso </th>
+										<th style="text-align: left">Monto exento</th> --}}
 
                                         <th></th>
                                     </tr>
@@ -66,34 +65,44 @@
                                             <td>{{ ++$i }}</td>
 
 											<td style="text-align: left">{{ $ordenpago->nordenpago }}</td>
-											<td style="text-align: left">{{ $ordenpago->beneficiario_id }}</td>
+											<td style="text-align: left">{{ $ordenpago->compromiso_id }}</td>
+											<td style="text-align: left">{{ $ordenpago->beneficiario->nombre }}</td>{{--
 											<td style="text-align: left">{{ $ordenpago->montobase }}</td>
-											<td style="text-align: left">{{ $ordenpago->montoretencion }}</td>
-											<td style="text-align: left">{{ $ordenpago->montoneto }}</td>
-											<td style="text-align: left">{{ $ordenpago->fechaanulacion }}</td>
-											<td style="text-align: left">{{ $ordenpago->status }}</td>
+											<td style="text-align: left">{{ $ordenpago->montoretencion }}</td> --}}
+											<td style="text-align: left">{{ $ordenpago->montoneto }}</td>{{--
+											<td style="text-align: left">{{ $ordenpago->fechaanulacion }}</td> --}}
+											<td style="text-align: left">
+                                                @if ($ordenpago->status == 'EP')
+                                                    En Proceso
+                                                @elseif ($ordenpago->status == 'PR')
+                                                    Procesada
+                                                @elseif ($ordenpago->status == 'AP')
+                                                    Aprobada
+                                                @elseif ($ordenpago->status == 'AN')
+                                                    Anulada
+                                                @endif
+                                            </td>{{--
 											<td style="text-align: left">{{ $ordenpago->tipoorden }}</td>
 											<td style="text-align: left">{{ $ordenpago->montoiva }}</td>
-											<td style="text-align: left">{{ $ordenpago->montoexento }}</td>
-											<td style="text-align: left">{{ $ordenpago->compromiso_id }}</td>
+											<td style="text-align: left">{{ $ordenpago->montoexento }}</td> --}}
 
                                             <td>
-                                            <form action="{{ route('ordenpagos.aprobar',$ordenpago->id) }}" method="POST">
-                                                    <!-- Agregar detalles orden de pago -->
+                                                <form action="{{ route('ordenpagos.aprobar',$ordenpago->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('ordenpagos.agregar',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Retenciones"><i class="fas fa-outdent"></i></i></a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('ordenpagos.show',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Mostrar Orden de Pago"><i class="fa fa-fw fa-eye"></i></a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('ordenpagos.edit',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Orden de Pago"><i class="fa fa-fw fa-edit"></i></a>
+                                                    {{-- <a class="btn btn-sm btn-danger" href="{{ route('ordenpagos.anular',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Anular Orden de pago"><i class="fa fa-fw fa-trash"></i></a> --}}
                                                    @csrf
                                                     @method('PATCH')
 
                                                     <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar orden de pago"><i class="fas fa-check-double"></i></button>
+                                                    <form action="{{ route('ordenpagos.anular',$ordenpago->id) }}" method="POST">
+                                                       @csrf
+                                                        @method('PATCH')
+
+                                                        <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Anular orden de pago"><i class="fa fa-fw fa-trash"></i></button>
+                                                    </form>
                                                 </form>
-
-                                                <form action="{{ route('ordenpagos.anular',$ordenpago->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-success" href="{{ route('ordenpagos.edit',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Compra"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Orden de pago"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
-
-
                                             </td>
                                         </tr>
                                     @endforeach

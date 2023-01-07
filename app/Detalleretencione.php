@@ -22,12 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Detalleretencione extends Model
 {
-    
+
     static $rules = [
-		'retencion_id' => 'required',
-		'ordenpago_id' => 'required',
-		'montoneto' => 'required',
-		'montoIVA' => 'required',
+		'retencion_id' => 'required'
     ];
 
     protected $perPage = 20;
@@ -47,7 +44,7 @@ class Detalleretencione extends Model
     {
         return $this->hasOne('App\Ordenpago', 'id', 'ordenpago_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -55,6 +52,6 @@ class Detalleretencione extends Model
     {
         return $this->hasOne('App\Retencione', 'id', 'retencion_id');
     }
-    
+
 
 }

@@ -20,7 +20,6 @@
                             @csrf
 
                             @include('ordenpago.form')
-
                         </form>
                     </div>
                 </div>

@@ -44,18 +44,15 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-
+										<th>N° Compromiso</th>
+										<th>Tipo Compromiso</th>
 										<th>Unidad Administrativa</th>
-										<th>Tipo compromiso</th>
-										<th>Numero compromiso</th>
 										<th>Beneficiario</th>
 										<th>Monto compromiso</th>
-										<th>Estado</th>
-										<th>Documento</th>
-										<th>Fecha Anulacion</th>
+										<th>Documento</th>{{--
 										<th>Precompromiso</th>
 										<th>Compra</th>
-										<th>Ayuda</th>
+										<th>Ayuda</th> --}}
 
                                         <th>Opciones</th>
                                     </tr>
@@ -64,18 +61,15 @@
                                     @foreach ($compromisos as $compromiso)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-
-											<td>{{ $compromiso->unidadadministrativa->denominacion }}</td>
-											<td>{{ $compromiso->tipodecompromiso->nombre }}</td>
 											<td>{{ $compromiso->ncompromiso }}</td>
+											<td>{{ $compromiso->tipodecompromiso->nombre }}</td>
+											<td>{{ $compromiso->unidadadministrativa->denominacion }}</td>
 											<td>{{ $compromiso->beneficiario->nombre }}</td>
 											<td>{{ $compromiso->montocompromiso }}</td>
-											<td>{{ $compromiso->status }}</td>
-											<td>{{ $compromiso->documento }}</td>
-											<td>{{ $compromiso->fechaanulacion }}</td>
+											<td>{{ $compromiso->documento }}</td>{{--
 											<td>{{ $compromiso->precompromiso_id }}</td>
 											<td>{{ $compromiso->compra_id }}</td>
-											<td>{{ $compromiso->ayuda_id }}</td>
+											<td>{{ $compromiso->ayuda_id }}</td> --}}
 
                                             <td>
                                                 <a class="btn btn-sm btn-primary " href="{{ route('ordenpagos.agregarordenpago',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Orden de Pago"><i class="fas fa-outdent"></i></i></a>

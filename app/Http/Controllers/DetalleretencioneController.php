@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Detalleretencione;
+use App\Ordenpago;
+use App\Retencione;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +34,8 @@ class DetalleretencioneController extends Controller
     public function create()
     {
         $detalleretencione = new Detalleretencione();
-        return view('detalleretencione.create', compact('detalleretencione'));
+        $retencione = Retencione::pluck('descripcion', 'id');
+        return view('detalleretencione.create', compact('detalleretencione', 'retencione'));
     }
 
     /**
@@ -45,10 +48,49 @@ class DetalleretencioneController extends Controller
     {
         request()->validate(Detalleretencione::$rules);
 
-        $detalleretencione = Detalleretencione::create($request->all());
+        //Obtenemos los condiciones de la retencion para calcular
 
-        return redirect()->route('detalleretenciones.index')
-            ->with('success', 'Detalleretencione created successfully.');
+        $retencion = Retencione::find($request->retencion_id);
+        $basecalculo = $retencion->base_calculo;
+        $porcentaje = $retencion->porcentaje / 100;
+
+        //Obtenemos los valores de la orden de pago para calcular
+
+        $ordenpago = Ordenpago::find($request->ordenpago_id);
+        $baseimponible = $ordenpago->montobase;
+        $baseiva = $ordenpago->montoiva;
+
+        if ($basecalculo == 1) {
+            $retenido = $baseimponible * $porcentaje;
+
+        } else {
+            $retenido = $baseiva * $porcentaje;
+        }
+
+/*         $subtotal = $cantidad * $precio;
+        $iva = $subtotal * 0.16;
+        $total = $subtotal + $iva;
+        $aprobado = $request->aprobado; */
+
+        $datos_guardar = [
+            'retencion_id' => $request->retencion_id,
+            'ordenpago_id' => $request->ordenpago_id,
+            'montoneto' => $retenido,
+            'montoIVA' => $retenido,
+        ];
+
+        $datos_editar = [
+            'montoretencion' => $ordenpago->montoretencion + $retenido,
+            'montoneto' => $ordenpago->montoneto - $retenido,
+        ];
+
+        $detalleretencione = Detalleretencione::create($datos_guardar);
+
+        $ordenpago->update($datos_editar);
+
+
+        return redirect()->route('ordenpagos.agregar',$request->ordenpago_id)
+            ->with('success', 'Retención Creada Exitosamente.');
     }
 
     /**
@@ -101,9 +143,23 @@ class DetalleretencioneController extends Controller
      */
     public function destroy($id)
     {
-        $detalleretencione = Detalleretencione::find($id)->delete();
+        $detalleretencione = Detalleretencione::find($id);
+        $odp = $detalleretencione->ordenpago_id;
 
-        return redirect()->route('detalleretenciones.index')
-            ->with('success', 'Detalleretencione deleted successfully');
+        //Obtenemos los valores de la orden de pago para recalcular
+
+       $ordenpago = Ordenpago::find($odp);
+
+       $datos_editar = [
+        'montoretencion' => $ordenpago->montoretencion - $detalleretencione->montoneto,
+        'montoneto' => $ordenpago->montoneto + $detalleretencione->montoneto,
+    ];
+
+        $ordenpago->update($datos_editar);
+
+        $detalleretencione->delete();
+
+        return redirect()->route('ordenpagos.agregar',$odp )
+            ->with('success', 'Retención eliminada exitosamente');
     }
 }

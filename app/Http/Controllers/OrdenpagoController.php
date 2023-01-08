@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Compromiso;
+use App\Detalleordenpago;
 use App\Detalleretencione;
-use App\Detallesanalisi;
+use App\Detallescompromiso;
+use App\Ejecucione;
 use App\Ordenpago;
-use App\Tipodecompromiso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -188,21 +189,6 @@ class OrdenpagoController extends Controller
         return view('ordenpago.agregarordenpago', compact('compromiso', 'ordenpago'));
     }
 
-    //Metodo para aprobar un analisis de cotizacion
-    /**
-     * @param int $id   CAMBIAR EL ESTATUS A PROCESADO CUANDO YA ESTA aprobada la requisicion
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function reversar($id)
-    {
-        $compra = Compra::find($id);
-        $compra->estatus = 'EP';
-        $compra->save();
-
-        return redirect()->route('compromisos.index')
-            ->with('success', 'Compra Reversada exitosamente.');
-    }
 
     //Metodo para aprobar un analisis de cotizacion
     /**
@@ -214,41 +200,45 @@ class OrdenpagoController extends Controller
     {
         $aprobado = 1;
 
-        $compromiso = Compromiso::find($id);
-        $compromiso->status = 'PR';
-        $compromiso->save();
+        $ordenpago = Ordenpago::find($id);
+        $ordenpago->status = 'PR';
+        $ordenpago->save();
         //Obtener la compra y tambien actualizar su estado
-        $compra = Compra::find($compromiso->compra_id);
-        $compra->status = 'AP';
-        $compra->save();
+        $compromiso = Compromiso::find($ordenpago->compromiso_id);
+        $compromiso->status = 'AP';
+        $compromiso->save();
 
-        //Obtener el detalle ejecucion y corroborar que haya disponibilidad
-        $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->get();
+        //Obtener el detalle de compromiso para aplicar en la ejecucion
+        $detallescompromiso = Detallescompromiso::where('compromiso_id','=',$compromiso->id)->get();
 
-        //Ciclo para imputar
-        foreach($detallescompromisos as $rows){
-            //Obtener la ejecucion
+        //Ciclo para guardar detalle de orden de pago
+        foreach($detallescompromiso as $rows){
+            $datos_guardar = [
+                'ordenpago_id' => $id,
+                'unidadadministrativa_id' => $rows->unidadadministrativa_id,
+                'ejecucion_id' => $rows->ejecucion_id,
+                'monto' => $rows->montocompromiso,
+            ];
+            $detalleordenpago = Detalleordenpago::create($datos_guardar);
+                            //Obtener la ejecucion
             $ejecucion = Ejecucione::find($rows->ejecucion_id);
+            //dd($rows);
             //Hacer el if
-            if($rows->montocompromiso <= $ejecucion->monto_por_comprometer){
-                $ejecucion->increment('monto_comprometido', $rows->montocompromiso);
-                $ejecucion->decrement('monto_por_comprometer', $rows->montocompromiso);
-                $ejecucion->decrement('monto_precomprometido', $rows->montocompromiso);
-
-            }else{
+            // if($rows->montocompromiso <= $ejecucion->monto_por_causar){
+                $ejecucion->increment('monto_causado', $rows->montocompromiso);
+                $ejecucion->decrement('monto_por_causar', $rows->montocompromiso);
+                $ejecucion->increment('monto_por_pagar', $rows->montocompromiso);
+                $ejecucion->save();
+/*             }else{
                 $aprobado = 0;
-            }
-
+            } */
         }
 
-
-
-
         if($aprobado == 1){
-            return redirect()->route('compromisos.index')
-            ->with('success', 'Compromiso Aprobado Exitosamente. ');
+            return redirect()->route('ordenpagos.procesados')
+            ->with('success', 'Orden de Pago Aprobada Exitosamente. ');
         }else{
-            return redirect()->route('compromisos.index')
+            return redirect()->route('ordenpagos.index')
             ->with('success', 'No Aprobado. No hay Disponibilidad o ha ocurrido un error en el registro');
         }
 
@@ -290,6 +280,20 @@ class OrdenpagoController extends Controller
         $ordenpago = Ordenpago::find($id);
         $ordenpago->status = 'AN';
         $ordenpago->save();
+
+        //Obtener el detalle de compromiso para reversar la ejecucion
+        $detallescompromiso = Detallescompromiso::where('compromiso_id','=',$ordenpago->compromiso_id)->get();
+
+        //Ciclo para guardar detalle de orden de pago
+        foreach($detallescompromiso as $rows){
+            $ejecucion = Ejecucione::find($rows->ejecucion_id);
+            $ejecucion->decrement('monto_causado', $rows->montocompromiso);
+            $ejecucion->increment('monto_por_causar', $rows->montocompromiso);
+            $ejecucion->decrement('monto_por_pagar', $rows->montocompromiso);
+            $ejecucion->save();
+        }
+
+        $detallesordepago = Detalleordenpago::where('ordenpago_id','=',$ordenpago->id)->delete();
 
         return redirect()->route('ordenpagos.index')
             ->with('success', 'Orden de Pago Anulada exitosamente.');

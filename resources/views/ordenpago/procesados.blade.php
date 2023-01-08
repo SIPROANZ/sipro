@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Orden de pago Procesada') }}
+                                {{ __('Ordenes de Pago Procesadas') }}
                             </span>
 
                              <div class="float-right">
@@ -44,15 +44,14 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-
-										<th style="text-align: left">N° Orden de pago</th>
-										<th style="text-align: left">Compromiso </th>
-										<th style="text-align: left">Beneficiario</th>{{--
+										<th class="col-md-1" style="text-align: left">N° Orden de pago</th>
+										<th class="col-md-1" style="text-align: left">Compromiso </th>
+										<th class="col-md-4" style="text-align: left">Beneficiario</th>{{--
 										<th style="text-align: left">Monto base</th>
 										<th style="text-align: left">Monto retencion</th> --}}
-										<th style="text-align: left">Monto neto</th>{{--
+										<th class="col-md-2" style="text-align: left">Monto neto</th>{{--
 										<th style="text-align: left">Fecha anulacion</th> --}}
-										<th style="text-align: left">Estado</th>{{--
+										<th class="col-md-1.5" style="text-align: left">Estado</th>{{--
 										<th style="text-align: left">Tipo orden</th>
 										<th style="text-align: left">Monto IVA</th>
 										<th style="text-align: left">Monto exento</th> --}}
@@ -88,23 +87,15 @@
 											<td style="text-align: left">{{ $ordenpago->montoexento }}</td> --}}
 
                                             <td>
-                                                <form action="{{ route('ordenpagos.aprobar',$compromiso->id) }}" method="POST">
-                                                    <!-- Agregar detalles BOS a la requisicion -->
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('ordenpagos.pdf',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Orden de Pago"><i class="fas fa-print"></i></a>
-
-
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('ordenpagos.show',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Mostrar Orden de Pago"><i class="fa fa-fw fa-eye"></i></a>
-
+                                                <form action="{{ route('ordenpagos.aprobar',$ordenpago->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('ordenpagos.agregar',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Retenciones"><i class="fas fa-outdent"></i></i></a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('ordenpagos.show',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Mostrar Orden de Pago"><i class="fa fa-fw fa-eye"></i></a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('ordenpagos.edit',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Orden de Pago"><i class="fa fa-fw fa-edit"></i></a>
+                                                    <a class="btn btn-sm btn-danger" href="{{ route('ordenpagos.anular',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Anular Orden de pago"><i class="fa fa-fw fa-trash"></i></a>
                                                    @csrf
                                                     @method('PATCH')
 
-                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Orden de Pago"><i class="fas fa-check-double"></i></button>
-                                                </form>
-                                                <form action="{{ route('ordenpagos.destroy',$compromiso->id) }}" method="POST">
-                                                      <a class="btn btn-sm btn-success" href="{{ route('ordenpagos.edit',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Orden de Pago"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Orden de Pago"><i class="fa fa-fw fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar orden de pago"><i class="fas fa-check-double"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

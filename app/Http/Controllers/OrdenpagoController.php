@@ -277,6 +277,7 @@ class OrdenpagoController extends Controller
      */
     public function anular($id)
     {
+
         $ordenpago = Ordenpago::find($id);
         $ordenpago->status = 'AN';
         $ordenpago->save();

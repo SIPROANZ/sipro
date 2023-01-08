@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Compromiso;
+use App\Precompromiso;
 use App\Detallescompromiso;
 use App\Compra;
 use App\Comprascp;
 use App\Tipodecompromiso;
 use App\Detallesanalisi;
 use App\Ejecucione;
+use App\Ayudassociale;
+use App\Detallesayuda;
+use App\Detallesprecompromiso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -42,8 +46,11 @@ class CompromisoController extends Controller
        // $compras = Compra::paginate();
         $compras = Compra::where('status', 'PR')->paginate();
 
-       
-        return view('compromiso.compras', compact('compras'))
+        $ayudassociales = Ayudassociale::where('status', 'PR')->paginate();
+
+        $precompromisos = Precompromiso::where('status', 'PR')->paginate();
+
+        return view('compromiso.compras', compact('compras', 'ayudassociales', 'precompromisos'))
             ->with('i', (request()->input('page', 1) - 1) * $compras->perPage());
     }
 
@@ -333,4 +340,139 @@ class CompromisoController extends Controller
 
             
     }
+
+    //Agregar Ayuda
+      /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregarayuda($id)
+    {
+        $ayuda_id = $id;
+        $compromiso = new Compromiso();
+        
+        //Cambiar el estatus de la compra para que no salga mas en el listado a comprometer
+        $ayuda = Ayudassociale::find($ayuda_id);
+        $ayuda->status = 'AP';
+        $ayuda->save();
+
+        $beneficiario = $ayuda->beneficiario_id;
+
+        $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id'); 
+       
+        return view('compromiso.agregarayuda', compact('ayuda', 'compromiso', 'tipocompromisos', 'beneficiario'));
+    }
+
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeayuda(Request $request)
+    {
+        request()->validate(Compromiso::$rules);
+        //Numero de compromisos
+        $max_correlativo = DB::table('compromisos')->max('ncompromiso');
+        $numero_correlativo = $max_correlativo + 1;
+        $request->merge(['ncompromiso'=>$numero_correlativo]);
+
+
+        $compromiso = Compromiso::create($request->all());
+        //Obtener el ultimo ID
+        $ultimo = Compromiso::latest('id')->first();
+        $compromiso_id = $ultimo->id;
+
+        //Agregar los clasificadores presupuestarios al compromiso
+        $ayuda_id = $request->ayuda_id;
+        //Obtener el detalle de las comprascps
+        $detalles_ayudacp = Detallesayuda::where('ayuda_id', $ayuda_id)->get();
+
+        foreach($detalles_ayudacp as $row){
+            //crear el array datos para agregarlo al detalle compromiso
+            $detalles_compromisos=[
+                'montocompromiso'=> $row->montocompromiso,
+                'compromiso_id'=> $compromiso_id,
+                'unidadadministrativa_id'=> $row->unidadadministrativa_id,
+                'ejecucion_id'=> $row->ejecucion_id,
+            ];
+
+            //agregar detalles del compromiso
+            $detallescompromiso = Detallescompromiso::create($detalles_compromisos);
+
+        }
+        
+        return redirect()->route('compromisos.index')
+            ->with('success', 'Compromiso created successfully.');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeprecompromiso(Request $request)
+    {
+        request()->validate(Compromiso::$rules);
+        //Numero de compromisos
+        $max_correlativo = DB::table('compromisos')->max('ncompromiso');
+        $numero_correlativo = $max_correlativo + 1;
+        $request->merge(['ncompromiso'=>$numero_correlativo]);
+
+
+        $compromiso = Compromiso::create($request->all());
+        //Obtener el ultimo ID
+        $ultimo = Compromiso::latest('id')->first();
+        $compromiso_id = $ultimo->id;
+
+        //Agregar los clasificadores presupuestarios al compromiso
+        $precompromiso_id = $request->precompromiso_id;
+        //Obtener el detalle de las comprascps
+        $detalles_precompromisocp = Detallesprecompromiso::where('precompromiso_id', $precompromiso_id)->get();
+
+        foreach($detalles_precompromisocp as $row){
+            //crear el array datos para agregarlo al detalle compromiso
+            $detalles_compromisos=[
+                'montocompromiso'=> $row->montocompromiso,
+                'compromiso_id'=> $compromiso_id,
+                'unidadadministrativa_id'=> $row->unidadadministrativa_id,
+                'ejecucion_id'=> $row->ejecucion_id,
+            ];
+
+            //agregar detalles del compromiso
+            $detallescompromiso = Detallescompromiso::create($detalles_compromisos);
+
+        }
+        
+        return redirect()->route('compromisos.index')
+            ->with('success', 'Compromiso created successfully.');
+    }
+
+    //Agregar Ayuda
+      /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregarprecompromiso($id)
+    {
+        $precompromiso_id = $id;
+        $compromiso = new Compromiso();
+        
+        //Cambiar el estatus de la compra para que no salga mas en el listado a comprometer
+        $precompromiso = Precompromiso::find($precompromiso_id);
+        $precompromiso->status = 'AP';
+        $precompromiso->save();
+
+        $beneficiario = $precompromiso->beneficiario_id;
+
+        $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id'); 
+       
+        return view('compromiso.agregarprecompromiso', compact('precompromiso', 'compromiso', 'tipocompromisos', 'beneficiario'));
+    }
+
 }

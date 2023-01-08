@@ -2,19 +2,6 @@
     <div class="box-body">
         
     <div class="row">
-  <!-- Select Dinamicos -->
-        <select name="" id="_unidadadministrativa">
-            @foreach ($unidadesadministrativas as $item)
-            <option value="{{$item->id}}">{{$item->unidadejecutora}}</option>
-            @endforeach
-        </select>
-
-
-
-
-
-
-
     <div class="col-md-4">
         <div class="form-group">
             {{ Form::label('unidad administrativa') }}
@@ -64,8 +51,3 @@
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
 </div>
-
-
-
-
-

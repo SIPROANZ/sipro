@@ -117,6 +117,11 @@ Route::patch('/analisis/anular/{analisi}', [App\Http\Controllers\AnalisiControll
 
 Route::get('analisis/pdf/{analisi}', [App\Http\Controllers\AnalisiController::class, 'pdf'])->name('analisis.pdf')->middleware('auth');
 
+//rutas para los select dinamicos
+
+Route::get('analisis/getplants', 'AnalisiController@getplants')->name('getplants');
+Route::get('analisis/getareas', 'AnalisiController@getareas')->name('getareas');
+Route::get('analisis/getequipos', 'AnalisiController@getequipos')->name('getequipos');
 
 Route::resource('analisis', App\Http\Controllers\AnalisiController::class)->middleware('auth');
 
@@ -188,6 +193,10 @@ Route::get('compromisos/compras', [App\Http\Controllers\CompromisoController::cl
 
 Route::get('/compromisos/agregar/{compromiso}', [App\Http\Controllers\CompromisoController::class, 'agregarcompromiso'])->name('compromisos.agregarcompromiso')->middleware('auth');
 
+Route::get('/compromisos/agregarayuda/{ayuda}', [App\Http\Controllers\CompromisoController::class, 'agregarayuda'])->name('compromisos.agregarayuda')->middleware('auth');
+
+Route::get('/compromisos/reversarayuda/{ayuda}', [App\Http\Controllers\CompromisoController::class, 'reversarayuda'])->name('compromisos.reversarayuda')->middleware('auth');
+
 Route::get('/compromisos/reversar/{compra}', [App\Http\Controllers\CompromisoController::class, 'reversar'])->name('compromisos.reversar')->middleware('auth');
 
 Route::get('compromisos/pdf/{compromiso}', [App\Http\Controllers\CompromisoController::class, 'pdf'])->name('compromisos.pdf')->middleware('auth');
@@ -199,6 +208,14 @@ Route::get('compromisos/procesados', [App\Http\Controllers\CompromisoController:
 Route::get('compromisos/anulados', [App\Http\Controllers\CompromisoController::class, 'indexanuladas'])->name('compromisos.anulados')->middleware('auth');
 
 Route::patch('/compromisos/anular/{compromiso}', [App\Http\Controllers\CompromisoController::class, 'anular'])->name('compromisos.anular')->middleware('auth');
+
+Route::post('compromisos/storeayuda', [App\Http\Controllers\CompromisoController::class, 'storeayuda'])->name('compromisos.storeayuda')->middleware('auth');
+
+Route::post('compromisos/storeprecompromiso', [App\Http\Controllers\CompromisoController::class, 'storeprecompromiso'])->name('compromisos.storeprecompromiso')->middleware('auth');
+
+Route::get('/compromisos/agregarprecompromiso/{precompromiso}', [App\Http\Controllers\CompromisoController::class, 'agregarprecompromiso'])->name('compromisos.agregarprecompromiso')->middleware('auth');
+
+Route::get('/compromisos/reversarprecompromiso/{precompromiso}', [App\Http\Controllers\CompromisoController::class, 'reversarprecompromiso'])->name('compromisos.reversarprecompromiso')->middleware('auth');
 
 Route::get('compromisos/aprobadas', [App\Http\Controllers\CompromisoController::class, 'indexaprobadas'])->name('compromisos.aprobadas')->middleware('auth');
 

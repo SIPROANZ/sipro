@@ -28,6 +28,7 @@ class Retencione extends Model
 		'porcentaje' => 'required',
 		'tipo' => 'required',
 		'tiporetencion_id' => 'required',
+		'base_calculo' => 'required',
     ];
 
     protected $perPage = 20;
@@ -37,7 +38,7 @@ class Retencione extends Model
      *
      * @var array
      */
-    protected $fillable = ['descripcion','porcentaje','tipo','tiporetencion_id'];
+    protected $fillable = ['descripcion','porcentaje','tipo','tiporetencion_id','base_calculo'];
 
 
     /**
@@ -54,7 +55,7 @@ class Retencione extends Model
     public function tiporetencione()
     {
         //return $this->hasOne(Tiporetencione::class);
-        return $this->hasOne('App\Tiporetencione', 'id', 'id');
+        return $this->hasOne('App\Tiporetencione', 'id', 'tiporetencion_id');
     }
 
 /*     protected static $enums = [

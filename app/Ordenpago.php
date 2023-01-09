@@ -34,18 +34,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Ordenpago extends Model
 {
-    
+
     static $rules = [
-		'nordenpago' => 'required',
 		'beneficiario_id' => 'required',
 		'montobase' => 'required',
-		'montoretencion' => 'required',
 		'montoneto' => 'required',
-		'fechaanulacion' => 'required',
-		'status' => 'required',
 		'tipoorden' => 'required',
 		'montoiva' => 'required',
-		'montoexento' => 'required',
 		'compromiso_id' => 'required',
     ];
 
@@ -66,7 +61,7 @@ class Ordenpago extends Model
     {
         return $this->hasOne('App\Beneficiario', 'id', 'beneficiario_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -74,7 +69,7 @@ class Ordenpago extends Model
     {
         return $this->hasOne('App\Compromiso', 'id', 'compromiso_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -82,7 +77,7 @@ class Ordenpago extends Model
     {
         return $this->hasMany('App\Detalleordenpago', 'ordenpago_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -90,7 +85,7 @@ class Ordenpago extends Model
     {
         return $this->hasMany('App\Detallepagado', 'ordenpago_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -98,7 +93,7 @@ class Ordenpago extends Model
     {
         return $this->hasMany('App\Detalleretencione', 'ordenpago_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -106,7 +101,7 @@ class Ordenpago extends Model
     {
         return $this->hasMany('App\Pagado', 'ordenpago_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -114,6 +109,6 @@ class Ordenpago extends Model
     {
         return $this->hasMany('App\Transferencia', 'ordenpago_id', 'id');
     }
-    
+
 
 }

@@ -18,14 +18,14 @@ return new class extends Migration
             $table->bigInteger('nordenpago')->unsigned();
             $table->bigInteger('beneficiario_id')->unsigned();
             $table->double('montobase', 25, 2);
-            $table->double('montoretencion', 25, 2);
+            $table->double('montoretencion', 25, 2)->nullable();
             $table->double('montoneto', 25, 2);
-            $table->date('fechaanulacion');
+            $table->date('fechaanulacion')->nullable();
             $table->string('status', 10);
             $table->bigInteger('tipoorden')->unsigned();
             $table->double('montoiva', 25, 2);
-            $table->double('montoexento', 25, 2);
-            $table->bigInteger('compromiso_id')->unsigned(); 
+            $table->double('montoexento', 25, 2)->nullable();
+            $table->bigInteger('compromiso_id')->unsigned();
             $table->foreign('beneficiario_id')->references('id')->on('beneficiarios')->onDelete('cascade');
             $table->foreign('compromiso_id')->references('id')->on('compromisos')->onDelete('cascade');
             $table->timestamps();

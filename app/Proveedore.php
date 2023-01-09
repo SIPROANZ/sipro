@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Proveedore extends Model
 {
-    
+
     static $rules = [
 		'caracterbeneficiario' => 'required',
 		'documento' => 'required',
@@ -65,6 +65,12 @@ class Proveedore extends Model
      */
     protected $fillable = ['caracterbeneficiario','documento','rif','tiporesidencia','tipobeneficiario','tipocontribuyente','nombre','direccion','telefono','correo','banco','numerocuenta','documentorepresentante','nombrerepresentante','telefonorepresentante','correorepresentante','bancorepresentante','numerocuentarepresentante'];
 
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function detallesanalisi()
+    {
+        return $this->hasMany('App\Detallesanalisi', 'id', 'detallesanalisi_id');
+    }
 
 }

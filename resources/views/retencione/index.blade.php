@@ -50,7 +50,14 @@
 
 											<td>{{ $retencione->descripcion }}</td>
 											<td>{{ $retencione->porcentaje }}</td>
-											<td>{{ $retencione->tipo }}</td>
+                                            <td>
+                                                @if ($retencione->tipo == 'I')
+                                                    Impuesto
+                                                @else
+                                                    Retencion
+                                                @endif
+                                            </td>
+											{{-- <td>{{ $retencione->tipo }}</td> --}}
 											<td>{{ $retencione->tiporetencione->tipo}}</td>
 
                                             <td>

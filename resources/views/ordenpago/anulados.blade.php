@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Ordenes de Pago
+    Ordenes de Pago Anuladas
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Ordenes de Pago') }}
+                                {{ __('Ordenes de Pago Anuladas') }}
                             </span>
 
                              <div class="float-right">

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Create Ordenpago
+    Crear Orden de Pago
 @endsection
 
 @section('content')
@@ -20,7 +20,6 @@
                             @csrf
 
                             @include('ordenpago.form')
-
                         </form>
                     </div>
                 </div>

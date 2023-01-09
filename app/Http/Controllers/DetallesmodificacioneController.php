@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Detallesmodificacione;
+use App\Ejecucione;
+use App\Unidadadministrativa;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +34,10 @@ class DetallesmodificacioneController extends Controller
     public function create()
     {
         $detallesmodificacione = new Detallesmodificacione();
-        return view('detallesmodificacione.create', compact('detallesmodificacione'));
+        $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $ejecuciones = Ejecucione::pluck('clasificadorpresupuestario', 'id');
+        $modificacion_id = session('modificacion');
+        return view('detallesmodificacione.create', compact('modificacion_id', 'detallesmodificacione', 'unidadadministrativas', 'ejecuciones'));
     }
 
     /**
@@ -44,11 +49,23 @@ class DetallesmodificacioneController extends Controller
     public function store(Request $request)
     {
         request()->validate(Detallesmodificacione::$rules);
+        $modificacion = session('modificacion');
+
+        $request->merge(['modificacion_id'=>$modificacion]);
 
         $detallesmodificacione = Detallesmodificacione::create($request->all());
-
+            
+        /*
         return redirect()->route('detallesmodificaciones.index')
             ->with('success', 'Detallesmodificacione created successfully.');
+                       */
+            if(session()->has('modificacion')){
+                return redirect()->route('modificaciones.agregarmodificacion',$modificacion)
+                ->with('success', 'Registro Agregado Exitosamente. Desea agregar un nuevo registro. ');
+            }else{
+                return redirect()->route('modificaciones.index')
+                ->with('success', 'Registro Agregado Exitosamente.');
+            }
     }
 
     /**
@@ -73,8 +90,11 @@ class DetallesmodificacioneController extends Controller
     public function edit($id)
     {
         $detallesmodificacione = Detallesmodificacione::find($id);
+        $modificacion_id = session('modificacion');
+        $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $ejecuciones = Ejecucione::pluck('clasificadorpresupuestario', 'id');
 
-        return view('detallesmodificacione.edit', compact('detallesmodificacione'));
+        return view('detallesmodificacione.edit', compact('modificacion_id', 'detallesmodificacione', 'unidadadministrativas', 'ejecuciones'));
     }
 
     /**
@@ -90,8 +110,16 @@ class DetallesmodificacioneController extends Controller
 
         $detallesmodificacione->update($request->all());
 
-        return redirect()->route('detallesmodificaciones.index')
+     /*   return redirect()->route('detallesmodificaciones.index')
             ->with('success', 'Detallesmodificacione updated successfully');
+     */     $modificacion = session('modificacion');
+            if(session()->has('modificacion')){
+                return redirect()->route('modificaciones.agregarmodificacion',$modificacion)
+                ->with('success', 'Registro Agregado Exitosamente. Desea agregar un nuevo registro. ');
+            }else{
+                return redirect()->route('modificaciones.index')
+                ->with('success', 'Registro Agregado Exitosamente.');
+            }
     }
 
     /**
@@ -102,8 +130,17 @@ class DetallesmodificacioneController extends Controller
     public function destroy($id)
     {
         $detallesmodificacione = Detallesmodificacione::find($id)->delete();
-
+        /*
         return redirect()->route('detallesmodificaciones.index')
             ->with('success', 'Detallesmodificacione deleted successfully');
+        */
+            $modificacion = session('modificacion');
+            if(session()->has('modificacion')){
+                return redirect()->route('modificaciones.agregarmodificacion',$modificacion)
+                ->with('success', 'Registro Agregado Exitosamente. Desea agregar un nuevo registro. ');
+            }else{
+                return redirect()->route('modificaciones.index')
+                ->with('success', 'Registro Agregado Exitosamente.');
+            }
     }
 }

@@ -82,6 +82,24 @@ Route::resource('beneficiarios', App\Http\Controllers\BeneficiarioController::cl
 
 Route::resource('proveedores', App\Http\Controllers\ProveedoreController::class)->middleware('auth');
 
+Route::get('/ayudassociales/agregar/{ayuda}', [App\Http\Controllers\AyudassocialeController::class, 'agregar'])->name('ayudassociales.agregar')->middleware('auth');
+
+Route::get('ayudassociales/procesadas', [App\Http\Controllers\AyudassocialeController::class, 'indexprocesadas'])->name('ayudassociales.procesadas')->middleware('auth');
+
+Route::get('ayudassociales/anuladas', [App\Http\Controllers\AyudassocialeController::class, 'indexanuladas'])->name('ayudassociales.anuladas')->middleware('auth');
+
+Route::get('ayudassociales/pdf/{ayuda}', [App\Http\Controllers\AyudassocialeController::class, 'pdf'])->name('ayudassociales.pdf')->middleware('auth');
+
+Route::patch('/ayudassociales/aprobar/{ayuda}', [App\Http\Controllers\AyudassocialeController::class, 'aprobar'])->name('ayudassociales.aprobar')->middleware('auth');
+
+Route::patch('/ayudassociales/anular/{ayuda}', [App\Http\Controllers\AyudassocialeController::class, 'anular'])->name('ayudassociales.anular')->middleware('auth');
+
+Route::get('ayudassociales/procesadas', [App\Http\Controllers\AyudassocialeController::class, 'indexprocesadas'])->name('ayudassociales.procesadas')->middleware('auth');
+
+Route::get('ayudassociales/anuladas', [App\Http\Controllers\AyudassocialeController::class, 'indexanuladas'])->name('ayudassociales.anuladas')->middleware('auth');
+
+
+
 Route::resource('ayudassociales', App\Http\Controllers\AyudassocialeController::class)->middleware('auth');
 
 Route::resource('criterios', App\Http\Controllers\CriterioController::class)->middleware('auth');
@@ -100,6 +118,10 @@ Route::patch('/analisis/anular/{analisi}', [App\Http\Controllers\AnalisiControll
 
 Route::get('analisis/pdf/{analisi}', [App\Http\Controllers\AnalisiController::class, 'pdf'])->name('analisis.pdf')->middleware('auth');
 
+//rutas para los select dinamicos
+Route::get('welcome', [App\Http\Controllers\AnalisiController::class, 'welcome'])->name('welcome')->middleware('auth');
+
+Route::post('requisicion', [App\Http\Controllers\AnalisiController::class, 'requisicion']);
 
 Route::resource('analisis', App\Http\Controllers\AnalisiController::class)->middleware('auth');
 
@@ -116,6 +138,7 @@ Route::patch('/compras/aprobar/{compra}', [App\Http\Controllers\CompraController
 
 Route::get('/compras/reversar/{analisi}', [App\Http\Controllers\CompraController::class, 'reversar'])->name('compras.reversar')->middleware('auth');
 
+Route::get('compras/aprobadas', [App\Http\Controllers\CompraController::class, 'indexaprobadas'])->name('compras.aprobadas')->middleware('auth');
 
 Route::get('compras/procesadas', [App\Http\Controllers\CompraController::class, 'indexprocesadas'])->name('compras.procesadas')->middleware('auth');
 
@@ -187,11 +210,35 @@ Route::resource('tipomovimientos', App\Http\Controllers\TipomovimientoController
 
 Route::resource('movimientosbancarios', App\Http\Controllers\MovimientosbancarioController::class)->middleware('auth');
 
+Route::resource('detallepagados', App\Http\Controllers\DetallepagadoController::class)->middleware('auth');
+
+Route::get('/pagados/agregar/', [App\Http\Controllers\PagadoController::class, 'agregar'])->name('pagados.agregar')->middleware('auth');
+
+//Route::get('/pagados/agregarordendepago/', [App\Http\Controllers\PagadoController::class, 'agregarordendepago'])->name('pagados.agregarordendepago')->middleware('auth');
+
+Route::get('pagados/pdf/{pagado}', [App\Http\Controllers\PagadoController::class, 'pdf'])->name('pagados.pdf')->middleware('auth');
+
+Route::get('pagados/procesadas', [App\Http\Controllers\PagadoController::class, 'indexprocesadas'])->name('pagados.procesadas')->middleware('auth');
+
+Route::get('pagados/anuladas', [App\Http\Controllers\PagadoController::class, 'indexanuladas'])->name('pagados.anuladas')->middleware('auth');
+
+Route::patch('/pagados/anular/{pagado}', [App\Http\Controllers\PagadoController::class, 'anular'])->name('pagados.anular')->middleware('auth');
+
+//Route::get('/pagados/reversar/{pagado}', [App\Http\Controllers\PagadoController::class, 'reversar'])->name('pagados.reversar')->middleware('auth');
+
+Route::patch('/pagados/aprobar/{pagado}', [App\Http\Controllers\PagadoController::class, 'aprobar'])->name('pagados.aprobar')->middleware('auth');
+
+Route::get('/pagados/agregarorden/{pagado}', [App\Http\Controllers\PagadoController::class, 'agregarorden'])->name('pagados.agregarorden')->middleware('auth');
+
 Route::resource('pagados', App\Http\Controllers\PagadoController::class)->middleware('auth');
 
 Route::get('compromisos/compras', [App\Http\Controllers\CompromisoController::class, 'indexcompras'])->name('compromisos.compras')->middleware('auth');
 
 Route::get('/compromisos/agregar/{compromiso}', [App\Http\Controllers\CompromisoController::class, 'agregarcompromiso'])->name('compromisos.agregarcompromiso')->middleware('auth');
+
+Route::get('/compromisos/agregarayuda/{ayuda}', [App\Http\Controllers\CompromisoController::class, 'agregarayuda'])->name('compromisos.agregarayuda')->middleware('auth');
+
+Route::get('/compromisos/reversarayuda/{ayuda}', [App\Http\Controllers\CompromisoController::class, 'reversarayuda'])->name('compromisos.reversarayuda')->middleware('auth');
 
 Route::get('/compromisos/reversar/{compra}', [App\Http\Controllers\CompromisoController::class, 'reversar'])->name('compromisos.reversar')->middleware('auth');
 
@@ -205,6 +252,72 @@ Route::get('compromisos/anulados', [App\Http\Controllers\CompromisoController::c
 
 Route::patch('/compromisos/anular/{compromiso}', [App\Http\Controllers\CompromisoController::class, 'anular'])->name('compromisos.anular')->middleware('auth');
 
+Route::post('compromisos/storeayuda', [App\Http\Controllers\CompromisoController::class, 'storeayuda'])->name('compromisos.storeayuda')->middleware('auth');
+
+Route::post('compromisos/storeprecompromiso', [App\Http\Controllers\CompromisoController::class, 'storeprecompromiso'])->name('compromisos.storeprecompromiso')->middleware('auth');
+
+Route::get('/compromisos/agregarprecompromiso/{precompromiso}', [App\Http\Controllers\CompromisoController::class, 'agregarprecompromiso'])->name('compromisos.agregarprecompromiso')->middleware('auth');
+
+Route::get('/compromisos/reversarprecompromiso/{precompromiso}', [App\Http\Controllers\CompromisoController::class, 'reversarprecompromiso'])->name('compromisos.reversarprecompromiso')->middleware('auth');
+
+Route::get('compromisos/aprobadas', [App\Http\Controllers\CompromisoController::class, 'indexaprobadas'])->name('compromisos.aprobadas')->middleware('auth');
+
 Route::resource('compromisos', App\Http\Controllers\CompromisoController::class)->middleware('auth');
 
 Route::resource('detallescompromisos', App\Http\Controllers\DetallescompromisoController::class)->middleware('auth');
+
+Route::get('ajustescompromisos/agregar', [App\Http\Controllers\AjustescompromisoController::class, 'agregar'])->name('ajustescompromisos.agregar')->middleware('auth');
+
+Route::get('ajustescompromisos/procesadas', [App\Http\Controllers\AjustescompromisoController::class, 'indexprocesadas'])->name('ajustescompromisos.procesadas')->middleware('auth');
+
+Route::get('ajustescompromisos/anuladas', [App\Http\Controllers\AjustescompromisoController::class, 'indexanuladas'])->name('ajustescompromisos.anuladas')->middleware('auth');
+
+Route::get('ajustescompromisos/pdf/{ajuste}', [App\Http\Controllers\AjustescompromisoController::class, 'pdf'])->name('ajustescompromisos.pdf')->middleware('auth');
+
+Route::patch('/ajustescompromisos/aprobar/{ajuste}', [App\Http\Controllers\AjustescompromisoController::class, 'aprobar'])->name('ajustescompromisos.aprobar')->middleware('auth');
+
+Route::patch('/ajustescompromisos/anular/{ajuste}', [App\Http\Controllers\AjustescompromisoController::class, 'anular'])->name('ajustescompromisos.anular')->middleware('auth');
+
+Route::get('ajustescompromisos/procesados', [App\Http\Controllers\AjustescompromisoController::class, 'indexprocesadas'])->name('ajustescompromisos.procesadas')->middleware('auth');
+
+Route::get('ajustescompromisos/anulados', [App\Http\Controllers\AjustescompromisoController::class, 'indexanuladas'])->name('ajustescompromisos.anuladas')->middleware('auth');
+
+Route::get('/ajustescompromisos/agregarcompromiso/{ajustecompromiso}', [App\Http\Controllers\AjustescompromisoController::class, 'agregarcompromiso'])->name('ajustescompromisos.agregarcompromiso')->middleware('auth');
+
+Route::resource('ajustescompromisos', App\Http\Controllers\AjustescompromisoController::class)->middleware('auth');
+
+Route::get('/modificaciones/agregar/{modificacion}', [App\Http\Controllers\ModificacioneController::class, 'agregarmodificacion'])->name('modificaciones.agregarmodificacion')->middleware('auth');
+
+Route::patch('/modificaciones/aprobar/{modificacion}', [App\Http\Controllers\ModificacioneController::class, 'aprobar'])->name('modificaciones.aprobar')->middleware('auth');
+
+Route::patch('/modificaciones/anular/{modificacion}', [App\Http\Controllers\ModificacioneController::class, 'anular'])->name('modificaciones.anular')->middleware('auth');
+
+Route::get('modificaciones/procesadas', [App\Http\Controllers\ModificacioneController::class, 'indexprocesadas'])->name('modificaciones.procesadas')->middleware('auth');
+
+Route::get('modificaciones/anuladas', [App\Http\Controllers\ModificacioneController::class, 'indexanuladas'])->name('modificaciones.anuladas')->middleware('auth');
+
+Route::get('modificaciones/pdf/{modificacion}', [App\Http\Controllers\ModificacioneController::class, 'pdf'])->name('modificaciones.pdf')->middleware('auth');
+
+Route::resource('modificaciones', App\Http\Controllers\ModificacioneController::class)->middleware('auth');
+
+Route::resource('tipomodificaciones', App\Http\Controllers\TipomodificacioneController::class)->middleware('auth');
+
+Route::resource('detallesmodificaciones', App\Http\Controllers\DetallesmodificacioneController::class)->middleware('auth');
+
+Route::resource('detallesayudas', App\Http\Controllers\DetallesayudaController::class)->middleware('auth');
+
+Route::get('/precompromisos/agregar/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'agregar'])->name('precompromisos.agregar')->middleware('auth');
+
+Route::patch('/precompromisos/aprobar/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'aprobar'])->name('precompromisos.aprobar')->middleware('auth');
+
+Route::patch('/precompromisos/anular/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'anular'])->name('precompromisos.anular')->middleware('auth');
+
+Route::get('precompromisos/procesadas', [App\Http\Controllers\PrecompromisoController::class, 'indexprocesadas'])->name('precompromisos.procesadas')->middleware('auth');
+
+Route::get('precompromisos/anuladas', [App\Http\Controllers\PrecompromisoController::class, 'indexanuladas'])->name('precompromisos.anuladas')->middleware('auth');
+
+Route::get('precompromisos/pdf/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'pdf'])->name('precompromisos.pdf')->middleware('auth');
+
+Route::resource('precompromisos', App\Http\Controllers\PrecompromisoController::class)->middleware('auth');
+
+Route::resource('detallesprecompromisos', App\Http\Controllers\DetallesprecompromisoController::class)->middleware('auth');

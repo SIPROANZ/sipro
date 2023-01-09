@@ -17,9 +17,23 @@
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('pagados.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+
+                             <a href="{{ route('pagados.agregar') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear Nueva Pagado') }}
                                 </a>
+
+                                <a href="{{ route('pagados.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('En proceso') }}
+                                </a>
+
+                                <a href="{{ route('pagados.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Pagadas') }}
+                                </a>
+
+                                <a href="{{ route('pagados.anuladas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Anuladas') }}
+                                </a>
+
                               </div>
                         </div>
                     </div>
@@ -36,16 +50,16 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Ordenpago Id</th>
-										<th>Beneficiario Id</th>
-										<th>Transferencia Id</th>
-										<th>Montopagado</th>
-										<th>Fechaanulacion</th>
-										<th>Status</th>
-										<th>Egreso</th>
-										<th>Tipoordenpago</th>
+										<th>Orden de pago</th>
+										<th>Beneficiario</th>
+										<th>Monto pagado</th>
+                                        <th>Correlativo</th>
+										<th>Fechaanulacion</th>									
+										<th>Tipo de orden</th>
+                                        <th>Tipo de Pago</th>
+                                        <th>Estatus</th>
 
-                                        <th></th>
+                                        <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,21 +69,39 @@
                                             
 											<td>{{ $pagado->ordenpago_id }}</td>
 											<td>{{ $pagado->beneficiario_id }}</td>
-											<td>{{ $pagado->transferencia_id }}</td>
 											<td>{{ $pagado->montopagado }}</td>
-											<td>{{ $pagado->fechaanulacion }}</td>
-											<td>{{ $pagado->status }}</td>
-											<td>{{ $pagado->egreso }}</td>
+                                            <td>{{ $pagado->correlativo }}</td>
+											<td>{{ $pagado->fechaanulacion }}</td>											
 											<td>{{ $pagado->tipoordenpago }}</td>
+                                            <td>{{ $pagado->tipodepago }}</td>
+                                            <td>{{ $pagado->status }}</td>
 
                                             <td>
-                                                <form action="{{ route('pagados.destroy',$pagado->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('pagados.show',$pagado->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('pagados.edit',$pagado->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                <div class="row">
+
+                                                 <form action="{{ route('pagados.anular',$pagado->id) }}" method="POST">
+                                                    <!-- Agregar detalles de los pagados -->
+                                                    <a class="btn btn-sm btn-primary" href="{{ route('pagados.agregar',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Pagado"><i class="fas fa-outdent"></i></i></a>
+                                                    
+                                                   
+                                                    <a class="btn btn-sm btn-primary" href="{{ route('pagados.pdf',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Pagado"><i class="fas fa-print"></i></a>
+                                                   
+                                                    <a class="btn btn-sm btn-success" href="{{ route('pagados.edit',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Pagado"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Pagado"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
+
+                                                <form action="{{ route('pagados.aprobar',$pagado->id) }}" method="POST">
+                                                    <!-- Agregar orden de pago a Pagado -->
+                                                   @csrf
+                                                    @method('PATCH')
+                                                    
+                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Pagado"><i class="fas fa-check-double"></i></button>
+                                                </form>
+
+                                                </div>
+
                                             </td>
                                         </tr>
                                     @endforeach

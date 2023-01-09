@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Cuentasbancaria') }}
+                                {{ __('Cuentas bancarias') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('cuentasbancarias.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Crear nuevo cuenta') }}
                                 </a>
                               </div>
                         </div>
@@ -34,15 +34,15 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                        <th style="text-align: left">No</th>
                                         
-										<th>Banco Id</th>
-										<th>Institucion Id</th>
-										<th>Fechaapertura</th>
-										<th>Montoapertura</th>
-										<th>Montosaldo</th>
-										<th>Cuenta</th>
-										<th>Descripcion</th>
+										<th style="text-align: left">Banco</th>
+										<th style="text-align: left">Institucion</th>
+										<th style="text-align: left">Fecha apertura</th>
+										<th style="text-align: left">Monto apertura</th>
+										<th style="text-align: left">Monto saldo</th>
+										<th style="text-align: left">Cuenta</th>
+										<th style="text-align: left">Descripcion</th>
 
                                         <th></th>
                                     </tr>
@@ -52,21 +52,21 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $cuentasbancaria->banco_id }}</td>
-											<td>{{ $cuentasbancaria->institucion_id }}</td>
-											<td>{{ $cuentasbancaria->fechaapertura }}</td>
-											<td>{{ $cuentasbancaria->montoapertura }}</td>
-											<td>{{ $cuentasbancaria->montosaldo }}</td>
-											<td>{{ $cuentasbancaria->cuenta }}</td>
-											<td>{{ $cuentasbancaria->descripcion }}</td>
+											<td style="text-align: left">{{ $cuentasbancaria->banco->denominacion }}</td>
+											<td style="text-align: left">{{ $cuentasbancaria->institucione->institucion}}</td>
+											<td style="text-align: left">{{ $cuentasbancaria->fechaapertura }}</td>
+											<td style="text-align: left">{{ $cuentasbancaria->montoapertura }}</td>
+											<td style="text-align: left">{{ $cuentasbancaria->montosaldo }}</td>
+											<td style="text-align: left">{{ $cuentasbancaria->cuenta }}</td>
+											<td style="text-align: left">{{ $cuentasbancaria->descripcion }}</td>
 
                                             <td>
                                                 <form action="{{ route('cuentasbancarias.destroy',$cuentasbancaria->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('cuentasbancarias.show',$cuentasbancaria->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('cuentasbancarias.edit',$cuentasbancaria->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('cuentasbancarias.show',$cuentasbancaria->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('cuentasbancarias.edit',$cuentasbancaria->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Borrar</button>
                                                 </form>
                                             </td>
                                         </tr>

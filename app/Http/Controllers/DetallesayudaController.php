@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Detallesayuda;
+use App\Ayudassociale;
+use App\Unidadadministrativa;
+use App\Ejecucione;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +35,10 @@ class DetallesayudaController extends Controller
     public function create()
     {
         $detallesayuda = new Detallesayuda();
-        return view('detallesayuda.create', compact('detallesayuda'));
+        $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $ejecuciones = Ejecucione::pluck('clasificadorpresupuestario', 'id');
+
+        return view('detallesayuda.create', compact('detallesayuda', 'unidadadministrativas', 'ejecuciones'));
     }
 
     /**
@@ -45,10 +51,23 @@ class DetallesayudaController extends Controller
     {
         request()->validate(Detallesayuda::$rules);
 
-        $detallesayuda = Detallesayuda::create($request->all());
+         //Obtener el id de la requisicion
+         $ayuda_id = session('ayudas');
+         //$request->requisicion_id=$requisicion; //cambiar el valor a la variable, para q se haga en el servidor y no en el cliente
+         $request->merge(['ayuda_id'  => $ayuda_id]);
 
+        $detallesayuda = Detallesayuda::create($request->all());
+          /*
         return redirect()->route('detallesayudas.index')
             ->with('success', 'Detallesayuda created successfully.');
+               */
+            if(session()->has('ayudas')){
+                return redirect()->route('ayudassociales.agregar',$ayuda_id)
+                ->with('success', 'Registro agregado satisfactoriamente.');
+            }else{
+                return redirect()->route('ayudassociales.index')
+                ->with('success', 'Registro Actualizado Exitosamente.');
+            }
     }
 
     /**
@@ -73,8 +92,10 @@ class DetallesayudaController extends Controller
     public function edit($id)
     {
         $detallesayuda = Detallesayuda::find($id);
+        $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $ejecuciones = Ejecucione::pluck('clasificadorpresupuestario', 'id');
 
-        return view('detallesayuda.edit', compact('detallesayuda'));
+        return view('detallesayuda.edit', compact('detallesayuda', 'unidadadministrativas', 'ejecuciones'));
     }
 
     /**
@@ -87,11 +108,26 @@ class DetallesayudaController extends Controller
     public function update(Request $request, Detallesayuda $detallesayuda)
     {
         request()->validate(Detallesayuda::$rules);
+        
+        $ayuda_id = session('ayudas');
+         //$request->requisicion_id=$requisicion; //cambiar el valor a la variable, para q se haga en el servidor y no en el cliente
+         $request->merge(['ayuda_id'  => $ayuda_id]);
 
         $detallesayuda->update($request->all());
-
+           /*
         return redirect()->route('detallesayudas.index')
             ->with('success', 'Detallesayuda updated successfully');
+             */
+            
+         //Para recuperar el id de la requisicion solo si existe route('requisiciones.agregar',$requisicione->id)
+         if(session()->has('ayudas')){
+            return redirect()->route('ayudassociales.agregar',$ayuda_id)
+            ->with('success', 'Ayuda Editada satisfactoriamente.');
+        }else{
+            return redirect()->route('ayudassociales.index')
+            ->with('success', 'Registro Actualizado Exitosamente.');
+        }
+
     }
 
     /**
@@ -103,7 +139,15 @@ class DetallesayudaController extends Controller
     {
         $detallesayuda = Detallesayuda::find($id)->delete();
 
-        return redirect()->route('detallesayudas.index')
+       /* return redirect()->route('detallesayudas.index')
             ->with('success', 'Detallesayuda deleted successfully');
+*/      $ayuda_id = session('ayudas');
+            if(session()->has('ayudas')){
+                return redirect()->route('ayudassociales.agregar',$ayuda_id)
+                ->with('success', 'Registro agregado satisfactoriamente.');
+            }else{
+                return redirect()->route('ayudassociales.index')
+                ->with('success', 'Registro Actualizado Exitosamente.');
+            }
     }
 }

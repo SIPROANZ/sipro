@@ -407,6 +407,19 @@ class CompraController extends Controller
     }
 
     /**
+     * Display requisiciones procesadas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexaprobadas()
+    {
+        $compras = Compra::where('status', 'AP')->paginate();
+
+        return view('compra.aprobadas', compact('compras'))
+            ->with('i', (request()->input('page', 1) - 1) * $compras->perPage());
+    }
+
+    /**
      * Display requisiciones anuladas.
      *
      * @return \Illuminate\Http\Response

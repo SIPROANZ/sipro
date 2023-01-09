@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Precompromiso;
+use App\Unidadadministrativa;
+use App\Tipodecompromiso;
+use App\Beneficiario;
+use App\detallesprecompromiso;
+use App\Ejecucione;
 use Illuminate\Http\Request;
+use PDF;
 
 /**
  * Class PrecompromisoController
@@ -18,9 +24,35 @@ class PrecompromisoController extends Controller
      */
     public function index()
     {
-        $precompromisos = Precompromiso::paginate();
+        $precompromisos = Precompromiso::where('status', 'EP')->paginate();
 
         return view('precompromiso.index', compact('precompromisos'))
+            ->with('i', (request()->input('page', 1) - 1) * $precompromisos->perPage());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexprocesadas()
+    {
+        $precompromisos = Precompromiso::where('status', 'PR')->paginate();
+
+        return view('precompromiso.procesadas', compact('precompromisos'))
+            ->with('i', (request()->input('page', 1) - 1) * $precompromisos->perPage());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexanuladas()
+    {
+        $precompromisos = Precompromiso::where('status', 'AN')->paginate();
+
+        return view('precompromiso.anuladas', compact('precompromisos'))
             ->with('i', (request()->input('page', 1) - 1) * $precompromisos->perPage());
     }
 
@@ -32,7 +64,12 @@ class PrecompromisoController extends Controller
     public function create()
     {
         $precompromiso = new Precompromiso();
-        return view('precompromiso.create', compact('precompromiso'));
+        $unidades = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $tipocompromisos = Tipodecompromiso::pluck('nombre','id');
+        $beneficiarios = Beneficiario::pluck('nombre','id');
+
+
+        return view('precompromiso.create', compact('precompromiso', 'unidades', 'tipocompromisos', 'beneficiarios'));
     }
 
     /**
@@ -60,8 +97,11 @@ class PrecompromisoController extends Controller
     public function show($id)
     {
         $precompromiso = Precompromiso::find($id);
+        $unidades = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $tipocompromisos = Tipodecompromiso::pluck('nombre','id');
+        $beneficiarios = Beneficiario::pluck('nombre','id');
 
-        return view('precompromiso.show', compact('precompromiso'));
+        return view('precompromiso.show', compact('precompromiso', 'unidades', 'tipocompromisos', 'beneficiarios'));
     }
 
     /**
@@ -73,8 +113,11 @@ class PrecompromisoController extends Controller
     public function edit($id)
     {
         $precompromiso = Precompromiso::find($id);
+        $unidades = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $tipocompromisos = Tipodecompromiso::pluck('nombre','id');
+        $beneficiarios = Beneficiario::pluck('nombre','id');
 
-        return view('precompromiso.edit', compact('precompromiso'));
+        return view('precompromiso.edit', compact('precompromiso', 'unidades', 'tipocompromisos', 'beneficiarios'));
     }
 
     /**
@@ -106,4 +149,124 @@ class PrecompromisoController extends Controller
         return redirect()->route('precompromisos.index')
             ->with('success', 'Precompromiso deleted successfully');
     }
+
+    /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregar($id)
+    {
+        $precompromiso = Precompromiso::find($id);
+
+        //Creare una variable de sesion para guardar el id de esta requisicion
+        session(['precompromisos' => $id]);
+
+        $detallesprecompromisos = Detallesprecompromiso::where('precompromiso_id', $id)->paginate();
+
+        return view('precompromiso.agregar', compact('detallesprecompromisos', 'precompromiso'))
+            ->with('i', (request()->input('page', 1) - 1) * $detallesprecompromisos->perPage());
+    }
+
+     /**
+     * Crear pdf de la requisicion seleccionada
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf($id)
+    {
+        $precompromiso = Precompromiso::find($id);
+
+
+        $detallesprecompromisos = Detallesprecompromiso::where('precompromiso_id', $id)->paginate();
+        
+
+        $pdf = PDF::loadView('precompromiso.pdf', ['precompromiso'=>$precompromiso, 'detallesprecompromisos'=>$detallesprecompromisos]);
+        return $pdf->stream();
+
+    }
+
+
+     /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UNA REQUISICION
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function anular($id)
+    {
+        $precompromiso = Precompromiso::find($id);
+        $precompromiso->status = 'AN';
+        $precompromiso->save();
+
+        return redirect()->route('precompromisos.index')
+            ->with('success', 'Precompromiso Anulado exitosamente.');
+     
+    }
+
+     /**
+     * @param int $id   CAMBIAR EL ESTATUS A PROCESADO CUANDO YA ESTA aprobada la requisicion
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function aprobar($id)
+    {
+        $aprobado = 1;
+        $procesar = 0; 
+        $precompromiso = Precompromiso::find($id);
+        $precompromiso->status = 'PR';
+        $precompromiso->save();
+
+        $cadena_error ='';
+        
+
+        //Obtener el detalle ejecucion y corroborar que haya disponibilidad
+        //$detallesayudas = Detallesayuda::where('ayuda_id','=',$id)->get();
+        $detallesprecompromisos = Detallesprecompromiso::where('precompromiso_id', $id)->get();
+        //Ciclo para validar que todas las partidas tengan disponibilidad
+        foreach($detallesprecompromisos as $rows){
+            $monto =  $rows->montocompromiso;
+            $ejecucion_id = $rows->ejecucion_id;
+            //Obtenemos el monto en la ejecucion 
+            $ejecucion = Ejecucione::find($ejecucion_id);
+            $monto_por_comprometer = $ejecucion->monto_por_comprometer;
+            $monto_precomprometido = $ejecucion->monto_precomprometido;
+            $disponible_ejecucion = $monto_por_comprometer - $monto_precomprometido;
+            //Valido que tenga disponibilidad
+            if($monto > $disponible_ejecucion)
+            {
+                $procesar = 1; //Hubo falta de disponibilidad en alguna ejecucion
+                $aprobado = 0;
+                $precompromiso->status = 'EP';
+                $precompromiso->save();
+                $cadena_error .= ' monto a precomprometer: ' . $monto . ' Disponible: ' . $disponible_ejecucion . ' Clasificador: ' . $ejecucion->clasificadorpresupuestario;
+            }
+            //$cad_resulltados .= ' monto: ' . $monto . ' ejecucion: ' . $ejecucion_id . ' Disponible: ' . $disponible_ejecucion; 
+        }
+
+        //Si la bandera procesar aun permanece en 0 quiere decir que si hay disponibilidad y procedo
+        //a precomprometer de la ejecucion los montos pasados
+        if($procesar == 0){
+            foreach($detallesprecompromisos as $rows){
+                $monto =  $rows->montocompromiso;
+                $ejecucion_id = $rows->ejecucion_id;
+                //Obtenemos el monto en la ejecucion 
+                $ejecucion = Ejecucione::find($ejecucion_id);
+                $ejecucion->increment('monto_precomprometido', $monto);
+ 
+            }
+        }
+        
+        if($aprobado == 1){
+            return redirect()->route('precompromisos.index')
+            ->with('success', 'Precompromiso Aprobado Exitosamente.');
+        }else{
+            return redirect()->route('precompromisos.index')
+            ->with('success', 'No Aprobado. No hay Disponibilidad o ha ocurrido un error en el registro. ' . $cadena_error);
+        }
+
+    }
+
+
+
 }

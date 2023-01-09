@@ -8,17 +8,17 @@
         </div>
         <div class="form-group">
             {{ Form::label('ayuda_id') }}
-            {{ Form::text('ayuda_id', $detallesayuda->ayuda_id, ['class' => 'form-control' . ($errors->has('ayuda_id') ? ' is-invalid' : ''), 'placeholder' => 'Ayuda Id']) }}
+            {{ Form::hidden('ayuda_id', 0, ['class' => 'form-control' . ($errors->has('ayuda_id') ? ' is-invalid' : ''), 'placeholder' => 'Ayuda']) }}
             {!! $errors->first('ayuda_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('unidadadministrativa_id') }}
-            {{ Form::text('unidadadministrativa_id', $detallesayuda->unidadadministrativa_id, ['class' => 'form-control' . ($errors->has('unidadadministrativa_id') ? ' is-invalid' : ''), 'placeholder' => 'Unidadadministrativa Id']) }}
+            {{ Form::select('unidadadministrativa_id',$unidadadministrativas, $detallesayuda->unidadadministrativa_id, ['class' => 'form-control' . ($errors->has('unidadadministrativa_id') ? ' is-invalid' : ''), 'placeholder' => 'Unidad administrativa']) }}
             {!! $errors->first('unidadadministrativa_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('ejecucion_id') }}
-            {{ Form::text('ejecucion_id', $detallesayuda->ejecucion_id, ['class' => 'form-control' . ($errors->has('ejecucion_id') ? ' is-invalid' : ''), 'placeholder' => 'Ejecucion Id']) }}
+            {{ Form::select('ejecucion_id', $ejecuciones, $detallesayuda->ejecucion_id, ['class' => 'form-control' . ($errors->has('ejecucion_id') ? ' is-invalid' : ''), 'placeholder' => 'Ejecucion']) }}
             {!! $errors->first('ejecucion_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 

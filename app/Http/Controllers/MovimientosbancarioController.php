@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Movimientosbancario;
+use App\Ejercicio;
+use App\Institucione;
+use App\Cuentasbancaria;
+use App\Beneficiario;
+use App\Tipomovimiento;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +37,14 @@ class MovimientosbancarioController extends Controller
     public function create()
     {
         $movimientosbancario = new Movimientosbancario();
-        return view('movimientosbancario.create', compact('movimientosbancario'));
+
+        $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
+        $instituciones = Institucione::pluck('institucion', 'id');
+        $cuentasbancarias = Cuentasbancaria::pluck('cuenta' , 'id');
+        $beneficiarios = Beneficiario::pluck('nombre' , 'id');
+        $tipomovimientos = Tipomovimiento::pluck('descripcion' , 'id');
+
+        return view('movimientosbancario.create', compact('movimientosbancario', 'ejercicios' , 'instituciones' , 'cuentasbancarias', 'beneficiarios', 'tipomovimientos'));
     }
 
     /**
@@ -74,7 +86,14 @@ class MovimientosbancarioController extends Controller
     {
         $movimientosbancario = Movimientosbancario::find($id);
 
-        return view('movimientosbancario.edit', compact('movimientosbancario'));
+        $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
+        $instituciones = Institucione::pluck('institucion', 'id');
+        $cuentasbancarias = Cuentasbancaria::pluck('cuenta' , 'id');
+        $beneficiarios = Beneficiario::pluck('nombre' , 'id');
+        $tipomovimientos = Tipomovimiento::pluck('descripcion' , 'id');
+
+        return view('movimientosbancario.edit', compact('movimientosbancario', 'ejercicios' , 'instituciones' , 'cuentasbancarias', 'beneficiarios', 'tipomovimientos'));
+  
     }
 
     /**

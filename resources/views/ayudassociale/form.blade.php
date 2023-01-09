@@ -7,6 +7,8 @@
             {{ Form::label('documento') }}
             {{ Form::text('documento', $ayudassociale->documento, ['class' => 'form-control' . ($errors->has('documento') ? ' is-invalid' : ''), 'placeholder' => 'Documento']) }}
             {!! $errors->first('documento', '<div class="invalid-feedback">:message</div>') !!}
+            {{ Form::hidden('status', $ayudassociale->status, ['class' => 'form-control' . ($errors->has('status') ? ' is-invalid' : ''), 'placeholder' => 'Estatus']) }}
+            
         </div>
         </div>
 

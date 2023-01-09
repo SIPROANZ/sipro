@@ -12,9 +12,9 @@
             {!! $errors->first('beneficiario_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
-            {{ Form::label('ordenpago_id') }}
-            {{ Form::text('ordenpago_id', $transferencia->ordenpago_id, ['class' => 'form-control' . ($errors->has('ordenpago_id') ? ' is-invalid' : ''), 'placeholder' => 'Ordenpago Id']) }}
-            {!! $errors->first('ordenpago_id', '<div class="invalid-feedback">:message</div>') !!}
+            {{ Form::label('pagado_id') }}
+            {{ Form::text('pagado_id', $transferencia->pagado_id, ['class' => 'form-control' . ($errors->has('pagado_id') ? ' is-invalid' : ''), 'placeholder' => 'Pagado Id']) }}
+            {!! $errors->first('pagado_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('montotransferencia') }}

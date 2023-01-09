@@ -13,13 +13,26 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Ajustescompromiso') }}
+                                {{ __('Ajustar Compromisos') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('ajustescompromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                <a href="{{ route('ajustescompromisos.agregar') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear Nuevo Ajuste') }}
                                 </a>
+
+                                <a href="{{ route('ajustescompromisos.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('En Proceso') }}
+                                </a>
+
+                                <a href="{{ route('ajustescompromisos.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Procesados') }}
+                                </a>
+
+                                <a href="{{ route('ajustescompromisos.anuladas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Anulados') }}
+                                </a>
+
                               </div>
                         </div>
                     </div>
@@ -57,13 +70,28 @@
 											<td>{{ $ajustescompromiso->montoajuste }}</td>
 
                                             <td>
-                                                <form action="{{ route('ajustescompromisos.destroy',$ajustescompromiso->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('ajustescompromisos.show',$ajustescompromiso->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('ajustescompromisos.edit',$ajustescompromiso->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                
+                                            <form action="{{ route('ajustescompromisos.aprobar',$ajustescompromiso->id) }}" method="POST">
+                                                    <!-- Agregar detalles BOS a la requisicion -->
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('ajustescompromisos.pdf',$ajustescompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Ajuste Compromiso"><i class="fas fa-print"></i></a>
+
+                                                
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('ajustescompromisos.show',$ajustescompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Mostrar Ajuste Compromiso"><i class="fa fa-fw fa-eye"></i></a>
+                                                   
+                                                   @csrf
+                                                    @method('PATCH')
+                                                    
+                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Ajuste Compromiso"><i class="fas fa-check-double"></i></button>
                                                 </form>
+
+                                                <form action="{{ route('ajustescompromisos.anular',$ajustescompromiso->id) }}" method="POST">
+                                                  
+                                                <a class="btn btn-sm btn-success" href="{{ route('ajustescompromisos.edit',$ajustescompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Ajuste Compromiso"><i class="fa fa-fw fa-edit"></i></a>
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Ajuste Compromiso"><i class="fa fa-fw fa-trash"></i></button>
+                                                </form>
+
                                             </td>
                                         </tr>
                                     @endforeach

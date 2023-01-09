@@ -33,6 +33,10 @@
                                   {{ __('Compras Anuladas') }}
                                 </a>
 
+                                <a href="{{ route('compras.aprobadas')  }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Compras Aprobadas') }}
+                                </a>
+
                               </div>
                         </div>
                     </div>

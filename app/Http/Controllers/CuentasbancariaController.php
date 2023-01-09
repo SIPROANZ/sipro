@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Cuentasbancaria;
+use App\Banco;
+use App\Institucione;
 use Illuminate\Http\Request;
 
 /**
@@ -30,9 +32,11 @@ class CuentasbancariaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {  
         $cuentasbancaria = new Cuentasbancaria();
-        return view('cuentasbancaria.create', compact('cuentasbancaria'));
+        $bancos = Banco::pluck('denominacion' , 'id');
+        $instituciones = Institucione::pluck('institucion' , 'id');
+        return view('cuentasbancaria.create', compact('cuentasbancaria','bancos', 'instituciones'));
     }
 
     /**
@@ -48,7 +52,7 @@ class CuentasbancariaController extends Controller
         $cuentasbancaria = Cuentasbancaria::create($request->all());
 
         return redirect()->route('cuentasbancarias.index')
-            ->with('success', 'Cuentasbancaria created successfully.');
+            ->with('success', 'Cuentas bancaria creada exictosamente.');
     }
 
     /**
@@ -73,8 +77,9 @@ class CuentasbancariaController extends Controller
     public function edit($id)
     {
         $cuentasbancaria = Cuentasbancaria::find($id);
-
-        return view('cuentasbancaria.edit', compact('cuentasbancaria'));
+        $bancos = Banco::pluck('denominacion' , 'id');
+        $instituciones = Institucione::pluck('institucion' , 'id');
+        return view('cuentasbancaria.edit', compact('cuentasbancaria','bancos', 'instituciones'));
     }
 
     /**
@@ -91,7 +96,7 @@ class CuentasbancariaController extends Controller
         $cuentasbancaria->update($request->all());
 
         return redirect()->route('cuentasbancarias.index')
-            ->with('success', 'Cuentasbancaria updated successfully');
+            ->with('success', 'Cuentas bancaria editada exitosamente');
     }
 
     /**
@@ -104,6 +109,6 @@ class CuentasbancariaController extends Controller
         $cuentasbancaria = Cuentasbancaria::find($id)->delete();
 
         return redirect()->route('cuentasbancarias.index')
-            ->with('success', 'Cuentasbancaria deleted successfully');
+            ->with('success', 'Cuentas bancaria borrada exitosamente');
     }
 }

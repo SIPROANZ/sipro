@@ -13,7 +13,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Create Cuentasbancaria</span>
+                        <span class="card-title">Crear Cuentas bancaria</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('cuentasbancarias.store') }}"  role="form" enctype="multipart/form-data">

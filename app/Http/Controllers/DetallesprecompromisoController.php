@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Detallesprecompromiso;
+use App\Precompromiso;
+use App\Unidadadministrativa;
+use App\Ejecucione;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +35,11 @@ class DetallesprecompromisoController extends Controller
     public function create()
     {
         $detallesprecompromiso = new Detallesprecompromiso();
-        return view('detallesprecompromiso.create', compact('detallesprecompromiso'));
+        $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $precompromisos = Precompromiso::pluck('concepto', 'id');
+        $ejecuciones = Ejecucione::pluck ('clasificadorpresupuestario', 'id');
+
+        return view('detallesprecompromiso.create', compact('detallesprecompromiso', 'unidadadministrativas', 'precompromisos', 'ejecuciones'));
     }
 
     /**
@@ -44,11 +51,24 @@ class DetallesprecompromisoController extends Controller
     public function store(Request $request)
     {
         request()->validate(Detallesprecompromiso::$rules);
+        $precompromiso_id = session('precompromisos');
+        //Obtener el id de la requisicion
+        $precompromiso_id = session('precompromisos');
+        //$request->requisicion_id=$requisicion; //cambiar el valor a la variable, para q se haga en el servidor y no en el cliente
+        $request->merge(['precompromiso_id'  => $precompromiso_id]);
 
         $detallesprecompromiso = Detallesprecompromiso::create($request->all());
 
-        return redirect()->route('detallesprecompromisos.index')
+      /*  return redirect()->route('detallesprecompromisos.index')
             ->with('success', 'Detallesprecompromiso created successfully.');
+*/
+            if(session()->has('precompromisos')){
+                return redirect()->route('precompromisos.agregar',$precompromiso_id)
+                ->with('success', 'Registro agregado satisfactoriamente.');
+            }else{
+                return redirect()->route('precompromisos.index')
+                ->with('success', 'Registro Actualizado Exitosamente.');
+            }
     }
 
     /**
@@ -73,8 +93,11 @@ class DetallesprecompromisoController extends Controller
     public function edit($id)
     {
         $detallesprecompromiso = Detallesprecompromiso::find($id);
+        $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
+        $precompromisos = Precompromiso::pluck('concepto', 'id');
+        $ejecuciones = Ejecucione::pluck ('clasificadorpresupuestario', 'id');
 
-        return view('detallesprecompromiso.edit', compact('detallesprecompromiso'));
+        return view('detallesprecompromiso.edit', compact('detallesprecompromiso', 'unidadadministrativas', 'precompromisos', 'ejecuciones' ));
     }
 
     /**
@@ -87,11 +110,23 @@ class DetallesprecompromisoController extends Controller
     public function update(Request $request, Detallesprecompromiso $detallesprecompromiso)
     {
         request()->validate(Detallesprecompromiso::$rules);
-
+        //Obtener el id de la requisicion
+        $precompromiso_id = session('precompromisos');
+        //$request->requisicion_id=$requisicion; //cambiar el valor a la variable, para q se haga en el servidor y no en el cliente
+        $request->merge(['precompromiso_id'  => $precompromiso_id]);
         $detallesprecompromiso->update($request->all());
-
+             /*
         return redirect()->route('detallesprecompromisos.index')
             ->with('success', 'Detallesprecompromiso updated successfully');
+              */
+            $precompromiso_id = session('precompromisos');
+            if(session()->has('precompromisos')){
+                return redirect()->route('precompromisos.agregar',$precompromiso_id)
+                ->with('success', 'Registro agregado satisfactoriamente.');
+            }else{
+                return redirect()->route('precompromisos.index')
+                ->with('success', 'Registro Actualizado Exitosamente.');
+            }
     }
 
     /**
@@ -102,8 +137,17 @@ class DetallesprecompromisoController extends Controller
     public function destroy($id)
     {
         $detallesprecompromiso = Detallesprecompromiso::find($id)->delete();
-
+           /*
         return redirect()->route('detallesprecompromisos.index')
             ->with('success', 'Detallesprecompromiso deleted successfully');
+            */
+            $precompromiso_id = session('precompromisos');
+            if(session()->has('precompromisos')){
+                return redirect()->route('precompromisos.agregar',$precompromiso_id)
+                ->with('success', 'Registro agregado satisfactoriamente.');
+            }else{
+                return redirect()->route('precompromisos.index')
+                ->with('success', 'Registro Actualizado Exitosamente.');
+            }
     }
 }

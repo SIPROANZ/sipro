@@ -105,12 +105,11 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Montocompromiso</th>
-										<th>Compromiso Id</th>
-										<th>Unidadadministrativa Id</th>
-										<th>Ejecucion Id</th>
+										<th>Monto Compromiso</th>
+										<th># Compromiso</th>
+										<th>Unidad Administrativa</th>
+										<th>Ejecucion</th>
 
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -119,19 +118,11 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $detallescompromiso->montocompromiso }}</td>
-											<td>{{ $detallescompromiso->compromiso_id }}</td>
-											<td>{{ $detallescompromiso->unidadadministrativa_id }}</td>
-											<td>{{ $detallescompromiso->ejecucion_id }}</td>
+											<td>{{ $detallescompromiso->compromiso->ncompromiso }}</td>
+											<td>{{ $detallescompromiso->unidadadministrativa->unidadejecutora }}</td>
+											<td>{{ $detallescompromiso->ejecucione->clasificadorpresupuestario }}</td>
 
-                                            <td>
-                                                <form action="{{ route('detallescompromisos.destroy',$detallescompromiso->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('detallescompromisos.show',$detallescompromiso->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('detallescompromisos.edit',$detallescompromiso->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
-                                                </form>
-                                            </td>
+                                           
                                         </tr>
                                     @endforeach
                                 </tbody>

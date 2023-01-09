@@ -430,6 +430,12 @@ return [
                     'url'     => '#',
                     'submenu' => [
                         [
+                            'text' => 'Precompromisos',
+                            'icon'    => 'fas fa-fw fa-briefcase', // <i class="fas fa-praying-hands"></i>
+                            'icon_color' => 'white',
+                            'route'  => 'precompromisos.index',
+                        ],
+                        [
                             'text' => 'Compromisos',
                             'icon'    => 'fas fa-fw fa-praying-hands', // <i class="fas fa-praying-hands"></i>
                             'icon_color' => 'white',
@@ -442,10 +448,10 @@ return [
                             'route'  => 'tipodecompromisos.index',
                         ],
                         [
-                            'text' => 'Ajustes',
+                            'text' => 'Ajustar Compromisos',
                             'icon'    => 'fas fa-fw fa-hammer', //<i class="fas fa-hammer"></i>
                             'icon_color' => 'white',
-                            'url'  => '#',
+                            'route'  => 'ajustescompromisos.index',
                         ],
                         [
                             'text' => 'Reporte de Compromisos',
@@ -946,13 +952,32 @@ return [
         ],
 
          //Modificaciones Presupuestarias
+         //Seguridad
          [
-             'text'       => 'Modificación Presupuestaria',
+             'text' => 'Modificación Presupuestaria',
              'icon' => 'fa fa-fw fa-edit',
              'icon_color' => 'primary',
-             'url'        => '#',
-         ],
+            'url'  => '#',
+            'submenu' => [
+                [
+                    'text'       => 'Realizar Modificación',
+                    'icon' => 'fa fa-fw fa-edit',
+                    'icon_color' => 'primary',
+                    'route'  => 'modificaciones.index',
+                ],
+                [
+                    'text' => 'Tipo de Modificación',
+                    'icon' => 'fa fa-fw fa-check',
+                    'icon_color' => 'primary',
+                    'route'  => 'tipomodificaciones.index',
+                ],
+              
+            ],
+        ],
 
+
+         //Fin
+         
 
 
 

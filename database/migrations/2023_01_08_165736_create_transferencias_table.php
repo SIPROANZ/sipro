@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('cuentasbancaria_id')->unsigned();
             $table->bigInteger('beneficiario_id')->unsigned();
-            $table->bigInteger('ordenpago_id')->unsigned();
+            $table->bigInteger('pagado_id')->unsigned();
             $table->double('montotransferencia', 25, 2);
-            $table->date('fechaanulacion');
+            $table->date('fechaanulacion')->nullable();
             $table->string('concepto', 10);
             $table->bigInteger('egreso')->unsigned();
             $table->double('montoorden', 25, 2);
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('conceptoanulacion', 10);
             $table->foreign('cuentasbancaria_id')->references('id')->on('cuentasbancarias')->onDelete('cascade');
             $table->foreign('beneficiario_id')->references('id')->on('beneficiarios')->onDelete('cascade');
-            $table->foreign('ordenpago_id')->references('id')->on('ordenpagos')->onDelete('cascade');
+            $table->foreign('pagado_id')->references('id')->on('pagados')->onDelete('cascade');
             $table->timestamps();
         });
     }

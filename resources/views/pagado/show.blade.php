@@ -29,10 +29,6 @@
                             {{ $pagado->beneficiario_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Transferencia Id:</strong>
-                            {{ $pagado->transferencia_id }}
-                        </div>
-                        <div class="form-group">
                             <strong>Montopagado:</strong>
                             {{ $pagado->montopagado }}
                         </div>
@@ -43,10 +39,6 @@
                         <div class="form-group">
                             <strong>Status:</strong>
                             {{ $pagado->status }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Egreso:</strong>
-                            {{ $pagado->egreso }}
                         </div>
                         <div class="form-group">
                             <strong>Tipoordenpago:</strong>

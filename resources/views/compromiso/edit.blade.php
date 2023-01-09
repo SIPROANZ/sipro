@@ -13,7 +13,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Update Compromiso</span>
+                        <span class="card-title">Editar Compromiso</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('compromisos.update', $compromiso->id) }}"  role="form" enctype="multipart/form-data">

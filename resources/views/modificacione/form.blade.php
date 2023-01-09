@@ -3,12 +3,12 @@
         
         <div class="form-group">
             {{ Form::label('numero') }}
-            {{ Form::text('numero', $modificacione->numero, ['class' => 'form-control' . ($errors->has('numero') ? ' is-invalid' : ''), 'placeholder' => 'Numero']) }}
+            {{ Form::hidden('numero', 0, ['class' => 'form-control' . ($errors->has('numero') ? ' is-invalid' : ''), 'placeholder' => 'Numero']) }}
             {!! $errors->first('numero', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('tipomodificacion_id') }}
-            {{ Form::text('tipomodificacion_id', $modificacione->tipomodificacion_id, ['class' => 'form-control' . ($errors->has('tipomodificacion_id') ? ' is-invalid' : ''), 'placeholder' => 'Tipomodificacion Id']) }}
+            {{ Form::select('tipomodificacion_id', $tipomodificaciones, $modificacione->tipomodificacion_id, ['class' => 'form-control' . ($errors->has('tipomodificacion_id') ? ' is-invalid' : ''), 'placeholder' => 'Tipomodificacion Id']) }}
             {!! $errors->first('tipomodificacion_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
@@ -18,12 +18,12 @@
         </div>
         <div class="form-group">
             {{ Form::label('status') }}
-            {{ Form::text('status', $modificacione->status, ['class' => 'form-control' . ($errors->has('status') ? ' is-invalid' : ''), 'placeholder' => 'Status']) }}
+            {{ Form::hidden('status', 'EP', ['class' => 'form-control' . ($errors->has('status') ? ' is-invalid' : ''), 'placeholder' => 'Status']) }}
             {!! $errors->first('status', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('fechaanulacion') }}
-            {{ Form::text('fechaanulacion', $modificacione->fechaanulacion, ['class' => 'form-control' . ($errors->has('fechaanulacion') ? ' is-invalid' : ''), 'placeholder' => 'Fechaanulacion']) }}
+            {{ Form::hidden('fechaanulacion', $modificacione->fechaanulacion, ['class' => 'form-control' . ($errors->has('fechaanulacion') ? ' is-invalid' : ''), 'placeholder' => 'Fechaanulacion']) }}
             {!! $errors->first('fechaanulacion', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
@@ -43,7 +43,8 @@
         </div>
 
     </div>
+    <br>
     <div class="box-footer mt20">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
 </div>

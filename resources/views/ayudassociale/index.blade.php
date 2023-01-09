@@ -20,6 +20,15 @@
                                 <a href="{{ route('ayudassociales.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Nueva Ayuda Social') }}
                                 </a>
+                                <a href="{{ route('ayudassociales.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('En Proceso') }}
+                                </a>
+                                <a href="{{ route('ayudassociales.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Procesadas') }}
+                                </a>
+                                <a href="{{ route('ayudassociales.anuladas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Anuladas') }}
+                                </a>
                               </div>
                         </div>
                     </div>
@@ -42,6 +51,7 @@
 										<th>Unidad administrativa</th>
 										<th>Tipo de compromiso</th>
 										<th>Beneficiario</th>
+                                        <th>Estado</th>
 
                                         <th>Opciones</th>
                                     </tr>
@@ -57,15 +67,30 @@
 											<td>{{ $ayudassociale->unidadadministrativa->denominacion }}</td>
 											<td>{{ $ayudassociale->tipodecompromiso->nombre }}</td>
 											<td>{{ $ayudassociale->beneficiario->nombre }}</td>
+                                            <td>{{ $ayudassociale->status }}</td>
 
                                             <td>
-                                                <form action="{{ route('ayudassociales.destroy',$ayudassociale->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('ayudassociales.show',$ayudassociale->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('ayudassociales.edit',$ayudassociale->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                                <form action="{{ route('ayudassociales.anular',$ayudassociale->id) }}" method="POST">
+                                                    
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('ayudassociales.agregar',$ayudassociale->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Detalles"><i class="fas fa-outdent"></i></i></a>
+                                                     
+                                                    <a class="btn btn-sm btn-success" href="{{ route('ayudassociales.edit',$ayudassociale->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Ayuda Social"><i class="fa fa-fw fa-edit"></i></a>
+                                                    
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('ayudassociales.pdf',$ayudassociale->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Ayuda Social"><i class="fas fa-print"></i></a>
+
                                                     @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Ayuda Social"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
+
+                                                <form action="{{ route('ayudassociales.aprobar',$ayudassociale->id) }}" method="POST">
+                                                    
+                                                   @csrf
+                                                    @method('PATCH')
+                                                    
+                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Compromiso"><i class="fas fa-check-double"></i></button>
+                                                </form> 
+                                               
                                             </td>
                                         </tr>
                                     @endforeach

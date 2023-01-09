@@ -67,10 +67,13 @@ class AnalisiController extends Controller
         $analisi = new Analisi();
 
         $unidadesadministrativas = Unidadadministrativa::pluck('denominacion', 'id');
-        $requisiciones = Requisicione::pluck('concepto', 'id');
+
+        $unidades = Unidadadministrativa::all();
+
+        $requisiciones = Requisicione::where('estatus','PR')->pluck('concepto', 'id');
         $criterios = Criterio::pluck('nombre', 'id');
 
-        return view('analisi.create', compact('analisi', 'unidadesadministrativas', 'requisiciones', 'criterios'));
+        return view('analisi.create', compact('analisi', 'unidadesadministrativas', 'requisiciones', 'criterios', 'unidades'));
     }
 
     /**
@@ -236,4 +239,48 @@ class AnalisiController extends Controller
 
         
     }
+
+    
+    
+
+     //para llenar un select dinamico
+     public function requisicion(Request $request){
+        if(isset($request->texto)){
+            $requisiciones = Requisicione::where('unidadadministrativa_id', $request->texto)->get();
+            return response()->json(
+                [
+                    'lista' => $requisiciones,
+                    'success' => true
+                ]
+                );
+        }else{
+            return response()->json(
+                [
+                    'success' => false
+                ]
+                );
+
+        }
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function welcome()
+    {
+        $analisi = new Analisi();
+
+        $unidadesadministrativas = Unidadadministrativa::pluck('denominacion', 'id');
+
+        $unidades = Unidadadministrativa::all();
+
+        $requisiciones = Requisicione::where('estatus','PR')->pluck('concepto', 'id');
+        $criterios = Criterio::pluck('nombre', 'id');
+
+        return view('welcome', compact('analisi', 'unidadesadministrativas', 'requisiciones', 'criterios', 'unidades'));
+    }
+
 }

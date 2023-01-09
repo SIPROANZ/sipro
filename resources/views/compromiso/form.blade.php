@@ -37,7 +37,7 @@
 
        
         <div class="form-group">
-            {{ Form::hidden('ncompromiso', 0, $compromiso->ncompromiso, ['class' => 'form-control' . ($errors->has('ncompromiso') ? ' is-invalid' : ''), 'placeholder' => 'Ncompromiso']) }}
+            {{ Form::hidden('ncompromiso', 0, ['class' => 'form-control' . ($errors->has('ncompromiso') ? ' is-invalid' : ''), 'placeholder' => 'Ncompromiso']) }}
             {!! $errors->first('ncompromiso', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 
@@ -51,7 +51,7 @@
         
 
         <div class="form-group">
-            {{ Form::hidden('status', 'EP', $compromiso->status, ['class' => 'form-control' . ($errors->has('status') ? ' is-invalid' : ''), 'placeholder' => 'Status']) }}
+            {{ Form::hidden('status', 'EP',  ['class' => 'form-control' . ($errors->has('status') ? ' is-invalid' : ''), 'placeholder' => 'Status']) }}
             {!! $errors->first('status', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 

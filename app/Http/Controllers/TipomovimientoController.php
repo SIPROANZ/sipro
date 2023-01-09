@@ -107,3 +107,4 @@ class TipomovimientoController extends Controller
             ->with('success', 'Tipomovimiento deleted successfully');
     }
 }
+ 

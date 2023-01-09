@@ -29,8 +29,7 @@ class Detallesmodificacione extends Model
 		'modificacion_id' => 'required',
 		'unidadadministrativa_id' => 'required',
 		'ejecucion_id' => 'required',
-		'montoacredita' => 'required',
-		'montodebita' => 'required',
+		
     ];
 
     protected $perPage = 20;

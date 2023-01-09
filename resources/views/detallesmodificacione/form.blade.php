@@ -3,17 +3,17 @@
         
         <div class="form-group">
             {{ Form::label('modificacion_id') }}
-            {{ Form::text('modificacion_id', $detallesmodificacione->modificacion_id, ['class' => 'form-control' . ($errors->has('modificacion_id') ? ' is-invalid' : ''), 'placeholder' => 'Modificacion Id']) }}
+            {{ Form::hidden('modificacion_id', $modificacion_id, ['class' => 'form-control' . ($errors->has('modificacion_id') ? ' is-invalid' : ''), 'placeholder' => 'Modificacion Id']) }}
             {!! $errors->first('modificacion_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('unidadadministrativa_id') }}
-            {{ Form::text('unidadadministrativa_id', $detallesmodificacione->unidadadministrativa_id, ['class' => 'form-control' . ($errors->has('unidadadministrativa_id') ? ' is-invalid' : ''), 'placeholder' => 'Unidadadministrativa Id']) }}
+            {{ Form::select('unidadadministrativa_id', $unidadadministrativas,  $detallesmodificacione->unidadadministrativa_id, ['class' => 'form-control' . ($errors->has('unidadadministrativa_id') ? ' is-invalid' : ''), 'placeholder' => 'Unidadadministrativa Id']) }}
             {!! $errors->first('unidadadministrativa_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('ejecucion_id') }}
-            {{ Form::text('ejecucion_id', $detallesmodificacione->ejecucion_id, ['class' => 'form-control' . ($errors->has('ejecucion_id') ? ' is-invalid' : ''), 'placeholder' => 'Ejecucion Id']) }}
+            {{ Form::select('ejecucion_id', $ejecuciones, $detallesmodificacione->ejecucion_id, ['class' => 'form-control' . ($errors->has('ejecucion_id') ? ' is-invalid' : ''), 'placeholder' => 'Ejecucion Id']) }}
             {!! $errors->first('ejecucion_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">

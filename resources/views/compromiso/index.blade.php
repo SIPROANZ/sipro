@@ -30,6 +30,11 @@
                                 <a href="{{ route('compromisos.anulados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Anulados') }}
                                 </a>
+
+                                <a href="{{ route('compromisos.aprobadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Aprobados') }}
+                                </a>
+                                
                               </div>
                         </div>
                     </div>

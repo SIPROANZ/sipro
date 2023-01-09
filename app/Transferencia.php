@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $cuentasbancaria_id
  * @property $beneficiario_id
- * @property $ordenpago_id
+ * @property $pagado_id
  * @property $montotransferencia
  * @property $fechaanulacion
  * @property $concepto
@@ -23,8 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property Beneficiario $beneficiario
  * @property Cuentasbancaria $cuentasbancaria
- * @property Ordenpago $ordenpago
- * @property Pagado[] $pagados
+ * @property Pagado $pagado
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
@@ -34,9 +33,8 @@ class Transferencia extends Model
     static $rules = [
 		'cuentasbancaria_id' => 'required',
 		'beneficiario_id' => 'required',
-		'ordenpago_id' => 'required',
+		'pagado_id' => 'required',
 		'montotransferencia' => 'required',
-		'fechaanulacion' => 'required',
 		'concepto' => 'required',
 		'egreso' => 'required',
 		'montoorden' => 'required',
@@ -51,7 +49,7 @@ class Transferencia extends Model
      *
      * @var array
      */
-    protected $fillable = ['cuentasbancaria_id','beneficiario_id','ordenpago_id','montotransferencia','fechaanulacion','concepto','egreso','montoorden','referenciabancaria','conceptoanulacion'];
+    protected $fillable = ['cuentasbancaria_id','beneficiario_id','pagado_id','montotransferencia','fechaanulacion','concepto','egreso','montoorden','referenciabancaria','conceptoanulacion'];
 
 
     /**
@@ -73,17 +71,9 @@ class Transferencia extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function ordenpago()
+    public function pagado()
     {
-        return $this->hasOne('App\Ordenpago', 'id', 'ordenpago_id');
-    }
-    
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function pagados()
-    {
-        return $this->hasMany('App\Pagado', 'transferencia_id', 'id');
+        return $this->hasOne('App\Pagado', 'id', 'pagado_id');
     }
     
 

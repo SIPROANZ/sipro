@@ -11,33 +11,33 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Show Cuentasbancaria</span>
+                            <span class="card-title">Mostrar Cuentas bancaria</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('cuentasbancarias.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('cuentasbancarias.index') }}"> Regresar</a>
                         </div>
                     </div>
 
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Banco Id:</strong>
+                            <strong>Banco:</strong>
                             {{ $cuentasbancaria->banco_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Institucion Id:</strong>
+                            <strong>Institucion:</strong>
                             {{ $cuentasbancaria->institucion_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Fechaapertura:</strong>
+                            <strong>Fecha apertura:</strong>
                             {{ $cuentasbancaria->fechaapertura }}
                         </div>
                         <div class="form-group">
-                            <strong>Montoapertura:</strong>
+                            <strong>Monto apertura:</strong>
                             {{ $cuentasbancaria->montoapertura }}
                         </div>
                         <div class="form-group">
-                            <strong>Montosaldo:</strong>
+                            <strong>Monto saldo:</strong>
                             {{ $cuentasbancaria->montosaldo }}
                         </div>
                         <div class="form-group">

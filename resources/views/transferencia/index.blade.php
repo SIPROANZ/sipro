@@ -38,7 +38,7 @@
                                         
 										<th>Cuentasbancaria Id</th>
 										<th>Beneficiario Id</th>
-										<th>Ordenpago Id</th>
+										<th>Pagado Id</th>
 										<th>Montotransferencia</th>
 										<th>Fechaanulacion</th>
 										<th>Concepto</th>
@@ -57,7 +57,7 @@
                                             
 											<td>{{ $transferencia->cuentasbancaria_id }}</td>
 											<td>{{ $transferencia->beneficiario_id }}</td>
-											<td>{{ $transferencia->ordenpago_id }}</td>
+											<td>{{ $transferencia->pagado_id }}</td>
 											<td>{{ $transferencia->montotransferencia }}</td>
 											<td>{{ $transferencia->fechaanulacion }}</td>
 											<td>{{ $transferencia->concepto }}</td>

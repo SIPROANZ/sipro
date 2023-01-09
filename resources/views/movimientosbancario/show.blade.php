@@ -21,23 +21,23 @@
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Ejercicio Id:</strong>
+                            <strong>Ejercicio:</strong>
                             {{ $movimientosbancario->ejercicio_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Institucion Id:</strong>
+                            <strong>Institucion:</strong>
                             {{ $movimientosbancario->institucion_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Cuentasbancaria Id:</strong>
+                            <strong>Cuentasbancaria:</strong>
                             {{ $movimientosbancario->cuentasbancaria_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Beneficiario Id:</strong>
+                            <strong>Beneficiario:</strong>
                             {{ $movimientosbancario->beneficiario_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Tipomovimiento Id:</strong>
+                            <strong>Tipomovimiento:</strong>
                             {{ $movimientosbancario->tipomovimiento_id }}
                         </div>
                         <div class="form-group">

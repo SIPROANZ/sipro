@@ -5,19 +5,6 @@
         
     <div class="row">
   <!-- Select Dinamicos -->
-        <select name="" id="_unidadadministrativa">
-              <option value="">Seleccione una opcion</option>
-            @foreach ($unidades as $item)
-            <option value="{{$item->id}}">{{$item->denominacion}}</option>
-            @endforeach
-        </select>
-
-        <select name="" id="_requisicion"></select>
-
-
-
-
-
 
 
     <div class="col-md-4">

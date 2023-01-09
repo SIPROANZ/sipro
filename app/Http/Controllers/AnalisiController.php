@@ -86,6 +86,11 @@ class AnalisiController extends Controller
     {
         request()->validate(Analisi::$rules);
 
+        //Cambiar el estatus de la requisicion a aprobado, para que no vuelva a aparecer en el listado
+        $requisicion = Requisicione::find($request->requisicion_id);
+        $requisicion->estatus = 'AP';
+        $requisicion->save();
+
         $analisi = Analisi::create($request->all());
 
         return redirect()->route('analisis.index')

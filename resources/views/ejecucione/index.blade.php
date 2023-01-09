@@ -1,10 +1,81 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('template_title')
     Ejecucione
 @endsection
 
 @section('content')
+<!-- Cajas estadisticas de la ejecucion presupuestaria -->
+<!-- Total Presupuestario -->
+<br>
+<div class="container-fluid">
+        <div class="row">
+<div class="info-box">
+  <span class="info-box-icon bg-info"><i class="far fa-bookmark"></i></span>
+  <div class="info-box-content">
+    <span class="info-box-text">Total Presupuestario</span>
+    <span class="info-box-number">{{ $datos['total_presupuestario'] }}</span>
+    <div class="progress">
+      <div class="progress-bar bg-info" style="width: {{$datos['tpdisponible']}}%"></div>
+    </div>
+    <span class="progress-description">
+    Total disponible {{$datos['total_disponible']}} que representa el {{$datos['porc_disponible']}}% 
+    </span>
+  </div>
+</div>
+</div>
+
+<div class="row">
+            <div class="col-sm-4">
+            <div class="info-box bg-success">
+  <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
+  <div class="info-box-content">
+    <span class="info-box-text">Comprometido</span>
+    <span class="info-box-number">{{ $datos['total_comprometido'] }}</span>
+    <div class="progress">
+      <div class="progress-bar" style="width: {{$datos['tpcomprometido']}}%"></div>
+    </div>
+    <span class="progress-description">
+    Representa el {{ $datos['porc_comprometido'] }}% Comprometido
+    </span>
+  </div>
+</div>
+            </div>  
+
+            <div class="col-sm-4">
+            <div class="info-box bg-gradient-warning">
+  <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
+  <div class="info-box-content">
+    <span class="info-box-text">Causado</span>
+    <span class="info-box-number">{{ $datos['total_causado'] }}</span>
+    <div class="progress">
+      <div class="progress-bar" style="width: {{$datos['tpcausado']}}%"></div>
+    </div>
+    <span class="progress-description">
+    Representa el {{ $datos['porc_causado'] }}% Causado
+    </span>
+  </div>
+</div>
+            </div>  
+
+            <div class="col-sm-4">
+            <div class="info-box bg-gradient-info">
+  <span class="info-box-icon"><i class="far fa-caret-square-right"></i></span>
+  <div class="info-box-content">
+    <span class="info-box-text">Pagado</span>
+    <span class="info-box-number">{{ $datos['total_pagado'] }}</span>
+    <div class="progress">
+      <div class="progress-bar" style="width: {{$datos['tppagado']}}%"></div>
+    </div>
+    <span class="progress-description">
+    Representa el {{ $datos['porc_pagado'] }}% Pagado
+    </span>
+  </div>
+</div>
+            </div>  
+</div>
+
+<br><br><br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -39,6 +110,9 @@
 										<th class="text-center">UnidadadministrativaId</th>
 										<th class="text-center">MetaId</th>
 										<th class="text-center">Clasificadorpresupuestario</th>
+
+                                        <th class="text-center">Mostrar</th>
+
 										<th class="text-center">FinanciamientoId</th>
 										<th class="text-center">MontoInicial</th>
 										<th class="text-center">MontoAumento</th>
@@ -53,7 +127,7 @@
 										<th class="text-center">MontoPorPagar</th>
 										<th class="text-center">PoaId</th>
 
-                                        <th class="text-center">Acción</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,6 +139,12 @@
 											<td class="text-center">{{ $ejecucione->unidadadministrativa->sector }}</td>
 											<td class="text-center">{{ $ejecucione->meta->meta }}</td>
 											<td class="text-center">{{ $ejecucione->clasificadorpresupuestario }}</td>
+
+                                            <td class="text-center">
+                                            <a class="btn btn-sm btn-primary " href="{{ route('ejecuciones.show',$ejecucione->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
+                                                    
+                                            </td>
+
 											<td class="text-center">{{ $ejecucione->financiamiento->financiamiento }}</td>
 											<td class="text-center">{{ $ejecucione->monto_inicial }}</td>
 											<td class="text-center">{{ $ejecucione->monto_aumento }}</td>
@@ -79,15 +159,8 @@
 											<td class="text-center">{{ $ejecucione->monto_por_pagar }}</td>
 											<td class="text-center">{{ $ejecucione->poa->proyecto}}</td>
 
-                                            <td class="text-center">
-                                                <form action="{{ route('ejecuciones.destroy',$ejecucione->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('ejecuciones.show',$ejecucione->id) }}"><i class="fa fa-fw fa-eye"></i> Mostrar</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('ejecuciones.edit',$ejecucione->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
-                                                </form>
-                                            </td>
+                                            
+                                            
                                         </tr>
                                     @endforeach
                                 </tbody>

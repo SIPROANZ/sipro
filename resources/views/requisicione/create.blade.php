@@ -1,10 +1,11 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('template_title')
     Create Requisicione
 @endsection
 
 @section('content')
+<br>
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">

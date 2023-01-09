@@ -1,10 +1,11 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('template_title')
     Requisicione
 @endsection
 
 @section('content')
+<br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -20,15 +21,16 @@
                                 <a href="{{ route('requisiciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Nueva Requisicion') }}
                                 </a>
+                                &nbsp;&nbsp;
 
                                 <a href="{{ route('requisiciones.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('En Proceso') }}
                                 </a>
-
+                                &nbsp;&nbsp;
                                 <a href="{{ route('requisiciones.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Procesadas') }}
                                 </a>
-
+                                &nbsp;&nbsp;
                                 <a href="{{ route('requisiciones.anuladas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Anuladas') }}
                                 </a>

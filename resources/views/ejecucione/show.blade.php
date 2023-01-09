@@ -98,4 +98,257 @@
             </div>
         </div>
     </section>
+
+
+    <!-- Detalles del Compromiso con respecto a esta partida en especifica -->
+    <br><br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <span id="card_title">
+                                {{ __('COMPROMISOS') }}
+                            </span>
+
+                             <div class="float-right">
+                                
+                              </div>
+                        </div>
+                    </div>
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="thead">
+                                    <tr>
+                                        <th>No</th>
+                                        
+										<th>Montocompromiso</th>
+										<th>Compromiso Id</th>
+										<th>Unidadadministrativa Id</th>
+										<th>Ejecucion Id</th>
+                                        <th>Estado</th>
+
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($detallescompromisos as $detallescompromiso)
+                                        <tr>
+                                            <td>{{ ++$i }}</td>
+                                            
+											<td>{{ $detallescompromiso->montocompromiso }}</td>
+											<td>{{ $detallescompromiso->compromiso_id }}</td>
+											<td>{{ $detallescompromiso->unidadadministrativa_id }}</td>
+											<td>{{ $detallescompromiso->ejecucion_id }}</td>
+                                            <td>{{ $detallescompromiso->compromiso->status }}</td>
+
+                                            
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {!! $detallescompromisos->links() !!}
+            </div>
+        </div>
+    </div>
+
+    <!-- Detalles del Causado con respecto a esta partida en especifica -->
+    <br><br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <span id="card_title">
+                                {{ __('CAUSADOS') }}
+                            </span>
+
+                             <div class="float-right">
+                               
+                              </div>
+                        </div>
+                    </div>
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="thead">
+                                    <tr>
+                                        <th>No</th>
+                                        
+										<th>Ordenpago Id</th>
+										<th>Unidadadministrativa Id</th>
+										<th>Ejecucion Id</th>
+										<th>Monto</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($detalleordenpagos as $detalleordenpago)
+                                        <tr>
+                                            <td>{{ ++$i }}</td>
+                                            
+											<td>{{ $detalleordenpago->ordenpago_id }}</td>
+											<td>{{ $detalleordenpago->unidadadministrativa_id }}</td>
+											<td>{{ $detalleordenpago->ejecucion_id }}</td>
+											<td>{{ $detalleordenpago->monto }}</td>
+
+                                            
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {!! $detalleordenpagos->links() !!}
+            </div>
+        </div>
+    </div>
+
+    <!-- Detalles del Pagado con respecto a esta partida en especifica -->
+    <br><br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <span id="card_title">
+                                {{ __('PAGADOS') }}
+                            </span>
+
+                             <div class="float-right">
+                            
+                              </div>
+                        </div>
+                    </div>
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="thead">
+                                    <tr>
+                                        <th>No</th>
+                                        
+										<th>Pagado Id</th>
+										<th>Ordenpago Id</th>
+										<th>Unidadadministrativa Id</th>
+										<th>Ejecucion Id</th>
+										<th>Montopagado</th>
+
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($detallepagados as $detallepagado)
+                                        <tr>
+                                            <td>{{ ++$i }}</td>
+                                            
+											<td>{{ $detallepagado->pagado_id }}</td>
+											<td>{{ $detallepagado->ordenpago_id }}</td>
+											<td>{{ $detallepagado->unidadadministrativa_id }}</td>
+											<td>{{ $detallepagado->ejecucion_id }}</td>
+											<td>{{ $detallepagado->montopagado }}</td>
+
+                                            
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {!! $detallepagados->links() !!}
+            </div>
+        </div>
+    </div>
+
+    <!-- Detalles Modificaciones Presupuestarias -->
+    <br><br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <span id="card_title">
+                                {{ __('MODIFICACIONES') }}
+                            </span>
+
+                             <div class="float-right">
+                               
+                              </div>
+                        </div>
+                    </div>
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="thead">
+                                    <tr>
+                                        <th>No</th>
+                                        
+										<th>Modificacion Id</th>
+										<th>Unidadadministrativa Id</th>
+										<th>Ejecucion Id</th>
+										<th>Montoacredita</th>
+										<th>Montodebita</th>
+
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($detallesmodificaciones as $detallesmodificacione)
+                                        <tr>
+                                            <td>{{ ++$i }}</td>
+                                            
+											<td>{{ $detallesmodificacione->modificacion_id }}</td>
+											<td>{{ $detallesmodificacione->unidadadministrativa_id }}</td>
+											<td>{{ $detallesmodificacione->ejecucion_id }}</td>
+											<td>{{ $detallesmodificacione->montoacredita }}</td>
+											<td>{{ $detallesmodificacione->montodebita }}</td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {!! $detallesmodificaciones->links() !!}
+            </div>
+        </div>
+    </div>
 @endsection

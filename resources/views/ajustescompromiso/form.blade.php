@@ -3,12 +3,12 @@
         
         <div class="form-group">
             {{ Form::label('tipo') }}
-            {{ Form::text('tipo', $ajustescompromiso->tipo, ['class' => 'form-control' . ($errors->has('tipo') ? ' is-invalid' : ''), 'placeholder' => 'Tipo']) }}
+            {{ Form::select('tipo', ['1'=>'Aumenta', '2'=>'Disminuye'], $ajustescompromiso->tipo, ['class' => 'form-control' . ($errors->has('tipo') ? ' is-invalid' : ''), 'placeholder' => 'Tipo']) }}
             {!! $errors->first('tipo', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('compromiso_id') }}
-            {{ Form::text('compromiso_id', $ajustescompromiso->compromiso_id, ['class' => 'form-control' . ($errors->has('compromiso_id') ? ' is-invalid' : ''), 'placeholder' => 'Compromiso Id']) }}
+            {{ Form::hidden('compromiso_id', $compromiso->id, ['class' => 'form-control' . ($errors->has('compromiso_id') ? ' is-invalid' : ''), 'placeholder' => 'Compromiso Id']) }}
             {!! $errors->first('compromiso_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
@@ -28,7 +28,8 @@
         </div>
 
     </div>
+    <br>
     <div class="box-footer mt20">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
 </div>

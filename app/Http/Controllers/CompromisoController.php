@@ -251,6 +251,9 @@ class CompromisoController extends Controller
         $compra->status = 'AP';
         $compra->save();
 
+        //validar que alguno de los estatus tenga valor
+        
+
         //Obtener el detalle ejecucion y corroborar que haya disponibilidad
         $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->get();
         //Ciclo para validar que todas las partidas tengan disponibilidad

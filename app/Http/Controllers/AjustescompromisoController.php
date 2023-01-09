@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Ajustescompromiso;
+use App\Compromiso;
+use App\Detallescompromiso;
+use App\Detallesajuste;
 use Illuminate\Http\Request;
 
 /**
@@ -23,6 +26,19 @@ class AjustescompromisoController extends Controller
 
         return view('ajustescompromiso.index', compact('ajustescompromisos'))
             ->with('i', (request()->input('page', 1) - 1) * $ajustescompromisos->perPage());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function agregar()
+    {
+        $compromisos = Compromiso::where('status', 'PR')->paginate();
+
+        return view('ajustescompromiso.agregar', compact('compromisos'))
+            ->with('i', (request()->input('page', 1) - 1) * $compromisos->perPage());
     }
 
     /**
@@ -47,6 +63,30 @@ class AjustescompromisoController extends Controller
         request()->validate(Ajustescompromiso::$rules);
 
         $ajustescompromiso = Ajustescompromiso::create($request->all());
+        //Obtener el ultimo ID
+        $ultimo = Ajustescompromiso::latest('id')->first();
+        $ajuste_id = $ultimo->id;
+
+        $compromiso_id = $request->compromiso_id;
+        //Obtener el detalle compromiso
+        $detalles_compromisos = Detallescompromiso::where('compromiso_id', $compromiso_id)->get();
+
+        foreach($detalles_compromisos as $rows){
+            
+            $insertar_datos = [
+                'montoajuste'=>0,
+                'ajustes_id'=>$ajuste_id,
+                'unidadadministrativa_id'=>$rows->unidadadministrativa_id,
+                'ejecucion_id'=> $rows->ejecucion_id
+
+            ];
+
+            $detallesajustes = Detallesajuste::create($insertar_datos);
+
+        }
+
+
+
 
         return redirect()->route('ajustescompromisos.index')
             ->with('success', 'Ajustescompromiso created successfully.');
@@ -106,5 +146,23 @@ class AjustescompromisoController extends Controller
 
         return redirect()->route('ajustescompromisos.index')
             ->with('success', 'Ajustescompromiso deleted successfully');
+    }
+
+
+      /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregarcompromiso($id)
+    {
+        $compromiso_id = $id;
+        $compromiso = Compromiso::find($compromiso_id );
+        
+        $ajustescompromiso = new Ajustescompromiso();
+        return view('ajustescompromiso.create', compact('ajustescompromiso' , 'compromiso'));
+       
+        
     }
 }

@@ -1,13 +1,18 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <div class="box box-info padding-1">
     <div class="box-body">
         
     <div class="row">
   <!-- Select Dinamicos -->
         <select name="" id="_unidadadministrativa">
-            @foreach ($unidadesadministrativas as $item)
-            <option value="{{$item->id}}">{{$item->unidadejecutora}}</option>
+              <option value="">Seleccione una opcion</option>
+            @foreach ($unidades as $item)
+            <option value="{{$item->id}}">{{$item->denominacion}}</option>
             @endforeach
         </select>
+
+        <select name="" id="_requisicion"></select>
 
 
 
@@ -64,6 +69,33 @@
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
 </div>
+
+
+<script>
+    const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+    document.getElementById('_unidadadministrativa').addEventListener('change',(e)=>{
+        fetch('requisicion',{
+            method : 'POST',
+            body: JSON.stringify({texto : e.target.value}),
+            headers:{
+                'Content-Type': 'application/json',
+                "X-CSRF-Token": csrfToken
+            }
+        }).then(response =>{
+            return response.json()
+        }).then( data =>{
+            var opciones ="<option value=''>Elegir</option>";
+            for (let i in data.lista) {
+               opciones+= '<option value="'+data.lista[i].id+'">'+data.lista[i].concepto+'</option>';
+            }
+            document.getElementById("_requisicion").innerHTML = opciones;
+        }).catch(error =>console.error(error));
+    })
+
+
+</script>   
+
+
 
 
 

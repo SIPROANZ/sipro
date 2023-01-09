@@ -118,10 +118,9 @@ Route::patch('/analisis/anular/{analisi}', [App\Http\Controllers\AnalisiControll
 Route::get('analisis/pdf/{analisi}', [App\Http\Controllers\AnalisiController::class, 'pdf'])->name('analisis.pdf')->middleware('auth');
 
 //rutas para los select dinamicos
+Route::get('welcome', [App\Http\Controllers\AnalisiController::class, 'welcome'])->name('welcome')->middleware('auth');
 
-Route::get('analisis/getplants', 'AnalisiController@getplants')->name('getplants');
-Route::get('analisis/getareas', 'AnalisiController@getareas')->name('getareas');
-Route::get('analisis/getequipos', 'AnalisiController@getequipos')->name('getequipos');
+Route::post('requisicion', [App\Http\Controllers\AnalisiController::class, 'requisicion']);
 
 Route::resource('analisis', App\Http\Controllers\AnalisiController::class)->middleware('auth');
 
@@ -222,6 +221,24 @@ Route::get('compromisos/aprobadas', [App\Http\Controllers\CompromisoController::
 Route::resource('compromisos', App\Http\Controllers\CompromisoController::class)->middleware('auth');
 
 Route::resource('detallescompromisos', App\Http\Controllers\DetallescompromisoController::class)->middleware('auth');
+
+Route::get('ajustescompromisos/agregar', [App\Http\Controllers\AjustescompromisoController::class, 'agregar'])->name('ajustescompromisos.agregar')->middleware('auth');
+
+Route::get('ajustescompromisos/procesadas', [App\Http\Controllers\AjustescompromisoController::class, 'indexprocesadas'])->name('ajustescompromisos.procesadas')->middleware('auth');
+
+Route::get('ajustescompromisos/anuladas', [App\Http\Controllers\AjustescompromisoController::class, 'indexanuladas'])->name('ajustescompromisos.anuladas')->middleware('auth');
+
+Route::get('ajustescompromisos/pdf/{ajuste}', [App\Http\Controllers\AjustescompromisoController::class, 'pdf'])->name('ajustescompromisos.pdf')->middleware('auth');
+
+Route::patch('/ajustescompromisos/aprobar/{ajuste}', [App\Http\Controllers\AjustescompromisoController::class, 'aprobar'])->name('ajustescompromisos.aprobar')->middleware('auth');
+
+Route::patch('/ajustescompromisos/anular/{ajuste}', [App\Http\Controllers\AjustescompromisoController::class, 'anular'])->name('ajustescompromisos.anular')->middleware('auth');
+
+Route::get('ajustescompromisos/procesados', [App\Http\Controllers\AjustescompromisoController::class, 'indexprocesadas'])->name('ajustescompromisos.procesadas')->middleware('auth');
+
+Route::get('ajustescompromisos/anulados', [App\Http\Controllers\AjustescompromisoController::class, 'indexanuladas'])->name('ajustescompromisos.anuladas')->middleware('auth');
+
+Route::get('/ajustescompromisos/agregarcompromiso/{ajustecompromiso}', [App\Http\Controllers\AjustescompromisoController::class, 'agregarcompromiso'])->name('ajustescompromisos.agregarcompromiso')->middleware('auth');
 
 Route::resource('ajustescompromisos', App\Http\Controllers\AjustescompromisoController::class)->middleware('auth');
 

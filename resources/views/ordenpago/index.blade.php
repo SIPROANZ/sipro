@@ -91,11 +91,16 @@
                                                     <a class="btn btn-sm btn-primary " href="{{ route('ordenpagos.agregar',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Retenciones"><i class="fas fa-outdent"></i></i></a>
                                                     <a class="btn btn-sm btn-primary " href="{{ route('ordenpagos.show',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Mostrar Orden de Pago"><i class="fa fa-fw fa-eye"></i></a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('ordenpagos.edit',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Orden de Pago"><i class="fa fa-fw fa-edit"></i></a>
-                                                    <a class="btn btn-sm btn-danger" href="{{ route('ordenpagos.anular',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Anular Orden de pago"><i class="fa fa-fw fa-trash"></i></a>
+                                                    {{-- <a class="btn btn-sm btn-danger" href="{{ route('ordenpagos.anular',$ordenpago->id) }}" data-toggle="tooltip" data-placement="top" title="Anular Orden de pago"><i class="fa fa-fw fa-trash"></i></a> --}}
                                                    @csrf
                                                     @method('PATCH')
 
                                                     <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar orden de pago"><i class="fas fa-check-double"></i></button>
+                                                </form>
+                                                <form action="{{ route('ordenpagos.anular',$ordenpago->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Orden de pago"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

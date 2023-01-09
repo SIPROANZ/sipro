@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Movimientosbancario') }}
+                                {{ __('Movimientos bancario') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('movimientosbancarios.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Crear nuevo') }}
                                 </a>
                               </div>
                         </div>
@@ -36,11 +36,11 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Ejercicio Id</th>
-										<th>Institucion Id</th>
-										<th>Cuentasbancaria Id</th>
-										<th>Beneficiario Id</th>
-										<th>Tipomovimiento Id</th>
+										<th>Ejercicio</th>
+										<th>Institucion</th>
+										<th>Cuentas bancaria</th>
+										<th>Beneficiario</th>
+										<th>Tipo movimiento</th>
 										<th>Referencia</th>
 										<th>Descripcion</th>
 										<th>Fecha</th>
@@ -54,11 +54,11 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $movimientosbancario->ejercicio_id }}</td>
-											<td>{{ $movimientosbancario->institucion_id }}</td>
-											<td>{{ $movimientosbancario->cuentasbancaria_id }}</td>
-											<td>{{ $movimientosbancario->beneficiario_id }}</td>
-											<td>{{ $movimientosbancario->tipomovimiento_id }}</td>
+											<td>{{ $movimientosbancario->ejercicio->nombreejercicio }}</td>
+											<td>{{ $movimientosbancario->institucione->institucion }}</td>
+											<td>{{ $movimientosbancario->cuentasbancaria->cuenta }}</td>
+											<td>{{ $movimientosbancario->beneficiario->nombre }}</td>
+											<td>{{ $movimientosbancario->tipomovimiento->descripcion }}</td>
 											<td>{{ $movimientosbancario->referencia }}</td>
 											<td>{{ $movimientosbancario->descripcion }}</td>
 											<td>{{ $movimientosbancario->fecha }}</td>
@@ -66,11 +66,11 @@
 
                                             <td>
                                                 <form action="{{ route('movimientosbancarios.destroy',$movimientosbancario->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('movimientosbancarios.show',$movimientosbancario->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('movimientosbancarios.edit',$movimientosbancario->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('movimientosbancarios.show',$movimientosbancario->id) }}"><i class="fa fa-fw fa-eye"></i> </a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('movimientosbancarios.edit',$movimientosbancario->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
                                                 </form>
                                             </td>
                                         </tr>

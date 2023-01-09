@@ -161,6 +161,26 @@ Route::resource('tipomovimientos', App\Http\Controllers\TipomovimientoController
 
 Route::resource('movimientosbancarios', App\Http\Controllers\MovimientosbancarioController::class)->middleware('auth');
 
+Route::resource('detallepagados', App\Http\Controllers\DetallepagadoController::class)->middleware('auth');
+
+Route::get('/pagados/agregar/', [App\Http\Controllers\PagadoController::class, 'agregar'])->name('pagados.agregar')->middleware('auth');
+
+//Route::get('/pagados/agregarordendepago/', [App\Http\Controllers\PagadoController::class, 'agregarordendepago'])->name('pagados.agregarordendepago')->middleware('auth');
+
+Route::get('pagados/pdf/{pagado}', [App\Http\Controllers\PagadoController::class, 'pdf'])->name('pagados.pdf')->middleware('auth');
+
+Route::get('pagados/procesadas', [App\Http\Controllers\PagadoController::class, 'indexprocesadas'])->name('pagados.procesadas')->middleware('auth');
+
+Route::get('pagados/anuladas', [App\Http\Controllers\PagadoController::class, 'indexanuladas'])->name('pagados.anuladas')->middleware('auth');
+
+Route::patch('/pagados/anular/{pagado}', [App\Http\Controllers\PagadoController::class, 'anular'])->name('pagados.anular')->middleware('auth');
+
+//Route::get('/pagados/reversar/{pagado}', [App\Http\Controllers\PagadoController::class, 'reversar'])->name('pagados.reversar')->middleware('auth');
+
+Route::patch('/pagados/aprobar/{pagado}', [App\Http\Controllers\PagadoController::class, 'aprobar'])->name('pagados.aprobar')->middleware('auth');
+
+Route::get('/pagados/agregarorden/{pagado}', [App\Http\Controllers\PagadoController::class, 'agregarorden'])->name('pagados.agregarorden')->middleware('auth');
+
 Route::resource('pagados', App\Http\Controllers\PagadoController::class)->middleware('auth');
 
 Route::get('compromisos/compras', [App\Http\Controllers\CompromisoController::class, 'indexcompras'])->name('compromisos.compras')->middleware('auth');

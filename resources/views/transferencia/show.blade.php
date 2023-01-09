@@ -29,8 +29,8 @@
                             {{ $transferencia->beneficiario_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Ordenpago Id:</strong>
-                            {{ $transferencia->ordenpago_id }}
+                            <strong>Pagado Id:</strong>
+                            {{ $transferencia->pagado_id }}
                         </div>
                         <div class="form-group">
                             <strong>Montotransferencia:</strong>

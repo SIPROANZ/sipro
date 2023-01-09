@@ -10,19 +10,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $ordenpago_id
  * @property $beneficiario_id
- * @property $transferencia_id
  * @property $montopagado
  * @property $fechaanulacion
  * @property $status
- * @property $egreso
  * @property $tipoordenpago
  * @property $created_at
  * @property $updated_at
  *
  * @property Beneficiario $beneficiario
- * @property Detallepagado[] $detallepagados
  * @property Ordenpago $ordenpago
- * @property Transferencia $transferencia
+ * @property Transferencia[] $transferencias
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
@@ -32,11 +29,8 @@ class Pagado extends Model
     static $rules = [
 		'ordenpago_id' => 'required',
 		'beneficiario_id' => 'required',
-		'transferencia_id' => 'required',
 		'montopagado' => 'required',
-		'fechaanulacion' => 'required',
 		'status' => 'required',
-		'egreso' => 'required',
 		'tipoordenpago' => 'required',
     ];
 
@@ -47,7 +41,7 @@ class Pagado extends Model
      *
      * @var array
      */
-    protected $fillable = ['ordenpago_id','beneficiario_id','transferencia_id','montopagado','fechaanulacion','status','egreso','tipoordenpago'];
+    protected $fillable = ['ordenpago_id','beneficiario_id','montopagado','fechaanulacion','status','tipoordenpago' ,'correlativo','tipodepago'];
 
 
     /**
@@ -59,14 +53,6 @@ class Pagado extends Model
     }
     
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function detallepagados()
-    {
-        return $this->hasMany('App\Detallepagado', 'pagado_id', 'id');
-    }
-    
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function ordenpago()
@@ -75,11 +61,11 @@ class Pagado extends Model
     }
     
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function transferencia()
+    public function transferencias()
     {
-        return $this->hasOne('App\Transferencia', 'id', 'transferencia_id');
+        return $this->hasMany('App\Transferencia', 'pagado_id', 'id');
     }
     
 

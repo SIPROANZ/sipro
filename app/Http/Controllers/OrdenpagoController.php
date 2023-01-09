@@ -106,4 +106,5 @@ class OrdenpagoController extends Controller
         return redirect()->route('ordenpagos.index')
             ->with('success', 'Ordenpago deleted successfully');
     }
+    
 }

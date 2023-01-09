@@ -17,9 +17,8 @@
                             </span>
 
                              <div class="float-right">
-
-                             <a href="{{ route('pagados.agregar') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nueva Pagado') }}
+                             <a href="{{ route(pagados.agregar') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear Nuevo Pagado') }}
                                 </a>
 
                                 <a href="{{ route('pagados.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
@@ -33,7 +32,6 @@
                                 <a href="{{ route('pagados.anuladas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Anuladas') }}
                                 </a>
-
                               </div>
                         </div>
                     </div>
@@ -55,8 +53,7 @@
 										<th>Monto pagado</th>
                                         <th>Correlativo</th>
 										<th>Fechaanulacion</th>									
-										<th>Tipo de orden</th>
-                                        <th>Tipo de Pago</th>
+										<th>Tipo orden pago</th>
                                         <th>Estatus</th>
 
                                         <th>Opciones</th>
@@ -73,36 +70,12 @@
                                             <td>{{ $pagado->correlativo }}</td>
 											<td>{{ $pagado->fechaanulacion }}</td>											
 											<td>{{ $pagado->tipoordenpago }}</td>
-                                            <td>{{ $pagado->tipodepago }}</td>
-                                            <td>{{ $pagado->status }}</td>
+                                            <td>{{ $pagado->estatus }}</td>
 
                                             <td>
-                                                <div class="row">
-
-                                                 <form action="{{ route('pagados.anular',$pagado->id) }}" method="POST">
-                                                    <!-- Agregar detalles de los pagados -->
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('pagados.agregar',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Pagado"><i class="fas fa-outdent"></i></i></a>
-                                                    
-                                                   
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('pagados.pdf',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Pagado"><i class="fas fa-print"></i></a>
-                                                   
-                                                    <a class="btn btn-sm btn-success" href="{{ route('pagados.edit',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Pagado"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Pagado"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
-
-                                                <form action="{{ route('pagados.aprobar',$pagado->id) }}" method="POST">
-                                                    <!-- Agregar orden de pago a Pagado -->
-                                                   @csrf
-                                                    @method('PATCH')
-                                                    
-                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar Pagado"><i class="fas fa-check-double"></i></button>
-                                                </form>
-
-                                                </div>
-
+                                               <a class="btn btn-sm btn-primary " href="{{ route('pagados.pdf',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Pagado"><i class="fas fa-print"></i></a>  
                                             </td>
+                                            
                                         </tr>
                                     @endforeach
                                 </tbody>

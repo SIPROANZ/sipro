@@ -154,7 +154,6 @@ class OrdenpagoController extends Controller
         return redirect()->route('ordenpagos.index')
             ->with('success', 'Ordenpago deleted successfully');
     }
-<<<<<<< HEAD
 
         /**
      * Display the specified resource agregar detalles a una requisicion.
@@ -229,7 +228,7 @@ class OrdenpagoController extends Controller
                 $ejecucion->increment('monto_causado', $rows->montocompromiso);
                 $ejecucion->decrement('monto_por_causar', $rows->montocompromiso);
                 $ejecucion->increment('monto_por_pagar', $rows->montocompromiso);
-                $ejecucion->save();
+                //$ejecucion->save();
 /*             }else{
                 $aprobado = 0;
             } */
@@ -302,7 +301,4 @@ class OrdenpagoController extends Controller
 
 
     }
-=======
-    
->>>>>>> origin/siproPagado2
 }

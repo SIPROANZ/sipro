@@ -38,7 +38,7 @@ class Ajustescompromiso extends Model
      *
      * @var array
      */
-    protected $fillable = ['tipo','compromiso_id','documento','concepto','montoajuste'];
+    protected $fillable = ['tipo','compromiso_id','documento','concepto','montoajuste', 'status'];
 
 
     /**

@@ -33,6 +33,34 @@ class AjustescompromisoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexprocesadas()
+    {
+        $ajustescompromisos = Ajustescompromiso::paginate();
+        
+
+        return view('ajustescompromiso.index', compact('ajustescompromisos'))
+            ->with('i', (request()->input('page', 1) - 1) * $ajustescompromisos->perPage());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexanuladas()
+    {
+        $ajustescompromisos = Ajustescompromiso::paginate();
+        
+
+        return view('ajustescompromiso.index', compact('ajustescompromisos'))
+            ->with('i', (request()->input('page', 1) - 1) * $ajustescompromisos->perPage());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function agregar()
     {
         $compromisos = Compromiso::where('status', 'PR')->paginate();

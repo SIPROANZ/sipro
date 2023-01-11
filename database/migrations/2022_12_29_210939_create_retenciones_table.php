@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('descripcion', 255);
             $table->double('porcentaje', 6, 2);
             $table->string('tipo', 1);
+            $table->tinyInteger('base_calculo')->unsigned();
             $table->foreign('tiporetencion_id')->references('id')->on('tiporetenciones')->onDelete('cascade');
             $table->timestamps();
         });

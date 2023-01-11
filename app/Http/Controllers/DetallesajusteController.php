@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Detallesajuste;
+use App\Ajustescompromiso;
 use Illuminate\Http\Request;
 
 /**
@@ -90,8 +91,19 @@ class DetallesajusteController extends Controller
 
         $detallesajuste->update($request->all());
 
-        return redirect()->route('detallesajustes.index')
-            ->with('success', 'Detallesajuste updated successfully');
+           /*  return redirect()->route('detallesajustes.index')
+            ->with('success', 'Detallesajuste updated successfully'); */
+            $ajuste_id = session('ajustecompromiso');
+            $ajustescompromiso = Ajustescompromiso::find($ajuste_id);
+
+        //return view('ajustescompromiso.show', compact('ajustescompromiso'));
+
+        $detallesajustes = Detallesajuste::where('ajustes_id', $ajuste_id)->paginate();
+
+
+
+            return view('ajustescompromiso.show', compact('detallesajustes', 'ajustescompromiso'))
+            ->with('i', (request()->input('page', 1) - 1) * $detallesajustes->perPage());
     }
 
     /**

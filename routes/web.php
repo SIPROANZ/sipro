@@ -321,3 +321,5 @@ Route::get('precompromisos/pdf/{precompromiso}', [App\Http\Controllers\Precompro
 Route::resource('precompromisos', App\Http\Controllers\PrecompromisoController::class)->middleware('auth');
 
 Route::resource('detallesprecompromisos', App\Http\Controllers\DetallesprecompromisoController::class)->middleware('auth');
+
+Route::resource('detallesajustes', App\Http\Controllers\DetallesajusteController::class)->middleware('auth');

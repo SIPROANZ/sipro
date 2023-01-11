@@ -1,10 +1,11 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('template_title')
     Ajustescompromiso
 @endsection
 
 @section('content')
+<br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -53,7 +54,8 @@
 										<th>Compromiso Id</th>
 										<th>Documento</th>
 										<th>Concepto</th>
-										<th>Montoajuste</th>
+										<th>Monto ajuste</th>
+                                        <th>Estado</th>
 
                                         <th></th>
                                     </tr>
@@ -68,6 +70,7 @@
 											<td>{{ $ajustescompromiso->documento }}</td>
 											<td>{{ $ajustescompromiso->concepto }}</td>
 											<td>{{ $ajustescompromiso->montoajuste }}</td>
+                                            <td>{{ $ajustescompromiso->status }}</td>
 
                                             <td>
                                                 

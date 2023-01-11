@@ -109,10 +109,11 @@
                                     <tr>
                                     
                                         
-										<th>Montocompromiso</th>
-										<th>Compromiso Id</th>
-										<th>Unidadadministrativa Id</th>
-										<th>Ejecucion Id</th>
+										
+										<th>CLASIFICACION PROGRAMATICA</th>
+										<th></th>
+										<th></th>
+                                        <th>MONTO COMPROMISO</th>
 
                                     </tr>
                                 </thead>
@@ -121,10 +122,12 @@
                                         <tr>
                                             
                                             
-											<td>{{ $detallescompromiso->montocompromiso }}</td>
-											<td>{{ $detallescompromiso->compromiso_id }}</td>
-											<td>{{ $detallescompromiso->unidadadministrativa_id }}</td>
-											<td>{{ $detallescompromiso->ejecucion_id }}</td>
+											
+											
+											<td>{{ $detallescompromiso->unidadadministrativa->sector . " " . $detallescompromiso->unidadadministrativa->programa . " " . $detallescompromiso->unidadadministrativa->subprograma . " " . $detallescompromiso->unidadadministrativa->proyecto . " " . $detallescompromiso->unidadadministrativa->actividad  . " " .$detallescompromiso->ejecucione->clasificadorpresupuestario  }}</td>
+											<td>{{ $datos[$detallescompromiso->ejecucion_id] }}</td>
+                                            <td></td>
+                                            <td>{{ $detallescompromiso->montocompromiso }}</td>
 
                                            
                                         </tr>

@@ -64,6 +64,8 @@ class Detallescompromiso extends Model
     {
         return $this->hasOne('App\Unidadadministrativa', 'id', 'unidadadministrativa_id');
     }
+
+   
     
 
 }

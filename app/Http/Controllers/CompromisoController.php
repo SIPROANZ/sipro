@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Compromiso;
 use App\Precompromiso;
+use App\Clasificadorpresupuestario;
 use App\Detallescompromiso;
 use App\Compra;
 use App\Comprascp;
@@ -14,6 +15,7 @@ use App\Ayudassociale;
 use App\Detallesayuda;
 use App\Detallesprecompromiso;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use PDF;
 
@@ -225,9 +227,19 @@ class CompromisoController extends Controller
         $compromiso = Compromiso::find($id);
 
         $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->paginate();
+
+        $datos = array();
+
+        foreach($detallescompromisos as $rows){
+            //Obtener la denominacion a partir de la cuenta
+            $ejecucion = Ejecucione::find($rows->ejecucion_id);
+            $cuenta = Clasificadorpresupuestario::where('cuenta', $ejecucion->clasificadorpresupuestario)->first();
+            $datos = Arr::add($datos, $rows->ejecucion_id, $cuenta->denominacion);
+
+        }
         
 
-        $pdf = PDF::loadView('compromiso.pdf', ['compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos]);
+        $pdf = PDF::loadView('compromiso.pdf', ['compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos, 'datos'=>$datos]);
         return $pdf->stream();
 
         

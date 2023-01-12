@@ -55,6 +55,8 @@
 										<th>Fechaanulacion</th>									
 										<th>Tipo orden pago</th>
                                         <th>Estatus</th>
+                                        <th>Tipo de Pago</th>
+
 
                                         <th>Opciones</th>
                                     </tr>
@@ -70,7 +72,9 @@
                                             <td>{{ $pagado->correlativo }}</td>
 											<td>{{ $pagado->fechaanulacion }}</td>											
 											<td>{{ $pagado->tipoordenpago }}</td>
-                                            <td>{{ $pagado->estatus }}</td>
+                                            <td>{{ $pagado->status }}</td>
+                                            <td>{{ $pagado->tipomovimiento->descripcion}}</td>
+                                            
 
                                             <td>
                                                <a class="btn btn-sm btn-primary " href="{{ route('pagados.pdf',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir"><i class="fas fa-print"></i></a>  

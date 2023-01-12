@@ -52,12 +52,13 @@
                                         
 										<th>Orden de pago</th>
 										<th>Beneficiario</th>
+                                        <th>Tipo de Pago</th>
 										<th>Monto pagado</th>
                                         <th>Correlativo</th>
 										<th>Fechaanulacion</th>									
-										<th>Tipo de orden</th>
-                                        <th>Tipo de Pago</th>
+										<th>Tipo de orden</th>                                        
                                         <th>Estatus</th>
+                                     
 
                                         <th>Opciones</th>
                                     </tr>
@@ -69,13 +70,14 @@
                                             
 											<td>{{ $pagado->ordenpago_id }}</td>
 											<td>{{ $pagado->beneficiario_id }}</td>
+                                            <td>{{ $pagado->tipomovimiento->descripcion}}</td>
 											<td>{{ $pagado->montopagado }}</td>
                                             <td>{{ $pagado->correlativo }}</td>
 											<td>{{ $pagado->fechaanulacion }}</td>											
-											<td>{{ $pagado->tipoordenpago }}</td>
-                                            <td>{{ $pagado->tipodepago }}</td>
+											<td>{{ $pagado->tipoordenpago }}</td>                                           
                                             <td>{{ $pagado->status }}</td>
-
+                                           
+                                            
                                             <td>
                                                 <div class="row">
 

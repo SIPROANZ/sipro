@@ -42,6 +42,15 @@ class Tipomovimiento extends Model
     {
         return $this->hasMany('App\Movimientosbancario', 'tipomovimiento_id', 'id');
     }
-    
+
+     /**
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+   public function Pagados()
+   {
+       return $this->hasMany('App\Pagados', 'tipomovimiento_id', 'id');
+   }
+
+      
 
 }

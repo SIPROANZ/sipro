@@ -7,9 +7,10 @@ use App\Ordenpago;
 use App\Detallepagado;
 use App\Beneficiario;
 use App\Detalleordenpago;
-use App\Detalleordenpagado;
+use App\Tipomovimiento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 /**
  * Class PagadoController
@@ -38,6 +39,7 @@ class PagadoController extends Controller
     public function create()
     {
         $pagado = new Pagado();
+      
         return view('pagado.create', compact('pagado'));
     }
 
@@ -107,7 +109,7 @@ class PagadoController extends Controller
     public function edit($id)
     {
         $pagado = Pagado::find($id);
-
+      
         return view('pagado.edit', compact('pagado'));
     }
 
@@ -163,7 +165,10 @@ class PagadoController extends Controller
     public function agregarorden($id)
     {
         $pagado = new Pagado();
+      
         $ordenpagos = Ordenpago::find($id);
+
+       
         return view('pagado.create', compact('pagado', 'ordenpagos'));
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Actualizar Pagado
+   Actualizar Nota credito
 @endsection
 
 @section('content')
@@ -13,14 +13,14 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Ver Pagado</span>
+                        <span class="card-title">Actualizar Nota credito</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('pagados.update', $pagado->id) }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('notacreditos.update', $notacredito->id) }}"  role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('pagado.form')
+                            @include('notacredito.form')
 
                         </form>
                     </div>

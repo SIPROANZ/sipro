@@ -208,6 +208,8 @@ Route::resource('transferencias', App\Http\Controllers\TransferenciaController::
 
 Route::resource('tipomovimientos', App\Http\Controllers\TipomovimientoController::class)->middleware('auth');
 
+Route::resource('notacreditos', App\Http\Controllers\NotacreditoController::class)->middleware('auth');
+
 Route::resource('movimientosbancarios', App\Http\Controllers\MovimientosbancarioController::class)->middleware('auth');
 
 Route::resource('detallepagados', App\Http\Controllers\DetallepagadoController::class)->middleware('auth');

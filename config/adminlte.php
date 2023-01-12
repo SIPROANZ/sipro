@@ -544,7 +544,7 @@ return [
                             'text' => 'Notas de Credito',
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
                             'icon_color' => 'white',
-                            'url'  => '#',
+                            'route'  => 'notacreditos.index',
                         ],
                         [
                             'text' => 'Notas de Debito',

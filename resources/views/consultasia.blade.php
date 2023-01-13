@@ -1,291 +1,186 @@
-//como hacer dos select dependiente de otro en laravel?  
-public function getplants()
-{
-    try {    
-        $plantas = Planta::all();
-        $response = ['data' => $plantas];
-    } catch (\Exception $exception) {
-        return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
-    }
-    return response()->json($response);
-}
+//como manejar arreglos en laravel?   
+<!--DELIMITER-->El método Arr::add agrega valores a un arreglo. Ejemplo:
+<?php
 
-public function getareas(Request $request)
-{
-    try {    
-        $plant_id = $request->input('plant_id');
-        $areas = Area::when($plant_id, function ($query) use ($plant_id) {
-            $query->where('plant_id', $plant_id)
-        })->get();
-        $response = ['data' => $areas];
-    } catch (\Exception $exception) {
-        return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
-    }
-    return response()->json($response);
-}
+$info = ['nombre' => 'Rafael'];
+$info = Arr::add($info, 'numero', 6);
 
-public function getequipos(Request $request)
-{
-    try {    
-        $area_id = $request->input('area_id');
-        $equipos = Equipo::when($area_id, function ($query) use ($area_id) {
-            $query->where('area_id', $area_id)
-        })->get();
-        $response = ['data' => $equipos];
-    } catch (\Exception $exception) {
-        return response()->json([ 'message' => 'There was an error retrieving the records' ], 500);
-    }
-    return response()->json($response);
-}
+print_r($info);
+// ['nombre' => 'Rafael', 'numero' => 6]
 
+<!--DELIMITER-->Este método permite unir dos arreglos, por ejemplo:
+<?php
 
-Route::get('publisher/getplants', 'PublisherController@getplants')->name('getplants');
-Route::get('publisher/getareas', 'PublisherController@getareas')->name('getareas');
-Route::get('publisher/getequipos', 'PublisherController@getequipos')->name('getequipos');
+$nombres   = ['nombre' => 'Rafael'];
+$telefonos = ['telefono' => '5353647'];
+$datos = Arr::collapse([$nombres, $telefonos]);
 
+print_r($datos);
+// ['nombre' => 'Rafael', 'telefono' => '5353647']
 
-<div>
-    <label>Planta:</label>
-    <select id="plant_id">
-        <option value="">Todas--</option>
-    </select>
-</div>
-<div>
-    <label>Area:</label>
-    <select id="area_id">
-        <option value="">Elije una planta--</option>
-    </select>
-</div>
-<div>
-    <label>Equipo:</label>
-    <select id="equipo_id">
-        <option value="">Elije un area--</option>
-    </select>
-</div>
+<!--DELIMITER-->El método Arr::divide retorna dos arreglos, uno va a contener todas las llaves y el otro tendrá todos los valores del arreglo:
+<?php
 
-<script type="text/javascript">
-$(document).ready(function() {
-    // por comodidad puedes asignar los selects a una variable, ya que los vas a usar mas de una vez
-    var plantSelect = $('#plant_id');
-    var areaSelect = $('#area_id');
-    var equipoSelect = $('#equipo_id');
-    // primero obtienes las plantas y llenas el select
-    function populatePlantSelect() {
-        $.ajax({
-            url: "{{ route('getplants') }}",
-            type: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                $.each(response.data, function (key, value) {
-                    plantSelect.append("<option value='" + value.id + "'>" + value.name + "</option>");
-                });
-            },
-            error: function () {
-                alert('Hubo un error obteniendo las plantas!');
-            }
-        });
-    }
-    populatePlantSelect();
-    // luego indicas que cuando se seleccione una planta, se obtengan las areas correspondientes y se llene el select de areas
-    plantSelect.change(function(){
-        var plantId = $(this).val();
-        areaSelect.empty();
+[$keys, $values] = Arr::divide(['nombre' => 'Rafael']);
 
-        if (plantId) {
-            $.ajax({
-                url: "{{ route('getareas') }}",
-                type: 'GET',
-                data: { plant_id: plantId },
-                dataType: 'json',
-                success: function (response) {
-                    areaSelect.append('<option value="">--Elije un area</option>')
-                    $.each(response.data, function (key, value) {
-                        areaSelect.append("<option value='" + value.id + "'>" + value.name + "</option>");
-                    });
-                },
-                error : function(){
-                    alert('Hubo un error obteniendo las areas!');
-                }
-            });
-        }
-    });
-    // finalmente, indicas que cuando se seleccione un area, se obtengan los equipos correspondientes y se llene el select de equipos
-    areaSelect.change(function(){
-        var areaId = $(this).val();
-        equipoSelect.empty();
+print_r($keys);
+// ['nombre'] 
 
-        if (areaId) {
-            $.ajax({
-                url: "{{ route('getequipos') }}",
-                type: 'GET',
-                data: { area_id: areaId },
-                dataType: 'json',
-                success: function (response) {
-                    equipoSelect.append('<option value="">--Elije un equipo</option>')
-                    $.each(response.data, function (key, value) {
-                        equipoSelect.append("<option value='" + value.id + "'>" + value.name + "</option>");
-                    });
-                },
-                error : function(){
-                    alert('Hubo un error obteniendo los equipos!');
-                }
-            });
-        }
-    });
+print_r($values);
+// ['Rafael']
+
+<!--DELIMITER-->El método Arr::dot cambia los arreglos multidimensionales en arreglos simples, utilizando un punto «.» para indicar el nivel de profundidad de los valores, ejemplo:
+<?php
+
+$datos = Arr::dot(['carro' => ['marca' => 'honda', 'color' => 'negro']]);
+
+print_r($datos);    
+// ['carro.marca' => 'honda', 'carro.color' => 'negro']
+
+<!--DELIMITER-->El método Arr::except nos devuelve los valores del arreglo exceptuando el valor de la llave que pasamos como parámetro:
+<?php
+
+$datos = ['marca' => 'honda','color' => 'negro'];
+$filtro = Arr::except($datos, ['color']);
+
+print_r($filtro);    
+// ['marca' => 'honda']
+
+<!--DELIMITER-->El método Arr::first regresa el primer elemento de un array que cumpla una condición dada, por ejemplo:
+<?php
+
+$digits = [34, 56, 75];
+
+$first = Arr::first($digits, function ($value, $key ) {
+    return $value >= 40;
 });
-</script>
 
+print_r($first);
+// 56
 
-    function populatePlantSelect() {
-        $.ajax({
-            url: "{{ route('getplants') }}",
-            type: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                $.each(response.data, function (key, value) {
-                    plantSelect.append("<option value='" + value.id + "'>" + value.name + "</option>");
-                });
-                $("#plant_id option:first").attr('selected','selected');
-                plantSelect.trigger('change');
-            },
-            error: function () {
-                alert('Hubo un error obteniendo las plantas!');
-            }
-        });
-    }
-    populatePlantSelect();
+<!--DELIMITER-->El método Arr::flatten convierte un arreglo multidimensional en uno simple, ejemplo:
+<?php
 
-    plantSelect.change(function(){
-        var plantId = $(this).val();
-        areaSelect.empty();
+$info = ['nombre' => 'Rafael', 'Carro' => ['Audi', 'Azul']];
+$datos = Arr::flatten($info);
 
-        if (plantId) {
-            $.ajax({
-                url: "{{ route('getareas') }}",
-                type: 'GET',
-                data: { plant_id: plantId },
-                dataType: 'json',
-                success: function (response) {
-                    $.each(response.data, function (key, value) {
-                        areaSelect.append("<option value='" + value.id + "'>" + value.name + "</option>");
-                    });
-                    $("#area_id option:first").attr('selected','selected');
-                    areaSelect.trigger('change');
-                },
-                error : function(){
-                    alert('Hubo un error obteniendo las areas!');
-                }
-            });
-        }
-    });
+print_r($datos);
+// ['Rafael', 'Audi', 'Azul']
 
-    areaSelect.change(function(){
-        var areaId = $(this).val();
-        equipoSelect.empty();
+<!--DELIMITER-->El método Arr::forget elimina una llave dada, se utiliza la notación de puntos para identificar la profundidad del arreglo. Como primer parámetro recibe el arreglo y como segundo parámetro la llave que queremos olvidar, por ejemplo:
+<?php
 
-        if (areaId) {
-            $.ajax({
-                url: "{{ route('getequipos') }}",
-                type: 'GET',
-                data: { area_id: areaId },
-                dataType: 'json',
-                success: function (response) {
-                    $.each(response.data, function (key, value) {
-                        equipoSelect.append("<option value='" + value.id + "'>" + value.name + "</option>");
-                    });
-                    $("#equipo_id option:first").attr('selected','selected');
-                },
-                error : function(){
-                    alert('Hubo un error obteniendo los equipos!');
-                }
-            });
-        }
-    }); 
+$info = ['users' => ['admin' => 'Rafael', 'editor' => 'Luis']];
+Arr::forget($info, 'users.editor');
 
+print_r($info);
+// ['users' => ['admin' => 'Rafael']]
 
-    function populatePlantSelect() {
-        var plantaEnBD = null;
-        @isset($publisher)
-        plantaEnBD = '{{ $publisher->plant_id }}';
-        @endisset
+<!--DELIMITER-->El método Arr::get nos devuelve un valor deseado. Recibe como primer parámetro el arreglo, y como segundo parámetro, la llave del valor que queramos devolver (utiliza la notación de puntos para identificar la profundidad del arreglo), por ejemplo:
+<?php
 
-        $.ajax({
-            url: "{{ route('getplants') }}",
-            type: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                $.each(response.data, function (key, value) {
-                    plantSelect.append("<option value='" + value.id + "'>" + value.name + "</option>");
-                });
-                plantSelect.val( plantaEnBD? plantaEnBD: $("#plant_id option:first").val() )
-                    .find("option[value=" + plantaEnBD +"]").attr('selected', true)
-                    .trigger('change');
-            },
-            error: function () {
-                alert('Hubo un error obteniendo las plantas!');
-            }
-        });
-    }
-    populatePlantSelect();
+$info = ['users' => ['admin' => 'Rafael', 'editor' => 'Luis']];
+$admin = Arr::get($info, 'users.admin');
 
-    plantSelect.change(function(){
-        var plantId = $(this).val();
-        areaSelect.empty();
-        equipoSelect.empty();
-        var areaEnBD = null;
-        @isset($publisher)
-            areaEnBD = '{{ $publisher->area_id }}';
-        @endisset
+print_r($admin);
+// Rafael
 
-        if (plantId) {
-            $.ajax({
-                url: "{{ route('getareas') }}",
-                type: 'GET',
-                data: { plant_id: plantId },
-                dataType: 'json',
-                success: function (response) {
-                    $.each(response.data, function (key, value) {
-                        areaSelect.append("<option value='" + value.id + "'>" + value.name + "</option>");
-                    });
-                    areaSelect.val( areaEnBD? areaEnBD: $("#area_id option:first").val() )
-                        .find("option[value=" + areaEnBD +"]").attr('selected', true)
-                        .trigger('change');
-                },
-                error : function(){
-                    alert('Hubo un error obteniendo las areas!');
-                }
-            });
-        }
-    });
+<!--DELIMITER-->Este método comprueba si existe un determinado elemento y retorna un valor booleano (utiliza la notación de puntos para identificar la profundidad del arreglo), por ejemplo:
+<?php
 
-    areaSelect.change(function(){
-        var areaId = $(this).val();
-        equipoSelect.empty();
-        var equipoEnBD = null;
-        @isset($publisher)
-            equipoEnBD = '{{ $publisher->equipo_id }}';
-        @endisset
+$info = ['users' => ['admin' => 'Rafael', 'editor' => 'Luis']];
+$admin = Arr::has($info, 'users.admin');
+    
+print_r($admin);
+// 1
 
-        if (areaId) {
-            $.ajax({
-                url: "{{ route('getequipos') }}",
-                type: 'GET',
-                data: { area_id: areaId },
-                dataType: 'json',
-                success: function (response) {
-                    $.each(response.data, function (key, value) {
-                        equipoSelect.append("<option value='" + value.id + "'>" + value.name + "</option>");
-                    });
-                    equipoSelect.val( equipoEnBD? equipoEnBD: $("#equipo_id option:first").val() )
-                        .find("option[value=" + equipoEnBD +"]").attr('selected', true)
-                        .trigger('change');
-                },
-                error : function(){
-                    alert('Hubo un error obteniendo los equipos!');
-                }
-            });
-        }
-    });
+<!--DELIMITER-->El método Arr::only solo nos devolverá aquellas llaves que especifiquemos dentro de un arreglo, ejemplo:
+<?php
 
+$info = ['nombre' => 'Laptop', 'precio' => 100, 'unidades' => 10];
+$datos = Arr::only($info, ['nombre', 'unidades']);
 
+print_r($datos);
+// ['nombre' => 'Laptop', 'unidades' => 10]
+
+<!--DELIMITER-->Este método devuelve un arreglo formado por los valores de una llave dada perteneciente a otro arreglo, se puede utilizar la notación de puntos. Por ejemplo:
+<?php
+
+$info = [
+    ['carro' => ['id' => 1, 'color' => 'Azul']],
+    ['carro' => ['id' => 2, 'color' => 'Verde']],
+];
+$color = Arr::pluck($info, 'carro.color');
+
+print_r($color);
+// ['Azul', 'Verde']
+
+<!--DELIMITER-->Agrega un item al principio del arreglo, ejemplo:
+<?php
+
+$numeros = ['uno', 'dos', 'tres', 'cuatro'];
+$numeros = Arr::prepend($numeros, 'cero');
+
+print_r($numeros);
+// ['cero', 'uno', 'dos', 'tres', 'cuatro']
+
+<!--DELIMITER-->Este método toma el valor de una llave determinada y luego la borra del arreglo, ejemplo:
+<?php
+
+$info = ['mascota' => 'perro', 'instrumento' => 'guitarra'];
+$mascota = Arr::pull($info, 'mascota');
+
+print_r($mascota);
+// ['perro']
+
+print_r($info);
+// ['instrumento' => 'guitarra']
+
+<!--DELIMITER-->El método Arr::set se utiliza para cambiar el valor de un llave determinada en un arreglo, ejemplo:
+<?php
+
+$info = ['productos' => ['carro' => ['color' => 'azul']]];
+Arr::set($info, 'productos.carro.color', 'rosa');
+
+print_r($info);
+// ['productos' => ['carro' => ['color' => 'rosa']]]
+
+<!--DELIMITER-->El método Arr::sort ordena un arreglo por sus valores. Ejemplo:
+<?php
+
+$data = ['Moises', 'Ana', 'Erick'];
+$orden = Arr::sort($data);
+
+print_r($orden);
+// ['Ana', 'Erick', 'Moises']
+
+<!--DELIMITER-->El método Arr::where devuelve un arreglo con los elementos que pasen el filtro dado, como, por ejemplo, retornar los valores del arreglo que sean de tipo string:
+<?php
+
+$array = [100, '200', 300, '400', 500];
+
+$filtered = Arr::where($array, function ($value, $key) {
+    return is_string($value);
+});
+
+print_r($filtered);
+// [1 => '200', 3 => '400']
+
+<!--DELIMITER-->Esta función regresa el primer elemento de un arreglo, ejemplo:
+<?php
+
+$array = [100, 200, 300];
+$primero = head($array);
+    
+print_r($primero);
+// 100
+
+<!--DELIMITER-->Esta función regresa el último elemento de un arreglo, ejemplo:
+<?php
+
+$array = [100, 200, 300];
+$ultimo = last($array);
+
+print_r($ultimo);
+// 300
 

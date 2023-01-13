@@ -22,7 +22,7 @@
             {{ Form::select('unidadadministrativa_id', $unidadadministrativas, $requisicione->unidadadministrativa_id, ['class' => 'form-control' . ($errors->has('unidadadministrativa_id') ? ' is-invalid' : ''), 'placeholder' => ' Seleccione unidad administrativa']) }}
             {!! $errors->first('unidadadministrativa_id', '<div class="invalid-feedback">:message</div>') !!}
        
-            {{ Form::hidden('correlativo', 0, ['class' => 'form-control' . ($errors->has('correlativo') ? ' is-invalid' : ''), 'placeholder' => 'Correlativo']) }}
+            {{ Form::hidden('correlativo', $requisicione->correlativo, ['class' => 'form-control' . ($errors->has('correlativo') ? ' is-invalid' : ''), 'placeholder' => 'Correlativo']) }}
             {!! $errors->first('correlativo', '<div class="invalid-feedback">:message</div>') !!}
        
        

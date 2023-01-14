@@ -1,8 +1,11 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Update Requisicione
-@endsection
+
+@section('title', 'Editar Requisicion')
+
+@section('content_header')
+    <h1>Editar Requisicion</h1>
+@stop
 
 @section('content')
     <section class="content container-fluid">
@@ -28,4 +31,10 @@
             </div>
         </div>
     </section>
-@endsection
+    @stop
+
+@section('css')
+    
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    
+@stop

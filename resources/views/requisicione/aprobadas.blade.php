@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
 
-@section('title', 'Requisiciones Procesadas')
+@section('title', 'Requisiciones Aprobadas')
 
 @section('content_header')
-    <h1>Requisiciones Procesadas</h1>
+    <h1>Requisiciones Aprobadas</h1>
 @stop
 
 @section('content')
@@ -16,7 +16,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Requisiciones Procesadas') }}
+                                {{ __('Requisiciones aprobadas') }}
                             </span>
 
                              <div class="float-right">
@@ -87,7 +87,10 @@
 
                                             <td>
                                                     <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.pdf',$requisicione->id) }}"><i class="fa fa-fw fa-eye"></i> Imprimir</a>
-                                            </td>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.agregar',$requisicione->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Producto BOS"><i class="fas fa-outdent"></i></i></a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('requisiciones.edit',$requisicione->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Requisicion"><i class="fa fa-fw fa-edit"></i></a>
+                                                   
+                                                </td>
                                            
                                         </tr>
                                     @endforeach
@@ -100,7 +103,7 @@
             </div>
         </div>
     </div>
-    @stop
+@stop
 
 @section('css')
     

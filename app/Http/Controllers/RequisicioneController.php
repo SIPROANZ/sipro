@@ -57,6 +57,19 @@ class RequisicioneController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $requisiciones->perPage());
     }
 
+    /**
+     * Display requisiciones anuladas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexaprobadas()
+    {
+        $requisiciones = Requisicione::where('estatus', 'AP')->paginate();
+
+        return view('requisicione.aprobadas', compact('requisiciones'))
+            ->with('i', (request()->input('page', 1) - 1) * $requisiciones->perPage());
+    }
+
      /**
      * Crear pdf de la requisicion seleccionada
      *
@@ -83,8 +96,7 @@ class RequisicioneController extends Controller
 
         $pdf = PDF::loadView('requisicione.pdf', ['requisicione'=>$requisicione, 'detallesrequisiciones'=>$detallesrequisiciones, 'partidas'=>$partidas]);
         return $pdf->stream();
-
-        
+         
     }
 
     /**
@@ -98,7 +110,7 @@ class RequisicioneController extends Controller
 
         $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
         $instituciones = Institucione::pluck('institucion', 'id');
-        $unidadadministrativas = Unidadadministrativa::pluck('denominacion', 'id');
+        $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
         $tipossgps = Tipossgp::pluck('denominacion' , 'id');
 
        return view('requisicione.create', compact('requisicione' , 'ejercicios' , 'instituciones' , 'unidadadministrativas', 'tipossgps'));
@@ -178,7 +190,7 @@ class RequisicioneController extends Controller
 
         $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
         $instituciones = Institucione::pluck('institucion', 'id');
-        $unidadadministrativas = Unidadadministrativa::pluck('denominacion', 'id');
+        $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
         $tipossgps = Tipossgp::pluck('denominacion' , 'id');
 
        return view('requisicione.edit', compact('requisicione' , 'ejercicios' , 'instituciones' , 'unidadadministrativas', 'tipossgps'));

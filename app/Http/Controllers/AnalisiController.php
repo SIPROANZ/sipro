@@ -86,12 +86,14 @@ class AnalisiController extends Controller
     {
         request()->validate(Analisi::$rules);
 
+        
+
+        $analisi = Analisi::create($request->all());
+
         //Cambiar el estatus de la requisicion a aprobado, para que no vuelva a aparecer en el listado
         $requisicion = Requisicione::find($request->requisicion_id);
         $requisicion->estatus = 'AP';
         $requisicion->save();
-
-        $analisi = Analisi::create($request->all());
 
         return redirect()->route('analisis.index')
             ->with('success', 'Analisi created successfully.');
@@ -251,10 +253,10 @@ class AnalisiController extends Controller
      //para llenar un select dinamico
      public function requisicion(Request $request){
         if(isset($request->texto)){
-            $requisiciones = Requisicione::where('unidadadministrativa_id', $request->texto)->get();
+            $requis = Requisicione::where('unidadadministrativa_id', $request->texto)->where('estatus', 'PR')->get();
             return response()->json(
                 [
-                    'lista' => $requisiciones,
+                    'lista' => $requis,
                     'success' => true
                 ]
                 );

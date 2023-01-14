@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-<select name="" id="_unidadadministrativa">
+        <select name="" id="_unidadadministrativa">
               <option value="">Seleccione una opcion</option>
             @foreach ($unidades as $item)
             <option value="{{$item->id}}">{{$item->denominacion}}</option>

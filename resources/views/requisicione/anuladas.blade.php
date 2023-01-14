@@ -1,8 +1,12 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Requisicione
-@endsection
+
+@section('title', 'Requisiciones anuladas')
+
+@section('content_header')
+    <h1>Requisiciones Anuladas</h1>
+@stop
+
 
 @section('content')
     <div class="container-fluid">
@@ -19,6 +23,10 @@
                              <div class="float-right">
                                 <a href="{{ route('requisiciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Nueva Requisicion') }}
+                                </a>
+
+                                <a href="{{ route('requisiciones.aprobadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Aprobadas') }}
                                 </a>
 
                                 <a href="{{ route('requisiciones.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
@@ -93,4 +101,10 @@
             </div>
         </div>
     </div>
-@endsection
+    @stop
+
+@section('css')
+    
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    
+@stop

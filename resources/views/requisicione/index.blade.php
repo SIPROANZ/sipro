@@ -1,8 +1,11 @@
 @extends('adminlte::page')
 
-@section('template_title')
-    Requisicione
-@endsection
+
+@section('title', 'Requisiciones en proceso')
+
+@section('content_header')
+    <h1>Requisiciones En Proceso</h1>
+@stop
 
 @section('content')
 <br>
@@ -21,6 +24,11 @@
                                 <a href="{{ route('requisiciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Nueva Requisicion') }}
                                 </a>
+
+                                <a href="{{ route('requisiciones.aprobadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Aprobadas') }}
+                                </a>
+
                                 &nbsp;&nbsp;
 
                                 <a href="{{ route('requisiciones.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
@@ -85,8 +93,6 @@
                                                     <!-- Agregar detalles BOS a la requisicion -->
                                                     <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.agregar',$requisicione->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Producto BOS"><i class="fas fa-outdent"></i></i></a>
 
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.pdf',$requisicione->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Requisicion"><i class="fas fa-print"></i></a>
-
                                                     <a class="btn btn-sm btn-success" href="{{ route('requisiciones.edit',$requisicione->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Requisicion"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('PATCH')
@@ -120,4 +126,10 @@
             </div>
         </div>
     </div>
-@endsection
+@stop
+
+@section('css')
+    
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    
+@stop

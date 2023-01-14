@@ -1,8 +1,10 @@
 @extends('adminlte::page')
 
-@section('template_title')
-    Create Requisicione
-@endsection
+@section('title', 'Crear Requisicion')
+
+@section('content_header')
+    <h1>Crear Requisicion</h1>
+@stop
 
 @section('content')
 <br>
@@ -28,4 +30,10 @@
             </div>
         </div>
     </section>
-@endsection
+    @stop
+
+@section('css')
+    
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    
+@stop

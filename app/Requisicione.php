@@ -37,7 +37,6 @@ class Requisicione extends Model
 		'ejercicio_id' => 'required',
 		'institucion_id' => 'required',
 		'unidadadministrativa_id' => 'required',
-		'correlativo' => 'required',
 		'tiposgp_id' => 'required',
 		'estatus' => 'required',
     ];

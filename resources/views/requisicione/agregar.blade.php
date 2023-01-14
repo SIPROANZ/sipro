@@ -1,8 +1,11 @@
 @extends('adminlte::page')
 
-@section('template_title')
-    {{ $requisicione->name ?? 'Show Requisicione' }}
-@endsection
+
+@section('title', 'Agregar')
+
+@section('content_header')
+    <h1>Agregar una nueva requisicion</h1>
+@stop
 
 @section('content')
 <br>
@@ -113,4 +116,10 @@
         </div>
     </div>
 
-@endsection
+    @stop
+
+@section('css')
+    
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    
+@stop

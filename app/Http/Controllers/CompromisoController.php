@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Compromiso;
+use App\Analisi;
+use App\Requisicione;
 use App\Precompromiso;
 use App\Clasificadorpresupuestario;
 use App\Detallescompromiso;
@@ -223,13 +225,36 @@ class CompromisoController extends Controller
      */
     public function pdf($id)
     {
-        
+      
         $compromiso = Compromiso::find($id);
+        $concepto = 'Es Null';
 
         $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->paginate();
+        $totalcompromiso = $detallescompromisos->sum('montocompromiso');
 
         $datos = array();
 
+        if($compromiso->precompromiso_id != NULL){
+
+            $concepto = $compromiso->precompromiso->concepto;
+
+        }
+        elseif($compromiso->ayuda_id != NULL){
+
+            $concepto = $compromiso->ayudassociale->concepto;
+
+            
+        }
+        elseif($compromiso->compra_id != NULL){
+
+            $compra_id = $compromiso->compra_id;
+            $rs_compra = Compra::find($compra_id);
+            $analisis_id = $rs_compra->analisis_id;
+            $rs_analisis = Analisi::find($analisis_id);
+            $requisicion_id = $rs_analisis->requisicion_id;
+            $rs_requisicion = Requisicione::find($requisicion_id);
+            $concepto = $rs_requisicion->concepto;   
+        }
         foreach($detallescompromisos as $rows){
             //Obtener la denominacion a partir de la cuenta
             $ejecucion = Ejecucione::find($rows->ejecucion_id);
@@ -237,12 +262,29 @@ class CompromisoController extends Controller
             $datos = Arr::add($datos, $rows->ejecucion_id, $cuenta->denominacion);
 
         }
-        
 
-        $pdf = PDF::loadView('compromiso.pdf', ['compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos, 'datos'=>$datos]);
+        $status=null;
+        
+        if($compromiso->status=='AP'){
+            $status='APROBADO';
+        }
+        elseif($compromiso->status=='PR'){
+            $status='PROCESADO';    
+        }
+        elseif($compromiso->status=='EP'){
+            $status='EN PROCESO';    
+        }
+        elseif($compromiso->status=='AN'){
+            $status='ANULADO';    
+        }
+        elseif($compromiso->status=='RV '){
+            $status='RESERVADO';    
+        }
+
+
+        $pdf = PDF::loadView('compromiso.pdf', ['compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos, 'datos'=>$datos, 'totalcompromiso'=>$totalcompromiso, 'concepto'=>$concepto, 'status'=> $status]);
         return $pdf->stream();
-
-        
+ 
     }
 
     //Metodo para aprobar un analisis de cotizacion

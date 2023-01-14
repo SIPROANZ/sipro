@@ -121,7 +121,7 @@ Route::get('analisis/pdf/{analisi}', [App\Http\Controllers\AnalisiController::cl
 //rutas para los select dinamicos
 Route::get('welcome', [App\Http\Controllers\AnalisiController::class, 'welcome'])->name('welcome')->middleware('auth');
 
-Route::post('requisicion', [App\Http\Controllers\AnalisiController::class, 'requisicion']);
+Route::post('analisis/requisicion', [App\Http\Controllers\AnalisiController::class, 'requisicion']);
 
 Route::resource('analisis', App\Http\Controllers\AnalisiController::class)->middleware('auth');
 
@@ -164,6 +164,8 @@ Route::get('requisiciones/pdf/{requisicione}', [App\Http\Controllers\Requisicion
 Route::get('requisiciones/procesadas', [App\Http\Controllers\RequisicioneController::class, 'indexprocesadas'])->name('requisiciones.procesadas')->middleware('auth');
 
 Route::get('requisiciones/anuladas', [App\Http\Controllers\RequisicioneController::class, 'indexanuladas'])->name('requisiciones.anuladas')->middleware('auth');
+
+Route::get('requisiciones/aprobadas', [App\Http\Controllers\RequisicioneController::class, 'indexaprobadas'])->name('requisiciones.aprobadas')->middleware('auth');
 
 Route::patch('/requisiciones/anular/{requisicione}', [App\Http\Controllers\RequisicioneController::class, 'anular'])->name('requisiciones.anular')->middleware('auth');
 

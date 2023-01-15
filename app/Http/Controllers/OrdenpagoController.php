@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Compromiso;
 use App\Detalleordenpago;
 use App\Detalleretencione;
+use App\Detallesanalisi;
 use App\Detallescompromiso;
 use App\Ejecucione;
 use App\Ordenpago;
@@ -48,7 +49,6 @@ class OrdenpagoController extends Controller
     public function create()
     {
         $ordenpago = new Ordenpago();
-
         return view('ordenpago.create', compact('ordenpago'));
     }
 
@@ -180,11 +180,19 @@ class OrdenpagoController extends Controller
     {
         $compromiso_id = $id;
         $ordenpago = new Ordenpago();
-
         $compromiso = Compromiso::find($compromiso_id);
-/*         $compromiso->status = 'AP';
-        $compromiso->save();
-        $proveedor = $compromiso->beneficiario->nombre; */
+
+
+/////////////////////////////////////////////////////////////////////
+        $detalles_analisis = Detallesanalisi::where('analisis_id', $compromiso->compra->analisi->id)->get();
+
+        foreach($detalles_analisis as $row){
+            if ($row->iva == 0) {
+                $ordenpago->montoexento += $row->subtotal;
+            } else {
+
+            }
+        }
 
         return view('ordenpago.agregarordenpago', compact('compromiso', 'ordenpago'));
     }
@@ -254,6 +262,14 @@ class OrdenpagoController extends Controller
         $ordenpagos = Ordenpago::where('status', 'PR')->paginate();
 
         return view('ordenpago.procesados', compact('ordenpagos'))
+            ->with('i', (request()->input('page', 1) - 1) * $ordenpagos->perPage());
+    }
+
+    public function indexaprobadas()
+    {
+        $ordenpagos = Ordenpago::where('status', 'AP')->paginate();
+
+        return view('ordenpago.aprobados', compact('ordenpagos'))
             ->with('i', (request()->input('page', 1) - 1) * $ordenpagos->perPage());
     }
 

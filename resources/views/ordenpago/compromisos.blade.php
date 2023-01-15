@@ -25,6 +25,9 @@
                                 </a>
                                 <a href="{{ route('ordenpagos.procesados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                 {{ __('Procesados') }}
+                                <a href="{{ route('ordenpagos.aprobados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                {{ __('Aprobados') }}
+                                </a>
                                 </a>
                                 <a href="{{ route('ordenpagos.anulados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                 {{ __('Anulados') }}

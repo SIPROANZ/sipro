@@ -42,7 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Ejecucione extends Model
 {
-    
+
     static $rules = [
 		'ejercicio_id' => 'required',
 		'institucion_id' => 'required',
@@ -81,7 +81,7 @@ class Ejecucione extends Model
     {
         return $this->hasMany('App\Ejecuciondetalle', 'ejecucion_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -89,7 +89,7 @@ class Ejecucione extends Model
     {
         return $this->hasOne('App\Ejercicio', 'id', 'ejercicio_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -97,7 +97,7 @@ class Ejecucione extends Model
     {
         return $this->hasOne('App\Financiamiento', 'id', 'financiamiento_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -105,7 +105,7 @@ class Ejecucione extends Model
     {
         return $this->hasOne('App\Institucione', 'id', 'institucion_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -113,7 +113,7 @@ class Ejecucione extends Model
     {
         return $this->hasOne('App\Meta', 'id', 'meta_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -121,7 +121,7 @@ class Ejecucione extends Model
     {
         return $this->hasOne('App\Poa', 'id', 'poa_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -129,7 +129,7 @@ class Ejecucione extends Model
     {
         return $this->hasMany('App\Requidetclaspre', 'ejecucion_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -137,6 +137,9 @@ class Ejecucione extends Model
     {
         return $this->hasOne('App\Unidadadministrativa', 'id', 'unidadadministrativa_id');
     }
-    
+    public function detallescompromiso()
+    {
+        return $this->hasOne('App\Detallescompromiso', 'id', 'ejecucion_id');
+    }
 
 }

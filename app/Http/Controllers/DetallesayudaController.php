@@ -132,6 +132,14 @@ class DetallesayudaController extends Controller
         return redirect()->route('detallesayudas.index')
             ->with('success', 'Detallesayuda updated successfully');
              */
+
+        //Obtener la suma de todos los detalles ayuda paara sumarlo en la tabla principal detalles ayuda
+        $ayuda = Ayudassociale::find($ayuda_id);
+
+        $detallesayuda = Detallesayuda::where('ayuda_id', $ayuda_id)->get();
+        $suma = $detallesayuda->sum('montocompromiso');
+        $ayuda->montototal = $suma;
+        $ayuda->save();
             
          //Para recuperar el id de la requisicion solo si existe route('requisiciones.agregar',$requisicione->id)
          if(session()->has('ayudas')){

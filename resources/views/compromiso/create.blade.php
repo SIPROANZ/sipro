@@ -1,8 +1,10 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Create Compromiso
-@endsection
+@section('title', 'Compromisos')
+
+@section('content_header')
+    <h1>Crear Compromisos</h1>
+@stop
 
 @section('content')
     <section class="content container-fluid">
@@ -13,7 +15,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Create Compromiso</span>
+                        <span class="card-title">Crear Compromiso</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('compromisos.store') }}"  role="form" enctype="multipart/form-data">
@@ -27,4 +29,8 @@
             </div>
         </div>
     </section>
-@endsection
+@stop 
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

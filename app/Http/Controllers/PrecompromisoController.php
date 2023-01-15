@@ -8,6 +8,7 @@ use App\Tipodecompromiso;
 use App\Beneficiario;
 use App\detallesprecompromiso;
 use App\Ejecucione;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -53,6 +54,19 @@ class PrecompromisoController extends Controller
         $precompromisos = Precompromiso::where('status', 'AN')->paginate();
 
         return view('precompromiso.anuladas', compact('precompromisos'))
+            ->with('i', (request()->input('page', 1) - 1) * $precompromisos->perPage());
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexaprobadas()
+    {
+        $precompromisos = Precompromiso::where('status', 'AP')->paginate();
+
+        return view('precompromiso.aprobadas', compact('precompromisos'))
             ->with('i', (request()->input('page', 1) - 1) * $precompromisos->perPage());
     }
 
@@ -196,7 +210,37 @@ class PrecompromisoController extends Controller
     public function anular($id)
     {
         $precompromiso = Precompromiso::find($id);
+        $fecha = Carbon::now();
+        $precompromiso->fechaanulacion = $fecha;
         $precompromiso->status = 'AN';
+        $precompromiso->save();
+
+        return redirect()->route('precompromisos.index')
+            ->with('success', 'Precompromiso Anulado exitosamente.');
+     
+    }
+
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UNA REQUISICION
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function modificar($id)
+    {
+        $precompromiso = Precompromiso::find($id);
+       
+        $detallesprecompromisos = Detallesprecompromiso::where('precompromiso_id', $id)->get();
+
+        foreach($detallesprecompromisos as $rows){
+            $monto =  $rows->montocompromiso;
+            $ejecucion_id = $rows->ejecucion_id;
+            //Obtenemos el monto en la ejecucion 
+            $ejecucion = Ejecucione::find($ejecucion_id);
+            $ejecucion->decrement('monto_precomprometido', $monto);
+
+        }
+
+        $precompromiso->status = 'EP';
         $precompromiso->save();
 
         return redirect()->route('precompromisos.index')

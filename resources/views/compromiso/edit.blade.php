@@ -1,8 +1,10 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Update Compromiso
-@endsection
+@section('title', 'Compromisos')
+
+@section('content_header')
+    <h1> Editar Compromisos </h1>
+@stop
 
 @section('content')
     <section class="content container-fluid">
@@ -28,4 +30,7 @@
             </div>
         </div>
     </section>
-@endsection
+@stop 
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

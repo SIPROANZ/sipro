@@ -72,7 +72,15 @@
 											<td>{{ $ayudassociale->unidadadministrativa->denominacion }}</td>
 											<td>{{ $ayudassociale->tipodecompromiso->nombre }}</td>
 											<td>{{ $ayudassociale->beneficiario->nombre }}</td>
-                                            <td>{{ $ayudassociale->status }}</td>
+                                            <td>@if ($ayudassociale->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($ayudassociale->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($ayudassociale->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($ayudassociale->status == 'AN')
+                                                    ANULADA
+                                                @endif</td>
 
                                             <td>
                                                 <form action="{{ route('ayudassociales.anular',$ayudassociale->id) }}" method="POST">

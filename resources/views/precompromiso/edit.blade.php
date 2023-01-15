@@ -1,8 +1,10 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Update Precompromiso
-@endsection
+@section('title', 'Editar Precompromiso')
+
+@section('content_header')
+    <h1>Editar Precompromisos</h1>
+@stop
 
 @section('content')
     <section class="content container-fluid">
@@ -13,7 +15,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Update Precompromiso</span>
+                        <span class="card-title">Editar Precompromiso</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('precompromisos.update', $precompromiso->id) }}"  role="form" enctype="multipart/form-data">
@@ -28,4 +30,8 @@
             </div>
         </div>
     </section>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

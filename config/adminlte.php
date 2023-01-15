@@ -393,7 +393,8 @@ return [
                         ],
                     ],
                 ],
-
+                
+                /*
                 //CONTRATACION
                 [
                     'text'    => 'Contrataciones',
@@ -421,7 +422,7 @@ return [
                         ],
                     ],
                 ],
-
+                 */
                 //COMPROMISOS
                 [
                     'text'    => 'Compromisos',

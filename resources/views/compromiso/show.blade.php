@@ -1,8 +1,10 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    {{ $compromiso->name ?? 'Show Compromiso' }}
-@endsection
+@section('title', 'Compromiso')
+
+@section('content_header')
+    <h1>Compromiso</h1>
+@stop
 
 @section('content')
     <section class="content container-fluid">
@@ -14,30 +16,30 @@
                             <span class="card-title">Compromiso</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('compromisos.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('compromisos.index') }}"> Regresar</a>
                         </div>
                     </div>
 
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Unidadadministrativa Id:</strong>
-                            {{ $compromiso->unidadadministrativa_id }}
+                            <strong>Unidadadministrativa:</strong>
+                            {{ $compromiso->unidadadministrativa->unidadejecutora }}
                         </div>
                         <div class="form-group">
-                            <strong>Tipocompromiso Id:</strong>
-                            {{ $compromiso->tipocompromiso_id }}
+                            <strong>Tipocompromiso:</strong>
+                            {{ $compromiso->tipodecompromiso->nombre}}
                         </div>
                         <div class="form-group">
-                            <strong>Ncompromiso:</strong>
+                            <strong>Numero compromiso:</strong>
                             {{ $compromiso->ncompromiso }}
                         </div>
                         <div class="form-group">
-                            <strong>Beneficiario Id:</strong>
-                            {{ $compromiso->beneficiario_id }}
+                            <strong>Beneficiario:</strong>
+                            {{ $compromiso->beneficiario->nombre }}
                         </div>
                         <div class="form-group">
-                            <strong>Montocompromiso:</strong>
+                            <strong>Monto compromiso:</strong>
                             {{ $compromiso->montocompromiso }}
                         </div>
                         <div class="form-group">
@@ -49,19 +51,19 @@
                             {{ $compromiso->documento }}
                         </div>
                         <div class="form-group">
-                            <strong>Fechaanulacion:</strong>
-                            {{ $compromiso->fechaanulacion }}
+                            <strong>Fecha:</strong>
+                            {{ $compromiso->created_at }}
                         </div>
                         <div class="form-group">
-                            <strong>Precompromiso Id:</strong>
+                            <strong>Precompromiso:</strong>
                             {{ $compromiso->precompromiso_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Compra Id:</strong>
+                            <strong>Compra:</strong>
                             {{ $compromiso->compra_id }}
                         </div>
                         <div class="form-group">
-                            <strong>Ayuda Id:</strong>
+                            <strong>Ayuda:</strong>
                             {{ $compromiso->ayuda_id }}
                         </div>
 
@@ -134,4 +136,8 @@
             </div>
         </div>
     </div>
-@endsection
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

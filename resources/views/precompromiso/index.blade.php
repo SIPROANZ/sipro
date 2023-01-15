@@ -1,8 +1,10 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Precompromiso
-@endsection
+@section('title', 'Precompromisos En Proceso')
+
+@section('content_header')
+    <h1>Precompromisos En Proceso</h1>
+@stop
 
 @section('content')
     <div class="container-fluid">
@@ -17,8 +19,11 @@
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('precompromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                             <a href="{{ route('precompromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear Nuevo Precompromiso') }}
+                                </a>
+                                <a href="{{ route('precompromisos.aprobadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Aprobadas') }}
                                 </a>
                                 <a href="{{ route('precompromisos.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('En Proceso') }}
@@ -46,12 +51,12 @@
                                         <th>No</th>
                                         
 										<th>Documento</th>
-										<th>Montototal</th>
+										<th>Monto total</th>
 										<th>Concepto</th>
-										<th>Fechaanulacion</th>
-										<th>Unidadadministrativa Id</th>
-										<th>Tipocompromiso Id</th>
-										<th>Beneficiario Id</th>
+										<th>Fecha anulacion</th>
+										<th>Unidad administrativa</th>
+										<th>Tipo compromiso</th>
+										<th>Beneficiario</th>
                                         <th>Estado</th>
 
 
@@ -64,25 +69,31 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $precompromiso->documento }}</td>
-											<td>{{ $precompromiso->montototal }}</td>
+											<td>{{ number_format($precompromiso->montototal,2,',','.') }}</td>
 											<td>{{ $precompromiso->concepto }}</td>
 											<td>{{ $precompromiso->fechaanulacion }}</td>
 											<td>{{ $precompromiso->unidadadministrativa->unidadejecutora }}</td>
 											<td>{{ $precompromiso->tipodecompromiso->nombre}}</td>
 											<td>{{ $precompromiso->beneficiario->nombre }}</td>
-                                            <td>{{ $precompromiso->status }}</td>
+                                            <td>@if ($precompromiso->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($precompromiso->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($precompromiso->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($precompromiso->status == 'AN')
+                                                    ANULADA
+                                                @endif</td>
 
                                             <td>
                                                 <form action="{{ route('precompromisos.anular',$precompromiso->id) }}" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('precompromisos.agregar',$precompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Detalles"><i class="fas fa-outdent"></i></i></a>
                                                       
                                                     <a class="btn btn-sm btn-success" href="{{ route('precompromisos.edit',$precompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Precompromiso"><i class="fa fa-fw fa-edit"></i></a>
-                                                   
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('precompromisos.pdf',$precompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Precompromiso"><i class="fas fa-print"></i></a>
-
+                                     
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar Precompromiso"><i class="fa fa-fw fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Precompromiso"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
                                                 <form action="{{ route('precompromisos.aprobar',$precompromiso->id) }}" method="POST">
                                                     
@@ -103,4 +114,8 @@
             </div>
         </div>
     </div>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

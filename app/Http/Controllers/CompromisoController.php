@@ -19,6 +19,7 @@ use App\Detallesprecompromiso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use PDF;
 
 /**
@@ -242,8 +243,7 @@ class CompromisoController extends Controller
         elseif($compromiso->ayuda_id != NULL){
 
             $concepto = $compromiso->ayudassociale->concepto;
-
-            
+   
         }
         elseif($compromiso->compra_id != NULL){
 
@@ -300,10 +300,31 @@ class CompromisoController extends Controller
         $compromiso = Compromiso::find($id);
         $compromiso->status = 'PR';
         $compromiso->save();
-        //Obtener la compra y tambien actualizar su estado
+        //Obtener si es una compra, ayuda o precompromiso
+        if($compromiso->precompromiso_id != NULL){
+
+            $precompromiso = Precompromiso::find($compromiso->precompromiso_id);
+            $precompromiso->status = 'AP';
+            $precompromiso->save();
+
+        }
+        elseif($compromiso->ayuda_id != NULL){
+
+            $ayuda = Ayudassociale::find($compromiso->ayuda_id);
+            $ayuda->status = 'AP';
+            $ayuda->save();
+   
+        }
+        elseif($compromiso->compra_id != NULL){
+            //Obtener la compra y tambien actualizar su estado
         $compra = Compra::find($compromiso->compra_id);
         $compra->status = 'AP';
         $compra->save();
+              
+        }
+
+
+        
 
         //validar que alguno de los estatus tenga valor
         
@@ -388,7 +409,10 @@ class CompromisoController extends Controller
      */
     public function anular($id)
     {
+        
         $compromiso = Compromiso::find($id);
+        $fecha = Carbon::now();
+        $compromiso->fechaanulacion = $fecha;
         $compromiso->status = 'AN';
         $compromiso->save();
 

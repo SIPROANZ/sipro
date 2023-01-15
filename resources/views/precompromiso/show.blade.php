@@ -1,8 +1,10 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    {{ $precompromiso->name ?? 'Show Precompromiso' }}
-@endsection
+@section('title', 'Mostrar Precompromisos')
+
+@section('content_header')
+    <h1>Precompromisos</h1>
+@stop
 
 @section('content')
     <section class="content container-fluid">
@@ -54,4 +56,9 @@
             </div>
         </div>
     </section>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+

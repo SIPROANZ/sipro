@@ -38,8 +38,9 @@ class DetallesprecompromisoController extends Controller
         $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
         $precompromisos = Precompromiso::pluck('concepto', 'id');
         $ejecuciones = Ejecucione::pluck ('clasificadorpresupuestario', 'id');
+        $unidades = Unidadadministrativa::all();
 
-        return view('detallesprecompromiso.create', compact('detallesprecompromiso', 'unidadadministrativas', 'precompromisos', 'ejecuciones'));
+        return view('detallesprecompromiso.create', compact('unidades', 'detallesprecompromiso', 'unidadadministrativas', 'precompromisos', 'ejecuciones'));
     }
 
     /**
@@ -51,7 +52,7 @@ class DetallesprecompromisoController extends Controller
     public function store(Request $request)
     {
         request()->validate(Detallesprecompromiso::$rules);
-        $precompromiso_id = session('precompromisos');
+        
         //Obtener el id de la requisicion
         $precompromiso_id = session('precompromisos');
         //$request->requisicion_id=$requisicion; //cambiar el valor a la variable, para q se haga en el servidor y no en el cliente
@@ -61,7 +62,17 @@ class DetallesprecompromisoController extends Controller
 
       /*  return redirect()->route('detallesprecompromisos.index')
             ->with('success', 'Detallesprecompromiso created successfully.');
+
 */
+            //Agregar el total a la tabla principal
+            $precompromiso = Precompromiso::find($precompromiso_id);
+
+        $detallesprecompromiso = Detallesprecompromiso::where('precompromiso_id', $precompromiso_id)->get();
+        $suma = $detallesprecompromiso->sum('montocompromiso');
+        $precompromiso->montototal = $suma;
+        $precompromiso->save();
+
+
             if(session()->has('precompromisos')){
                 return redirect()->route('precompromisos.agregar',$precompromiso_id)
                 ->with('success', 'Registro agregado satisfactoriamente.');
@@ -96,8 +107,9 @@ class DetallesprecompromisoController extends Controller
         $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
         $precompromisos = Precompromiso::pluck('concepto', 'id');
         $ejecuciones = Ejecucione::pluck ('clasificadorpresupuestario', 'id');
+        $unidades = Unidadadministrativa::all();
 
-        return view('detallesprecompromiso.edit', compact('detallesprecompromiso', 'unidadadministrativas', 'precompromisos', 'ejecuciones' ));
+        return view('detallesprecompromiso.edit', compact('unidades','detallesprecompromiso', 'unidadadministrativas', 'precompromisos', 'ejecuciones' ));
     }
 
     /**
@@ -119,7 +131,15 @@ class DetallesprecompromisoController extends Controller
         return redirect()->route('detallesprecompromisos.index')
             ->with('success', 'Detallesprecompromiso updated successfully');
               */
-            $precompromiso_id = session('precompromisos');
+           
+              //Agregar el total a la tabla principal
+            $precompromiso = Precompromiso::find($precompromiso_id);
+
+            $detallesprecompromiso = Detallesprecompromiso::where('precompromiso_id', $precompromiso_id)->get();
+            $suma = $detallesprecompromiso->sum('montocompromiso');
+            $precompromiso->montototal = $suma;
+            $precompromiso->save();
+              
             if(session()->has('precompromisos')){
                 return redirect()->route('precompromisos.agregar',$precompromiso_id)
                 ->with('success', 'Registro agregado satisfactoriamente.');
@@ -149,5 +169,26 @@ class DetallesprecompromisoController extends Controller
                 return redirect()->route('precompromisos.index')
                 ->with('success', 'Registro Actualizado Exitosamente.');
             }
+    }
+
+    //para llenar un select dinamico
+    public function ejecucionpre(Request $request){
+        if(isset($request->texto)){
+            $ejecuc = Ejecucione::where('unidadadministrativa_id', $request->texto)->get();
+            return response()->json(
+                [
+                    'lista' => $ejecuc,
+                    'success' => true
+                ]
+                );
+        }else{
+            return response()->json(
+                [
+                    'success' => false
+                ]
+                );
+
+        }
+
     }
 }

@@ -9,6 +9,7 @@ use App\Beneficiario;
 use App\Detallesayuda;
 use App\Ejecucione;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use PDF;
 
 /**
@@ -253,6 +254,37 @@ class AyudassocialeController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
+    public function modificar($id)
+    {
+        $ayudassociale = Ayudassociale::find($id);
+       
+        //Regresar la ejecucion que se imputo en la ejecucion
+        //Obtener el detalle ejecucion y corroborar que haya disponibilidad
+        $detallesayudas = Detallesayuda::where('ayuda_id','=',$id)->get();
+        //Ciclo para validar que todas las partidas tengan disponibilidad
+        //Ciclo inverso a imputar en la ejecucion
+        foreach($detallesayudas as $rows){
+            $monto =  $rows->montocompromiso;
+            $ejecucion_id = $rows->ejecucion_id;
+            //Obtenemos el monto en la ejecucion 
+            $ejecucion = Ejecucione::find($ejecucion_id);
+            $ejecucion->decrement('monto_precomprometido', $monto);
+
+        }
+
+        $ayudassociale->status = 'EP';
+        $ayudassociale->save();
+
+        return redirect()->route('ayudassociales.index')
+            ->with('success', 'Compromiso Ya se Puede Modificar exitosamente.');
+         
+    }
+
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UNA REQUISICION
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function anular($id)
     {
         $ayudassociale = Ayudassociale::find($id);
@@ -277,6 +309,8 @@ class AyudassocialeController extends Controller
 
         }
 
+        $fecha = Carbon::now();
+        $ayudassociale->fechaanulacion = $fecha;
         $ayudassociale->status = 'AN';
         $ayudassociale->save();
 

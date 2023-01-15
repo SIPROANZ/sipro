@@ -94,6 +94,8 @@ Route::patch('/ayudassociales/aprobar/{ayuda}', [App\Http\Controllers\Ayudassoci
 
 Route::patch('/ayudassociales/anular/{ayuda}', [App\Http\Controllers\AyudassocialeController::class, 'anular'])->name('ayudassociales.anular')->middleware('auth');
 
+Route::patch('/ayudassociales/modificar/{ayuda}', [App\Http\Controllers\AyudassocialeController::class, 'modificar'])->name('ayudassociales.modificar')->middleware('auth');
+
 Route::get('ayudassociales/procesadas', [App\Http\Controllers\AyudassocialeController::class, 'indexprocesadas'])->name('ayudassociales.procesadas')->middleware('auth');
 
 Route::get('ayudassociales/anuladas', [App\Http\Controllers\AyudassocialeController::class, 'indexanuladas'])->name('ayudassociales.anuladas')->middleware('auth');
@@ -313,7 +315,12 @@ Route::get('/precompromisos/agregar/{precompromiso}', [App\Http\Controllers\Prec
 
 Route::patch('/precompromisos/aprobar/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'aprobar'])->name('precompromisos.aprobar')->middleware('auth');
 
+Route::patch('/precompromisos/modificar/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'modificar'])->name('precompromisos.modificar')->middleware('auth');
+
+
 Route::patch('/precompromisos/anular/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'anular'])->name('precompromisos.anular')->middleware('auth');
+
+Route::get('precompromisos/aprobadas', [App\Http\Controllers\PrecompromisoController::class, 'indexaprobadas'])->name('precompromisos.aprobadas')->middleware('auth');
 
 Route::get('precompromisos/procesadas', [App\Http\Controllers\PrecompromisoController::class, 'indexprocesadas'])->name('precompromisos.procesadas')->middleware('auth');
 
@@ -322,6 +329,10 @@ Route::get('precompromisos/anuladas', [App\Http\Controllers\PrecompromisoControl
 Route::get('precompromisos/pdf/{precompromiso}', [App\Http\Controllers\PrecompromisoController::class, 'pdf'])->name('precompromisos.pdf')->middleware('auth');
 
 Route::resource('precompromisos', App\Http\Controllers\PrecompromisoController::class)->middleware('auth');
+
+Route::post('detallesprecompromisos/ejecucionpre', [App\Http\Controllers\DetallesprecompromisoController::class, 'ejecucionpre']);
+
+Route::post('detallesprecompromisos/{precompromiso}/ejecucionpre', [App\Http\Controllers\DetallesprecompromisoController::class, 'ejecucionpre']);
 
 Route::resource('detallesprecompromisos', App\Http\Controllers\DetallesprecompromisoController::class)->middleware('auth');
 

@@ -1,8 +1,10 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Precompromiso
-@endsection
+@section('title', 'Precompromisos Anulados')
+
+@section('content_header')
+    <h1>Precompromisos Anulados</h1>
+@stop
 
 @section('content')
     <div class="container-fluid">
@@ -13,12 +15,15 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Precompromiso Anulados') }}
+                                {{ __('Precompromisos Anulados') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('precompromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                             <a href="{{ route('precompromisos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear Nuevo Precompromiso') }}
+                                </a>
+                                <a href="{{ route('precompromisos.aprobadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Aprobadas') }}
                                 </a>
                                 <a href="{{ route('precompromisos.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('En Proceso') }}
@@ -46,12 +51,12 @@
                                         <th>No</th>
                                         
 										<th>Documento</th>
-										<th>Montototal</th>
+										<th>Monto total</th>
 										<th>Concepto</th>
-										<th>Fechaanulacion</th>
-										<th>Unidadadministrativa Id</th>
-										<th>Tipocompromiso Id</th>
-										<th>Beneficiario Id</th>
+										<th>Fecha anulacion</th>
+										<th>Unidad administrativa</th>
+										<th>Tipo compromiso</th>
+										<th>Beneficiario</th>
                                         <th>Estado</th>
 
                                         <th>Opciones</th>
@@ -63,13 +68,22 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $precompromiso->documento }}</td>
-											<td>{{ $precompromiso->montototal }}</td>
+											<td>{{ number_format($precompromiso->montototal,2,',','.') }}</td>
+											
 											<td>{{ $precompromiso->concepto }}</td>
 											<td>{{ $precompromiso->fechaanulacion }}</td>
-											<td>{{ $precompromiso->unidadadministrativa_id }}</td>
-											<td>{{ $precompromiso->tipocompromiso_id }}</td>
-											<td>{{ $precompromiso->beneficiario_id }}</td>
-                                            <td>{{ $precompromiso->status }}</td>
+											<td>{{ $precompromiso->unidadadministrativa->unidadejecutora }}</td>
+											<td>{{ $precompromiso->tipodecompromiso->nombre}}</td>
+											<td>{{ $precompromiso->beneficiario->nombre }}</td>
+                                            <td>@if ($precompromiso->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($precompromiso->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($precompromiso->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($precompromiso->status == 'AN')
+                                                    ANULADA
+                                                @endif</td>
 
                                             <td>
                                                 

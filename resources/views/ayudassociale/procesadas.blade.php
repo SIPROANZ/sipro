@@ -77,7 +77,15 @@
                                             <td>
                                                
                                             <a class="btn btn-sm btn-primary " href="{{ route('ayudassociales.pdf',$ayudassociale->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Ayuda Social"><i class="fas fa-print"></i></a>
-                                            
+                                            <a class="btn btn-sm btn-primary " href="{{ route('ayudassociales.agregar',$ayudassociale->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Detalles"><i class="fas fa-outdent"></i></i></a>
+                                            <a class="btn btn-sm btn-success" href="{{ route('ayudassociales.edit',$ayudassociale->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Ayuda Social"><i class="fa fa-fw fa-edit"></i></a>
+                                                 
+                                            <form action="{{ route('ayudassociales.anular',$ayudassociale->id) }}" method="POST">
+                                               
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Ayuda Social"><i class="fa fa-fw fa-trash"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

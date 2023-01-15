@@ -159,6 +159,9 @@ class AyudassocialeController extends Controller
      */
     public function destroy($id)
     {
+
+        //Antes de eliminar descontar el monto que se va a eliminar 
+
         $ayudassociale = Ayudassociale::find($id)->delete();
 
         return redirect()->route('ayudassociales.index')
@@ -244,6 +247,7 @@ class AyudassocialeController extends Controller
 
     }
 
+  
     /**
      * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UNA REQUISICION
      * @return \Illuminate\Http\RedirectResponse
@@ -252,13 +256,34 @@ class AyudassocialeController extends Controller
     public function anular($id)
     {
         $ayudassociale = Ayudassociale::find($id);
+       
+        if($ayudassociale->status = 'PR' || $ayudassociale->status = 'AP'){ 
+        //Regresar la ejecucion que se imputo en la ejecucion
+        //Obtener el detalle ejecucion y corroborar que haya disponibilidad
+        $detallesayudas = Detallesayuda::where('ayuda_id','=',$id)->get();
+        //Ciclo para validar que todas las partidas tengan disponibilidad
+        //Ciclo inverso a imputar en la ejecucion
+        foreach($detallesayudas as $rows){
+            $monto =  $rows->montocompromiso;
+            $ejecucion_id = $rows->ejecucion_id;
+            //Obtenemos el monto en la ejecucion 
+            $ejecucion = Ejecucione::find($ejecucion_id);
+            $ejecucion->decrement('monto_precomprometido', $monto);
+
+        }
+
         $ayudassociale->status = 'AN';
         $ayudassociale->save();
 
+        }
+
+        $ayudassociale->status = 'AN';
+        $ayudassociale->save();
+
+
         return redirect()->route('ayudassociales.index')
             ->with('success', 'Compromiso Anulado exitosamente.');
-
-            
+         
     }
 
     /**

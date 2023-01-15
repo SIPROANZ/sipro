@@ -83,13 +83,30 @@
                                             <td style="text-align: center">{{ $requisicione->concepto }}</td>
 											<td style="text-align: center">{{ $requisicione->uso }}</td>
 											<td style="text-align: center">{{ $requisicione->tipossgp->denominacion }}</td>
-											<td style="text-align: center">{{ $requisicione->estatus }}</td>
-
+											<td style="text-align: center">
+                                            @if ($requisicione->estatus == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($requisicione->estatus == 'PR')
+                                                    PROCESADA
+                                                @elseif ($requisicione->estatus == 'AP')
+                                                    APROBADA
+                                                @elseif ($requisicione->estatus == 'AN')
+                                                    ANULADA
+                                                @endif
+                                        </td>
                                             <td>
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.pdf',$requisicione->id) }}"><i class="fa fa-fw fa-eye"></i> Imprimir</a>
+                                                    
+                                                    <form action="{{ route('requisiciones.anular',$requisicione->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.pdf',$requisicione->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Requisicion"><i class="fa fa-fw fa-eye"></i></a>
                                                     <a class="btn btn-sm btn-primary " href="{{ route('requisiciones.agregar',$requisicione->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Producto BOS"><i class="fas fa-outdent"></i></i></a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('requisiciones.edit',$requisicione->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Requisicion"><i class="fa fa-fw fa-edit"></i></a>
                                                    
+                                                    
+                                                    <!-- Agregar detalles BOS a la requisicion -->
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Requisicion"><i class="fa fa-fw fa-trash"></i></button>
+                                                </form>
                                                 </td>
                                            
                                         </tr>

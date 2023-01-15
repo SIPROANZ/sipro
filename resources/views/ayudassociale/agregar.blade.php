@@ -1,8 +1,10 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    {{ $ayudassociale->name ?? 'Show Ayudassociale' }}
-@endsection
+@section('title', 'Agregar Ayuda Social')
+
+@section('content_header')
+    <h1>Agregar Ayuda Social</h1>
+@stop
 
 @section('content')
     <section class="content container-fluid">
@@ -29,7 +31,7 @@
                         </div>
                         <div class="form-group">
                             <strong>Monto total de la ayuda:</strong>
-                            {{ $ayudassociale->montototal }}
+                            {{ number_format($ayudassociale->montototal,2,',','.') }}
                         </div>
                         <div class="form-group">
                             <strong>Concepto:</strong>
@@ -60,12 +62,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Detallesayuda') }}
+                                {{ __('Detalles ayuda, imputacion') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('detallesayudas.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Crear nuevo registro') }}
                                 </a>
                               </div>
                         </div>
@@ -83,10 +85,10 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Montocompromiso</th>
+										<th>Monto Compromiso</th>
 										<th># Ayuda</th>
-										<th>Unidadadministrativa</th>
-										<th>Ejecucion</th>
+										<th>Unidad Administrativa</th>
+										<th>Clasificador Presupuestario</th>
 
                                         <th>Opciones</th>
                                     </tr>
@@ -96,7 +98,7 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $detallesayuda->montocompromiso }}</td>
+											<td style="text-align: right">{{ number_format($detallesayuda->montocompromiso,2,',','.') }}</td>
 											<td>{{ $detallesayuda->ayuda_id }}</td>
 											<td>{{ $detallesayuda->unidadadministrativa->unidadejecutora }}</td>
 											<td>{{ $detallesayuda->ejecucione->clasificadorpresupuestario }}</td>
@@ -120,4 +122,8 @@
             </div>
         </div>
     </div>
-@endsection
+@stop 
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

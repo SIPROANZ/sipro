@@ -198,7 +198,21 @@ class DetallesrequisicioneController extends Controller
 
         $requisiciones = Requisicione::pluck('concepto', 'id');
 
-        return view('detallesrequisicione.edit', compact('detallesrequisicione' , 'bos', 'requisiciones'));
+        $requisicion_id = session('requisicion');
+        $requisicion = Requisicione::find($requisicion_id);
+        $unidadadministrativa_id = $requisicion->unidadadministrativa_id;
+
+         //Agregar BOS qeu dependa de la unidad administrativa que esta solicitando la requisicion
+         $detallesbos = DB::table('bos')
+         ->join('productoscps', 'bos.producto_id', '=', 'productoscps.producto_id') 
+         ->join('clasificadorpresupuestarios', 'clasificadorpresupuestarios.id', '=', 'productoscps.clasificadorp_id')
+         ->join('ejecuciones', 'ejecuciones.clasificadorpresupuestario', '=', 'clasificadorpresupuestarios.cuenta')
+         ->where('ejecuciones.unidadadministrativa_id',$unidadadministrativa_id)
+         ->select('bos.descripcion', 'bos.id')
+         ->pluck('bos.descripcion', 'bos.id'); 
+            //Fin de agregar bos
+
+        return view('detallesrequisicione.edit', compact('unidadadministrativa_id', 'detallesrequisicione' , 'bos', 'requisiciones', 'detallesbos'));
     }
 
     /**

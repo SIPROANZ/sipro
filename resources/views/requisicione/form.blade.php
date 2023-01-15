@@ -48,7 +48,7 @@
             {{ Form::label('Tipo requisicion') }}
             {{ Form::select('tiposgp_id', $tipossgps, $requisicione->tiposgp_id, ['class' => 'form-control' . ($errors->has('tiposgp_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione tipo requisicion']) }}
             {!! $errors->first('tiposgp_id', '<div class="invalid-feedback">:message</div>') !!}
-            {{ Form::hidden('estatus', 'EP', ['class' => 'form-control' . ($errors->has('estatus') ? ' is-invalid' : ''), 'placeholder' => 'Estatus']) }}
+            {{ Form::hidden('estatus', $requisicione->estatus, ['class' => 'form-control' . ($errors->has('estatus') ? ' is-invalid' : ''), 'placeholder' => 'Estatus']) }}
             {!! $errors->first('estatus', '<div class="invalid-feedback">:message</div>') !!}
        
        

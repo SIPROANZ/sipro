@@ -58,6 +58,19 @@ class AyudassocialeController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $ayudassociales->perPage());
     }
 
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexaprobadas()
+    {
+        $ayudassociales = Ayudassociale::where('status', 'AP')->paginate();
+
+        return view('ayudassociale.aprobadas', compact('ayudassociales'))
+            ->with('i', (request()->input('page', 1) - 1) * $ayudassociales->perPage());
+    }
+
     /**
      * Show the form for creating a new resource.
      *

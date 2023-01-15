@@ -1,8 +1,10 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    {{ $ayudassociale->name ?? 'Show Ayudassociale' }}
-@endsection
+@section('title', 'Mostrar Ayuda Social')
+
+@section('content_header')
+    <h1>Mostrar Ayuda Social</h1>
+@stop
 
 @section('content')
     <section class="content container-fluid">
@@ -50,4 +52,8 @@
             </div>
         </div>
     </section>
-@endsection
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

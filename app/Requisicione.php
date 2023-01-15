@@ -38,7 +38,6 @@ class Requisicione extends Model
 		'institucion_id' => 'required',
 		'unidadadministrativa_id' => 'required',
 		'tiposgp_id' => 'required',
-		'estatus' => 'required',
     ];
 
     protected $perPage = 20;

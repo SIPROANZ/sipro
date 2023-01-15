@@ -98,7 +98,7 @@ Route::get('ayudassociales/procesadas', [App\Http\Controllers\AyudassocialeContr
 
 Route::get('ayudassociales/anuladas', [App\Http\Controllers\AyudassocialeController::class, 'indexanuladas'])->name('ayudassociales.anuladas')->middleware('auth');
 
-
+Route::get('ayudassociales/aprobadas', [App\Http\Controllers\AyudassocialeController::class, 'indexaprobadas'])->name('ayudassociales.aprobadas')->middleware('auth');
 
 Route::resource('ayudassociales', App\Http\Controllers\AyudassocialeController::class)->middleware('auth');
 
@@ -173,8 +173,6 @@ Route::patch('/requisiciones/aprobar/{requisicione}', [App\Http\Controllers\Requ
 
 Route::resource('requisiciones', App\Http\Controllers\RequisicioneController::class)->middleware('auth');
 
-//////////
-
 Route::get('ordenpagos/compromisos', [App\Http\Controllers\OrdenpagoController::class, 'indexcompromisos'])->name('ordenpagos.compromisos')->middleware('auth');
 
 Route::get('/ordenpagos/agregar/{ordenpago}', [App\Http\Controllers\OrdenpagoController::class, 'agregarordenpago'])->name('ordenpagos.agregarordenpago')->middleware('auth');
@@ -192,7 +190,6 @@ Route::get('ordenpagos/procesados', [App\Http\Controllers\OrdenpagoController::c
 Route::get('ordenpagos/anulados', [App\Http\Controllers\OrdenpagoController::class, 'indexanuladas'])->name('ordenpagos.anulados')->middleware('auth');
 
 Route::patch('/ordenpagos/anular/{ordenpago}', [App\Http\Controllers\OrdenpagoController::class, 'anular'])->name('ordenpagos.anular')->middleware('auth');
-//////////
 
 Route::resource('ordenpagos', App\Http\Controllers\OrdenpagoController::class)->middleware('auth');
 
@@ -305,6 +302,10 @@ Route::resource('modificaciones', App\Http\Controllers\ModificacioneController::
 Route::resource('tipomodificaciones', App\Http\Controllers\TipomodificacioneController::class)->middleware('auth');
 
 Route::resource('detallesmodificaciones', App\Http\Controllers\DetallesmodificacioneController::class)->middleware('auth');
+
+Route::post('detallesayudas/ejecucion', [App\Http\Controllers\DetallesayudaController::class, 'ejecucion']);
+
+Route::post('detallesayudas/{ayuda}/ejecucion', [App\Http\Controllers\DetallesayudaController::class, 'ejecucion']);
 
 Route::resource('detallesayudas', App\Http\Controllers\DetallesayudaController::class)->middleware('auth');
 

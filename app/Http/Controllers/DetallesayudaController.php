@@ -38,7 +38,9 @@ class DetallesayudaController extends Controller
         $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
         $ejecuciones = Ejecucione::pluck('clasificadorpresupuestario', 'id');
 
-        return view('detallesayuda.create', compact('detallesayuda', 'unidadadministrativas', 'ejecuciones'));
+        $unidades = Unidadadministrativa::all();
+
+        return view('detallesayuda.create', compact('unidades', 'detallesayuda', 'unidadadministrativas', 'ejecuciones'));
     }
 
     /**
@@ -57,6 +59,16 @@ class DetallesayudaController extends Controller
          $request->merge(['ayuda_id'  => $ayuda_id]);
 
         $detallesayuda = Detallesayuda::create($request->all());
+
+        //Obtener la suma de todos los detalles ayuda paara sumarlo en la tabla principal detalles ayuda
+        $ayuda = Ayudassociale::find($ayuda_id);
+
+        $detallesayuda = Detallesayuda::where('ayuda_id', $ayuda_id)->get();
+        $suma = $detallesayuda->sum('montocompromiso');
+        $ayuda->montototal = $suma;
+        $ayuda->save();
+
+
           /*
         return redirect()->route('detallesayudas.index')
             ->with('success', 'Detallesayuda created successfully.');
@@ -95,7 +107,9 @@ class DetallesayudaController extends Controller
         $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
         $ejecuciones = Ejecucione::pluck('clasificadorpresupuestario', 'id');
 
-        return view('detallesayuda.edit', compact('detallesayuda', 'unidadadministrativas', 'ejecuciones'));
+        $unidades = Unidadadministrativa::all();
+
+        return view('detallesayuda.edit', compact('unidades', 'detallesayuda', 'unidadadministrativas', 'ejecuciones'));
     }
 
     /**
@@ -149,5 +163,26 @@ class DetallesayudaController extends Controller
                 return redirect()->route('ayudassociales.index')
                 ->with('success', 'Registro Actualizado Exitosamente.');
             }
+    }
+
+      //para llenar un select dinamico
+      public function ejecucion(Request $request){
+        if(isset($request->texto)){
+            $ejecuc = Ejecucione::where('unidadadministrativa_id', $request->texto)->get();
+            return response()->json(
+                [
+                    'lista' => $ejecuc,
+                    'success' => true
+                ]
+                );
+        }else{
+            return response()->json(
+                [
+                    'success' => false
+                ]
+                );
+
+        }
+
     }
 }

@@ -1,8 +1,10 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Ayudassociale
-@endsection
+@section('title', 'Ayudas Sociales Anuladas')
+
+@section('content_header')
+    <h1>Ayudas Sociales Anuladas</h1>
+@stop
 
 @section('content')
     <div class="container-fluid">
@@ -19,6 +21,9 @@
                              <div class="float-right">
                                 <a href="{{ route('ayudassociales.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Nueva Ayuda Social') }}
+                                </a>
+                                <a href="{{ route('ayudassociales.aprobadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Aprobadas') }}
                                 </a>
                                 <a href="{{ route('ayudassociales.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('En Proceso') }}
@@ -62,7 +67,7 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $ayudassociale->documento }}</td>
-											<td>{{ $ayudassociale->montototal }}</td>
+											<td style="text-align: right">{{ number_format($ayudassociale->montototal,2,',','.') }}</td>
 											<td>{{ $ayudassociale->concepto }}</td>
 											<td>{{ $ayudassociale->unidadadministrativa->denominacion }}</td>
 											<td>{{ $ayudassociale->tipodecompromiso->nombre }}</td>
@@ -85,4 +90,8 @@
             </div>
         </div>
     </div>
-@endsection
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

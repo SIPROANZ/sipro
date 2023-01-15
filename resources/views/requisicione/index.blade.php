@@ -84,7 +84,17 @@
                                             <td style="text-align: center">{{ $requisicione->concepto }}</td>
 											<td style="text-align: center">{{ $requisicione->uso }}</td>
 											<td style="text-align: center">{{ $requisicione->tipossgp->denominacion }}</td>
-											<td style="text-align: center">{{ $requisicione->estatus }}</td>
+											<td style="text-align: center">
+                                            @if ($requisicione->estatus == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($requisicione->estatus == 'PR')
+                                                    PROCESADA
+                                                @elseif ($requisicione->estatus == 'AP')
+                                                    APROBADA
+                                                @elseif ($requisicione->estatus == 'AN')
+                                                    ANULADA
+                                                @endif
+                                        </td>
 
                                             <td>
                                                 <div class="row">

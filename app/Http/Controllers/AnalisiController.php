@@ -66,7 +66,7 @@ class AnalisiController extends Controller
     {
         $analisi = new Analisi();
 
-        $unidadesadministrativas = Unidadadministrativa::pluck('denominacion', 'id');
+        $unidadesadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
 
         $unidades = Unidadadministrativa::all();
 
@@ -122,11 +122,13 @@ class AnalisiController extends Controller
     {
         $analisi = Analisi::find($id);
 
-        $unidadesadministrativas = Unidadadministrativa::pluck('denominacion', 'id');
+        $unidadesadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
         $requisiciones = Requisicione::pluck('concepto', 'id');
         $criterios = Criterio::pluck('nombre', 'id');
 
-        return view('analisi.edit', compact('analisi', 'unidadesadministrativas', 'requisiciones', 'criterios'));
+        $unidades = Unidadadministrativa::all();
+
+        return view('analisi.edit', compact('unidades', 'analisi', 'unidadesadministrativas', 'requisiciones', 'criterios'));
     }
 
     /**

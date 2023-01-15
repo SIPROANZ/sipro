@@ -136,6 +136,7 @@ class RequisicioneController extends Controller
 
        // $request->correlativo = $numero_correlativo //18; 
          $request->merge(['correlativo'  => $numero_correlativo]);
+         $request->merge(['estatus'  => 'EP']);
 
 
         $requisicione = Requisicione::create($request->all());

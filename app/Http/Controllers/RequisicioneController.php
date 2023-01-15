@@ -64,27 +64,24 @@ class RequisicioneController extends Controller
      */
     public function pdf($id)
     {
-        
         $requisicione = Requisicione::find($id);
         // $detallesrequisiciones = Detallesrequisicione::where('requisicion_id','=',$id)->paginate();
 
         //Obtener las unidades de medidas de los productos, tenemos bos, producto, unidad medida
          $detallesrequisiciones = DB::table('detallesrequisiciones')
             ->where('requisicion_id', $id)
-            ->join('bos', 'bos.id', '=', 'detallesrequisiciones.bos_id') 
+            ->join('bos', 'bos.id', '=', 'detallesrequisiciones.bos_id')
             ->join('unidadmedidas', 'unidadmedidas.id', '=', 'bos.unidadmedida_id')
             ->select('detallesrequisiciones.cantidad', 'bos.descripcion', 'unidadmedidas.nombre')
-            ->get(); 
+            ->get();
 
         // Obtener las partidas que tienen que ver con esta requisicion a traves del bos y productos
         //declaro mi arrray partidas
         $partidas = DB::table('requidetclaspres')->where('requisicion_id', $id)->select('meta_id', 'claspres')->get();
-            
+
 
         $pdf = PDF::loadView('requisicione.pdf', ['requisicione'=>$requisicione, 'detallesrequisiciones'=>$detallesrequisiciones, 'partidas'=>$partidas]);
         return $pdf->stream();
-
-        
     }
 
     /**
@@ -102,7 +99,7 @@ class RequisicioneController extends Controller
         $tipossgps = Tipossgp::pluck('denominacion' , 'id');
 
        return view('requisicione.create', compact('requisicione' , 'ejercicios' , 'instituciones' , 'unidadadministrativas', 'tipossgps'));
-              
+
     }
 
     /**
@@ -117,12 +114,12 @@ class RequisicioneController extends Controller
 
         //Obtener ultimo numero de requisicion dependiendo si es compra, servicio o suministro
         $tipo_requisicion = $request->tiposgp_id;
-        
+
         $max_correlativo = DB::table('requisiciones')->where('tiposgp_id', $tipo_requisicion)->max('correlativo');
 
         $numero_correlativo = $max_correlativo + 1;
 
-       // $request->correlativo = $numero_correlativo //18; 
+       // $request->correlativo = $numero_correlativo //18;
          $request->merge(['correlativo'  => $numero_correlativo]);
 
 
@@ -182,7 +179,7 @@ class RequisicioneController extends Controller
         $tipossgps = Tipossgp::pluck('denominacion' , 'id');
 
        return view('requisicione.edit', compact('requisicione' , 'ejercicios' , 'instituciones' , 'unidadadministrativas', 'tipossgps'));
-              
+
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Analisi;
 use App\Compromiso;
 use App\Precompromiso;
 use App\Detallescompromiso;
@@ -11,9 +12,13 @@ use App\Tipodecompromiso;
 use App\Detallesanalisi;
 use App\Ejecucione;
 use App\Ayudassociale;
+use App\Clasificadorpresupuestario;
 use App\Detallesayuda;
 use App\Detallesprecompromiso;
+use App\Requisicione;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use PDF;
 
@@ -103,7 +108,7 @@ class CompromisoController extends Controller
             $detallescompromiso = Detallescompromiso::create($detalles_compromisos);
 
         }
-        
+
         return redirect()->route('compromisos.index')
             ->with('success', 'Compromiso created successfully.');
     }
@@ -138,8 +143,8 @@ class CompromisoController extends Controller
         $detallesanalisi = Detallesanalisi::find($compra->analisis_id);
         $proveedor = $detallesanalisi->proveedor_id;
 
-        $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id'); 
-        
+        $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id');
+
         return view('compromiso.edit', compact('compromiso', 'compra', 'tipocompromisos', 'proveedor'));
     }
 
@@ -183,7 +188,7 @@ class CompromisoController extends Controller
     {
         $compra_id = $id;
         $compromiso = new Compromiso();
-        
+
         //Cambiar el estatus de la compra para que no salga mas en el listado a comprometer
         $compra = Compra::find($compra_id);
         $compra->status = 'AP';
@@ -193,8 +198,8 @@ class CompromisoController extends Controller
         $proveedor = $detallesanalisi->proveedor_id;
         $proveedor = 1;
 
-        $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id'); 
-       
+        $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id');
+
         return view('compromiso.agregarcompromiso', compact('compra', 'compromiso', 'tipocompromisos', 'proveedor'));
     }
 
@@ -221,16 +226,64 @@ class CompromisoController extends Controller
      */
     public function pdf($id)
     {
-        
         $compromiso = Compromiso::find($id);
+        $concepto = 'Es Null';
 
         $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->paginate();
-        
+        $totalcompromiso = $detallescompromisos->sum('montocompromiso');
 
-        $pdf = PDF::loadView('compromiso.pdf', ['compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos]);
+        $datos = array();
+
+        if($compromiso->precompromiso_id != NULL){
+
+            $concepto = $compromiso->precompromiso->concepto;
+
+        }
+        elseif($compromiso->ayuda_id != NULL){
+
+            $concepto = $compromiso->ayudassociale->concepto;
+
+
+        }
+        elseif($compromiso->compra_id != NULL){
+
+            $compra_id = $compromiso->compra_id;
+            $rs_compra = Compra::find($compra_id);
+            $analisis_id = $rs_compra->analisis_id;
+            $rs_analisis = Analisi::find($analisis_id);
+            $requisicion_id = $rs_analisis->requisicion_id;
+            $rs_requisicion = Requisicione::find($requisicion_id);
+            $concepto = $rs_requisicion->concepto;
+        }
+        foreach($detallescompromisos as $rows){
+            //Obtener la denominacion a partir de la cuenta
+            $ejecucion = Ejecucione::find($rows->ejecucion_id);
+            $cuenta = Clasificadorpresupuestario::where('cuenta', $ejecucion->clasificadorpresupuestario)->first();
+            $datos = Arr::add($datos, $rows->ejecucion_id, $cuenta->denominacion);
+
+        }
+
+        $status=null;
+
+        if($compromiso->status=='AP'){
+            $status='APROBADO';
+        }
+        elseif($compromiso->status=='PR'){
+            $status='PROCESADO';
+        }
+        elseif($compromiso->status=='EP'){
+            $status='EN PROCESO';
+        }
+        elseif($compromiso->status=='AN'){
+            $status='ANULADO';
+        }
+        elseif($compromiso->status=='RV '){
+            $status='RESERVADO';
+        }
+
+
+        $pdf = PDF::loadView('compromiso.pdf', ['compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos, 'datos'=>$datos, 'totalcompromiso'=>$totalcompromiso, 'concepto'=>$concepto, 'status'=> $status]);
         return $pdf->stream();
-
-        
     }
 
     //Metodo para aprobar un analisis de cotizacion
@@ -252,13 +305,13 @@ class CompromisoController extends Controller
         $compra->save();
 
         //validar que alguno de los estatus tenga valor
-        
+
 
         //Obtener el detalle ejecucion y corroborar que haya disponibilidad
         $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->get();
         //Ciclo para validar que todas las partidas tengan disponibilidad
         foreach($detallescompromisos as $rows){
-            //Obtener la ejecucion 
+            //Obtener la ejecucion
             $ejecucion = Ejecucione::find($rows->ejecucion_id);
             //Hacer el if
             if($rows->montocompromiso > $ejecucion->monto_por_comprometer){
@@ -270,14 +323,14 @@ class CompromisoController extends Controller
         if($aprobado == 1){
         //Ciclo para imputar
         foreach($detallescompromisos as $rows){
-            //Obtener la ejecucion 
+            //Obtener la ejecucion
                 $ejecucion = Ejecucione::find($rows->ejecucion_id);
                 $ejecucion->increment('monto_comprometido', $rows->montocompromiso);
                 $ejecucion->decrement('monto_por_comprometer', $rows->montocompromiso);
                 $ejecucion->decrement('monto_precomprometido', $rows->montocompromiso);
              }
          }
-        
+
         if($aprobado == 1){
             return redirect()->route('compromisos.index')
             ->with('success', 'Compromiso Aprobado Exitosamente. ');
@@ -341,7 +394,7 @@ class CompromisoController extends Controller
         return redirect()->route('compromisos.index')
             ->with('success', 'Compromiso Anulado exitosamente.');
 
-            
+
     }
 
     //Agregar Ayuda
@@ -355,7 +408,7 @@ class CompromisoController extends Controller
     {
         $ayuda_id = $id;
         $compromiso = new Compromiso();
-        
+
         //Cambiar el estatus de la compra para que no salga mas en el listado a comprometer
         $ayuda = Ayudassociale::find($ayuda_id);
         $ayuda->status = 'AP';
@@ -363,8 +416,8 @@ class CompromisoController extends Controller
 
         $beneficiario = $ayuda->beneficiario_id;
 
-        $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id'); 
-       
+        $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id');
+
         return view('compromiso.agregarayuda', compact('ayuda', 'compromiso', 'tipocompromisos', 'beneficiario'));
     }
 
@@ -406,7 +459,7 @@ class CompromisoController extends Controller
             $detallescompromiso = Detallescompromiso::create($detalles_compromisos);
 
         }
-        
+
         return redirect()->route('compromisos.index')
             ->with('success', 'Compromiso created successfully.');
     }
@@ -449,7 +502,7 @@ class CompromisoController extends Controller
             $detallescompromiso = Detallescompromiso::create($detalles_compromisos);
 
         }
-        
+
         return redirect()->route('compromisos.index')
             ->with('success', 'Compromiso created successfully.');
     }
@@ -465,7 +518,7 @@ class CompromisoController extends Controller
     {
         $precompromiso_id = $id;
         $compromiso = new Compromiso();
-        
+
         //Cambiar el estatus de la compra para que no salga mas en el listado a comprometer
         $precompromiso = Precompromiso::find($precompromiso_id);
         $precompromiso->status = 'AP';
@@ -473,8 +526,8 @@ class CompromisoController extends Controller
 
         $beneficiario = $precompromiso->beneficiario_id;
 
-        $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id'); 
-       
+        $tipocompromisos = Tipodecompromiso::pluck('nombre', 'id');
+
         return view('compromiso.agregarprecompromiso', compact('precompromiso', 'compromiso', 'tipocompromisos', 'beneficiario'));
     }
 

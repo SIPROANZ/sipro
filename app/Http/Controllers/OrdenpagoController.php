@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Analisi;
+use App\Clasificadorpresupuestario;
+use App\Compra;
 use App\Compromiso;
 use App\Detalleordenpago;
 use App\Detalleretencione;
+use App\Detallesanalisi;
 use App\Detallescompromiso;
 use App\Ejecucione;
 use App\Ordenpago;
+use App\Requisicione;
+use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -48,7 +55,6 @@ class OrdenpagoController extends Controller
     public function create()
     {
         $ordenpago = new Ordenpago();
-
         return view('ordenpago.create', compact('ordenpago'));
     }
 
@@ -75,23 +81,6 @@ class OrdenpagoController extends Controller
         //dd($compromiso);
         $compromiso->status = 'AP';
         $compromiso->save();
-
-/*         //Agregar los clasificadores presupuestarios al compomiso
-        $compra_id = $request->compra_id;
-        //Obtener el detalle de las comprascps
-        $detalles_comprascp = Comprascp::where('compra_id', $compra_id)->get();
-
-        foreach($detalles_comprascp as $row){
-            //crear el array datos para agregarlo al detalle compromiso
-            $detalles_compromisos=[
-                'montocompromiso'=> $row->monto,
-                'compromiso_id'=> $compromiso_id,
-                'unidadadministrativa_id'=> $row->unidadadministrativa_id,
-                'ejecucion_id'=> $row->ejecucion_id,
-            ];
-
-            //agregar detalles del compromiso
-            $detallescompromiso = Detallescompromiso::create($detalles_compromisos); */
 
         return redirect()->route('ordenpagos.index')
             ->with('success', 'Orden de Pago creada exitosamente.');
@@ -155,6 +144,64 @@ class OrdenpagoController extends Controller
             ->with('success', 'Ordenpago deleted successfully');
     }
 
+    public function pdf($id)
+    {
+        $compromiso = Compromiso::find($id);
+        $ordenpago = Ordenpago::find($id);
+        $concepto = 'Es Null';
+
+        $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->paginate();
+        $totalcompromiso = $detallescompromisos->sum('montocompromiso');
+
+        $datos = array();
+
+        if($compromiso->precompromiso_id != NULL){
+            $concepto = $compromiso->precompromiso->concepto;
+        }
+        elseif($compromiso->ayuda_id != NULL){
+            $concepto = $compromiso->ayudassociale->concepto;
+        }
+        elseif($compromiso->compra_id != NULL){
+
+            $compra_id = $compromiso->compra_id;
+            $rs_compra = Compra::find($compra_id);
+            $analisis_id = $rs_compra->analisis_id;
+            $rs_analisis = Analisi::find($analisis_id);
+            $requisicion_id = $rs_analisis->requisicion_id;
+            $rs_requisicion = Requisicione::find($requisicion_id);
+            $concepto = $rs_requisicion->concepto;
+        }
+        foreach($detallescompromisos as $rows){
+            //Obtener la denominacion a partir de la cuenta
+            $ejecucion = Ejecucione::find($rows->ejecucion_id);
+            $cuenta = Clasificadorpresupuestario::where('cuenta', $ejecucion->clasificadorpresupuestario)->first();
+            $datos = Arr::add($datos, $rows->ejecucion_id, $cuenta->denominacion);
+
+        }
+
+        $status=null;
+
+        if($ordenpago->status=='AP'){
+            $status='APROBADO';
+        }
+        elseif($ordenpago->status=='PR'){
+            $status='PROCESADO';
+        }
+        elseif($ordenpago->status=='EP'){
+            $status='EN PROCESO';
+        }
+        elseif($ordenpago->status=='AN'){
+            $status='ANULADO';
+        }
+        elseif($ordenpago->status=='RV '){
+            $status='RESERVADO';
+        }
+        $partidas = DB::table('requidetclaspres')->where('requisicion_id', $ordenpago->compromiso->compra->analisi->requisicione->id)->select('meta_id', 'claspres')->get();
+
+        $pdf = PDF::loadView('ordenpago.pdf', ['partidas'=>$partidas, 'ordenpago'=>$ordenpago, 'compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos, 'datos'=>$datos, 'totalcompromiso'=>$totalcompromiso, 'concepto'=>$concepto, 'status'=> $status]);
+        return $pdf->stream();
+    }
+
         /**
      * Display the specified resource agregar detalles a una requisicion.
      *
@@ -180,11 +227,19 @@ class OrdenpagoController extends Controller
     {
         $compromiso_id = $id;
         $ordenpago = new Ordenpago();
-
         $compromiso = Compromiso::find($compromiso_id);
-/*         $compromiso->status = 'AP';
-        $compromiso->save();
-        $proveedor = $compromiso->beneficiario->nombre; */
+
+
+/////////////////////////////////////////////////////////////////////
+        $detalles_analisis = Detallesanalisi::where('analisis_id', $compromiso->compra->analisi->id)->get();
+
+        foreach($detalles_analisis as $row){
+            if ($row->iva == 0) {
+                $ordenpago->montoexento += $row->subtotal;
+            } else {
+
+            }
+        }
 
         return view('ordenpago.agregarordenpago', compact('compromiso', 'ordenpago'));
     }
@@ -254,6 +309,14 @@ class OrdenpagoController extends Controller
         $ordenpagos = Ordenpago::where('status', 'PR')->paginate();
 
         return view('ordenpago.procesados', compact('ordenpagos'))
+            ->with('i', (request()->input('page', 1) - 1) * $ordenpagos->perPage());
+    }
+
+    public function indexaprobadas()
+    {
+        $ordenpagos = Ordenpago::where('status', 'AP')->paginate();
+
+        return view('ordenpago.aprobados', compact('ordenpagos'))
             ->with('i', (request()->input('page', 1) - 1) * $ordenpagos->perPage());
     }
 

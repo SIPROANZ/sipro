@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Financiamiento extends Model
 {
-    
+
     static $rules = [
 		'nombre' => 'required',
     ];
@@ -43,7 +43,7 @@ class Financiamiento extends Model
     {
         return $this->hasMany('App\Ejecuciondetalle', 'financiamiento_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -51,7 +51,7 @@ class Financiamiento extends Model
     {
         return $this->hasMany('App\Ejecucione', 'financiamiento_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -59,7 +59,7 @@ class Financiamiento extends Model
     {
         return $this->hasMany('App\Requidetbo', 'financiamiento_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -67,6 +67,6 @@ class Financiamiento extends Model
     {
         return $this->hasMany('App\Requidetclaspre', 'financiamiento_id', 'id');
     }
-    
+
 
 }

@@ -26,6 +26,9 @@
                                 <a href="{{ route('ordenpagos.procesados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                 {{ __('Procesados') }}
                                 </a>
+                                <a href="{{ route('ordenpagos.aprobados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                {{ __('Aprobados') }}
+                                </a>
                                 <a href="{{ route('ordenpagos.anulados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                 {{ __('Anulados') }}
                                 </a>
@@ -65,7 +68,7 @@
                                             <td>{{ ++$i }}</td>
 
 											<td style="text-align: left">{{ $ordenpago->nordenpago }}</td>
-											<td style="text-align: left">{{ $ordenpago->compromiso_id }}</td>
+											<td style="text-align: left">{{ $ordenpago->compromiso->ncompromiso }}</td>
 											<td style="text-align: left">{{ $ordenpago->beneficiario->nombre }}</td>{{--
 											<td style="text-align: left">{{ $ordenpago->montobase }}</td>
 											<td style="text-align: left">{{ $ordenpago->montoretencion }}</td> --}}

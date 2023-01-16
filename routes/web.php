@@ -187,6 +187,8 @@ Route::get('ordenpagos/pdf/{ordenpago}', [App\Http\Controllers\OrdenpagoControll
 
 Route::patch('/ordenpagos/aprobar/{ordenpago}', [App\Http\Controllers\OrdenpagoController::class, 'aprobar'])->name('ordenpagos.aprobar')->middleware('auth');
 
+Route::get('ordenpagos/aprobadas', [App\Http\Controllers\OrdenpagoController::class, 'indexaprobadas'])->name('ordenpagos.aprobados')->middleware('auth');
+
 Route::get('ordenpagos/procesados', [App\Http\Controllers\OrdenpagoController::class, 'indexprocesadas'])->name('ordenpagos.procesados')->middleware('auth');
 
 Route::get('ordenpagos/anulados', [App\Http\Controllers\OrdenpagoController::class, 'indexanuladas'])->name('ordenpagos.anulados')->middleware('auth');

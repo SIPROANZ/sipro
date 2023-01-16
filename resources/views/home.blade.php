@@ -1,4 +1,5 @@
-@extends('adminlte::page', ['iFrameEnabled' => true])
+@extends('adminlte::page')
+
 
 @section('title', 'Escritorio')
 
@@ -7,8 +8,11 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
-    fgdfgdfgdfg
+    <p>
+        HERMANO  ESTAN SERIAN LAS ETIQUETAS DONDE SE COLOCARA EL CONTENIDO
+        PAR TODAS LAS PAGINAS DEL CAUSADO
+    </p>
+    
 @stop
 
 @section('css')

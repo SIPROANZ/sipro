@@ -263,6 +263,8 @@ Route::get('/compromisos/reversarprecompromiso/{precompromiso}', [App\Http\Contr
 
 Route::get('compromisos/aprobadas', [App\Http\Controllers\CompromisoController::class, 'indexaprobadas'])->name('compromisos.aprobadas')->middleware('auth');
 
+Route::patch('/compromisos/modificar/{compromiso}', [App\Http\Controllers\CompromisoController::class, 'modificar'])->name('compromisos.modificar')->middleware('auth');
+
 Route::resource('compromisos', App\Http\Controllers\CompromisoController::class)->middleware('auth');
 
 Route::resource('detallescompromisos', App\Http\Controllers\DetallescompromisoController::class)->middleware('auth');

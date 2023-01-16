@@ -74,7 +74,18 @@
 											<td>{{ $compra->analisis_id }}</td>
                                             <td>{{ $compra->analisi->observacion }}</td>
 											<td>{{ $compra->numordencompra }}</td>
-											<td>{{ $compra->status }}</td>
+											<td>
+
+                                            @if ($compra->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($compra->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($compra->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($compra->status == 'AN')
+                                                    ANULADA
+                                                @endif
+                                            </td>
 											<td>{{ $compra->fechaanulacion }}</td>
 											<td>{{ $compra->montobase }}</td>
 											<td>{{ $compra->montoiva }}</td>
@@ -85,8 +96,7 @@
 
                                             <a class="btn btn-sm btn-primary " href="{{ route('compromisos.agregarcompromiso',$compra->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Compromiso"><i class="fas fa-outdent"></i></i></a>
                                                 
-                                            <a class="btn btn-sm btn-success" href="{{ route('compromisos.reversar',$compra->id) }}" data-toggle="tooltip" data-placement="top" title="Reversar Compra"><i class="fas fa-chevron-circle-left"></i></a>
-                                             
+                                            
 
                                             </td>
                                         </tr>
@@ -154,14 +164,23 @@
 											<td>{{ $ayudassociale->unidadadministrativa->denominacion }}</td>
 											<td>{{ $ayudassociale->tipodecompromiso->nombre }}</td>
 											<td>{{ $ayudassociale->beneficiario->nombre }}</td>
-                                            <td>{{ $ayudassociale->status }}</td>
+                                            <td>
+                                            @if ($ayudassociale->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($ayudassociale->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($ayudassociale->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($ayudassociale->status == 'AN')
+                                                    ANULADA
+                                                @endif
+                                            </td>
 
                                             <td>
 
                                             <a class="btn btn-sm btn-primary " href="{{ route('compromisos.agregarayuda',$ayudassociale->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Compromiso Ayuda"><i class="fas fa-outdent"></i></i></a>
                                                 
-                                            <a class="btn btn-sm btn-success" href="{{ route('compromisos.reversarayuda',$ayudassociale->id) }}" data-toggle="tooltip" data-placement="top" title="Reversar Ayuda"><i class="fas fa-chevron-circle-left"></i></a>
-                                                 
+                                               
                                                
                                             </td>
                                         </tr>
@@ -232,14 +251,25 @@
 											<td>{{ $precompromiso->unidadadministrativa->unidadejecutora }}</td>
 											<td>{{ $precompromiso->tipodecompromiso->nombre}}</td>
 											<td>{{ $precompromiso->beneficiario->nombre }}</td>
-                                            <td>{{ $precompromiso->status }}</td>
+                                            <td>
+                                           
+                                            @if ($precompromiso->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($precompromiso->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($precompromiso->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($precompromiso->status == 'AN')
+                                                    ANULADA
+                                                @endif
+
+                                            </td>
 
                                             <td>
                                                 
                                             <a class="btn btn-sm btn-primary " href="{{ route('compromisos.agregarprecompromiso',$precompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Compromiso Precompromiso"><i class="fas fa-outdent"></i></i></a>
                                                 
-                                            <a class="btn btn-sm btn-success" href="{{ route('compromisos.reversarprecompromiso',$precompromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Reversar Precompromiso"><i class="fas fa-chevron-circle-left"></i></a>
-                                             
+                                            
                                             </td>
                                         </tr>
                                     @endforeach

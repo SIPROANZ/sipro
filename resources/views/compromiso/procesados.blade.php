@@ -60,7 +60,7 @@
 										<th>Monto compromiso</th>
 										<th>Estado</th>
 										<th>Documento</th>
-										<th>Fecha Anulacion</th>
+										
 										<th>Precompromiso</th>
 										<th>Compra</th>
 										<th>Ayuda</th>
@@ -73,21 +73,38 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $compromiso->unidadadministrativa->denominacion }}</td>
+											<td>{{ $compromiso->unidadadministrativa->unidadejecutora }}</td>
 											<td>{{ $compromiso->tipodecompromiso->nombre }}</td>
 											<td>{{ $compromiso->ncompromiso }}</td>
 											<td>{{ $compromiso->beneficiario->nombre }}</td>
 											<td>{{ $compromiso->montocompromiso }}</td>
-											<td>{{ $compromiso->status }}</td>
+											<td>
+                                                
+                                                @if ($compromiso->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($compromiso->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($compromiso->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($compromiso->status == 'AN')
+                                                    ANULADA
+                                                @endif
+
+                                            </td>
 											<td>{{ $compromiso->documento }}</td>
-											<td>{{ $compromiso->fechaanulacion }}</td>
 											<td>{{ $compromiso->precompromiso_id }}</td>
 											<td>{{ $compromiso->compra_id }}</td>
 											<td>{{ $compromiso->ayuda_id }}</td>
 
                                             <td>
+                                            
+                                            <form action="{{ route('compromisos.modificar',$compromiso->id) }}" method="POST">
                                             <a class="btn btn-sm btn-primary " href="{{ route('compromisos.pdf',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Compromiso"><i class="fas fa-print"></i></a>
-
+   @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Modificar Compromiso"><i class="fa fa-fw fa-check"></i></button>
+                                                </form>
+                                                
                                             </td>
                                         </tr>
                                     @endforeach

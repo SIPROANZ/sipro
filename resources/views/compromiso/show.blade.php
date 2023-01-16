@@ -22,32 +22,16 @@
 
                     <div class="card-body">
                         
-                        <div class="form-group">
-                            <strong>Unidadadministrativa:</strong>
-                            {{ $compromiso->unidadadministrativa->unidadejecutora }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Tipocompromiso:</strong>
-                            {{ $compromiso->tipodecompromiso->nombre}}
-                        </div>
-                        <div class="form-group">
-                            <strong>Numero compromiso:</strong>
+                    <div class="form-group">
+                            <strong>Numero de Compromiso:</strong>
                             {{ $compromiso->ncompromiso }}
                         </div>
                         <div class="form-group">
-                            <strong>Beneficiario:</strong>
-                            {{ $compromiso->beneficiario->nombre }}
+                            <strong>Tipo de compromiso:</strong>
+                            {{ $compromiso->tipodecompromiso->nombre}}
                         </div>
                         <div class="form-group">
-                            <strong>Monto compromiso:</strong>
-                            {{ $compromiso->montocompromiso }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Status:</strong>
-                            {{ $compromiso->status }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Documento:</strong>
+                            <strong>Numero de Documento:</strong>
                             {{ $compromiso->documento }}
                         </div>
                         <div class="form-group">
@@ -55,22 +39,18 @@
                             {{ $compromiso->created_at }}
                         </div>
                         <div class="form-group">
-                            <strong>Precompromiso:</strong>
-                            {{ $compromiso->precompromiso_id }}
+                            <strong>Concepto:</strong>
+                            {{ $concepto }}
                         </div>
                         <div class="form-group">
-                            <strong>Compra:</strong>
-                            {{ $compromiso->compra_id }}
+                            <strong>Beneficiario:</strong>
+                            {{ $compromiso->beneficiario->nombre }}
                         </div>
                         <div class="form-group">
-                            <strong>Ayuda:</strong>
-                            {{ $compromiso->ayuda_id }}
+                            <strong>Estado:</strong>
+                            {{ $status }}
                         </div>
 
-                        <div class="form-group">
-                            <strong>COMPROMISO ID:</strong>
-                            {{ $compromiso->id }}
-                        </div>
 
                     </div>
                 </div>
@@ -108,9 +88,8 @@
                                         <th>No</th>
                                         
 										<th>Monto Compromiso</th>
-										<th># Compromiso</th>
 										<th>Unidad Administrativa</th>
-										<th>Ejecucion</th>
+										<th>Clasificador Presupuestario</th>
 
                                     </tr>
                                 </thead>
@@ -120,7 +99,6 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $detallescompromiso->montocompromiso }}</td>
-											<td>{{ $detallescompromiso->compromiso->ncompromiso }}</td>
 											<td>{{ $detallescompromiso->unidadadministrativa->unidadejecutora }}</td>
 											<td>{{ $detallescompromiso->ejecucione->clasificadorpresupuestario }}</td>
 

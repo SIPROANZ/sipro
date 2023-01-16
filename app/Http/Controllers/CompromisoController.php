@@ -123,9 +123,49 @@ class CompromisoController extends Controller
     {
         $compromiso = Compromiso::find($id);
         $detallescompromisos = Detallescompromiso::where('compromiso_id', $id)->paginate();
+        $concepto = '';
+
+        $status=null;
+        
+        if($compromiso->status=='AP'){
+            $status='APROBADO';
+        }
+        elseif($compromiso->status=='PR'){
+            $status='PROCESADO';    
+        }
+        elseif($compromiso->status=='EP'){
+            $status='EN PROCESO';    
+        }
+        elseif($compromiso->status=='AN'){
+            $status='ANULADO';    
+        }
+        elseif($compromiso->status=='RV '){
+            $status='RESERVADO';    
+        }
+
+        if($compromiso->precompromiso_id != NULL){
+
+            $concepto = $compromiso->precompromiso->concepto;
+
+        }
+        elseif($compromiso->ayuda_id != NULL){
+
+            $concepto = $compromiso->ayudassociale->concepto;
+   
+        }
+        elseif($compromiso->compra_id != NULL){
+
+            $compra_id = $compromiso->compra_id;
+            $rs_compra = Compra::find($compra_id);
+            $analisis_id = $rs_compra->analisis_id;
+            $rs_analisis = Analisi::find($analisis_id);
+            $requisicion_id = $rs_analisis->requisicion_id;
+            $rs_requisicion = Requisicione::find($requisicion_id);
+            $concepto = $rs_requisicion->concepto;   
+        }
 
         //return view('compromiso.show', compact('compromiso'));
-        return view('compromiso.show', compact('detallescompromisos', 'compromiso'))
+        return view('compromiso.show', compact('status', 'detallescompromisos', 'compromiso', 'concepto'))
             ->with('i', (request()->input('page', 1) - 1) * $detallescompromisos->perPage());
     }
 
@@ -414,6 +454,37 @@ class CompromisoController extends Controller
         $fecha = Carbon::now();
         $compromiso->fechaanulacion = $fecha;
         $compromiso->status = 'AN';
+        $compromiso->save();
+
+        return redirect()->route('compromisos.index')
+            ->with('success', 'Compromiso Anulado exitosamente.');
+
+            
+    }
+
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UNA REQUISICION
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function modificar($id)
+    {
+        
+        $compromiso = Compromiso::find($id);
+        
+        //Obtener el detalle ejecucion y corroborar que haya disponibilidad
+        $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->get();
+
+        //Ciclo Contrario al proceso de imputar
+        foreach($detallescompromisos as $rows){
+            //Obtener la ejecucion 
+                $ejecucion = Ejecucione::find($rows->ejecucion_id);
+                $ejecucion->decrement('monto_comprometido', $rows->montocompromiso);
+                $ejecucion->increment('monto_por_comprometer', $rows->montocompromiso);
+                $ejecucion->increment('monto_precomprometido', $rows->montocompromiso);
+             }
+
+        $compromiso->status = 'EP';
         $compromiso->save();
 
         return redirect()->route('compromisos.index')

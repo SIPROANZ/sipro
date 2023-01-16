@@ -73,12 +73,24 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $compromiso->unidadadministrativa->denominacion }}</td>
+											<td>{{ $compromiso->unidadadministrativa->unidadejecutora }}</td>
 											<td>{{ $compromiso->tipodecompromiso->nombre }}</td>
 											<td>{{ $compromiso->ncompromiso }}</td>
 											<td>{{ $compromiso->beneficiario->nombre }}</td>
 											<td>{{ $compromiso->montocompromiso }}</td>
-											<td>{{ $compromiso->status }}</td>
+											<td>
+                                                
+                                            @if ($compromiso->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($compromiso->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($compromiso->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($compromiso->status == 'AN')
+                                                    ANULADA
+                                                @endif
+                                                
+                                            </td>
 											<td>{{ $compromiso->documento }}</td>
 											<td>{{ $compromiso->fechaanulacion }}</td>
 											<td>{{ $compromiso->precompromiso_id }}</td>

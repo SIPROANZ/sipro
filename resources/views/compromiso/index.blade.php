@@ -73,12 +73,24 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $compromiso->unidadadministrativa->denominacion }}</td>
+											<td>{{ $compromiso->unidadadministrativa->unidadejecutora }}</td>
 											<td>{{ $compromiso->tipodecompromiso->nombre }}</td>
 											<td>{{ $compromiso->ncompromiso }}</td>
 											<td>{{ $compromiso->beneficiario->nombre }}</td>
 											<td>{{ $compromiso->montocompromiso }}</td>
-											<td>{{ $compromiso->status }}</td>
+											<td>
+                                           
+                                                @if ($compromiso->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($compromiso->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($compromiso->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($compromiso->status == 'AN')
+                                                    ANULADA
+                                                @endif
+
+                                            </td>
 											<td>{{ $compromiso->documento }}</td>
 											<td>{{ $compromiso->fechaanulacion }}</td>
 											<td>{{ $compromiso->precompromiso_id }}</td>
@@ -88,11 +100,11 @@
                                             <td>
                                             <form action="{{ route('compromisos.aprobar',$compromiso->id) }}" method="POST">
                                                     <!-- Agregar detalles BOS a la requisicion -->
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('compromisos.pdf',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Compromiso"><i class="fas fa-print"></i></a>
-
-                                                
+                                                  
                                                     <a class="btn btn-sm btn-primary " href="{{ route('compromisos.show',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Mostrar Compromiso"><i class="fa fa-fw fa-eye"></i></a>
                                                    
+                                                    <a class="btn btn-sm btn-success" href="{{ route('compromisos.edit',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Compromiso"><i class="fa fa-fw fa-edit"></i></a>
+                                                  
                                                    @csrf
                                                     @method('PATCH')
                                                     
@@ -103,8 +115,7 @@
 
                                                 <form action="{{ route('compromisos.anular',$compromiso->id) }}" method="POST">
                                                   
-                                                <a class="btn btn-sm btn-success" href="{{ route('compromisos.edit',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Compromiso"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @csrf
+                                                  @csrf
                                                     @method('PATCH')
                                                     <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Compromiso"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>

@@ -476,12 +476,12 @@ return [
                     'icon_color' => 'lightblue',
                     'url'     => '#',
                     'submenu' => [
-                        [
+                       /* [
                             'text' => 'Compromisos por causar',
                             'icon'    => 'fas fa-fw fa-business-time', // <i class="fas "></i>
                             'icon_color' => 'white',
                             'url'  => '#',
-                        ],
+                        ], */
                         [
                             'text' => 'Ordenes de Pago',
                             'icon'    => 'fas fa-fw fa-briefcase', //<i class="fas "></i>
@@ -529,7 +529,7 @@ return [
                             'icon_color' => 'white',
                             'route'  => 'movimientosbancarios.index',
                         ],
-                        [
+                      /*  [
                             'text' => 'Estado de Cuenta',
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
                             'icon_color' => 'white',
@@ -540,7 +540,7 @@ return [
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
                             'icon_color' => 'white',
                             'url'  => '#',
-                        ],
+                        ],*/
                         [
                             'text' => 'Notas de Credito',
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
@@ -553,18 +553,18 @@ return [
                             'icon_color' => 'white',
                             'url'  => '#',
                         ],
-                        [
+                     /*   [
                             'text' => 'Autorizar Pago',
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
                             'icon_color' => 'white',
                             'url'  => '#',
-                        ],
+                        ], 
                         [
                             'text' => 'Relación de Impuestos',
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
                             'icon_color' => 'white',
                             'url'  => '#',
-                        ],
+                        ], */
                         [
                             'text' => 'Comprobantes de Retenciones',
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
@@ -572,7 +572,7 @@ return [
                             'url'  => '#',
                         ],
                         //cheques
-                        [
+                      /*  [
                             'text' => 'Cheques',
                             'url'  => '#',
                             'submenu' => [
@@ -593,7 +593,7 @@ return [
                                     'url'  => '#',
                                 ],
                             ],
-                        ],
+                        ], */
                         //transferencias
                         [
                             'text' => 'Transferencias',
@@ -603,19 +603,19 @@ return [
                                     'text' => 'Transferencia por orden de Pago',
                                     'route'  => 'transferencias.index',
                                 ],
-                                [
+                               /* [
                                     'text' => 'Transferencia a Tercero',
                                     'url'  => '#',
                                 ],
                                 [
                                     'text' => 'Transferencia entre Cuentas',
                                     'url'  => '#',
-                                ],
+                                ], */
 
                             ],
                         ],
                         //transferencias
-                        [
+                       /* [
                             'text' => 'Conciliación Bancaria',
                             'url'  => '#',
                             'submenu' => [
@@ -633,7 +633,7 @@ return [
                                 ],
 
                             ],
-                        ],
+                        ], */
                         //configuración
                         [
                             'text' => 'Configuración',
@@ -647,18 +647,18 @@ return [
                                     'text' => 'Cuentas Bancarias',
                                     'route'  => 'cuentasbancarias.index',
                                 ],
-                                [
+                             /*   [
                                     'text' => 'Chequera',
                                     'url'  => '#',
-                                ],
+                                ], */
                                 [
                                     'text' => 'Tipo de Movimiento Bancario',
                                     'route'  => 'tipomovimientos.index',
                                 ],
-                                [
+                               /* [
                                     'text' => 'Correlativo Comp. Ret.',
                                     'url'  => '#',
-                                ],
+                                ], */
 
                             ],
                         ],

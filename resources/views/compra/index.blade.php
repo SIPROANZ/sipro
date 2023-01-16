@@ -120,6 +120,13 @@
                                                     <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular Compra"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
 
+                                                <form action="{{ route('compras.actualizar',$compra->id) }}" method="POST">
+                                                    <!-- Agregar detalles BOS a la requisicion -->
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Actualizar Compra"><i class="fas fa-history"></i></button>
+                                                </form>
+
                                                 
                                             </td>
                                         </tr>

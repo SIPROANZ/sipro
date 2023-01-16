@@ -78,8 +78,7 @@
                                             <td class="float-right">
                                             <a class="btn btn-sm btn-primary " href="{{ route('compras.agregarcompra',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Compra"><i class="fas fa-outdent"></i></i></a>
                                                 
-                                            <a class="btn btn-sm btn-success" href="{{ route('compras.reversar',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Reversar Analisis"><i class="fas fa-chevron-circle-left"></i></a>
-                                                   
+                                                  
                                                 
                                                 
                                             </td>

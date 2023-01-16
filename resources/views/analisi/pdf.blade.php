@@ -144,7 +144,7 @@
                                     @foreach ($detallesanalisis as $detallesanalisi)
                                         <tr>
                                            
-											<td>{{ $detallesanalisi->proveedore->nombre }}</td>
+											<td>{{ $detallesanalisi->beneficiario->nombre }}</td>
 											<td>{{ $detallesanalisi->analisi->numeracion }}</td>
 											<td>{{ $detallesanalisi->bo->descripcion }}</td>
 											<td>{{ $detallesanalisi->cantidad }}</td>

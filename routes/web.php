@@ -150,6 +150,8 @@ Route::get('compras/procesadas', [App\Http\Controllers\CompraController::class, 
 
 Route::get('compras/anuladas', [App\Http\Controllers\CompraController::class, 'indexanuladas'])->name('compras.anuladas')->middleware('auth');
 
+Route::patch('/compras/actualizar/{compra}', [App\Http\Controllers\CompraController::class, 'actualizar'])->name('compras.actualizar')->middleware('auth');
+
 Route::patch('/compras/anular/{compra}', [App\Http\Controllers\CompraController::class, 'anular'])->name('compras.anular')->middleware('auth');
 
 Route::get('compras/analisis', [App\Http\Controllers\CompraController::class, 'indexanalisis'])->name('compras.analisis')->middleware('auth');

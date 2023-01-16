@@ -195,8 +195,26 @@ class PrecompromisoController extends Controller
 
         $detallesprecompromisos = Detallesprecompromiso::where('precompromiso_id', $id)->paginate();
         
+        $status=null;
+        
+        if($precompromiso->status=='AP'){
+            $status='Aprobado';
+        }
+        elseif($precompromiso->status=='PR'){
+            $status='Procesado';    
+        }
+        elseif($precompromiso->status=='EP'){
+            $status='En proceso';    
+        }
+        elseif($precompromiso->status=='AN'){
+            $status='Anulado';    
+        }
+        elseif($precompromiso->status=='RV '){
+            $status='Reservado';    
+        }
 
-        $pdf = PDF::loadView('precompromiso.pdf', ['precompromiso'=>$precompromiso, 'detallesprecompromisos'=>$detallesprecompromisos]);
+
+        $pdf = PDF::loadView('precompromiso.pdf', ['precompromiso'=>$precompromiso, 'detallesprecompromisos'=>$detallesprecompromisos, 'status'=> $status]);
         return $pdf->stream();
 
     }

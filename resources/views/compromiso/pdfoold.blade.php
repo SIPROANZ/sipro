@@ -83,7 +83,7 @@
    width: 90%;
    height: 100px;
    bottom:0;
-   margin-bottom:50px;
+   margin-bottom:30px;
    margin-left:10px;
    }
 
@@ -94,11 +94,6 @@
 
   .firma{
     font-size: 10px;
-  }
-
-  .pie{
-    font-size: 11px;
-    margin-left: 5px;  
   }
 </style>
     
@@ -153,7 +148,7 @@
 
                 <!-- DETALLES DE LOS COMPROMISO, IMPUTACIONES PRESUPUESTARIAS -->
                <br>
-                        <table class="table table-bordered table-sm  resumen">
+                        <table class="table table-bordered table-striped resumen">
                                 <thead class="table-secondary">
                                     <tr>
                                     <th colspan="2" class="encabezado text-center justify-content ">Clasificación Programatica</th>
@@ -168,17 +163,17 @@
 					
                                         <td>{{ $detallescompromiso->unidadadministrativa->sector . " " . $detallescompromiso->unidadadministrativa->programa . " " . $detallescompromiso->unidadadministrativa->subprograma . " " . $detallescompromiso->unidadadministrativa->proyecto . " " . $detallescompromiso->unidadadministrativa->actividad  . " " .$detallescompromiso->ejecucione->clasificadorpresupuestario  }}</td>
 										                    	<td>{{ $detallescompromiso->unidadadministrativa->denominacion }}</td>
-                                          <td>{{ number_format($detallescompromiso->montocompromiso ,2,',','.') }}</td>
+                                          <td>{{ $detallescompromiso->montocompromiso }}</td>
 
-                                          
+                                           
                                         </tr>
                                     @endforeach
                                   
                                     <tr>
                                     <th colspan="2" class="text-right justify-content  ">TOTAL COMPROMISO</th>
-                                    <th class="encabezado"> {{  number_format($totalcompromiso ,2,',','.') }}</th>
+                                    <th class="encabezado">{{ $totalcompromiso }}</th>
 
-                                   
+
                                 </tr>
 
                                 </tbody>
@@ -201,7 +196,6 @@
                   </tr>
                 </tbody>
               </table>
-              <div class="pie text-left justify-left">Elaborado por:</div>
         </footer>
       </div> 
                                                                 

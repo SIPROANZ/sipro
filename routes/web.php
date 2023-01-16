@@ -114,6 +114,8 @@ Route::patch('/analisis/aprobar/{analisi}', [App\Http\Controllers\AnalisiControl
 
 Route::get('analisis/procesadas', [App\Http\Controllers\AnalisiController::class, 'indexprocesadas'])->name('analisis.procesadas')->middleware('auth');
 
+Route::get('analisis/aprobadas', [App\Http\Controllers\AnalisiController::class, 'indexaprobadas'])->name('analisis.aprobadas')->middleware('auth');
+
 Route::get('analisis/anuladas', [App\Http\Controllers\AnalisiController::class, 'indexanuladas'])->name('analisis.anuladas')->middleware('auth');
 
 Route::patch('/analisis/anular/{analisi}', [App\Http\Controllers\AnalisiController::class, 'anular'])->name('analisis.anular')->middleware('auth');

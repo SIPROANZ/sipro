@@ -385,12 +385,12 @@ return [
                             'icon_color' => 'white',
                             'route'  => 'compras.index',
                         ],
-                        [
+                        /* [
                             'text' => 'Ordenes de Servicios',
                             'icon'    => 'fas fa-fw fa-file-signature', //<i class="fas fa-file-signature"></i>
                             'icon_color' => 'white',
                             'url'  => '#',
-                        ],
+                        ], */
                     ],
                 ],
                 

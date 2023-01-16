@@ -10,6 +10,7 @@ use App\Detallesanalisi;
 use App\Detallesrequisicione;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use PDF;
 
 /**
@@ -41,6 +42,19 @@ class AnalisiController extends Controller
         $analisis = Analisi::where('estatus', 'PR')->paginate();
 
         return view('analisi.procesadas', compact('analisis'))
+            ->with('i', (request()->input('page', 1) - 1) * $analisis->perPage());
+    }
+
+    /**
+     * Display requisiciones procesadas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexaprobadas()
+    {
+        $analisis = Analisi::where('estatus', 'AP')->paginate();
+
+        return view('analisi.aprobadas', compact('analisis'))
             ->with('i', (request()->input('page', 1) - 1) * $analisis->perPage());
     }
 
@@ -169,6 +183,8 @@ class AnalisiController extends Controller
     public function anular($id)
     {
         $analisi = Analisi::find($id);
+        $fecha = Carbon::now();
+        $analisi->fechaanulacion = $fecha;
         $analisi->estatus = 'AN';
         $analisi->save();
 

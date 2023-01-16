@@ -332,8 +332,27 @@ class AyudassocialeController extends Controller
 
         $detallesayudas = Detallesayuda::where('ayuda_id','=',$id)->paginate();
         
+        $totalcompromiso = $detallesayudas->sum('montocompromiso');
 
-        $pdf = PDF::loadView('ayudassociale.pdf', ['ayudassociale'=>$ayudassociale, 'detallesayudas'=>$detallesayudas]);
+        $status=null;
+        
+        if( $ayudassociale->status=='AP'){
+            $status='Aprobado';
+        }
+        elseif( $ayudassociale->status=='PR'){
+            $status='Procesado';    
+        }
+        elseif( $ayudassociale->status=='EP'){
+            $status='En proceso';    
+        }
+        elseif( $ayudassociale->status=='AN'){
+            $status='Anulado';    
+        }
+        elseif( $ayudassociale->status=='RV '){
+            $status='Reservado';    
+        }
+
+        $pdf = PDF::loadView('ayudassociale.pdf', ['ayudassociale'=>$ayudassociale, 'detallesayudas'=>$detallesayudas, 'status'=> $status, 'totalcompromiso'=>$totalcompromiso]);
         return $pdf->stream();
 
     }

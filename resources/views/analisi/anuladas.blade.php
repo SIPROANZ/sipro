@@ -21,6 +21,10 @@
                                   {{ __('Crear Nuevo Analisis de Cotizacion') }}
                                 </a>
 
+                                <a href="{{ route('analisis.aprobadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Aprobadas') }}
+                                </a>
+
                                 <a href="{{ route('analisis.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('En Proceso') }}
                                 </a>
@@ -48,14 +52,15 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                    <th>No</th>
                                         
 										<th>Unidad administrativa</th>
-										<th># Requisicion</th>
+										<th>Numero Requisicion</th>
 										<th>Criterio</th>
 										<th>Numero Cotizacion</th>
 										<th>Observacion</th>
                                         <th>Estatus</th>
+                                        <th>Fecha Anulacion</th>
 
                                         <th>Opciones</th>
                                     </tr>
@@ -66,11 +71,26 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $analisi->unidadadministrativa->denominacion }}</td>
-											<td>{{ $analisi->requisicion_id }}</td>
+											<td>{{ $analisi->requisicione->correlativo }}</td>
 											<td>{{ $analisi->criterio->nombre }}</td>
 											<td>{{ $analisi->numeracion }}</td>
 											<td>{{ $analisi->observacion }}</td>
-                                            <td>{{ $analisi->estatus }}</td>
+                                            <td>
+
+                                            @if ($analisi->estatus == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($analisi->estatus == 'PR')
+                                                    PROCESADA
+                                                @elseif ($analisi->estatus == 'AP')
+                                                    APROBADA
+                                                @elseif ($analisi->estatus == 'AN')
+                                                    ANULADA
+                                                @endif
+
+                                            </td>
+                                            
+                                            <td>{{ $analisi->fechaanulacion }}</td>
+
 
                                             <td>
                                                

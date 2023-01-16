@@ -83,15 +83,15 @@ class RequisicioneController extends Controller
         //Obtener las unidades de medidas de los productos, tenemos bos, producto, unidad medida
          $detallesrequisiciones = DB::table('detallesrequisiciones')
             ->where('requisicion_id', $id)
-            ->join('bos', 'bos.id', '=', 'detallesrequisiciones.bos_id')
+            ->join('bos', 'bos.id', '=', 'detallesrequisiciones.bos_id') 
             ->join('unidadmedidas', 'unidadmedidas.id', '=', 'bos.unidadmedida_id')
             ->select('detallesrequisiciones.cantidad', 'bos.descripcion', 'unidadmedidas.nombre')
-            ->get();
+            ->get(); 
 
         // Obtener las partidas que tienen que ver con esta requisicion a traves del bos y productos
         //declaro mi arrray partidas
         $partidas = DB::table('requidetclaspres')->where('requisicion_id', $id)->select('meta_id', 'claspres')->get();
-
+            
 
         $pdf = PDF::loadView('requisicione.pdf', ['requisicione'=>$requisicione, 'detallesrequisiciones'=>$detallesrequisiciones, 'partidas'=>$partidas]);
         return $pdf->stream();

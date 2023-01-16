@@ -22,6 +22,10 @@
                                   {{ __('Crear Nuevo Analisis de Cotizacion') }}
                                 </a>
 
+                                <a href="{{ route('analisis.aprobadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Aprobadas') }}
+                                </a>
+
                                 <a href="{{ route('analisis.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('En Proceso') }}
                                 </a>
@@ -49,10 +53,11 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                       
+                                    <th>No</th>
                                         
 										<th>Unidad administrativa</th>
-										<th># Requisicion</th>
+										<th>Numero Requisicion</th>
 										<th>Criterio</th>
 										<th>Numero Cotizacion</th>
 										<th>Observacion</th>
@@ -67,19 +72,29 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $analisi->unidadadministrativa->denominacion }}</td>
-											<td>{{ $analisi->requisicion_id }}</td>
+											<td>{{ $analisi->requisicione->correlativo }}</td>
 											<td>{{ $analisi->criterio->nombre }}</td>
 											<td>{{ $analisi->numeracion }}</td>
 											<td>{{ $analisi->observacion }}</td>
-                                            <td>{{ $analisi->estatus }}</td>
+                                            <td>
+
+                                            @if ($analisi->estatus == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($analisi->estatus == 'PR')
+                                                    PROCESADA
+                                                @elseif ($analisi->estatus == 'AP')
+                                                    APROBADA
+                                                @elseif ($analisi->estatus == 'AN')
+                                                    ANULADA
+                                                @endif
+
+                                            </td>
 
                                             <td>
                                                 <form action="{{ route('analisis.anular',$analisi->id) }}" method="POST">
                                                     <!-- Agregar detalles BOS a la requisicion -->
                                                     <a class="btn btn-sm btn-primary " href="{{ route('analisis.agregar',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Productos al analisis"><i class="fas fa-outdent"></i></i></a>
                                                     
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('analisis.pdf',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Analisis"><i class="fas fa-print"></i></a>
-
                                                     <a class="btn btn-sm btn-success" href="{{ route('analisis.edit',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Analisis"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('PATCH')

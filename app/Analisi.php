@@ -41,7 +41,7 @@ class Analisi extends Model
      *
      * @var array
      */
-    protected $fillable = ['unidadadministrativa_id','requisicion_id','criterio_id','numeracion','observacion', 'estatus'];
+    protected $fillable = ['unidadadministrativa_id','requisicion_id','criterio_id','numeracion','observacion', 'estatus', 'fechaanulacion'];
 
 
     /**

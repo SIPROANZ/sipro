@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Analisi;
 use App\Compromiso;
+use App\Analisi;
 use App\Requisicione;
 use App\Precompromiso;
 use App\Clasificadorpresupuestario;
@@ -17,8 +17,8 @@ use App\Ayudassociale;
 use App\Detallesayuda;
 use App\Detallesprecompromiso;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 use PDF;
 
 /**
@@ -267,6 +267,7 @@ class CompromisoController extends Controller
     {
       
         $compromiso = Compromiso::find($id);
+        $concepto = 'Es Null';
 
         $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->paginate();
         $totalcompromiso = $detallescompromisos->sum('montocompromiso');
@@ -281,7 +282,8 @@ class CompromisoController extends Controller
         elseif($compromiso->ayuda_id != NULL){
 
             $concepto = $compromiso->ayudassociale->concepto;
-   
+
+            
         }
         elseif($compromiso->compra_id != NULL){
 
@@ -304,23 +306,23 @@ class CompromisoController extends Controller
         $status=null;
         
         if($compromiso->status=='AP'){
-            $status='APROBADO';
+            $status='Aprobado';
         }
         elseif($compromiso->status=='PR'){
-            $status='PROCESADO';    
+            $status='Procesado';    
         }
         elseif($compromiso->status=='EP'){
-            $status='EN PROCESO';    
+            $status='En proceso';    
         }
         elseif($compromiso->status=='AN'){
-            $status='ANULADO';    
+            $status='Anulado';    
         }
         elseif($compromiso->status=='RV '){
-            $status='RESERVADO';    
+            $status='Reservado';    
         }
 
 
-        $pdf = PDF::loadView('compromiso.pdf', ['compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos]);
+        $pdf = PDF::loadView('compromiso.pdf', ['compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos, 'datos'=>$datos, 'totalcompromiso'=>$totalcompromiso, 'concepto'=>$concepto, 'status'=> $status]);
         return $pdf->stream();
  
     }

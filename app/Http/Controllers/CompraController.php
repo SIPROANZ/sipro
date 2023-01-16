@@ -14,6 +14,7 @@ use App\Clasificadorpresupuestario;
 use App\Unidadadministrativa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use PDF;
 
 /**
@@ -211,7 +212,7 @@ class CompraController extends Controller
 
         //PARA OBTENER EL ID DEL PROVEEDOR
         $proveedor = Detallesanalisi::where('analisis_id', $analisis->id)->where('aprobado', 'SI')->first();
-        $proveedor_id = $proveedor->proveedor_id;
+        $proveedor_id = $proveedor->beneficiario_id;
         //Ahora busco la razon social y el rif
         $beneficiario = Beneficiario::find($proveedor_id);
         $rif =$beneficiario->caracterbeneficiario . '-' . $beneficiario->rif;
@@ -440,7 +441,40 @@ class CompraController extends Controller
     public function anular($id)
     {
         $compra = Compra::find($id);
+        $fecha = Carbon::now();
+        $compra->fechaanulacion = $fecha;
         $compra->status = 'AN';
+        $compra->save();
+
+        return redirect()->route('compras.index')
+            ->with('success', 'Compra Anulada exitosamente.');
+
+            
+    }
+
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UNA REQUISICION
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function modificar($id)
+    {
+        $compra = Compra::find($id);
+       
+        //Disminuir la ejecucion
+        $comprascps = Comprascp::where('compra_id', $id)->get();
+        foreach($comprascps as $rows){
+            $monto =  $rows->monto;
+            $ejecucion_id = $rows->ejecucion_id;
+            //Obtenemos el monto en la ejecucion 
+            $ejecucion = Ejecucione::find($ejecucion_id);
+            $ejecucion->decrement('monto_precomprometido', $monto);
+
+          //  $cad_resulltados .= ' monto: ' . $monto . ' ejecucion: ' . $ejecucion_id; 
+        }
+
+
+        $compra->status = 'EP';
         $compra->save();
 
         return redirect()->route('compras.index')
@@ -495,7 +529,7 @@ class CompraController extends Controller
 
         //PARA OBTENER EL ID DEL PROVEEDOR
         $proveedor = Detallesanalisi::where('analisis_id', $analisis->id)->where('aprobado', 'SI')->first();
-        $proveedor_id = $proveedor->proveedor_id;
+        $proveedor_id = $proveedor->beneficiario_id;
         //Ahora busco la razon social y el rif
         $beneficiario = Beneficiario::find($proveedor_id);
         $rif =$beneficiario->caracterbeneficiario . '-' . $beneficiario->rif;

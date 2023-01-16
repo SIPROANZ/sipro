@@ -192,6 +192,22 @@ class AnalisiController extends Controller
             ->with('success', 'Analisis de Cotizacion Anulada exitosamente.');
     }
 
+     /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UNA REQUISICION
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function modificar($id)
+    {
+        $analisi = Analisi::find($id);
+       
+        $analisi->estatus = 'EP';
+        $analisi->save();
+
+        return redirect()->route('analisis.index')
+            ->with('success', 'Analisis de Cotizacion Anulada exitosamente.');
+    }
+
     //Metodo para aprobar un analisis de cotizacion
     /**
      * @param int $id   CAMBIAR EL ESTATUS A PROCESADO CUANDO YA ESTA aprobada la requisicion

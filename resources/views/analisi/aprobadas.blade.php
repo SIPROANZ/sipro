@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+<br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -89,9 +90,14 @@
                                             </td>
 
                                             <td>
-                                               
                                             <a class="btn btn-sm btn-primary " href="{{ route('analisis.pdf',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Analisis"><i class="fa fa-fw fa-eye"></i> Imprimir</a>
-
+                                                 
+                                            <form action="{{ route('analisis.modificar',$analisi->id) }}" method="POST">
+                                                    <!-- Agregar detalles BOS a la requisicion -->
+                                                   @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Modificar Analisis"><i class="fa fa-fw fa-check"></i></button>
+                                            </form>
 
                                             </td>
                                         </tr>

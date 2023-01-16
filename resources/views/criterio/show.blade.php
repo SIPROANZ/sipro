@@ -1,10 +1,14 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    {{ $criterio->name ?? 'Show Criterio' }}
-@endsection
+
+@section('title', 'Criterios de Cotizacion')
+
+@section('content_header')
+    <h1>Criterios</h1>
+@stop
 
 @section('content')
+<br>
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -30,4 +34,8 @@
             </div>
         </div>
     </section>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

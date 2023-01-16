@@ -1,8 +1,11 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Create Detallesanalisi
-@endsection
+
+@section('title', 'Analisis de Cotizaciones')
+
+@section('content_header')
+    <h1>Analisis</h1>
+@stop
 
 @section('content')
     <section class="content container-fluid">
@@ -27,4 +30,8 @@
             </div>
         </div>
     </section>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

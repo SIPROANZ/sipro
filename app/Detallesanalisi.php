@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Analisi $analisi
  * @property Bo $bo
  * @property Proveedore $proveedore
+ * @property Beneficiario $beneficiario
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
@@ -47,7 +48,7 @@ class Detallesanalisi extends Model
      *
      * @var array
      */
-    protected $fillable = ['proveedor_id','analisis_id','bos_id','cantidad','precio','subtotal','iva','total','aprobado'];
+    protected $fillable = ['proveedor_id', 'beneficiario_id','analisis_id','bos_id','cantidad','precio','subtotal','iva','total','aprobado'];
 
 
     /**
@@ -74,5 +75,12 @@ class Detallesanalisi extends Model
         return $this->hasOne('App\Proveedore', 'id', 'proveedor_id');
     }
     
+     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function beneficiario()
+    {
+        return $this->hasOne('App\Beneficiario', 'id', 'beneficiario_id');
+    }
 
 }

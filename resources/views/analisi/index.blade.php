@@ -91,6 +91,7 @@
                                             </td>
 
                                             <td>
+                                                
                                                 <form action="{{ route('analisis.anular',$analisi->id) }}" method="POST">
                                                     <!-- Agregar detalles BOS a la requisicion -->
                                                     <a class="btn btn-sm btn-primary " href="{{ route('analisis.agregar',$analisi->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Productos al analisis"><i class="fas fa-outdent"></i></i></a>

@@ -120,6 +120,8 @@ Route::get('analisis/anuladas', [App\Http\Controllers\AnalisiController::class, 
 
 Route::patch('/analisis/anular/{analisi}', [App\Http\Controllers\AnalisiController::class, 'anular'])->name('analisis.anular')->middleware('auth');
 
+Route::patch('/analisis/modificar/{analisi}', [App\Http\Controllers\AnalisiController::class, 'modificar'])->name('analisis.modificar')->middleware('auth');
+
 Route::get('analisis/pdf/{analisi}', [App\Http\Controllers\AnalisiController::class, 'pdf'])->name('analisis.pdf')->middleware('auth');
 
 //rutas para los select dinamicos

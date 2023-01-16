@@ -1,10 +1,13 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Compra
-@endsection
 
+@section('title', 'Ordenes de Compras')
+
+@section('content_header')
+    <h1>Ordenes de Compras</h1>
+@stop
 @section('content')
+<br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -73,7 +76,15 @@
 											<td>{{ $compra->analisis_id }}</td>
                                             <td>{{ $compra->analisi->observacion }}</td>
 											<td>{{ $compra->numordencompra }}</td>
-											<td>{{ $compra->status }}</td>
+											<td> @if ($compra->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($compra->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($compra->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($compra->status == 'AN')
+                                                    ANULADA
+                                                @endif</td>
 											<td>{{ $compra->fechaanulacion }}</td>
 											<td>{{ $compra->montobase }}</td>
 											<td>{{ $compra->montoiva }}</td>
@@ -95,4 +106,8 @@
             </div>
         </div>
     </div>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

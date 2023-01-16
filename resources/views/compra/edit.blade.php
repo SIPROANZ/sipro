@@ -1,10 +1,13 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Update Compra
-@endsection
 
+@section('title', 'Ordenes de Compras')
+
+@section('content_header')
+    <h1>Ordenes de Compras</h1>
+@stop
 @section('content')
+<br>
     <section class="content container-fluid">
         <div class="">
             <div class="col-md-12">
@@ -28,4 +31,8 @@
             </div>
         </div>
     </section>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

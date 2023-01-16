@@ -96,7 +96,7 @@ class DetallesanalisiController extends Controller
         $aprobado = $request->aprobado;
 
         $datos_guardar = [
-            'proveedor_id' => $proveedor_id,
+            'beneficiario_id' => $proveedor_id,
             'analisis_id' => $analisis_id,
             'bos_id' => $bos_id,
             'cantidad' => $cantidad,
@@ -207,6 +207,9 @@ class DetallesanalisiController extends Controller
     public function update(Request $request, Detallesanalisi $detallesanalisi)
     {
         request()->validate(Detallesanalisi::$rules);
+ 
+        $request->merge(['beneficiario_id'  => $request->proveedor_id]);
+        $request->merge(['proveedor_id'  => NULL]);
 
         $detallesanalisi->update($request->all());
 

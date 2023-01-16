@@ -5,7 +5,7 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('proveedor') }}
-            {{ Form::select('proveedor_id', $proveedores, $detallesanalisi->proveedor_id, ['class' => 'form-control' . ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un Proveedor']) }}
+            {{ Form::select('proveedor_id', $proveedores, $detallesanalisi->beneficiario_id, ['class' => 'form-control' . ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un Proveedor']) }}
             {!! $errors->first('proveedor_id', '<div class="invalid-feedback">:message</div>') !!}
       
             {{ Form::hidden('analisis_id', session('analisis_var'), ['class' => 'form-control' . ($errors->has('analisis_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un Analisis de Cotizacion']) }}

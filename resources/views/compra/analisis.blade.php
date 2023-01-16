@@ -1,10 +1,13 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Analisi
-@endsection
 
+@section('title', 'Ordenes de Compras')
+
+@section('content_header')
+    <h1>Ordenes de Compras</h1>
+@stop
 @section('content')
+<br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -91,4 +94,8 @@
             </div>
         </div>
     </div>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

@@ -5,43 +5,38 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Transferencia
+ * Class Notadebito
  *
  * @property $id
+ * @property $ejercicio_id
  * @property $cuentasbancaria_id
  * @property $beneficiario_id
- * @property $pagado_id
- * @property $montotransferencia
- * @property $fechaanulacion
- * @property $concepto
- * @property $egreso
- * @property $status
- * @property $montoorden
- * @property $referenciabancaria
- * @property $conceptoanulacion
+ * @property $institucione_id
+ * @property $montond
+ * @property $fecha
+ * @property $referenciand
+ * @property $descripcion
  * @property $created_at
  * @property $updated_at
  *
  * @property Beneficiario $beneficiario
  * @property Cuentasbancaria $cuentasbancaria
- * @property Pagado $pagado
+ * @property Ejercicio $ejercicio
+ * @property Institucione $institucione
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class Transferencia extends Model
+class Notadebito extends Model
 {
     
     static $rules = [
+		'ejercicio_id' => 'required',
 		'cuentasbancaria_id' => 'required',
 		'beneficiario_id' => 'required',
-		'pagado_id' => 'required',
-		'montotransferencia' => 'required',
-		'concepto' => 'required',
-		'egreso' => 'required',
-		'montoorden' => 'required',
-		'referenciabancaria' => 'required',
-		'conceptoanulacion' => 'required',
-        'status'=> 'required',
+		'institucione_id' => 'required',
+		'montond' => 'required',
+		'referenciand' => 'required',
+		'descripcion' => 'required',
     ];
 
     protected $perPage = 20;
@@ -51,7 +46,7 @@ class Transferencia extends Model
      *
      * @var array
      */
-    protected $fillable = ['cuentasbancaria_id','beneficiario_id','pagado_id','montotransferencia','fechaanulacion','concepto','egreso','montoorden','referenciabancaria','conceptoanulacion','status'];
+    protected $fillable = ['ejercicio_id','cuentasbancaria_id','beneficiario_id','institucione_id','montond','fecha','referenciand','descripcion'];
 
 
     /**
@@ -73,9 +68,17 @@ class Transferencia extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function pagado()
+    public function ejercicio()
     {
-        return $this->hasOne('App\Pagado', 'id', 'pagado_id');
+        return $this->hasOne('App\Ejercicio', 'id', 'ejercicio_id');
+    }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function institucione()
+    {
+        return $this->hasOne('App\Institucione', 'id', 'institucione_id');
     }
     
 

@@ -16,23 +16,25 @@
                                 {{ __('Pagado') }}
                             </span>
 
-                             <div class="float-right">
-                             <a href="{{ route(pagados.agregar') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nuevo Pagado') }}
+                            <div class="float-right">
+
+                                <a href="{{ route('pagados.agregar') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                    {{ __('Crear Nueva Pagado') }}
                                 </a>
 
                                 <a href="{{ route('pagados.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('En proceso') }}
+                                    {{ __('En proceso') }}
                                 </a>
 
-                                <a href="{{ route('pagados.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Pagadas') }}
+                                <a href="{{ route('pagados.procesados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                    {{ __('Pagadas') }}
                                 </a>
 
-                                <a href="{{ route('pagados.anuladas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Anuladas') }}
+                                <a href="{{ route('pagados.anulados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                    {{ __('Anuladas') }}
                                 </a>
-                              </div>
+
+                            </div>
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -46,16 +48,16 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                    <th>No</th>
                                         
 										<th>Orden de pago</th>
-										<th>Beneficiario</th>
+										<th>Beneficiario</th>{{--                                       
 										<th>Monto pagado</th>
                                         <th>Correlativo</th>
-										<th>Fechaanulacion</th>									
-										<th>Tipo orden pago</th>
-                                        <th>Estatus</th>
-                                        <th>Tipo de Pago</th>
+										<th>Fechaanulacion</th> --}}									
+										<th>Tipo de orden</th>  
+                                        <th>Tipo de Pago</th>                                      
+                                        <th>Estado</th>
 
 
                                         <th>Opciones</th>
@@ -67,17 +69,25 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $pagado->ordenpago_id }}</td>
-											<td>{{ $pagado->beneficiario_id }}</td>
+											<td>{{ $pagado->beneficiario->nombre }}</td>{{--                                            
 											<td>{{ $pagado->montopagado }}</td>
                                             <td>{{ $pagado->correlativo }}</td>
-											<td>{{ $pagado->fechaanulacion }}</td>											
-											<td>{{ $pagado->tipoordenpago }}</td>
-                                            <td>{{ $pagado->status }}</td>
-                                            <td>{{ $pagado->tipomovimiento->descripcion}}</td>
-                                            
-
+											<td>{{ $pagado->fechaanulacion }}</td> --}}											
+											<td>{{ $pagado->tipoordenpago }}</td>  
+                                            <td>{{ $pagado->tipomovimiento->descripcion }}</td>                                         
                                             <td>
-                                               <a class="btn btn-sm btn-primary " href="{{ route('pagados.pdf',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir"><i class="fas fa-print"></i></a>  
+                                                @if ($pagado->status == 'EP')
+                                                    EP
+                                                @elseif ($pagado->status == 'PR')
+                                                    PR
+                                                @elseif ($pagado->status == 'AP')
+                                                    AP
+                                                @elseif ($pagado->status == 'AN')
+                                                    AN
+                                                @endif
+                                            </td>
+                                            <td>
+                                               <a class="btn btn-sm btn-primary " href="{{ route('pagados.pdf',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir Pagado"><i class="fas fa-print"></i></a>  
                                             </td>
                                             
                                         </tr>

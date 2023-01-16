@@ -50,9 +50,8 @@
                                     <tr>
                                         <th>No</th>
 
-                                      
-										<th>Cuentas bancaria</th>
-                                        <th>Beneficiario</th>  									
+                                        <th>Beneficiario Id</th>{{--
+										<th>Cuentasbancaria Id</th>										
 										<th>Monto Pagado</th>
 										<th>Monto transferencia</th>
 										<th>Fecha</th>
@@ -61,7 +60,6 @@
 										<th>Monto orden</th>
 										<th>Referencia </th>
 										<th>Concepto</th>
-                                        <th>Estado</th>
                                         <th></th>
                                         <th>Opciones</th>
                                     </tr>
@@ -71,8 +69,8 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $transferencia->cuentasbancaria->cuenta }}</td>
-											<td>{{ $transferencia->beneficiario->nombre }}</td> 
+											<td>{{ $transferencia->cuentasbancaria_id }}</td>
+											<td>{{ $transferencia->beneficiario->nombre }}</td>{{--
 											<td>{{ $transferencia->pagado->montopagado }}</td>
 											<td>{{ $transferencia->montotransferencia }}</td>
 											<td>{{ $transferencia->fechaanulacion }}</td>
@@ -92,10 +90,9 @@
                                                     AN
                                                 @endif
                                             </td>
-                                            
                                             <td>
 
-                                            <a class="btn btn-sm btn-primary " href="{{ route('transferencias.pdf',$transferencia->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir transferncias"><i class="fas fa-print"></i></a>
+                                            <a class="btn btn-sm btn-primary " href="{{ route('transferencias.pdf',$transferencia->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir transferencias"><i class="fas fa-print"></i></a>
                                             
                                         </td>
                                         </tr>

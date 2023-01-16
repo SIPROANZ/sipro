@@ -550,7 +550,7 @@ return [
                             'text' => 'Notas de Debito',
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>
                             'icon_color' => 'white',
-                            'url'  => '#',
+                            'route'  => 'notadebitos.index',
                         ],
                         [
                             'text' => 'Autorizar Pago',

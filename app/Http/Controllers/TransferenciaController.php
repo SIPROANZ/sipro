@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Transferencia;
+use App\Pagado;
+use App\Cuentasbancaria;
+use App\Beneficiario;
+use App\Detallepagado;
+
 use Illuminate\Http\Request;
 
 /**
@@ -105,5 +110,35 @@ class TransferenciaController extends Controller
 
         return redirect()->route('transferencias.index')
             ->with('success', 'Transferencia deleted successfully');
+    }
+
+     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function agregar()
+    {
+        $transferencia = Transferencia::where('status', 'PR')->paginate();
+
+        
+        return view('transferencia.agregar', compact('pagados'))
+            ->with('i', (request()->input('page', 1) - 1) * $transferencias->perPage());
+    }
+
+     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function agregartransferencia($id)
+    {
+        $pagado_id = $id;
+        $transferencia = new Transferencia();
+
+       $pagados = Pagado::find($pagado_id);
+       $cuentasbancarias = Cuentasbancaria::pluck('cuenta', 'id');
+
+       return view('pagado.agregartransferencia', compact('transferencia','pagados','cuentasbancarias'));
     }
 }

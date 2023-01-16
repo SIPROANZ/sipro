@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Pagado extends Model
 {
-    
+
     static $rules = [
 		'ordenpago_id' => 'required',
 		'beneficiario_id' => 'required',

@@ -13,10 +13,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property $created_at
  * @property $updated_at
  *
- * @property Movimientosbancario[] $movimientosbancarios
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
+
 class Tipomovimiento extends Model
 {
     
@@ -34,23 +34,6 @@ class Tipomovimiento extends Model
      */
     protected $fillable = ['descripcion','accion'];
 
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function movimientosbancarios()
-    {
-        return $this->hasMany('App\Movimientosbancario', 'tipomovimiento_id', 'id');
-    }
-
-     /**
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
-   public function Pagados()
-   {
-       return $this->hasMany('App\Pagados', 'tipomovimiento_id', 'id');
-   }
-
       
-
+    
 }

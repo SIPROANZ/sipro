@@ -26,11 +26,11 @@
                                   {{ __('En proceso') }}
                                 </a>
 
-                                <a href="{{ route('pagados.procesadas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('pagados.procesados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Pagadas') }}
                                 </a>
 
-                                <a href="{{ route('pagados.anuladas') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('pagados.anulados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Anuladas') }}
                                 </a>
                               </div>

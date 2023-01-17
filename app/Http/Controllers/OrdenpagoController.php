@@ -10,6 +10,8 @@ use App\Detalleordenpago;
 use App\Detalleretencione;
 use App\Detallesanalisi;
 use App\Detallescompromiso;
+use App\Detallesprecompromiso;
+use App\Detallesayuda;
 use App\Ejecucione;
 use App\Ordenpago;
 use App\Requisicione;
@@ -17,6 +19,7 @@ use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use NumeroALetras\NumeroALetras;
 
 /**
  * Class OrdenpagoController
@@ -146,20 +149,37 @@ class OrdenpagoController extends Controller
 
     public function pdf($id)
     {
-        $compromiso = Compromiso::find($id);
+       // $compromiso = Compromiso::find($id);
         $ordenpago = Ordenpago::find($id);
+
+        $compromiso = Compromiso::find($ordenpago->compromiso_id);
+
+        $ejercicio = "2023";
+
+        $meta = '';
+
         $concepto = 'Es Null';
 
         $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->paginate();
         $totalcompromiso = $detallescompromisos->sum('montocompromiso');
 
         $datos = array();
+            $ejercicio ='';
+
+           /* $rs_ejecucion = Ejecucione::find($compromiso->detallescompromisos->ejecucion_id);
+            $meta =  $rs_ejecucion->meta_id;
+            $ejercicio_id =$rs_ejecucion->ejercicio_id;
+            $rs_ejercicio = Ejercicio::find($ejercicio_id);
+            $nombre_ejercicio = $rs_ejercicio->ejercicioejecucion;*/
 
         if($compromiso->precompromiso_id != NULL){
             $concepto = $compromiso->precompromiso->concepto;
+
+           // $ejercicio = $compromiso->precompromiso->detallesprecompromiso->ejecucione->ejercicio->ejercicioejecucion;
         }
         elseif($compromiso->ayuda_id != NULL){
             $concepto = $compromiso->ayudassociale->concepto;
+          //  $ejercicio = $compromiso->ayudassociale->detallesayuda->ejecucione->ejercicio->ejercicioejecucion;
         }
         elseif($compromiso->compra_id != NULL){
 
@@ -170,6 +190,8 @@ class OrdenpagoController extends Controller
             $requisicion_id = $rs_analisis->requisicion_id;
             $rs_requisicion = Requisicione::find($requisicion_id);
             $concepto = $rs_requisicion->concepto;
+         //   $ejercicio = $compromiso->compra->comprascps->ejecucione->ejercicio->ejercicioejecucion;
+
         }
         foreach($detallescompromisos as $rows){
             //Obtener la denominacion a partir de la cuenta
@@ -196,9 +218,33 @@ class OrdenpagoController extends Controller
         elseif($ordenpago->status=='RV '){
             $status='RESERVADO';
         }
-        $partidas = DB::table('requidetclaspres')->where('requisicion_id', $ordenpago->compromiso->compra->analisi->requisicione->id)->select('meta_id', 'claspres')->get();
 
-        $pdf = PDF::loadView('ordenpago.pdf', ['partidas'=>$partidas, 'ordenpago'=>$ordenpago, 'compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos, 'datos'=>$datos, 'totalcompromiso'=>$totalcompromiso, 'concepto'=>$concepto, 'status'=> $status]);
+
+
+        if($compromiso->precompromiso_id != NULL){
+            $partidas = Detallesprecompromiso::where('precompromiso_id',$compromiso->precompromiso_id)
+            ->join('ejecuciones', 'ejecuciones.id', '=', 'detallesprecompromisos.ejecucion_id')
+            ->select('ejecuciones.meta_id', 'ejecuciones.clasificadorpresupuestario')
+            ->get();
+           // $partidas = Ejecucione::find($repartidas->ejecucion_id);
+
+        }
+        elseif($compromiso->ayuda_id != NULL){
+            $partidas = Detallesayuda::where('ayuda_id',$compromiso->ayuda_id)
+            ->join('ejecuciones', 'ejecuciones.id', '=', 'detallesayudas.ejecucion_id')
+            ->select('ejecuciones.meta_id', 'ejecuciones.clasificadorpresupuestario')
+            ->get();
+            //$partidas = Ejecucione::find($detpartidas->ejecucion_id);
+
+        }
+        elseif($compromiso->compra_id != NULL){
+
+            $partidas = DB::table('requidetclaspres')->where('requisicion_id', $compromiso->compra->analisi->requisicione->id)->select('meta_id', 'claspres')->get();
+
+        }
+
+        $montoletras = NumeroALetras::convertir($ordenpago->montoneto, 'bolivares');
+        $pdf = PDF::loadView('ordenpago.pdf', ['montoletras'=>$montoletras, 'partidas'=>$partidas, 'ordenpago'=>$ordenpago, 'compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos, 'datos'=>$datos, 'totalcompromiso'=>$totalcompromiso, 'concepto'=>$concepto, 'status'=> $status]);
         return $pdf->stream();
     }
 
@@ -229,9 +275,23 @@ class OrdenpagoController extends Controller
         $ordenpago = new Ordenpago();
         $compromiso = Compromiso::find($compromiso_id);
 
-
-/////////////////////////////////////////////////////////////////////
-        $detalles_analisis = Detallesanalisi::where('analisis_id', $compromiso->compra->analisi->id)->get();
+        if($compromiso->precompromiso_id != NULL){
+            $ordenpago->montoexento = 0;
+            $ordenpago->montoiva = 0;
+            $ordenpago->montobase = $compromiso->precompromiso->montototal;
+            $ordenpago->montoneto = $compromiso->precompromiso->montototal;
+        }
+        elseif($compromiso->ayuda_id != NULL){
+            $ordenpago->montoexento = 0;
+            $ordenpago->montoiva = 0;
+            $ordenpago->montobase = $compromiso->ayudassociale->montototal;
+            $ordenpago->montoneto = $compromiso->ayudassociale->montototal;
+        }
+        elseif($compromiso->compra_id != NULL){
+            $ordenpago->montobase == $compromiso->compra->montobase;
+            $ordenpago->montoiva == $compromiso->compra->montoiva;
+            $ordenpago->montoneto == $compromiso->compra->montototal;
+            $detalles_analisis = Detallesanalisi::where('analisis_id', $compromiso->compra->analisi->id)->get();
 
         foreach($detalles_analisis as $row){
             if ($row->iva == 0) {
@@ -239,6 +299,8 @@ class OrdenpagoController extends Controller
             } else {
 
             }
+        }
+
         }
 
         return view('ordenpago.agregarordenpago', compact('compromiso', 'ordenpago'));

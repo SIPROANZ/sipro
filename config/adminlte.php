@@ -460,12 +460,12 @@ return [
                             'icon_color' => 'white',
                             'url'  => '#',
                         ],
-                        [
+                         /* [
                             'text' => 'Relación de Creditos Adicionales',
                             'icon'    => 'fas fa-fw fa-hotel', // <i class="fas fa-hotel"></i>
                             'icon_color' => 'white',
                             'url'  => '#',
-                        ],
+                        ], */
                     ],
                 ],
 

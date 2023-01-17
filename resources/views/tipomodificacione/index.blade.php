@@ -1,10 +1,14 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Tipomodificacione
-@endsection
+
+@section('title', 'Tipo de Modificacion')
+
+@section('content_header')
+    <h1>Tipo de Modificacion</h1>
+@stop
 
 @section('content')
+<br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -13,12 +17,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Tipomodificacione') }}
+                                {{ __('Tipo de modificacion') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('tipomodificaciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Crear Nuevo Tipo') }}
                                 </a>
                               </div>
                         </div>
@@ -50,11 +54,11 @@
 
                                             <td>
                                                 <form action="{{ route('tipomodificaciones.destroy',$tipomodificacione->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('tipomodificaciones.show',$tipomodificacione->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('tipomodificaciones.edit',$tipomodificacione->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('tipomodificaciones.show',$tipomodificacione->id) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('tipomodificaciones.edit',$tipomodificacione->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -68,4 +72,8 @@
             </div>
         </div>
     </div>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

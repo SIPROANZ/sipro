@@ -194,6 +194,9 @@ class PrecompromisoController extends Controller
 
 
         $detallesprecompromisos = Detallesprecompromiso::where('precompromiso_id', $id)->paginate();
+
+        $totalcompromiso = $detallesprecompromisos ->sum('montocompromiso');
+
         
         $status=null;
         
@@ -214,7 +217,7 @@ class PrecompromisoController extends Controller
         }
 
 
-        $pdf = PDF::loadView('precompromiso.pdf', ['precompromiso'=>$precompromiso, 'detallesprecompromisos'=>$detallesprecompromisos, 'status'=> $status]);
+        $pdf = PDF::loadView('precompromiso.pdf', ['precompromiso'=>$precompromiso, 'detallesprecompromisos'=>$detallesprecompromisos, 'status'=> $status, 'totalcompromiso'=>$totalcompromiso]);
         return $pdf->stream();
 
     }

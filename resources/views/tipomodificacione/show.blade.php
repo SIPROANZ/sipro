@@ -1,17 +1,21 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    {{ $tipomodificacione->name ?? 'Show Tipomodificacione' }}
-@endsection
+
+@section('title', 'Tipo de Modificacion')
+
+@section('content_header')
+    <h1>Tipo de Modificacion</h1>
+@stop
 
 @section('content')
+<br>
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Show Tipomodificacione</span>
+                            <span class="card-title">Ver Tipo de modificacione</span>
                         </div>
                         <div class="float-right">
                             <a class="btn btn-primary" href="{{ route('tipomodificaciones.index') }}"> Back</a>
@@ -30,4 +34,8 @@
             </div>
         </div>
     </section>
-@endsection
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

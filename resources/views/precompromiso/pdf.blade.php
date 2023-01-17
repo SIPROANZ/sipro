@@ -171,12 +171,19 @@
                                   
                                           <td>{{ $detallesprecompromiso->unidadadministrativa->sector . " " . $detallesprecompromiso->unidadadministrativa->programa . " " . $detallesprecompromiso->unidadadministrativa->subprograma . " " . $detallesprecompromiso->unidadadministrativa->proyecto . " " . $detallesprecompromiso->unidadadministrativa->actividad  . " " .$detallesprecompromiso->ejecucione->clasificadorpresupuestario  }}</td>
 										                       <td>{{ $detallesprecompromiso->unidadadministrativa->denominacion }}</td>
-                                          <td>{{  number_format($detallesprecompromiso->montocompromiso,2,',','.') }}</td>
+                                          <td class="text-right justify-content">{{  number_format($detallesprecompromiso->montocompromiso,2,',','.') }}</td>
 
                                           
 					
                                         </tr>
                                     @endforeach
+
+                                    <tr>
+                                    <th colspan="2" class="text-right justify-content">TOTAL PRE-COMPROMISO</th>
+                                    <th class="encabezado text-right justify-conten"> {{  number_format($totalcompromiso ,2,',','.') }}</th>
+
+                                   
+                                </tr>
                                   
                                 </tbody>
                           

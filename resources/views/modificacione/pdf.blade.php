@@ -35,39 +35,28 @@
                     </div>
 
                     <div class="card-body">
-                        
-                        <div class="form-group">
-                            <strong>Numero:</strong>
-                            {{ $modificacione->numero }}
+
+                    <div class="form-group">
+                            <strong>Fecha:</strong>
+                            {{ $modificacione->created_at }}
                         </div>
                         <div class="form-group">
-                            <strong>Tipomodificacion Id:</strong>
-                            {{ $modificacione->tipomodificacion_id }}
+                            <strong>Tipo de modificacion:</strong>
+                            {{ $modificacione->tipomodificacione->nombre }}
                         </div>
                         <div class="form-group">
-                            <strong>Descripcion:</strong>
-                            {{ $modificacione->descripcion }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Status:</strong>
-                            {{ $modificacione->status }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Fechaanulacion:</strong>
-                            {{ $modificacione->fechaanulacion }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Montocredita:</strong>
-                            {{ $modificacione->montocredita }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Montodebita:</strong>
-                            {{ $modificacione->montodebita }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Ncredito:</strong>
+                            <strong>Numero credito:</strong>
                             {{ $modificacione->ncredito }}
                         </div>
+                        <div class="form-group">
+                            <strong>Concepto:</strong>
+                            {{ $modificacione->descripcion }}
+                        </div>
+
+
+
+                        
+                       
 
                     </div>
                 </div>
@@ -80,29 +69,63 @@
                                 <thead class="thead">
                                     <tr>
                                       
-										<th>Modificacion Id</th>
-										<th>Unidadadministrativa Id</th>
-										<th>Ejecucion Id</th>
-										<th>Montoacredita</th>
-										<th>Montodebita</th>
+                                    <th>S/P/SP/PR/A</th>
+                                    <th>POA</th>
+                                    <th>META</th>
+                                    <th>P/G/E/SE</th>
+										<th>FINANCIAMIENTO</th>
+										<th>AUMENTO</th>
+										<th>DISMINUCION</th>
 
                                         
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php $aumento=0;
+                                       $disminucion=0;
+                                ?>
+											
                                     @foreach ($detallesmodificaciones as $detallesmodificacione)
                                         <tr>
                                            
+                                            <?php
+
+                                            $aumento+=$detallesmodificacione->montoacredita;
+                                            $disminucion+=$detallesmodificacione->montodebita;
                                             
-											<td>{{ $detallesmodificacione->modificacion_id }}</td>
-											<td>{{ $detallesmodificacione->unidadadministrativa_id }}</td>
-											<td>{{ $detallesmodificacione->ejecucion_id }}</td>
-											<td>{{ $detallesmodificacione->montoacredita }}</td>
-											<td>{{ $detallesmodificacione->montodebita }}</td>
+                                            $spsppra= $detallesmodificacione->unidadadministrativa->sector . '.' . $detallesmodificacione->unidadadministrativa->programa . '.' . $detallesmodificacione->unidadadministrativa->subprograma . '.' . $detallesmodificacione->unidadadministrativa->proyecto . '.' . $detallesmodificacione->unidadadministrativa->actividad;
+                                            ?>
+											
+                                            <td>{{ $spsppra }}</td>
+                                            <td>{{ $detallesmodificacione->ejecucione->poa_id }}</td>
+                                            <td>{{ $detallesmodificacione->ejecucione->meta_id }}</td>
+                                            <td>{{ $detallesmodificacione->ejecucione->clasificadorpresupuestario }}</td>
+										    <td>ordinario</td>
+										
+											<td>{{ number_format($detallesmodificacione->montoacredita, 2,',','.') }}</td>
+											<td>{{ 
+                                                number_format($detallesmodificacione->montodebita, 2,',','.') }}</td>
 
                                             
                                         </tr>
                                     @endforeach
+
+                                    <tr>
+                                           
+                                            
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+										    <th>TOTAL</th>
+										
+											<td>{{ 
+                                                number_format($aumento, 2,',','.') }}</td>
+											<td>{{ 
+                                                number_format($disminucion, 2,',','.') }}</td>
+
+                                            
+                                        </tr>
                                 </tbody>
                             </table>
 

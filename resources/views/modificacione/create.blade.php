@@ -1,10 +1,14 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Create Modificacione
-@endsection
+
+@section('title', 'Modificaciones')
+
+@section('content_header')
+    <h1>Modificaciones</h1>
+@stop
 
 @section('content')
+<br>
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -13,7 +17,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Crear Modificacion Presupuestaria</span>
+                        <span class="card-title">Crear Modificacion</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('modificaciones.store') }}"  role="form" enctype="multipart/form-data">
@@ -27,4 +31,8 @@
             </div>
         </div>
     </section>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

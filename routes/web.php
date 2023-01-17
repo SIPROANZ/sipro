@@ -309,9 +309,14 @@ Route::get('modificaciones/anuladas', [App\Http\Controllers\ModificacioneControl
 
 Route::get('modificaciones/pdf/{modificacion}', [App\Http\Controllers\ModificacioneController::class, 'pdf'])->name('modificaciones.pdf')->middleware('auth');
 
+
 Route::resource('modificaciones', App\Http\Controllers\ModificacioneController::class)->middleware('auth');
 
 Route::resource('tipomodificaciones', App\Http\Controllers\TipomodificacioneController::class)->middleware('auth');
+
+Route::post('detallesmodificaciones/ejecucionmod', [App\Http\Controllers\DetallesmodificacioneController::class, 'ejecucionmod']);
+
+Route::post('detallesmodificaciones/{detmod}/ejecucionmod', [App\Http\Controllers\DetallesmodificacioneController::class, 'ejecucionmod']);
 
 Route::resource('detallesmodificaciones', App\Http\Controllers\DetallesmodificacioneController::class)->middleware('auth');
 

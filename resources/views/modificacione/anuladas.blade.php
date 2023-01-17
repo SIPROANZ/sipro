@@ -63,9 +63,17 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $modificacione->numero }}</td>
-											<td>{{ $modificacione->tipomodificacion_id }}</td>
+											<td>{{ $modificacione->tipomodificacione->nombre }}</td>
 											<td>{{ $modificacione->descripcion }}</td>
-											<td>{{ $modificacione->status }}</td>
+											<td>@if ($modificacione->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($modificacione->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($modificacione->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($modificacione->status == 'AN')
+                                                    ANULADA
+                                                @endif</td>
 											<td>{{ $modificacione->fechaanulacion }}</td>
 											<td>{{ $modificacione->montocredita }}</td>
 											<td>{{ $modificacione->montodebita }}</td>
@@ -87,4 +95,8 @@
             </div>
         </div>
     </div>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

@@ -221,7 +221,10 @@ class OrdenpagoController extends Controller
 
 
         if($compromiso->precompromiso_id != NULL){
-            $partidas = Detallesprecompromiso::where('precompromiso_id',$compromiso->precompromiso_id)->get();
+            $partidas = Detallesprecompromiso::where('precompromiso_id',$compromiso->precompromiso_id)
+            ->join('ejecuciones', 'ejecuciones.id', '=', 'detallesprecompromisos.ejecucion_id') 
+            ->select('ejecuciones.meta_id', 'ejecuciones.clasificadorpresupuestario')
+            ->get();
            // $partidas = Ejecucione::find($repartidas->ejecucion_id);
 
         }

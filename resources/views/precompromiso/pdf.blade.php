@@ -180,7 +180,7 @@
 
                                     <tr>
                                     <th colspan="2" class="text-right justify-content">TOTAL PRE-COMPROMISO</th>
-                                    <th class="encabezado text-right justify-conten"> {{  number_format($totalcompromiso ,2,',','.') }}</th>
+                                    <th class="encabezado text-right justify-conten"> {{  number_format($totalcompromiso,2,',','.') }}</th>
 
                                    
                                 </tr>

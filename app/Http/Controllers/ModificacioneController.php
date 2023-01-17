@@ -89,7 +89,7 @@ class ModificacioneController extends Controller
         $modificacione = Modificacione::create($request->all());
 
         return redirect()->route('modificaciones.index')
-            ->with('success', 'Modificacione created successfully.');
+            ->with('success', 'Modificacion exitosa.');
     }
 
     /**

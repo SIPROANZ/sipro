@@ -107,13 +107,13 @@
                                     <tr>
                                         <th class="text-center">Nro</th>
 										<th class="text-center">Ejercicio Id</th>
-										<th class="text-center">UnidadadministrativaId</th>
-										<th class="text-center">MetaId</th>
-										<th class="text-center">Clasificadorpresupuestario</th>
+										<th class="text-center">Unidadadministrativa</th>
+										<th class="text-center">Meta</th>
+										<th class="text-center">Clasificador presupuestario</th>
 
                                         <th class="text-center">Mostrar</th>
 
-										<th class="text-center">FinanciamientoId</th>
+										<th class="text-center">Financiamiento</th>
 										<th class="text-center">MontoInicial</th>
 										<th class="text-center">MontoAumento</th>
 										<th class="text-center">MontoDisminuye</th>
@@ -125,7 +125,7 @@
 										<th class="text-center">MontoPorComprometer</th>
 										<th class="text-center">MontoPorCausar</th>
 										<th class="text-center">MontoPorPagar</th>
-										<th class="text-center">PoaId</th>
+										<th class="text-center">Poa</th>
 
                                         
                                     </tr>
@@ -136,7 +136,7 @@
                                             <td class="text-center">{{ ++$i }}</td>
                                             
 											<td class="text-center">{{ $ejecucione->ejercicio->nombreejercicio }}</td>
-											<td class="text-center">{{ $ejecucione->unidadadministrativa->sector }}</td>
+											<td class="text-center">{{ $ejecucione->unidadadministrativa->unidadejecutora }}</td>
 											<td class="text-center">{{ $ejecucione->meta->meta }}</td>
 											<td class="text-center">{{ $ejecucione->clasificadorpresupuestario }}</td>
 
@@ -145,7 +145,7 @@
                                                     
                                             </td>
 
-											<td class="text-center">{{ $ejecucione->financiamiento->financiamiento }}</td>
+											<td class="text-center">{{ $ejecucione->financiamiento->nombre }}</td>
 											<td class="text-center">{{ $ejecucione->monto_inicial }}</td>
 											<td class="text-center">{{ $ejecucione->monto_aumento }}</td>
 											<td class="text-center">{{ $ejecucione->monto_disminuye }}</td>

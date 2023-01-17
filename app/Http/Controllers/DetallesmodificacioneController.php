@@ -37,7 +37,9 @@ class DetallesmodificacioneController extends Controller
         $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
         $ejecuciones = Ejecucione::pluck('clasificadorpresupuestario', 'id');
         $modificacion_id = session('modificacion');
-        return view('detallesmodificacione.create', compact('modificacion_id', 'detallesmodificacione', 'unidadadministrativas', 'ejecuciones'));
+        
+        $unidades = Unidadadministrativa::all();
+        return view('detallesmodificacione.create', compact('unidades','modificacion_id', 'detallesmodificacione', 'unidadadministrativas', 'ejecuciones'));
     }
 
     /**
@@ -93,8 +95,9 @@ class DetallesmodificacioneController extends Controller
         $modificacion_id = session('modificacion');
         $unidadadministrativas = Unidadadministrativa::pluck('unidadejecutora', 'id');
         $ejecuciones = Ejecucione::pluck('clasificadorpresupuestario', 'id');
+        $unidades = Unidadadministrativa::all();
 
-        return view('detallesmodificacione.edit', compact('modificacion_id', 'detallesmodificacione', 'unidadadministrativas', 'ejecuciones'));
+        return view('detallesmodificacione.edit', compact('unidades', 'modificacion_id', 'detallesmodificacione', 'unidadadministrativas', 'ejecuciones'));
     }
 
     /**
@@ -142,5 +145,26 @@ class DetallesmodificacioneController extends Controller
                 return redirect()->route('modificaciones.index')
                 ->with('success', 'Registro Agregado Exitosamente.');
             }
+    }
+
+    //para llenar un select dinamico
+    public function ejecucionmod(Request $request){
+        if(isset($request->texto)){
+            $ejecuc = Ejecucione::where('unidadadministrativa_id', $request->texto)->get();
+            return response()->json(
+                [
+                    'lista' => $ejecuc,
+                    'success' => true
+                ]
+                );
+        }else{
+            return response()->json(
+                [
+                    'success' => false
+                ]
+                );
+
+        }
+
     }
 }

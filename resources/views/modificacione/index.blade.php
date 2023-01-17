@@ -1,10 +1,14 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Modificacione
-@endsection
+
+@section('title', 'Modificaciones')
+
+@section('content_header')
+    <h1>Modificaciones</h1>
+@stop
 
 @section('content')
+<br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -46,13 +50,13 @@
                                         <th>No</th>
                                         
 										<th>Numero</th>
-										<th>Tipomodificacion Id</th>
+										<th>Tipo modificacion</th>
 										<th>Descripcion</th>
 										<th>Status</th>
-										<th>Fechaanulacion</th>
-										<th>Montocredita</th>
-										<th>Montodebita</th>
-										<th>Ncredito</th>
+										<th>Fecha anulacion</th>
+										<th>Monto credita</th>
+										<th>Monto debita</th>
+										<th>Numero Credito</th>
 
                                         <th></th>
                                     </tr>
@@ -63,9 +67,17 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $modificacione->numero }}</td>
-											<td>{{ $modificacione->tipomodificacion_id }}</td>
+											<td>{{ $modificacione->tipomodificacione->nombre }}</td>
 											<td>{{ $modificacione->descripcion }}</td>
-											<td>{{ $modificacione->status }}</td>
+											<td>@if ($modificacione->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($modificacione->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($modificacione->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($modificacione->status == 'AN')
+                                                    ANULADA
+                                                @endif</td>
 											<td>{{ $modificacione->fechaanulacion }}</td>
 											<td>{{ $modificacione->montocredita }}</td>
 											<td>{{ $modificacione->montodebita }}</td>
@@ -75,7 +87,6 @@
                         
                                                 <form action="{{ route('modificaciones.anular',$modificacione->id) }}" method="POST">
                                                 <a class="btn btn-sm btn-primary " href="{{ route('modificaciones.agregarmodificacion',$modificacione->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Detalle"><i class="fas fa-outdent"></i></i></a>
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('modificaciones.show',$modificacione->id) }}" data-toggle="tooltip" data-placement="top" title="Mostrar Ajuste"><i class="fa fa-fw fa-eye"></i></a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('modificaciones.edit',$modificacione->id) }}" data-toggle="tooltip" data-placement="top" title="Editar Ajuste"><i class="fa fa-fw fa-edit"></i></a>
                                                    
                                                     @csrf
@@ -102,4 +113,8 @@
             </div>
         </div>
     </div>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

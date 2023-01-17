@@ -1,10 +1,14 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    Modificacione
-@endsection
+
+@section('title', 'Modificaciones')
+
+@section('content_header')
+    <h1>Modificaciones</h1>
+@stop
 
 @section('content')
+<br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -13,7 +17,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Modificaciones Presupuestarias Procesadas') }}
+                                {{ __('Modificaciones Ejecucion Procesadas') }}
                             </span>
 
                              <div class="float-right">
@@ -46,13 +50,13 @@
                                         <th>No</th>
                                         
 										<th>Numero</th>
-										<th>Tipomodificacion Id</th>
+										<th>Tipo modificacion</th>
 										<th>Descripcion</th>
 										<th>Status</th>
-										<th>Fechaanulacion</th>
-										<th>Montocredita</th>
-										<th>Montodebita</th>
-										<th>Ncredito</th>
+										<th>Fecha anulacion</th>
+										<th>Monto acredita</th>
+										<th>Mont odebita</th>
+										<th>Numero credito</th>
 
                                         <th></th>
                                     </tr>
@@ -63,9 +67,17 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $modificacione->numero }}</td>
-											<td>{{ $modificacione->tipomodificacion_id }}</td>
+											<td>{{ $modificacione->tipomodificacione->nombre }}</td>
 											<td>{{ $modificacione->descripcion }}</td>
-											<td>{{ $modificacione->status }}</td>
+											<td>@if ($modificacione->status == 'EP')
+                                                    EN PROCESO
+                                                @elseif ($modificacione->status == 'PR')
+                                                    PROCESADA
+                                                @elseif ($modificacione->status == 'AP')
+                                                    APROBADA
+                                                @elseif ($modificacione->status == 'AN')
+                                                    ANULADA
+                                                @endif</td>
 											<td>{{ $modificacione->fechaanulacion }}</td>
 											<td>{{ $modificacione->montocredita }}</td>
 											<td>{{ $modificacione->montodebita }}</td>
@@ -88,4 +100,8 @@
             </div>
         </div>
     </div>
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

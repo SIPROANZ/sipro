@@ -250,18 +250,18 @@
 if($ordenpago->compromiso->precompromiso_id != NULL)
 { 
 
-  $clasificador = explode('.',  $valor->clasificadorpresupuestario);
+  $clasificador = explode('.', $valor->clasificadorpresupuestario);
 }
 
 
 if($ordenpago->compromiso->ayuda_id != NULL)
 {
 
-  $clasificador = explode('.',   $valor->clasificadorpresupuestario);
+  $clasificador = explode('.', $valor->clasificadorpresupuestario);
 }
 
 if($ordenpago->compromiso->compra_id != NULL)
-{ $clasificador = explode('.',  $valor->claspres); }
+{ $clasificador = explode('.', $valor->claspres); }
 
                          //  $clasificador = explode('.',  $valor->claspres);
 
@@ -316,6 +316,7 @@ if($ordenpago->compromiso->compra_id != NULL)
                         <td align="right">  {{ number_format($ordenpago->montoneto, 2) }} </td>
                       </tr>
                   @endforeach
+                  
                 </tbody>
              </table>
 

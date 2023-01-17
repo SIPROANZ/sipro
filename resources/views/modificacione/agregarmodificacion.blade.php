@@ -1,20 +1,23 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    {{ $modificacione->name ?? 'Show Modificacione' }}
-@endsection
+@section('title', 'Modificaciones')
+
+@section('content_header')
+    <h1>Modificaciones</h1>
+@stop
 
 @section('content')
+<br>
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Show Modificacione</span>
+                            <span class="card-title">Mostrar Modificacion</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('modificaciones.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('modificaciones.index') }}"> Regresar</a>
                         </div>
                     </div>
 
@@ -25,8 +28,8 @@
                             {{ $modificacione->numero }}
                         </div>
                         <div class="form-group">
-                            <strong>Tipomodificacion Id:</strong>
-                            {{ $modificacione->tipomodificacion_id }}
+                            <strong>Tipo modificacion:</strong>
+                            {{ $modificacione->tipomodificacione->nombre }}
                         </div>
                         <div class="form-group">
                             <strong>Descripcion:</strong>
@@ -37,19 +40,19 @@
                             {{ $modificacione->status }}
                         </div>
                         <div class="form-group">
-                            <strong>Fechaanulacion:</strong>
+                            <strong>Fecha anulacion:</strong>
                             {{ $modificacione->fechaanulacion }}
                         </div>
                         <div class="form-group">
-                            <strong>Montocredita:</strong>
+                            <strong>Monto acredita:</strong>
                             {{ $modificacione->montocredita }}
                         </div>
                         <div class="form-group">
-                            <strong>Montodebita:</strong>
+                            <strong>Monto debita:</strong>
                             {{ $modificacione->montodebita }}
                         </div>
                         <div class="form-group">
-                            <strong>Ncredito:</strong>
+                            <strong>Numero de credito:</strong>
                             {{ $modificacione->ncredito }}
                         </div>
 
@@ -67,12 +70,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Detallesmodificacione') }}
+                                {{ __('Detalles modificacion') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('detallesmodificaciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Agregar detalle') }}
                                 </a>
                               </div>
                         </div>
@@ -90,10 +93,10 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Modificacion Id</th>
-										<th>Unidadadministrativa Id</th>
-										<th>Ejecucion Id</th>
-										<th>Montoacredita</th>
+										<th>Modificacion</th>
+										<th>Unidad administrativa</th>
+										<th>Cuenta</th>
+										<th>Monto acredita</th>
 										<th>Montodebita</th>
 
                                         <th></th>
@@ -104,9 +107,9 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $detallesmodificacione->modificacion_id }}</td>
-											<td>{{ $detallesmodificacione->unidadadministrativa_id }}</td>
-											<td>{{ $detallesmodificacione->ejecucion_id }}</td>
+											<td>{{ $detallesmodificacione->modificacione->numero }}</td>
+											<td>{{ $detallesmodificacione->unidadadministrativa->unidadejecutora }}</td>
+											<td>{{ $detallesmodificacione->ejecucione->clasificadorpresupuestario }}</td>
 											<td>{{ $detallesmodificacione->montoacredita }}</td>
 											<td>{{ $detallesmodificacione->montodebita }}</td>
 
@@ -130,4 +133,8 @@
         </div>
     </div>
 
-@endsection
+    @stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

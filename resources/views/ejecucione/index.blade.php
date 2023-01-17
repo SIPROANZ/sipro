@@ -91,6 +91,11 @@
                                 <a href="{{ route('ejecuciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Nuevo') }}
                                 </a>
+
+                                <a href="{{ route('ejecuciones.pdf') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Exportar') }}
+                                </a>
+
                               </div>
                         </div>
                     </div>

@@ -14,6 +14,7 @@ use App\Detallepagado;
 use App\Detallesmodificacione;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use PDF;
 
 
 /**
@@ -170,5 +171,21 @@ class EjecucioneController extends Controller
 
         return redirect()->route('ejecuciones.index')
             ->with('success', 'Ejecución eliminada con éxito');
+    }
+
+    /**
+     * Crear pdf de la requisicion seleccionada
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf()
+    {
+      
+        $ejecuciones = Ejecucione::orderBy('unidadadministrativa_id', 'asc')->get();
+
+
+        $pdf = PDF::loadView('ejecucione.pdf', ['ejecuciones'=>$ejecuciones]);
+        return $pdf->stream();
+ 
     }
 }

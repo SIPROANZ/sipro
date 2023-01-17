@@ -68,6 +68,8 @@ Route::resource('clases', App\Http\Controllers\ClaseController::class)->middlewa
 
 Route::resource('unidadadministrativas', App\Http\Controllers\UnidadadministrativaController::class)->middleware('auth');
 
+Route::get('ejecuciones/pdf', [App\Http\Controllers\EjecucioneController::class, 'pdf'])->name('ejecuciones.pdf')->middleware('auth');
+
 Route::resource('ejecuciones', App\Http\Controllers\EjecucioneController::class)->middleware('auth');
 
 Route::resource('objetivogenerales', App\Http\Controllers\ObjetivogeneraleController::class)->middleware('auth');
@@ -153,6 +155,8 @@ Route::get('compras/anuladas', [App\Http\Controllers\CompraController::class, 'i
 Route::patch('/compras/actualizar/{compra}', [App\Http\Controllers\CompraController::class, 'actualizar'])->name('compras.actualizar')->middleware('auth');
 
 Route::patch('/compras/anular/{compra}', [App\Http\Controllers\CompraController::class, 'anular'])->name('compras.anular')->middleware('auth');
+
+Route::patch('/compras/modificar/{compra}', [App\Http\Controllers\CompraController::class, 'modificar'])->name('compras.modificar')->middleware('auth');
 
 Route::get('compras/analisis', [App\Http\Controllers\CompraController::class, 'indexanalisis'])->name('compras.analisis')->middleware('auth');
 

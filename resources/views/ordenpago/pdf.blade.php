@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDf Compromisos</title>
+    <title>PDf Orden de Pago</title>
 
     <link rel="stylesheet" href="{{ public_path('css/bootstrap.min.css') }}" type="text/css">
 
@@ -191,7 +191,7 @@
 
             <!-- A#O DEL PRESUPUESTO -->
             <div class="form-group">
-               <h2 class="titulo"><strong> AÑO DEL PRESUPUESTO {{ $ordenpago->compromiso->compra->analisi->requisicione->ejercicio->ejercicioejecucion }}</strong><h2>
+               <h2 class="titulo"><strong> AÑO DEL PRESUPUESTO {{ 2023 }}</strong><h2>
             </div>
             <!-- tabla para colocar el sector de la unidad administrativa -->
             <table class="table table-bordered table-sm resumen ">
@@ -209,14 +209,62 @@
                    </tr>
                </thead>
                <tbody>
+
                  @foreach ($partidas as $valor)
                    <tr>
+                       
+                       @if($ordenpago->compromiso->precompromiso_id != NULL)
+                       <td> {{ $ordenpago->compromiso->precompromiso->unidadadministrativa->sector }}</td>
+                       <td> {{ $ordenpago->compromiso->precompromiso->unidadadministrativa->programa }}</td>
+                       <td> {{ $ordenpago->compromiso->precompromiso->unidadadministrativa->actividad }}</td>
+                       
+                       @endif
+                       @if($ordenpago->compromiso->ayuda_id != NULL)
+                       <td> {{ $ordenpago->compromiso->ayudassociale->unidadadministrativa->sector }}</td>
+                       <td> {{ $ordenpago->compromiso->ayudassociale->unidadadministrativa->programa }}</td>
+                       <td> {{ $ordenpago->compromiso->ayudassociale->unidadadministrativa->actividad }}</td>
+                       
+                       @endif
+                       @if($ordenpago->compromiso->compra_id != NULL)
                        <td> {{ $ordenpago->compromiso->compra->analisi->requisicione->unidadadministrativa->sector }}</td>
                        <td> {{ $ordenpago->compromiso->compra->analisi->requisicione->unidadadministrativa->programa }}</td>
                        <td> {{ $ordenpago->compromiso->compra->analisi->requisicione->unidadadministrativa->actividad }}</td>
-                       <td>{{ $valor->meta_id }}</td>
+                       
+                       @endif
+                       
+                       
+                       
+                       <td>
+                       @if($ordenpago->compromiso->precompromiso_id != NULL)
+                       {{ $valor->meta_id  }}
+                       @endif
+                       @if($ordenpago->compromiso->ayuda_id != NULL)
+                       {{ $valor->meta_id  }}
+                       @endif
+                       @if($ordenpago->compromiso->compra_id != NULL)
+                       {{ $valor->meta_id }}
+                       @endif
+                      </td>
                          <?php
-                           $clasificador = explode('.',  $valor->claspres);
+
+if($ordenpago->compromiso->precompromiso_id != NULL)
+{ 
+
+  $clasificador = explode('.',  $valor->clasificadorpresupuestario);
+}
+
+
+if($ordenpago->compromiso->ayuda_id != NULL)
+{
+
+  $clasificador = explode('.',   $valor->clasificadorpresupuestario);
+}
+
+if($ordenpago->compromiso->compra_id != NULL)
+{ $clasificador = explode('.',  $valor->claspres); }
+
+                         //  $clasificador = explode('.',  $valor->claspres);
+
                          ?>
                        <td>{{  $clasificador[0] . '.' . $clasificador[1] }}</td>
                        <td>{{  $clasificador[2] }}</td>
@@ -226,6 +274,7 @@
                        {{-- <td> {{ $ordenpago->compromiso->detallescompromiso->ejecucione->financiamiento->nombre }}</td> --}}
                      </tr>
                  @endforeach
+
                </tbody>
             </table>
 
@@ -276,7 +325,7 @@
               <table class="table table-bordered">
                 <thead >
                   <tr>
-                    <th width="50%" class="firma" >DIRECTOR(A) DE ADMINISTRACION</th>
+                    <th width="50%" class="firma" >DIRECTOR(A) DE ADMINISTRACION Y FINANZAS</th>
                     <th width="50%" class="firma"  >GOBERNADOR(A) Y/O SECRETARIO(A) GENERAL DE GOBIERNO</th>
                   </tr>
                 </thead>

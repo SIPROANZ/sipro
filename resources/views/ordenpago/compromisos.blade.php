@@ -77,8 +77,7 @@
                                             <td>
                                                 <a class="btn btn-sm btn-primary " href="{{ route('ordenpagos.agregarordenpago',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Agregar Orden de Pago"><i class="fas fa-outdent"></i></i></a>
 
-                                                <a class="btn btn-sm btn-success" href="{{ route('ordenpagos.reversar',$compromiso->id) }}" data-toggle="tooltip" data-placement="top" title="Reversar Compromiso"><i class="fas fa-chevron-circle-left"></i></a>
-
+                                             
                                             </td>
                                         </tr>
                                     @endforeach

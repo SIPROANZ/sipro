@@ -488,12 +488,12 @@ return [
                             'icon_color' => 'white',
                             'route'  => 'ordenpagos.index',
                         ],
-                        [
+                      /*  [
                             'text' => 'Causados',
                             'icon'    => 'fas fa-fw fa-calculator', // <i class="fas fa-calculator"></i>
                             'icon_color' => 'white',
                             'url'  => '#',
-                        ],
+                        ], */
                         [
                             'text' => 'Tipo de Retenciones',
                             'icon'    => 'fas fa-fw fa-chalkboard-teacher', // <i class="fas fa-chalkboard-teacher"></i>

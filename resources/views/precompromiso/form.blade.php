@@ -19,7 +19,7 @@
             
         </div>
         <div class="form-group">
-            {{ Form::label('fechaanulacion') }}
+           
             {{ Form::hidden('fechaanulacion', $precompromiso->fechaanulacion, ['class' => 'form-control' . ($errors->has('fechaanulacion') ? ' is-invalid' : ''), 'placeholder' => 'Fechaanulacion']) }}
             {!! $errors->first('fechaanulacion', '<div class="invalid-feedback">:message</div>') !!}
         </div>

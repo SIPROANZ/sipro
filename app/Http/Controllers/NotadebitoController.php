@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Notadebito;
+use App\Ejercicio;
+use App\Cuentasbancaria;
+use App\Beneficiario;
+use App\Institucione;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +36,14 @@ class NotadebitoController extends Controller
     public function create()
     {
         $notadebito = new Notadebito();
-        return view('notadebito.create', compact('notadebito'));
+
+        $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
+        $instituciones = Institucione::pluck('institucion', 'id');
+        $cuentasbancarias = Cuentasbancaria::pluck('cuenta', 'id');
+        $beneficiarios = Beneficiario::pluck('nombre', 'id');
+
+        return view('notadebito.create', compact('notadebito','ejercicios', 'instituciones', 'cuentasbancarias', 'beneficiarios'));
+    
     }
 
     /**
@@ -74,7 +85,13 @@ class NotadebitoController extends Controller
     {
         $notadebito = Notadebito::find($id);
 
-        return view('notadebito.edit', compact('notadebito'));
+        $ejercicios = Ejercicio::pluck('nombreejercicio' , 'id');
+        $instituciones = Institucione::pluck('institucion', 'id');
+        $cuentasbancarias = Cuentasbancaria::pluck('cuenta', 'id');
+        $beneficiarios = Beneficiario::pluck('nombre', 'id');
+
+        return view('notadebito.edit', compact('notadebito','ejercicios', 'instituciones', 'cuentasbancarias', 'beneficiarios'));
+ 
     }
 
     /**

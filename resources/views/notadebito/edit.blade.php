@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Update Notadebito
+    Actualizar Nota debito
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Update Notadebito</span>
+                        <span class="card-title">Actualizar Nota debito</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('notadebitos.update', $notadebito->id) }}"  role="form" enctype="multipart/form-data">

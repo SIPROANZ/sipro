@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Nota credito
+    Comprobantesretencione
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Nota credito') }}
+                                {{ __('Comprobantesretencione') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('notacreditos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nota Credito') }}
+                                <a href="{{ route('comprobantesretenciones.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Create New') }}
                                 </a>
                               </div>
                         </div>
@@ -36,39 +36,29 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Ejercicio</th>
-										<th>Cuentas bancaria</th>
-										<th>Beneficiario</th>
-										<th>Institucion</th>
-										<th>Monto</th>
-										<th>Fecha</th>
-										<th>Referencia</th>
-										<th>Descripcion</th>
+										<th>Tiporetencion Id</th>
+										<th>Ordenpago Id</th>
+										<th>Montoretencion</th>
 
-                                        <th>Opciones</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($notacreditos as $notacredito)
+                                    @foreach ($comprobantesretenciones as $comprobantesretencione)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $notacredito->ejercicio->nombreejercicio}}</td>
-											<td>{{ $notacredito->cuentasbancaria->cuenta}}</td>
-											<td>{{ $notacredito->beneficiario->nombre }}</td>
-											<td>{{ $notacredito->institucione->institucion }}</td>
-											<td>{{ $notacredito->montonc }}</td>
-											<td>{{ $notacredito->fecha }}</td>
-											<td>{{ $notacredito->referencianc }}</td>
-											<td>{{ $notacredito->descripcion }}</td>
+											<td>{{ $comprobantesretencione->tiporetencion_id }}</td>
+											<td>{{ $comprobantesretencione->ordenpago_id }}</td>
+											<td>{{ $comprobantesretencione->montoretencion }}</td>
 
                                             <td>
-                                                <form action="{{ route('notacreditos.destroy',$notacredito->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('notacreditos.show',$notacredito->id) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('notacreditos.edit',$notacredito->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                                <form action="{{ route('comprobantesretenciones.destroy',$comprobantesretencione->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('comprobantesretenciones.show',$comprobantesretencione->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('comprobantesretenciones.edit',$comprobantesretencione->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -78,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $notacreditos->links() !!}
+                {!! $comprobantesretenciones->links() !!}
             </div>
         </div>
     </div>

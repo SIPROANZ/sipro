@@ -322,9 +322,18 @@ Route::resource('precompromisos', App\Http\Controllers\PrecompromisoController::
 
 Route::resource('detallesprecompromisos', App\Http\Controllers\DetallesprecompromisoController::class)->middleware('auth');
 
+
 Route::resource('notacreditos', App\Http\Controllers\NotacreditoController::class)->middleware('auth');
 
+
 Route::resource('notadebitos', App\Http\Controllers\NotadebitoController::class)->middleware('auth');
+
+Route::get('transferencias/pdf/{transf}', [App\Http\Controllers\TransferenciaController::class, 'pdf'])->name('transferencias.pdf')->middleware('auth');
+
+
+Route::get('transferencias/miagregar', [App\Http\Controllers\TransferenciaController::class, 'miagregar'])->name('transferencias.miagregar')->middleware('auth');
+
+Route::get('/transferencias/seleccionarpagado/{pagado}', [App\Http\Controllers\TransferenciaController::class, 'seleccionarpagado'])->name('transferencias.seleccionarpagado')->middleware('auth');
 
 
 Route::get('transferencias/procesados', [App\Http\Controllers\TransferenciaController::class, 'indexprocesadas'])->name('transferencias.procesados')->middleware('auth');
@@ -337,3 +346,8 @@ Route::get('/transferencias/agregar', [App\Http\Controllers\TransferenciaControl
 Route::get('/transferencias/agregartransferencia', [App\Http\Controllers\TransferenciaController::class, 'agregartransferencia'])->name('transferencias.agregartransferencia')->middleware('auth');
 
 Route::resource('transferencias', App\Http\Controllers\TransferenciaController::class)->middleware('auth');
+
+
+
+
+Route::resource('comprobantesretenciones', App\Http\Controllers\ComprobantesretencioneController::class)->middleware('auth');

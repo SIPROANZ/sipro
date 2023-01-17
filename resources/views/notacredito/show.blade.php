@@ -22,19 +22,19 @@
                         
                         <div class="form-group">
                             <strong>Ejercicio Id:</strong>
-                            {{ $notacredito->ejercicio_id }}
+                            {{ $notacredito->ejercicio->nombreejercicio }}
                         </div>
                         <div class="form-group">
                             <strong>Cuentasbancaria Id:</strong>
-                            {{ $notacredito->cuentasbancaria_id }}
+                            {{ $notacredito->cuentasbancaria->cuenta }}
                         </div>
                         <div class="form-group">
                             <strong>Beneficiario Id:</strong>
-                            {{ $notacredito->beneficiario_id }}
+                            {{ $notacredito->beneficiario->nombre }}
                         </div>
                         <div class="form-group">
                             <strong>Institucione Id:</strong>
-                            {{ $notacredito->institucione_id }}
+                            {{ $notacredito->institucione->institucion  }}
                         </div>
                         <div class="form-group">
                             <strong>Montonc:</strong>

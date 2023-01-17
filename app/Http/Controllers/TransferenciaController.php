@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Transferencia;
+use App\Banco;
 use App\Pagado;
+use App\ordenpago;
 use App\Cuentasbancaria;
 use App\Beneficiario;
 use App\Detallepagado;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -47,10 +50,23 @@ class TransferenciaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         request()->validate(Transferencia::$rules);
 
+        $max_correlativo = DB::table('transferencias')->max('egreso');
+        $numero_correlativo = $max_correlativo + 1;
+        $request->merge(['egreso'=>$numero_correlativo]);
+        $request->merge(['status'=>'EP']);
+
         $transferencia = Transferencia::create($request->all());
+
+        //Inicio de codigo aumento pagado
+
+        $pagados =Pagado::find($request->pagado_id);
+        $pagado->increment('montopagado', $request->montotransferencia );
+
+       
+
 
         return redirect()->route('transferencias.index')
             ->with('success', 'Transferencia created successfully.');
@@ -140,5 +156,37 @@ class TransferenciaController extends Controller
        $cuentasbancarias = Cuentasbancaria::pluck('cuenta', 'id');
 
        return view('pagado.agregartransferencia', compact('transferencia','pagados','cuentasbancarias'));
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function miagregar()
+    {
+        $pagados = Pagado::where('status', 'PR')->paginate();
+
+        return view('transferencia.miagregar', compact('pagados'))
+            ->with('i', (request()->input('page', 1) - 1) * $pagados->perPage());
+    }
+
+         /**
+     * Display the specified resource agregar detalles a una requisicion.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function seleccionarpagado($id)
+    {
+        $pagado_id = $id;
+        $pagados = Pagado::find($id);
+
+        $cuentasbancarias =Cuentasbancaria::pluck('cuenta', 'id');
+        $bancos =Banco::pluck('denominacion', 'id');
+        $ordenpagos =Ordenpago::pluck('montoneto', 'id');
+        
+        $transferencia = new Transferencia();
+        return view('transferencia.create', compact('transferencia','pagados', 'cuentasbancarias', 'bancos', 'ordenpagos'));
     }
 }

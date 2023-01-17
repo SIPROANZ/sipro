@@ -1,49 +1,77 @@
 <div class="box box-info padding-1">
     <div class="box-body">
-        
+    <div class="row">
+
+    <div class="col-md-4">
         <div class="form-group">
-            {{ Form::label('ejercicio_id') }}
-            {{ Form::text('ejercicio_id', $notadebito->ejercicio_id, ['class' => 'form-control' . ($errors->has('ejercicio_id') ? ' is-invalid' : ''), 'placeholder' => 'Ejercicio Id']) }}
+            {{ Form::label('Ejercicio') }}
+            {{ Form::select('ejercicio_id', $ejercicios, $notadebito->ejercicio_id, ['class' => 'form-control' . ($errors->has('ejercicio_id') ? ' is-invalid' : ''), 'placeholder' => 'Selecciones el ejercicio']) }}
             {!! $errors->first('ejercicio_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+        </div>
+        <div class="col-md-4">
         <div class="form-group">
-            {{ Form::label('cuentasbancaria_id') }}
-            {{ Form::text('cuentasbancaria_id', $notadebito->cuentasbancaria_id, ['class' => 'form-control' . ($errors->has('cuentasbancaria_id') ? ' is-invalid' : ''), 'placeholder' => 'Cuentasbancaria Id']) }}
+            {{ Form::label('Cuenta Bancaria') }}
+            {{ Form::select('cuentasbancaria_id', $cuentasbancarias, $notadebito->cuentasbancaria_id, ['class' => 'form-control' . ($errors->has('cuentasbancaria_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione la cuenta bancaria']) }}
             {!! $errors->first('cuentasbancaria_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+        </div>
+        <div class="col-md-4">
         <div class="form-group">
-            {{ Form::label('beneficiario_id') }}
-            {{ Form::text('beneficiario_id', $notadebito->beneficiario_id, ['class' => 'form-control' . ($errors->has('beneficiario_id') ? ' is-invalid' : ''), 'placeholder' => 'Beneficiario Id']) }}
+            {{ Form::label('Beneficiario') }}
+            {{ Form::select('beneficiario_id', $beneficiarios, $notadebito->beneficiario_id, ['class' => 'form-control' . ($errors->has('beneficiario_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione el beneficiario']) }}
             {!! $errors->first('beneficiario_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+        </div>
+        <div class="col-md-4">
         <div class="form-group">
-            {{ Form::label('institucione_id') }}
-            {{ Form::text('institucione_id', $notadebito->institucione_id, ['class' => 'form-control' . ($errors->has('institucione_id') ? ' is-invalid' : ''), 'placeholder' => 'Institucione Id']) }}
+            {{ Form::label('Institucion') }}
+            {{ Form::select('institucione_id', $instituciones, $notadebito->institucione_id, ['class' => 'form-control' . ($errors->has('institucione_id') ? ' is-invalid' : ''), 'placeholder' => 'Institucione Id']) }}
             {!! $errors->first('institucione_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+        </div>
+
+        <div class="col-md-4">
         <div class="form-group">
-            {{ Form::label('montond') }}
-            {{ Form::text('montond', $notadebito->montond, ['class' => 'form-control' . ($errors->has('montond') ? ' is-invalid' : ''), 'placeholder' => 'Montond']) }}
+            {{ Form::label('Monto') }}
+            {{ Form::number('montond', $notadebito->montond, ['class' => 'form-control' . ($errors->has('montond') ? ' is-invalid' : ''), 'placeholder' => 'Montond']) }}
             {!! $errors->first('montond', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+        </div>
+
+        <div class="col-md-4">
         <div class="form-group">
-            {{ Form::label('fecha') }}
-            {{ Form::text('fecha', $notadebito->fecha, ['class' => 'form-control' . ($errors->has('fecha') ? ' is-invalid' : ''), 'placeholder' => 'Fecha']) }}
+            {{ Form::label('Fecha') }}
+            {{ Form::date('fecha', $notadebito->fecha, ['class' => 'form-control' . ($errors->has('fecha') ? ' is-invalid' : ''), 'placeholder' => 'Fecha']) }}
             {!! $errors->first('fecha', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+        </div>
+
+        <div class="col-md-4">
         <div class="form-group">
-            {{ Form::label('referenciand') }}
+            {{ Form::label('Referencia') }}
             {{ Form::text('referenciand', $notadebito->referenciand, ['class' => 'form-control' . ($errors->has('referenciand') ? ' is-invalid' : ''), 'placeholder' => 'Referenciand']) }}
             {!! $errors->first('referenciand', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+        </div>
+
+        <div class="col-md-4">
         <div class="form-group">
-            {{ Form::label('descripcion') }}
+            {{ Form::label('Descripcion') }}
             {{ Form::text('descripcion', $notadebito->descripcion, ['class' => 'form-control' . ($errors->has('descripcion') ? ' is-invalid' : ''), 'placeholder' => 'Descripcion']) }}
             {!! $errors->first('descripcion', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+        </div>
+       
+        
+       
+       </div>
+
 
     </div>
+    <br>
+
     <div class="box-footer mt20">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
 </div>

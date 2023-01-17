@@ -7,7 +7,10 @@ use App\Ordenpago;
 use App\Detallepagado;
 use App\Beneficiario;
 use App\Tipomovimiento;
+use App\Retencione;
 use App\Detalleordenpago;
+use App\Detalleretencione;
+use App\Comprobantesretencione;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -112,6 +115,26 @@ class PagadoController extends Controller
 
             
             $detallepagado = Detallepagado::create($detalles_pagados);
+
+        }
+
+        $detalle_retenciones = Detalleretencione::where('ordenpago_id', $ordenpago_id)->get();
+
+        foreach($detalle_retenciones as $row){
+
+            $retencion = Retencione::find($row->retencion_id);
+            $tiporetencion= $retencion->tiporetencion_id;
+          
+            $detalles_rete=[               
+                'ordenpago_id'=> $ordenpago_id,
+                'tiporetencion_id'=> $tiporetencion,              
+                'montoretencion'=> $row->montoneto,
+                'status'=> 'EP',
+
+            ];
+
+            
+            $detallecomprobantes = Comprobantesretencione::create($detalles_rete);
 
         }
 
@@ -260,6 +283,26 @@ class PagadoController extends Controller
             return redirect()->route('pagados.index')
             ->with('success', 'No Aprobado. No hay Disponibilidad o ha ocurrido un error en el registro');
         }
+
+    }
+
+    
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UN PAGADO
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function anular($id)
+    {
+
+        $pagado = Pagado::find($id);
+        $pagado->status = 'AN';
+        $pagado->save();
+
+        
+        return redirect()->route('pagados.index')
+            ->with('success', 'Orden de Pago Anulada exitosamente.');
+
 
     }
 

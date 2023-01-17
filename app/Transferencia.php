@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Transferencia
  *
  * @property $id
+ * @property $banco_id
  * @property $cuentasbancaria_id
  * @property $beneficiario_id
  * @property $pagado_id
@@ -31,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transferencia extends Model
 {
     
-    static $rules = [
+    static $rules = [        
 		'cuentasbancaria_id' => 'required',
 		'beneficiario_id' => 'required',
 		'pagado_id' => 'required',
@@ -39,9 +40,8 @@ class Transferencia extends Model
 		'concepto' => 'required',
 		'egreso' => 'required',
 		'montoorden' => 'required',
-		'referenciabancaria' => 'required',
-		'conceptoanulacion' => 'required',
-        'status'=> 'required',
+		'referenciabancaria' => 'required',		
+      
     ];
 
     protected $perPage = 20;
@@ -51,7 +51,7 @@ class Transferencia extends Model
      *
      * @var array
      */
-    protected $fillable = ['cuentasbancaria_id','beneficiario_id','pagado_id','montotransferencia','fechaanulacion','concepto','egreso','montoorden','referenciabancaria','conceptoanulacion','status'];
+    protected $fillable = ['cuentasbancaria_id','beneficiario_id','pagado_id','montotransferencia','concepto','egreso','montoorden','referenciabancaria','status','conceptoanulacion'];
 
 
     /**

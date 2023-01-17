@@ -159,7 +159,7 @@ class OrdenpagoController extends Controller
         $meta = '';
 
         $concepto = 'Es Null';
-
+        $detalleretenciones = Detalleretencione::where('ordenpago_id','=',$ordenpago->id)->paginate();
         $detallescompromisos = Detallescompromiso::where('compromiso_id','=',$id)->paginate();
         $totalcompromiso = $detallescompromisos->sum('montocompromiso');
 
@@ -243,8 +243,8 @@ class OrdenpagoController extends Controller
 
         }
 
-        $montoletras = NumeroALetras::convertir($ordenpago->montoneto, 'bolivares');
-        $pdf = PDF::loadView('ordenpago.pdf', ['montoletras'=>$montoletras, 'partidas'=>$partidas, 'ordenpago'=>$ordenpago, 'compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos, 'datos'=>$datos, 'totalcompromiso'=>$totalcompromiso, 'concepto'=>$concepto, 'status'=> $status]);
+        //$montoletras = numerosAletras($ordenpago->montoneto,'nominal',2,'CENTIMOS','BOLIVARES');
+        $pdf = PDF::loadView('ordenpago.pdf', ['detalleretenciones'=>$detalleretenciones, 'partidas'=>$partidas, 'ordenpago'=>$ordenpago, 'compromiso'=>$compromiso, 'detallescompromisos'=>$detallescompromisos, 'datos'=>$datos, 'totalcompromiso'=>$totalcompromiso, 'concepto'=>$concepto, 'status'=> $status]);
         return $pdf->stream();
     }
 

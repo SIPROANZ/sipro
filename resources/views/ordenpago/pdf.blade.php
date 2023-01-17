@@ -301,16 +301,6 @@
                     </tr>
                 </thead>
                 <tbody>
-{{--                   @foreach ($partidas as $valor)
-                    <tr>
-                        <td align="right"> {{ number_format($ordenpago->montobase, 2) }}</td>
-                        <td align="right"> {{ number_format($ordenpago->montoexento, 2) }}</td>
-                        <td align="right"> {{ number_format($ordenpago->montoiva, 2) }}</td>
-                        <td align="right">  {{ number_format($ordenpago->montobase + $ordenpago->montoiva, 2) }} </td>
-                        <td align="right"> {{ number_format($ordenpago->montoretencion, 2) }}</td>
-                        <td align="right">  {{ number_format($ordenpago->montoneto, 2) }} </td>
-                      </tr>
-                  @endforeach --}}
                     <tr>
                         <td align="right"> {{ number_format($ordenpago->montobase, 2) }}</td>
                         <td align="right"> {{ number_format($ordenpago->montoexento, 2) }}</td>
@@ -321,15 +311,37 @@
                     </tr>
                 </tbody>
              </table>
-             <table class="table table-bordered table-striped">
+{{--              <table class="table table-bordered table-striped">
                 <thead class="table-secondary">
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="2">MONTO A PAGAR EN LETRAS: {{ '(***'.$montoletras.'***)' }}</td>
+                        <td colspan="2">MONTO A PAGAR EN LETRAS: {{ $montoletras }}</td>
                     </tr>
                 </tbody>
+            </table> --}}
+
+                       <!-- tabla para cargar las retenciones de la orden de pago -->
+
+            @if($ordenpago->compromiso->compra_id != NULL)
+            <table class="table table-bordered table-sm resumen ">
+            <thead class="thead table-secondary">
+                <tr>
+                    <th>RETENCIÓN</th>
+                    <th>MONTO</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach ($detalleretenciones as $valor)
+                <tr>
+                    <td> {{ $valor->retencione->descripcion }}</td>
+                    <td align="right"> {{ number_format($valor->montoneto, 2)  }}</td>
+                </tr>
+                @endforeach
+            </tbody>
             </table>
+            @endif
        </main>
 
        <footer class="footer">

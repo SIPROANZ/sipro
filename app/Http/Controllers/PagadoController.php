@@ -6,10 +6,14 @@ use App\Pagado;
 use App\Ordenpago;
 use App\Detallepagado;
 use App\Beneficiario;
+use App\Tipomovimiento;
+use App\Retencione;
 use App\Detalleordenpago;
-use App\Detalleordenpagado;
+use App\Detalleretencione;
+use App\Comprobantesretencione;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 /**
  * Class PagadoController
@@ -24,11 +28,38 @@ class PagadoController extends Controller
      */
     public function index()
     {
-        $pagados = Pagado::paginate();
+        $pagados = Pagado::where('status', 'EP')->paginate();
 
         return view('pagado.index', compact('pagados'))
             ->with('i', (request()->input('page', 1) - 1) * $pagados->perPage());
     }
+
+    /**
+     * Display pagados procesadas
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexprocesadas()
+    {
+        $pagados = Pagado::where('status', 'PR')->paginate();
+
+        return view('pagado.procesados', compact('pagados'))
+            ->with('i', (request()->input('page', 1) - 1) * $pagados->perPage());
+     }
+    
+     /**
+     * Display pagados procesadas
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexanuladas()
+    {
+        $pagados = Pagado::where('status', 'AN')->paginate();
+
+        return view('pagado.anulados', compact('pagados'))
+            ->with('i', (request()->input('page', 1) - 1) * $pagados->perPage());
+     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +69,10 @@ class PagadoController extends Controller
     public function create()
     {
         $pagado = new Pagado();
-        return view('pagado.create', compact('pagado'));
+
+        $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
+
+        return view('pagado.create', compact('pagado','tipomovimientos'));
     }
 
     /**
@@ -49,22 +83,27 @@ class PagadoController extends Controller
      */
     public function store(Request $request)
     {
+       // dd($request);
         request()->validate(Pagado::$rules);
 
+
         //Numero de PAGADOS
-        $max_correlativo = DB::table('pagados')->max('correlativo');
+        $tipo_pago = $request->tipomovimiento_id;
+
+        $max_correlativo = DB::table('pagados')->where('tipomovimiento_id', $tipo_pago)->max('correlativo');
         $numero_correlativo = $max_correlativo + 1;
         $request->merge(['correlativo'=>$numero_correlativo]);
+   
+   $pagado = Pagado::create($request->all());
 
-        $pagado = Pagado::create($request->all());
 
         $ultimo = Pagado::latest('id')->first();
         $pagado_id = $ultimo->id;
 
         $ordenpago_id = $request->ordenpago_id;
-        $detalleordenpago = Detalleordenpago::where('ordenpago_id', $ordenpago_id)->get();
+        $detalle_ordenpago = Detalleordenpago::where('ordenpago_id', $ordenpago_id)->get();
 
-        foreach($detalleordenpago as $row){
+        foreach($detalle_ordenpago as $row){
           
             $detalles_pagados=[
                 'pagado_id'=> $pagado_id,
@@ -75,14 +114,34 @@ class PagadoController extends Controller
             ];
 
             
-            $detalles_paga = Detallepagado::create($detalles_pagados);
+            $detallepagado = Detallepagado::create($detalles_pagados);
+
+        }
+
+        $detalle_retenciones = Detalleretencione::where('ordenpago_id', $ordenpago_id)->get();
+
+        foreach($detalle_retenciones as $row){
+
+            $retencion = Retencione::find($row->retencion_id);
+            $tiporetencion= $retencion->tiporetencion_id;
+          
+            $detalles_rete=[               
+                'ordenpago_id'=> $ordenpago_id,
+                'tiporetencion_id'=> $tiporetencion,              
+                'montoretencion'=> $row->montoneto,
+                'status'=> 'EP',
+
+            ];
+
+            
+            $detallecomprobantes = Comprobantesretencione::create($detalles_rete);
 
         }
 
 
 
         return redirect()->route('pagados.index')
-            ->with('success', 'Pagado created successfully.');
+            ->with('success', 'Pagado creado exitosamente.');
     }
 
     /**
@@ -94,8 +153,10 @@ class PagadoController extends Controller
     public function show($id)
     {
         $pagado = Pagado::find($id);
+        $detallepagados = Detallepagado::where('pagado_id', $id)->paginate();
 
-        return view('pagado.show', compact('pagado'));
+        return view('pagado.show', compact('detallepagados','pagado'))
+        ->with('i', (request()->input('page', 1) - 1) * $detallepagados->perPage());
     }
 
     /**
@@ -107,8 +168,10 @@ class PagadoController extends Controller
     public function edit($id)
     {
         $pagado = Pagado::find($id);
-
-        return view('pagado.edit', compact('pagado'));
+        $ordenpagos = Ordenpago::find($pagado->ordenpago_id);
+      
+        $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
+        return view('pagado.edit', compact('pagado', 'ordenpagos','tipomovimientos'));
     }
 
     /**
@@ -149,10 +212,11 @@ class PagadoController extends Controller
      */
     public function agregar()
     {
-        $ordenpagos = Ordenpago::paginate();
+        $ordenpagos = Ordenpago::where('status', 'PR')->paginate();
 
         return view('pagado.agregar', compact('ordenpagos'))
             ->with('i', (request()->input('page', 1) - 1) * $ordenpagos->perPage());
+
     }
 
       /**
@@ -162,10 +226,84 @@ class PagadoController extends Controller
      */
     public function agregarorden($id)
     {
+     
+      // $pagado = new Pagado();
+       $ordenpago_id = $id;
         $pagado = new Pagado();
-        $ordenpagos = Ordenpago::find($id);
-        return view('pagado.create', compact('pagado', 'ordenpagos'));
+
+       $ordenpagos = Ordenpago::find($ordenpago_id);
+       $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
+
+       return view('pagado.agregarorden', compact('pagado','ordenpagos','tipomovimientos'));
+
     }
 
+
+    //Metodo para aprobar un pagado
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A PROCESADO CUANDO YA ESTA aprobada el pagado
+     * @throws \Exception
+     */
+    public function aprobar($id)
+    {
+        $aprobado = 1;
+
+        $pagado = Pagado::find($id);
+        $pagado->status = 'PR';
+        $pagado->save();
+        //pagado
+        $ordenpago = Ordenpago::find($pagado->ordenpago_id);
+        $ordenpago->status = 'AP';
+        $ordenpago->save();
+
+        //Obtener el detalle de orden de pago para aplicar en la ejecucion
+        $detalleordenpago = Detalleordenpago::where('ordenpago_id','=',$ordenpago->id)->get();
+
+        //Ciclo para guardar detalle de orden de pago
+        foreach($detalleordenpago as $row){
+            $datos_guardar = [
+                'pagado_id'=> $id,
+                'ordenpago_id'=> $id,
+                'unidadadministrativa_id'=> $row->unidadadministrativa_id,
+                'ejecucion_id'=> $row->ejecucion_id,
+                'montopagado'=> $row->monto,
+            ];
+            $detallepagado = Detallepagado::create($datos_guardar);
+                            //Obtener la ejecucion
+        //    $ejecucion = Ejecucione::find($rows->ejecucion_id);
+            
+        //        $ejecucion->save();
+       
+        }
+
+        if($aprobado == 1){
+            return redirect()->route('pagados.procesados')
+            ->with('success', 'Pago Aprobada Exitosamente. ');
+        }else{
+            return redirect()->route('pagados.index')
+            ->with('success', 'No Aprobado. No hay Disponibilidad o ha ocurrido un error en el registro');
+        }
+
+    }
+
+    
+    /**
+     * @param int $id   CAMBIAR EL ESTATUS A ANULADO A UN PAGADO
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function anular($id)
+    {
+
+        $pagado = Pagado::find($id);
+        $pagado->status = 'AN';
+        $pagado->save();
+
+        
+        return redirect()->route('pagados.index')
+            ->with('success', 'Orden de Pago Anulada exitosamente.');
+
+
+    }
 
 }

@@ -213,23 +213,23 @@ Route::resource('bancos', App\Http\Controllers\BancoController::class)->middlewa
 
 Route::resource('cuentasbancarias', App\Http\Controllers\CuentasbancariaController::class)->middleware('auth');
 
-Route::resource('transferencias', App\Http\Controllers\TransferenciaController::class)->middleware('auth');
-
 Route::resource('tipomovimientos', App\Http\Controllers\TipomovimientoController::class)->middleware('auth');
+
+Route::resource('notacreditos', App\Http\Controllers\NotacreditoController::class)->middleware('auth');
 
 Route::resource('movimientosbancarios', App\Http\Controllers\MovimientosbancarioController::class)->middleware('auth');
 
 Route::resource('detallepagados', App\Http\Controllers\DetallepagadoController::class)->middleware('auth');
 
-Route::get('/pagados/agregar/', [App\Http\Controllers\PagadoController::class, 'agregar'])->name('pagados.agregar')->middleware('auth');
+Route::get('/pagados/agregar', [App\Http\Controllers\PagadoController::class, 'agregar'])->name('pagados.agregar')->middleware('auth');
 
 //Route::get('/pagados/agregarordendepago/', [App\Http\Controllers\PagadoController::class, 'agregarordendepago'])->name('pagados.agregarordendepago')->middleware('auth');
 
 Route::get('pagados/pdf/{pagado}', [App\Http\Controllers\PagadoController::class, 'pdf'])->name('pagados.pdf')->middleware('auth');
 
-Route::get('pagados/procesadas', [App\Http\Controllers\PagadoController::class, 'indexprocesadas'])->name('pagados.procesadas')->middleware('auth');
+Route::get('pagados/procesados', [App\Http\Controllers\PagadoController::class, 'indexprocesadas'])->name('pagados.procesados')->middleware('auth');
 
-Route::get('pagados/anuladas', [App\Http\Controllers\PagadoController::class, 'indexanuladas'])->name('pagados.anuladas')->middleware('auth');
+Route::get('pagados/anulados', [App\Http\Controllers\PagadoController::class, 'indexanuladas'])->name('pagados.anulados')->middleware('auth');
 
 Route::patch('/pagados/anular/{pagado}', [App\Http\Controllers\PagadoController::class, 'anular'])->name('pagados.anular')->middleware('auth');
 
@@ -346,4 +346,32 @@ Route::post('detallesprecompromisos/{precompromiso}/ejecucionpre', [App\Http\Con
 
 Route::resource('detallesprecompromisos', App\Http\Controllers\DetallesprecompromisoController::class)->middleware('auth');
 
-Route::resource('detallesajustes', App\Http\Controllers\DetallesajusteController::class)->middleware('auth');
+
+Route::resource('notacreditos', App\Http\Controllers\NotacreditoController::class)->middleware('auth');
+
+
+Route::resource('notadebitos', App\Http\Controllers\NotadebitoController::class)->middleware('auth');
+
+Route::get('transferencias/pdf/{transf}', [App\Http\Controllers\TransferenciaController::class, 'pdf'])->name('transferencias.pdf')->middleware('auth');
+
+
+Route::get('transferencias/miagregar', [App\Http\Controllers\TransferenciaController::class, 'miagregar'])->name('transferencias.miagregar')->middleware('auth');
+
+Route::get('/transferencias/seleccionarpagado/{pagado}', [App\Http\Controllers\TransferenciaController::class, 'seleccionarpagado'])->name('transferencias.seleccionarpagado')->middleware('auth');
+
+
+Route::get('transferencias/procesados', [App\Http\Controllers\TransferenciaController::class, 'indexprocesadas'])->name('transferencias.procesados')->middleware('auth');
+
+Route::get('transferencias/anulados', [App\Http\Controllers\TransferenciaController::class, 'indexanuladas'])->name('transferencias.anulados')->middleware('auth');
+
+
+Route::get('/transferencias/agregar', [App\Http\Controllers\TransferenciaController::class, 'agregar'])->name('transferencias.agregar')->middleware('auth');
+
+Route::get('/transferencias/agregartransferencia', [App\Http\Controllers\TransferenciaController::class, 'agregartransferencia'])->name('transferencias.agregartransferencia')->middleware('auth');
+
+Route::resource('transferencias', App\Http\Controllers\TransferenciaController::class)->middleware('auth');
+
+
+
+
+Route::resource('comprobantesretenciones', App\Http\Controllers\ComprobantesretencioneController::class)->middleware('auth');

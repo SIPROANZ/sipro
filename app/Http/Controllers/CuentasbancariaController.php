@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cuentasbancaria;
 use App\Banco;
 use App\Institucione;
+use App\Notacredito;
 use Illuminate\Http\Request;
 
 /**

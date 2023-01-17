@@ -18,15 +18,17 @@
 
                              <div class="float-right">
 
-                               <a href="{{ route('transferencias.miagregar') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                               <a href="{{ route('transferencias.agregartransferencia') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Transferencia') }}
                                 </a>
 
-                                <a href="{{ route('transferencias.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('transferencias.agregar') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('En Proceso') }}
                                 </a>
 
-                               
+                                <a href="{{ route('transferencias.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Emitidas') }}
+                                </a>
 
                                 <a href="{{ route('transferencias.anulados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Anuladas') }}
@@ -48,18 +50,17 @@
                                     <tr>
                                         <th>No</th>
 
-                                        <th>Banco</th>
-										<th>Cuentas bancaria</th>
-                                        <th>Beneficiario</th>  									
+                                        <th>Beneficiario Id</th>{{--
+										<th>Cuentasbancaria Id</th>										
 										<th>Monto Pagado</th>
-										<th>Monto transferencia</th>										
+										<th>Monto transferencia</th>
+										<th>Fecha</th>
 										<th>Concepto</th>
 										<th>Egreso</th>
 										<th>Monto orden</th>
 										<th>Referencia </th>
 										<th>Concepto</th>
-                                        <th>Estado</th>
-                                      
+                                        <th></th>
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>
@@ -67,15 +68,15 @@
                                     @foreach ($transferencias as $transferencia)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-
-                                            <td>{{ $transferencia->cuentasbancaria->banco->denominacion}}</td>
-											<td>{{ $transferencia->cuentasbancaria->cuenta }}</td>
-											<td>{{ $transferencia->beneficiario->nombre }}</td> 
+                                            
+											<td>{{ $transferencia->cuentasbancaria_id }}</td>
+											<td>{{ $transferencia->beneficiario->nombre }}</td>{{--
 											<td>{{ $transferencia->pagado->montopagado }}</td>
-											<td>{{ $transferencia->montotransferencia }}</td>											
+											<td>{{ $transferencia->montotransferencia }}</td>
+											<td>{{ $transferencia->fechaanulacion }}</td>
 											<td>{{ $transferencia->concepto }}</td>
 											<td>{{ $transferencia->egreso }}</td>
-											<td>{{ $transferencia->pagado->ordenpago->montoneto }}</td>
+											<td>{{ $transferencia->montoorden }}</td>
 											<td>{{ $transferencia->referenciabancaria }}</td>
 											<td>{{ $transferencia->conceptoanulacion }}</td>
                                             <td>
@@ -89,11 +90,9 @@
                                                     AN
                                                 @endif
                                             </td>
-                                            
-                                            
                                             <td>
 
-                                            <a class="btn btn-sm btn-primary " href="{{ route('transferencias.pdf',$transferencia->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir transferncias"><i class="fas fa-print"></i></a>
+                                            <a class="btn btn-sm btn-primary " href="{{ route('transferencias.pdf',$transferencia->id) }}" data-toggle="tooltip" data-placement="top" title="Imprimir transferencias"><i class="fas fa-print"></i></a>
                                             
                                         </td>
                                         </tr>

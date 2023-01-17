@@ -13,21 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transferencias', function (Blueprint $table) {
+        Schema::create('notadebitos', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('ejercicio_id')->unsigned();
             $table->bigInteger('cuentasbancaria_id')->unsigned();
             $table->bigInteger('beneficiario_id')->unsigned();
-            $table->bigInteger('pagado_id')->unsigned();
-            $table->double('montotransferencia', 25, 2);
-            $table->date('fechaanulacion')->nullable();
-            $table->string('concepto', 10);
-            $table->bigInteger('egreso')->unsigned();
-            $table->double('montoorden', 25, 2);
-            $table->string('referenciabancaria', 10);
-            $table->string('conceptoanulacion', 10);
+            $table->bigInteger('institucione_id')->unsigned();
+            $table->double('montond', 25, 2);
+            $table->date('fecha')->nullable();           
+            $table->string('referenciand', 10);
+            $table->string('descripcion', 10);
+            $table->foreign('ejercicio_id')->references('id')->on('ejercicios')->onDelete('cascade');
             $table->foreign('cuentasbancaria_id')->references('id')->on('cuentasbancarias')->onDelete('cascade');
             $table->foreign('beneficiario_id')->references('id')->on('beneficiarios')->onDelete('cascade');
-            $table->foreign('pagado_id')->references('id')->on('pagados')->onDelete('cascade');
+            $table->foreign('institucione_id')->references('id')->on('instituciones')->onDelete('cascade');            
             $table->timestamps();
         });
     }
@@ -39,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transferencias');
+        Schema::dropIfExists('notadebitos');
     }
 };

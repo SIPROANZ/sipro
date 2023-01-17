@@ -10,28 +10,35 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $ordenpago_id
  * @property $beneficiario_id
+ * @property $tipomovimiento_id
  * @property $montopagado
  * @property $fechaanulacion
  * @property $status
+ * @property $correlativo
  * @property $tipoordenpago
  * @property $created_at
  * @property $updated_at
- *
+ * 
+ * @property Tipomovimiento $tipomovimiento
  * @property Beneficiario $beneficiario
  * @property Ordenpago $ordenpago
- * @property Transferencia[] $transferencias
+ *  @property Transferencia[] $transferencias
+ * @property Transferencia[] $detallepagados
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class Pagado extends Model
 {
-    
+
     static $rules = [
 		'ordenpago_id' => 'required',
 		'beneficiario_id' => 'required',
+        'tipomovimiento_id' => 'required',
 		'montopagado' => 'required',
 		'status' => 'required',
+        'correlativo' => 'required',
 		'tipoordenpago' => 'required',
+       
     ];
 
     protected $perPage = 20;
@@ -41,7 +48,7 @@ class Pagado extends Model
      *
      * @var array
      */
-    protected $fillable = ['ordenpago_id','beneficiario_id','montopagado','fechaanulacion','status','tipoordenpago' ,'correlativo','tipodepago'];
+    protected $fillable = ['ordenpago_id','beneficiario_id', 'tipomovimiento_id','montopagado','fechaanulacion','status','tipoordenpago' ,'correlativo'];
 
 
     /**
@@ -60,12 +67,28 @@ class Pagado extends Model
         return $this->hasOne('App\Ordenpago', 'id', 'ordenpago_id');
     }
     
+     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function tipomovimiento()
+    {
+        return $this->hasOne('App\Tipomovimiento', 'id', 'tipomovimiento_id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function transferencias()
     {
         return $this->hasMany('App\Transferencia', 'pagado_id', 'id');
+    }
+
+     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function detallepagados()
+    {
+        return $this->hasMany('App\Detallepagado', 'pagado_id', 'id');
     }
     
 

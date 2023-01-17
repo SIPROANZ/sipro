@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Pagado
+   Transferencia
 @endsection
 
 @section('content')
@@ -13,21 +13,21 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Pagado') }}
+                                {{ __('Transferencia') }}
                             </span>
 
                              <div class="float-right">
 
-                             <a href="{{ route('pagados.agregar') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nueva Pagado') }}
+                             <a href="{{ route('transferencias.agregartransferencia') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear Transferencia') }}
                                 </a>
 
-                                <a href="{{ route('pagados.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('En proceso') }}
+                                <a href="{{ route('transferencias.agregar') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('En Proceso') }}
                                 </a>
 
-                                <a href="{{ route('pagados.procesados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Pagadas') }}
+                                <a href="{{ route('transferencias.index') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Emitidas') }}
                                 </a>
 
                                 <a href="{{ route('pagados.anulados') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
@@ -77,39 +77,26 @@
 											<td>{{ $pagado->fechaanulacion }}</td> --}}											
 											<td>{{ $pagado->tipoordenpago }}</td>  
                                             <td>{{ $pagado->tipomovimiento->descripcion }}</td>                                         
-                                            <td>
-                                                @if ($pagado->status == 'EP')
-                                                    EP
-                                                @elseif ($pagado->status == 'PR')
-                                                    PR
-                                                @elseif ($pagado->status == 'AP')
-                                                    AP
-                                                @elseif ($pagado->status == 'AN')
-                                                    AN
-                                                @endif
-                                            </td>
+                                            <td>{{ $pagado->status }}</td>
                                             
                                             <td>
                                                 <div class="row">
 
-                                                <td>
-                                                <form action="{{ route('pagados.aprobar',$pagado->id) }}" method="POST">                                                   
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('pagados.show',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Mostrar pagado"><i class="fa fa-fw fa-eye"></i></a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('pagados.edit',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Editar pagado"><i class="fa fa-fw fa-edit"></i></a>
-                                                    {{-- <a class="btn btn-sm btn-danger" href="{{ route('pagados.anular',$pagado->id) }}" data-toggle="tooltip" data-placement="top" title="Anular pagado"><i class="fa fa-fw fa-trash"></i></a> --}}
+                                                <td>   
+                                                <form action="{{ route('transferencias.aprobar',$transferencia->id) }}" method="POST">                                                   
+                                                   
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('transferencias.show',$transferencia->id) }}" data-toggle="tooltip" data-placement="top" title="Mostrar transferencias"><i class="fa fa-fw fa-eye"></i></a>
+                                                   
                                                    @csrf
                                                     @method('PATCH')
 
-                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar pagado"><i class="fas fa-check-double"></i></button>
+                                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Aprobar transferencias"><i class="fas fa-check-double"></i></button>
                                                 </form>
-                                                <form action="{{ route('pagados.anular',$pagado->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Anular pagado"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
+                                               
                                             </td>
 
-                                                </div>
+
+                                               </div>
 
                                             </td>
                                         </tr>

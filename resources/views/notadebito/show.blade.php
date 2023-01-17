@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $pagado->name ?? 'Show Pagado' }}
+    {{ $notadebito->name ?? 'Show Notadebito' }}
 @endsection
 
 @section('content')
@@ -11,43 +11,46 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Mostrar Pagado</span>
+                            <span class="card-title">Show Notadebito</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('pagados.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('notadebitos.index') }}"> Back</a>
                         </div>
                     </div>
 
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Ordenpago Id:</strong>
-                            {{ $pagado->ordenpago_id }}
+                            <strong>Ejercicio Id:</strong>
+                            {{ $notadebito->ejercicio->nombreejercicio }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Cuentasbancaria Id:</strong>
+                            {{ $notadebito->cuentasbancaria->cuenta }}
                         </div>
                         <div class="form-group">
                             <strong>Beneficiario Id:</strong>
-                            {{ $pagado->beneficiario_id }}
+                            {{ $notadebito->beneficiario->nombre }}
                         </div>
                         <div class="form-group">
-                            <strong>Montopagado:</strong>
-                            {{ $pagado->montopagado }}
+                            <strong>Institucione Id:</strong>
+                            {{ $notadebito->institucione->institucion  }}
                         </div>
                         <div class="form-group">
-                            <strong>Fechaanulacion:</strong>
-                            {{ $pagado->fechaanulacion }}
+                            <strong>Montond:</strong>
+                            {{ $notadebito->montond }}
                         </div>
                         <div class="form-group">
-                            <strong>estatus:</strong>
-                            {{ $pagado->estatus }}
+                            <strong>Fecha:</strong>
+                            {{ $notadebito->fecha }}
                         </div>
                         <div class="form-group">
-                            <strong>Tipoordenpago:</strong>
-                            {{ $pagado->tipoordenpago }}
+                            <strong>Referenciand:</strong>
+                            {{ $notadebito->referenciand }}
                         </div>
-
                         <div class="form-group">
-                            <strong>Tipo de pago:</strong>
-                            {{ $pagado->tipomovimiento->descripcion}}
+                            <strong>Descripcion:</strong>
+                            {{ $notadebito->descripcion }}
                         </div>
 
                     </div>

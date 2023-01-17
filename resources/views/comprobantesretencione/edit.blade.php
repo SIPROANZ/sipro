@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Actualizar Pagado
+    Update Comprobantesretencione
 @endsection
 
 @section('content')
@@ -13,17 +13,14 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Editar Pagado</span>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('pagados.index') }}">  Regresar</a>
-                        </div>
+                        <span class="card-title">Update Comprobantesretencione</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('pagados.update', $pagado->id) }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('comprobantesretenciones.update', $comprobantesretencione->id) }}"  role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('pagado.form')
+                            @include('comprobantesretencione.form')
 
                         </form>
                     </div>
